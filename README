@@ -1,4 +1,4 @@
-Prpared For Release As Open Source:
+* Prpared For Release As Open Source:
 
 Mon Jan 18 11:51:16 PST 2010
 
@@ -8,11 +8,59 @@ The work describing AsTeR was presented to the faculty at Cornell
 for my PhD on
 Monday, Jan 17, 1994 (Martin Luther King Day)
 
+** Contents 
 this directory contains a cleaned version of AsTeR
 Clean == 
 
-1) throw away unnecessary code. 
-2) Work under clisp and lucid. 
+  1) throw away unnecessary code. 
+  2) Work under clisp and lucid. 
 
+** Terms 
 
 This code is is as-is --- i.e. it comes with no support.
+
+
+** Brief Usage Instructions
+
+
+***Pre-Requisites:
+
+  1. CLisp --- I am using 
+     clisp Version: 1:2.44.1-4.1ubuntu2
+
+  2.  emacs --- I am using Emacs 23, though older Emacsuns will
+      probably work, given that the code was written a long time
+      ago.
+
+  3. DEC-Talk Express for speech synthesis.
+
+*** Starting Up
+
+  1. Add <aster-math>/lisp-code/vanila-interface to your emacs load-path.
+
+  2. M-x load-library run-lisp-setup
+
+  3. M-x aster to start up CLisp and load the code. First time
+     around might take a couple of mins as the code compiles.
+
+  4. Build the lexical analyser in <aster-math>/lisp-code/lexer
+     by:
+     :cd lisp-code/lexer; make
+
+  5. Open the sample text.tex file in Emacs.
+
+  6. Mark a region of the document --- e.g., everything between
+     the begn{document} and end{document} lines  --- note: region
+     *should not* contain the begin/end lines
+
+  7. Invoke emacs command read-aloud-region via key C-b C-d
+
+  8. AsTeR should start reading the document. Use the AsTeR
+     browser commands available on C-b to navigate and listen.
+
+  9. For seeing available keystrokes in the browser, press C-b C-h.
+
+  10. If you want to use this code with other TTS  engines,  you
+      will need to write the necessary code.
+
+  
