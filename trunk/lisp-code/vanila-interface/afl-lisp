@@ -1,0 +1,8 @@
+#!/bin/sh
+#start lisp with afl and read aloud loaded
+#Thu Sep  3 13:26:10 EDT 1992
+
+lisp_program="/usr/local/lisp/sun4/lisp-clos "
+#lisp_program="/mnt/sun4/lisp-clos"
+$lisp_program -l /usr/u/raman/lisp-code/lisp-init.lisp \
+        -e "(load-system 'read-aloud)" -n

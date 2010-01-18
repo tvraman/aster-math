@@ -1,0 +1,76 @@
+DATE:	Mon	Apr	20	TIME:17:29:47
+
+timing with no inline declarations.
+USER> (time (length  (list (setf *art*
+(parse-article *parser-sample*)))))
+Elapsed Real Time = 8.63 seconds
+Total Run Time    = 3.62 seconds
+User Run Time     = 3.28 seconds
+System Run Time   = 0.34 seconds
+Process Page Faults    =        506
+Dynamic Bytes Consed   =          0
+Ephemeral Bytes Consed =    273,496
+There was 1 ephemeral GC
+
+DATE:	Mon	Apr	20	TIME:17:24:09
+
+
+;;; After proclaiming is-a and is-a-word as inline:
+USER> (time (length  (list (setf *art*
+(parse-article *parser-sample*)))))
+Elapsed Real Time = 7.89 seconds
+Total Run Time    = 3.13 seconds
+User Run Time     = 2.95 seconds
+System Run Time   = 0.18 seconds
+Process Page Faults    =         61
+Dynamic Bytes Consed   =          0
+Ephemeral Bytes Consed =    260,216
+1
+USER> 
+
+
+;;; After making what-is inline:
+USER> (time (length  (list (setf *art*
+(parse-article *parser-sample*)))))
+Elapsed Real Time = 6.88 seconds
+Total Run Time    = 3.05 seconds
+User Run Time     = 2.89 seconds
+System Run Time   = 0.16 seconds
+Process Page Faults    =         62
+Dynamic Bytes Consed   =          0
+Ephemeral Bytes Consed =    260,216
+1
+USER> DATE:	Mon	Apr	20	TIME:17:38:53
+
+
+
+;;;;DATE:	Mon	Apr	20	TIME:17:49:29
+;;; timing after making buffer accessors inline.
+
+USER> (time (length  (list (setf *art*
+(parse-article *parser-sample*)))))
+Elapsed Real Time = 5.40 seconds
+Total Run Time    = 2.91 seconds
+User Run Time     = 2.76 seconds
+System Run Time   = 0.15 seconds
+Process Page Faults    =         45
+Dynamic Bytes Consed   =          0
+Ephemeral Bytes Consed =    260,040
+There was 1 ephemeral GC
+1
+USER> 
+DATE:	Mon	Apr	20	TIME:17:57:01
+;;; timing after making process-word inline.
+;;; Seems to make program inefficient!
+USER> (time (length  (list (setf *art*
+(parse-article *parser-sample*)))))
+Elapsed Real Time = 7.21 seconds
+Total Run Time    = 3.10 seconds
+User Run Time     = 2.94 seconds
+System Run Time   = 0.16 seconds
+Process Page Faults    =         85
+Dynamic Bytes Consed   =          0
+Ephemeral Bytes Consed =    260,040
+There was 1 ephemeral GC
+1
+USER> 

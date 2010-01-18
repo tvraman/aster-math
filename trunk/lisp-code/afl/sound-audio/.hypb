@@ -1,0 +1,30 @@
+
+"point-in-audio-space.lisp"
+("Code_used_to_learn_this_use_in_scratch_directory" nil nil link-to-file ("/usr/u/raman/lisp-code/scratch/try-structure-macro.lisp" 236) "raman@cs.cornell.edu" "19930220:21:21:35" nil nil)
+
+"play-sound-file.c"
+("Backed_up_working_version" nil nil link-to-file ("./works-play-sound-file.c") "raman@cs.cornell.edu" "19930218:13:46:12" nil nil)
+
+"sound-audio.system"
+("old_version_backed" nil nil link-to-file ("./scratch/audio-player.lisp") "raman@cs.cornell.edu" "19930216:01:22:32" nil nil)
+
+"play-sound-file.lisp"
+("refer_to_the_comments_at_the_top_of_sigalrm_file" nil nil link-to-file ("./sigalarm.lisp" 729) "raman@cs.cornell.edu" "19930512:21:08:24" nil nil)
+("backed_up_old_version" nil nil link-to-file ("./sigalarm.lisp" 1837) "raman@cs.cornell.edu" "19930512:21:07:53" nil nil)
+("bug_fix_in_mail_message_6" nil nil link-to-file ("/usr/u/raman/Mail/lisp/foreign-interface-bug" 25352) "raman@cs.cornell.edu" "19930216:00:26:05" nil nil)
+("Bug_fix_in_mail_message_6." nil nil nil nil "raman@cs.cornell.edu" "19930216:00:24:46" nil nil)
+
+"play-notes.lisp"
+("beyondlisp.tex" nil nil link-to-file ("/usr/u/raman/books/lucid/advancedguide/beyondlisp.tex" 29272) "raman@cs.cornell.edu" "19930109:16:12:34" nil nil)
+("refer_to_serial-stream.lisp" nil nil link-to-file ("/usr/u/raman/lisp-code/compatibility/serial-stream.lisp" 307) "raman@cs.cornell.edu" "19930109:16:11:53" nil nil)
+("Refer_to_C_code" nil nil link-to-file ("./playnotes.c") "raman@cs.cornell.edu" "19930109:16:09:16" nil nil)
+
+"audio-player.lisp"
+("old_version_used_sleep_in_the_loop" nil nil link-to-file ("./scratch/audio-process.lisp" 693) "raman@cs.cornell.edu" "19930511:20:00:42" nil nil)
+("are_being_moved_to_a_backup_file." nil nil link-to-file ("./unused-aux-fns.lisp" 544) "raman@cs.cornell.edu" "19930216:01:27:09" nil nil)
+("Old_version_backed_up." nil nil link-to-file ("./scratch/audio-player.lisp") "raman@cs.cornell.edu" "19930216:01:23:57" nil nil)
+("same_as_for_document_class" nil nil link-to-file ("/usr/u/raman/lisp-code/latex-parser/document-component-classes.lisp" 1981) "raman@cs.cornell.edu" "19930107:19:11:06" nil nil)
+("Refer_to_notes." nil nil link-to-file ("/usr/u/raman/text/notes/18-defining-space-of-non-speech-cues.tex") "raman@cs.cornell.edu" "19930107:18:54:33" nil nil)
+
+"README"
+("implementation_based_on_notes." nil nil link-to-file ("/usr/u/raman/text/notes/18-defining-space-of-non-speech-cues.tex") "raman@cs.cornell.edu" "19930107:18:52:56" nil nil)

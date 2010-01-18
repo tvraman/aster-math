@@ -1,0 +1,26 @@
+;;; ; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(in-package :user)
+
+(proclaim '(optimize (compilation-speed 3) (safety 3) (speed 2)))
+
+;;; Contains objects from Vavasis's book.
+;;; One file will have object definitions, and the rest reading rules.
+
+;;; First load complete read-aloud system then this system 
+
+(defsystem vavasis-book
+    :source-pathname
+  (concatenate 'string
+               *lisp-code-directory* "/" "vavasis-book")
+  :initially-do (unless (featurep :read-aloud)
+                  (load-system 'read-aloud))
+  :finally-do (announce "Prepared to read vavasis's book")
+  :components( 
+              (:file "sv-object-definitions")
+              (:file "sv-reading-rules"
+                     :depends-on ( "sv-object-definitions"))
+              )
+  )

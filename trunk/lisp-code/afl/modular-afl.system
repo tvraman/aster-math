@@ -1,0 +1,146 @@
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modified: Mon Nov 16 20:55:51 EST 1992
+;;; Introducing modules.
+
+(in-package 'user)
+
+(proclaim '(optimize (compilation-speed 3) (safety 3) (speed 2)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Modified: Fri Aug 21 14:43:44 EDT 1992
+;;; cleaning up and moving completely to defsystem. 
+;;; defsystem for audio formatting language.
+;;; Modified: Thu Aug 13 10:07:55 EDT 1992
+;;; Introducing package audio-formatting-language
+
+
+;;; make needed packages.
+(unless (find-package 'compatibility)
+  (make-package 'compatibility :use '(lisp)))
+(unless (find-package 'dectalk)
+  (make-package 'dectalk :use '(lisp compatibility)))
+(unless (find-package 'afl)
+  (make-package 'afl :use '(lisp dectalk  clos make  xref )))
+
+
+;;; Variable: *AFL-PATHNAME*                                 Author: raman
+;;; Created: Fri Aug  7 17:34:12 1992
+
+(defvar *afl-pathname*
+  "/usr/u/raman/lisp-code/afl/"
+  "source code resides here")
+
+(defsystem afl
+    :source-pathname *afl-pathname*
+    :package afl
+    :initially-do (dectalk::speak-string "loading afl")
+    :finally-do (dectalk::speak-string "done loading afl")
+    :components (
+                 (:module "bootstrap" :source-pathname " "
+                          :components(
+                                      (:file "reference-variables")
+                                      (:file "global-variables" )))
+                 (:module "initialize" :source-pathname " "
+                          :components(
+                                      (:file "01-speech-space"))
+                          :depends-on("bootstrap" "workhorse"))
+                 (:module "user-definitions"  :source-pathname " "
+                          :components(
+                                      (:file "02-user-definitions")
+                                      (:file "03-standard-voice-definitions"))
+                                      :depends-on("bootstrap" "initialize" 
+                                                              "workhorse" ))
+                 (:module "workhorse" :source-pathname " "
+                          :components(
+                                      (:file "04-moving-in-speech-space")
+                                      (:file "05-block-structure" )
+                                      (:file "06-synthesizer-codes")
+                                      (:file "07-final-scaling" ))
+                          :depends-on ("bootstrap"))
+                 )
+    :depends-on (dectalk thread  )
+    )
+
+;;; Variable: *AFL-SOURCE-FILES*                             Author: raman
+;;; Created: Sat Aug 15 11:37:38 1992
+
+(defvar *afl-source-files* nil "list of afl source files")
+
+(setf *afl-source-files* (list
+                          "reference-variables"
+                          "global-variables"
+                          "01-speech-space"
+                          "02-user-definitions"
+                          "03-standard-voice-definitions"
+                          "04-moving-in-speech-space"
+                          "05-block-structure"
+                          "06-synthesizer-codes"
+                          "07-final-scaling"
+                          ))
+
+
+
+;;; Variable: *AFL-DOC-FILE*                                 Author: raman
+;;; Created: Sat Aug 15 13:59:47 1992
+
+(defvar *afl-doc-file*
+  "/usr/u/raman/lisp-code/afl/user-manual-for-afl.txt"
+  "filename where user manual for afl is kept")
+
+;;; Function: CREATE-AFL-USER-MANUAL                                Author: raman
+;;; Created: Sat Aug 15 13:59:16 1992
+
+(defun create-afl-user-manual () 
+  "Create user manual for afl"
+  (with-open-file (out-stream *afl-doc-file* :direction :output)
+    (dolist
+        (file *afl-source-files*)
+      (setf file (concatenate 'string
+                              file ".lisp"))
+      (create-user-manual file :output-stream out-stream)
+      ))
+  )
+
+
+;;; Variable: *AFL-EXTERNAL-DOC-FILE*                        Author: raman
+;;; Created: Thu Sep 10 15:24:20 1992
+
+(defvar *afl-external-doc-file*
+  "/usr/u/raman/lisp-code/afl/external-afl-user-manual.txt"
+  "external user manual")
+(defun create-external-afl-user-manual () 
+  "Create user manual for afl"
+  (with-open-file (out-stream *afl-external-doc-file* :direction :output)
+    (dolist
+        (file *afl-source-files*)
+      (setf file (concatenate 'string
+                              file ".lisp"))
+      (create-external-user-manual file :output-stream out-stream
+                                   :package :afl)
+      ))
+  )
+
+
+
+;;; Function: GENERATE-LIST-OF-FILES                         Author: raman
+;;; Created: Wed Aug 19 15:42:10 1992
+
+(defun generate-list-of-files (system-name) 
+  "given system name finds it and extracs the file names"
+  (let*
+      ((files nil)
+       (system (find-system   'system-name ))
+       (list-of-components (component-components system )))
+;(make-pathname  :directory  (component-source-root-dir (first
+;*l*)) 
+;:name 
+;(component-source-pathname (first *l*))
+;:type (component-source-extension (first *l*))
+;)
+    )
+  )
+
+
+(pushnew :afl *features*) 

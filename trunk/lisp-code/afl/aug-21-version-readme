@@ -1,0 +1,17 @@
+backup made before modifying generate-synthesizer-command to
+concatenate all commands before sending them out.
+Thu Aug 20 10:49:35 EDT 1992
+Tried it with generate-synthesizer-command returning a string and
+set-state finally sending the concatendated  string to the dectalk but
+this does not speed up.
+
+Not making a backup of that version since change minimal.
+
+Now introducing multiple-value-bind in local-set! and making move
+operators return multiple values this is a major change.
+implemented smart local-set etc. but this broke local-set with
+interruptions. 
+
+
+works after declaring modified-dimensions a defvar as this binds it to
+the stack of calls.

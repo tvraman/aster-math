@@ -1,0 +1,23 @@
+;;; Wed Feb  5 15:31:07 EST 1992
+;;; create a math delimiter
+;;; open close name
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(fset 'create-math-delimiter
+   "OPOufODxaOufODxbOuOQxcOP(make-math-delimiter:open \"gaOQ\":close \"gbOQ\":name 'gcOQ)")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; specialise class initializor
+(fset 'clos-specialize-initialisor
+   "OQODODODOAOQOubxaOBOAOQ:name 'gaOQOBOPm:associativity 'left")
+;;; Make a font  macro table entry
+(fset 'make-font-macro
+   "OPOuOQxaOPOAOQOuOwxbOxOBgbOPffffdgaOBOBOPfdga")
+;;; make math symbol
+(fset 'make-math-symbol-macro
+   "OPOuOQxaOPOBOPOuOQxbOPOAOAOQ(make-math-symbol:name gaOQ:classification OQgbOQ)")
+
+;;; Macro to visit a file and load it into lisp:
+(fset 'clisp-visit-and-load-file
+   "fbobOB")

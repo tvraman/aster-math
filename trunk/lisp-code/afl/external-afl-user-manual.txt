@@ -1,0 +1,118 @@
+
+;;; ADD-DIMENSION (name)                                             [FUNCTION]
+;;;    Add dimension named NAME to speech space
+;;;
+;;; DEFINE-UNIT-SIZE (dimension value)                               [FUNCTION]
+;;;    Define  VALUE as unit-size for dimension DIMENSION
+;;;
+;;; DEFINE-SYNTHESIZER-CODE (dimension value)                        [FUNCTION]
+;;;    Define   VALUE as the synthesizer-code for setting dimension
+;;;    DIMENSION 
+;;;
+;;; DEFINE-STEP-SIZE (dimension value)                               [FUNCTION]
+;;;    Define VALUE as the step-size  for dimension DIMENSION
+;;;
+;;; SET-STEP-SIZE (dimension step-size)                              [FUNCTION]
+;;;    Set global step size for dimension.
+;;;
+;;; SAVE-POINT-IN-SPEECH-SPACE (name point)                          [FUNCTION]
+;;;    Define point  as a distinguished point in speech space called name.
+;;;
+;;; DEFINE-STANDARD-VOICE (name &rest settings)                      [FUNCTION]
+;;;    Define a standard voice named name using settings which is a list
+;;;    of dimension value pairs.
+;;;
+;;; GET-POINT-IN-SPEECH-SPACE (name)                                 [FUNCTION]
+;;;    return predefined point associated with name
+;;;
+;;; RE-INITIALIZE-SPEECH-SPACE (&optional (voice *default-voice*))   [FUNCTION]
+;;;    reinitialize speech space with voice.
+;;;
+;;; INITIALIZE-SPEECH-SPACE (&optional (voice *default-voice*))      [FUNCTION]
+;;;    Initialize speech space by setting up current state and global state
+;;;    based on the default settings specified for the various dimensions.
+;;;    Default settings are overridden by settings specified by  the
+;;;    optional argument to this function, a point in speech space.
+;;;
+;;; MOVE-BY (point dimension offset &key (slot (quote value)))       [FUNCTION]
+;;;    Return point reached by moving from point along dimension by offset.
+;;;    Default is to vary the value assigned to dimension. 
+;;;    If called with :slot 'step-size, modifies the step size instead.
+;;;
+;;; STEP-BY (point dimension number-of-steps                         [FUNCTION]
+;;;          &key (slot (quote value)))
+;;;    Return point reached by moving from point by number-of-steps along
+;;;    dimension dimension. Default is to vary value assigned along
+;;;    dimension.  
+;;;    If called with :slot 'step-size, modifies the step size instead.
+;;;
+;;; MOVE-TO (point dimension value &key (slot (quote value)))        [FUNCTION]
+;;;    Return point reached by setting value along dimension dimension to
+;;;    value. Default is to change the value assigned along this dimension. 
+;;;    If called with :slot 'step-size, modifies the step size instead. 
+;;;
+;;; SCALE-BY (point dimension scale-factor                           [FUNCTION]
+;;;           &key (slot (quote value)))
+;;;    Return point reached by scaling value along  dimension by scale
+;;;    factor If called with :slot 'step-size, modifies the step size
+;;;    instead. 
+;;;
+;;; MULTI-MOVE-BY (point &rest settings)                             [FUNCTION]
+;;;    Move from point along several dimensions, specify settings as
+;;;    dimension value pairs
+;;;
+;;; MULTI-MOVE-TO (point &rest settings)                             [FUNCTION]
+;;;    Move along multiple dimensions, settings specified as dimension value
+;;;    pairs 
+;;;
+;;; MULTI-SCALE-BY (point &rest settings)                            [FUNCTION]
+;;;    scale along multiple dimensions, specify settings as dimension value
+;;;    pairs 
+;;;
+;;; MULTI-STEP-BY (point &rest settings)                             [FUNCTION]
+;;;    step along multiple dimensions
+;;;
+;;; GENERALIZED-AFL-OPERATOR (point &rest settings)                  [FUNCTION]
+;;;    Operate on point  and return new point. 
+;;;
+;;; *GLOBAL-STATE* "()"                                              [VARIABLE]
+;;;    records global state of afl
+;;;
+;;; *CURRENT-STATE* "()"                                             [VARIABLE]
+;;;    Records current state of the audio formatter 
+;;;
+;;; NEW-BLOCK (&body body)                                              [MACRO]
+;;;    sets up a new block in afl
+;;;
+;;; NAMED-BLOCK (name &body body)                                       [MACRO]
+;;;    Blocks with names. 
+;;;
+;;; EXIT-BLOCK "()"                                                  [FUNCTION]
+;;;    exit current block
+;;;
+;;; *LAZY-SET-STATE* "()"                                            [VARIABLE]
+;;;    If t set-state sets all the dimensions, without checking if some
+;;;    dimension has actually ben modified. Setting this to t will slow down
+;;;    the dectalk.
+;;;
+;;; WITH-LAZY-SET-STATE (&body body)                                    [MACRO]
+;;;    Locally sets *lazy-set-state* to t and executes body and then
+;;;    unsets *lazy-set-state*
+;;;
+;;; LOCAL-SET-STATE (new-state)                                         [MACRO]
+;;;    Set current state of afl to new-state
+;;;
+;;; GLOBAL-SET-STATE (afl-state)                                     [FUNCTION]
+;;;    set global state of afl
+;;;
+;;; DEFINE-FINAL-SCALE-FACTOR (dimension scale-factor)               [FUNCTION]
+;;;    Define global scale factor to be applied to dimension Does nothing
+;;;    if scale factor already defined 
+;;;
+;;; SET-FINAL-SCALE-FACTOR (dimension scale-factor)                  [FUNCTION]
+;;;    Set scale factor for dimension
+;;;
+;;; REFRESH "()"                                                     [FUNCTION]
+;;;    Call this function if the hardware gets out of synch with the current
+;;;    state as recorded by afl
+;;;

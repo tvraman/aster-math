@@ -1,0 +1,11 @@
+
+"summarize.lisp"
+("solution_from_net" nil nil link-to-file ("./closest-common-ancestor.lisp" 490) "raman@cs.cornell.edu" "19930405:00:26:47" nil nil)
+
+"closest-common-ancestor.lisp"
+("solution_obtained_in_response_to_posting_on_comp.lang.clos" nil nil link-to-file ("/usr/u/raman/News/comp/lang/clos/least-common-ancestor") "raman@cs.cornell.edu" "19930405:00:13:40" nil nil)
+("solution_obtained_in_response_to_posting_on_comp.lang.clos." nil nil link-to-file ("/usr/u/raman/News/comp/lang/clos/least-common-ancestor") "raman@cs.cornell.edu" "19930405:00:12:53" nil nil)
+
+"move-around.lisp"
+("Backed_up_old_version:2" nil nil link-to-file ("./scratch/old-moves.lisp" 982) "raman@cs.cornell.edu" "19930225:17:08:57" nil nil)
+("backed_up_old_version" nil nil link-to-file ("./scratch/old-moves.lisp" 754) "raman@cs.cornell.edu" "19930225:17:07:06" nil nil)

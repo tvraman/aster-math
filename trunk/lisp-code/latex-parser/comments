@@ -1,0 +1,1009 @@
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modified: Thu Apr  9 19:49:28 EDT 1992
+;;; Introduced two new functions:
+;;; create-sectional-unit and get-sectional-units!
+;;; which make all the different create-[sub]section functions obselete.
+;;; Modified: Thu Apr  2 15:40:22 EST 1992
+;;; Modifying to use classes for document components instead of
+;;; structures. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; New version:  Sun Jan 26 09:37:20 EST 1992
+;;; Made to work with a more intelligent lexer.
+;;; The tokenizer does more work,
+;;; reducing the acrobatics that were being performed by lisp in the older
+;;; version.
+;;; This version is also being made table driven.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; The functions in this file are being reimplemented using the buffer
+;;; structure defined in buffers.lisp.
+;;; Conventions:
+;;; Function names ending in ! such as get-title! change the buffer pointer
+;;; of the buffer passed to them as an argument.
+;;; Same is true of function names which begin with the word pop.
+;;; eg: pop-when-true
+;;; Predicates have names ending  in ? mark.
+;;; Functions which expect a buffer as an argument have their arg names
+;;; ending in buffer, eg: text-buffer.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: READ-DOCUMENT                                   Author: raman
+;;; Created: Fri Oct 11 11:20:10 1991
+;;; Modified: Sun Apr 26 17:58:38 EDT 1992
+;;; declaring *new-article* to be special so that title author date etc.
+;;; can be handled cleanly. 
+;;; Modified: Thu Apr  2 15:41:46 EST 1992
+;;; Modified to use class article
+;;; Function: CREATE-ARTICLE                                Author: raman
+;;; Created: Fri Oct 11 10:02:00 1991
+					; Move  lispified text to a
+					;new working buffer.
+					; Create  an instance of class
+					; article  and declare it special.
+; process initial body of the document.  ie: title, author, date
+; abstract and any text preceeding the first section. This calls sets
+; values in *new-article* which is treated as  a special variable.
+;;; Modified: Sun Apr 26 19:13:22 EDT 1992
+;;; renamed from get-initial-body! as this function does more. It
+;;; processes the initial body of the document, setting the author
+;;; title date address abstract as it finds them. Some of the
+;;; functions that get called here use the global variable *new-article*
+;;; which is declared special in create-article. This allows for
+;;; handling documents where the author and title appear in no fixed
+;;; order cleanly. Also allows for handling comments in the head of
+;;; the document.
+;;; Modified: Thu Apr  2 15:45:32 EST 1992
+;;; No change made while moving to clos
+;;; Function: process-INITIAL-BODY!                             Author: raman
+;;; Created: Tue Jan 28 12:16:33 1992
+;;; Modified: Thu Apr  2 15:45:32 EST 1992
+;;; No change made while moving to clos
+;;; Function: GET-REFERENCES!                                 Author: raman
+;;; Created: Fri Oct 11 11:09:02 1991
+;;; No change made here from jan-24-version.
+;;; Modified: Thu Apr  9 15:59:31 EDT 1992
+;;; Introducing a smart create-sectional-unit.
+;;; Variable: *VALID-SECTIONAL-UNIT-NAMES*                   Author: raman
+;;; Created: Thu Apr  9 15:50:50 1992
+;;; Function: CHILD-OF-SECTIONAL-UNIT                        Author: raman
+;;; Created: Thu Apr  9 17:32:48 1992
+;;; Function: EXISTS-CHILD-OF-SECTIONAL-UNIT?                Author: raman
+;;; Created: Thu Apr  9 20:06:38 1992
+;;; Function: VALIDATE-SECTIONAL-UNIT-NAME Author: raman
+;;; Created: Thu Apr  9 15:48:21 1992
+;;; Function: CREATE-SECTIONAL-UNIT                          Author: raman
+;;; Created: Thu Apr  9 16:01:07 1992
+;;; Function: GET-SECTIONAL-UNITS!                           Author: raman
+;;; Created: Thu Apr  9 17:38:48 1992
+;;; Modified: Thu Apr  2 15:45:32 EST 1992
+;;; No change made while moving to clos
+;;; Function: GET-UNIT-TITLE!                                Author: raman
+;;; Created: Fri Nov  1 15:37:36 1991
+;;; No change made here from jan-24-version.
+;;; Modified: Thu Apr  2 15:45:32 EST 1992
+;;; No change made while moving to clos
+;;; Function: GET-LABEL!                                     Author: raman
+;;; Created: Fri Nov  1 15:40:29 1991
+;;; No change made here from jan-24-version.
+;;; Eventually modify to work by looking at a table
+;;; which contains functions that process macros.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; end of file ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modified: Sat Apr 11 18:12:09 EDT 1992
+;;; All the process environment functions now work with classes. 
+;;; Modified: Sun Jan 26 10:20:44 EST 1992
+;;; An older version which relied on a very simple lexer is in jan-24-version.
+;;; The lexer has now been made powerful so that the tokens
+;;; returned are easier to parse.
+;;; At the same time the functions here are being made table driven.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; This  file processes the text occuring in the body of the article.
+;;; ie: processes the text occuring inside sections, subsections etc.
+;;; This file handles Latex environments, and the next file will specifically
+;;; handle mathematical constructs.
+;;; The next file also handles control sequences.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Some explanations from the older version:
+;;; This file uses special variables in  three situations.
+;;; The use of special variables for  modifying the environment
+;;; of a block still needs to be modified.
+;;; the special variables  *enum-environment-type* and *table-environment-name* are required because
+;;; LaTeX economizes on end markers.
+;;; This means that the end of the last item in an enumerated list
+;;; is signalled by the end of the enumerate environment.
+;;; Hence when the parser is trying to determine the end of an item,
+;;; it needs to know the name of the enumerate environment in which the
+;;; item occurs. Things are now complicated since there are three environments
+;;; in LaTeX which can contain items.  ie. the enumerate, itemize, and
+;;; descriptionenvironments all of which can nest.  Using a special variable
+;;; seems to be a good way of solving this mess.
+;;; The same situation arises in determining the end of an array element,
+;;; as well as when trying to determine
+;;; the end of the final row.
+;;; Thus the end of the final element of the final row of the array
+;;; is signalled by the end marker of the array environment!
+;;; Again this mess is solved by
+;;; using the special variable *table-environment-name* which gets set by the calling function.
+;;; Thus when the end of an item or element of an array is being sought
+;;; the environment name as set up by the most recent call to an env function
+;;; ie the name of the enclosing environment is used.
+;;; This handles nestings well,  and allows for
+;;; nesting enumerate inside itemize, and then nest the whole thing
+;;; inside a description.
+;;; Similarly,  arrays and tables can also be nested. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Sun Jan 26 10:22:05 EST 1992
+;;; In the light of the above,  the lexer has been made more intelligent.
+;;; Since there was no apparent gain by handling \begin as a general macro,
+;;; the lexer now replaces "\begin{env}" with (env
+;;; and just puts a closing paranthesis when it sees "\end{env}"
+;;; This means that the parser cannot do the same amount of validation
+;;; but it also makes the parser a lot cleaner, and obviates some of the
+;;; special variables  from the older version.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: PROCESS-TEXT                                   Author: raman
+;;; Created: Tue Nov  5 15:47:44 1991
+				      ; Above to avoid degenerate case
+				      ; of text being made into
+				      ; paragraphs where none exists.
+					;Above  is a crude way of handling
+					;paragraphs. At present only paragraphs
+					; delimited by parbreak will be caught.
+;;; Function: PROCESS-WORD                                   Author: raman
+;;; Created: Sun Jan 26 15:42:16 1992
+;;; Modified: Mon Apr 20 17:56:32 EDT 1992
+;;; made inline.
+;;; Function: PROCESS-COMMENT                                Author: raman
+;;; Created: Fri Feb 28 10:52:02 1992
+;;; Function: PROCESS-NEWLINE                                Author: raman
+;;; Created: Thu Feb 27 20:55:28 1992
+;;; Function: PROCESS-ABSTRACT                               Author: raman
+;;; Created: Sun Jan 26 15:42:20 1992
+					; using special variable *new-article* declared in create-article.
+;;; Function: PROCESS-CENTER                                 Author: raman
+;;; Created: Sun Jan 26 15:42:23 1992
+;;; Modified: Thu Apr  2 15:47:35 EST 1992
+;;; Modified to work with classes.
+;;; Function: PROCESS-TEXT-BLOCK                                  Author: raman
+;;; Created: Wed Nov 13 21:31:01 1991
+;;; Modified: Wed Jan 29 10:46:22 EST 1992
+;;; set local environment in the buffer structure
+;;; and stop using special variables. 
+;;; Function: PROCESS-INLINE-QUOTE                           Author: raman
+;;; Created: Thu Feb 13 20:03:11 1992
+;;; Variable: *VALID-QUOTED-TEXT-TYPES*                      Author: raman
+;;; Created: Mon Apr 13 19:26:19 1992
+;;; Function: VALIDATE-QUOTED-TEXT-TYPE                      Author: raman
+;;; Created: Mon Apr 13 19:27:21 1992
+;;; Function: CREATE-QUOTED-TEXT                             Author: raman
+;;; Created: Mon Apr 13 19:32:44 1992
+;;; Function: PROCESS-QUOTE                                  Author: raman
+;;; Created: Sun Jan 26 15:42:29 1992
+;;; Function: PROCESS-QUOTATION                              Author: raman
+;;; Created: Sun Jan 26 15:42:33 1992
+;;; Function: PROCESS-NEW-ENVIRONMENT                        Author: raman
+;;; Created: Sat Feb 15 12:40:11 1992
+;;; Function: PROCESS-INLINE-MATH                            Author: raman
+;;; Created: Wed Nov  6 16:11:44 1991
+;;; No change made here from jan-24-version.
+;;; Function: PROCESS-DISPLAY-MATH                           Author: raman
+;;; Created: Wed Nov  6 16:12:35 1991
+;;; No change made here from jan-24-version.
+;;; Function: PROCESS-CS                                     Author: raman
+;;; Created: Tue Nov  5 20:30:06 1991
+;;; Modified: Sun Jan 26 09:46:33 EST 1992
+;;; begin no longer handled here.
+;;; This function will also become  table driven.
+;;; Eventually do away with the use of special variable
+;;; for handling font changing by passing parse state
+;;; along with the text buffer. 
+;;; Function: EXPAND-TEX-MACRO                               Author: raman
+;;; Created: Thu Feb  6 11:52:43 1992
+;;; this function is untidy  at present.
+;;; Make the tex-macro-expand which is called do the clipping off of arguments,
+;;; rather than doing it here.
+;;; clean up when changing to classes?
+;;; Function: PROCESS-ARRAY                                  Author: raman
+;;; Created: Sun Jan 26 15:26:42 1992
+;;; Modified: Mon Mar  2 12:34:38 EST 1992
+;;; Do not try to create a lisp array.
+;;; Function: PROCESS-TABULAR                                Author: raman
+;;; Created: Sun Jan 26 15:26:45 1992
+;;; Modified: Mon Mar  2 12:41:01 EST 1992
+;;; Do not construct lisp arrays.
+;;; Variable: *VALID-LIST-ENVIRONMENT-TYPES*                 Author: raman
+;;; Created: Sat Apr 11 17:47:34 1992
+;;; Function: VALIDATE-LIST-ENVIRONMENT-TYPE                 Author: raman
+;;; Created: Sat Apr 11 17:48:47 1992
+;;; Function: CREATE-LIST-ENVIRONMENT                        Author: raman
+;;; Created: Sat Apr 11 17:37:43 1992
+;;; Deletes the dummy item at the front of the list of items.
+;;; If lexer fixed to stop generating dummy item,
+;;; then this function should be fixed by
+;;; replacing  "(rest list-of-items)" by "list-of-items
+					; Delete dummy item at front.
+;;; Function: PROCESS-ENUMERATE                              Author: raman
+;;; Created: Sun Jan 26 15:26:48 1992
+;;; Function: PROCESS-DESCRIPTION                            Author: raman
+;;; Created: Sun Jan 26 15:26:51 1992
+;;; Function: PROCESS-ITEMIZE                                Author: raman
+;;; Created: Sun Jan 26 15:26:54 1992
+;;; Function: PROCESS-ITEM                                   Author: raman
+;;; Created: Sun Jan 26 15:26:57 1992
+;;; Function: PROCESS-EQUATION                               Author: raman
+;;; Created: Sun Jan 26 15:27:00 1992
+;;; Function: PROCESS-EQNARRAY                               Author: raman
+;;; Created: Sun Jan 26 15:27:03 1992
+;;; Function: PROCESS-SLIDE                                  Author: raman
+;;; Created: Mon May  4 12:26:00 1992
+;;; Function: BLOCK-CONTENTS                                    Author: raman
+;;; Created: Thu Nov  7 16:24:15 1991
+;;; Function: PROCESS-ARRAY-ELEMENT                            Author: raman
+;;; Created: Tue Jan 28 15:20:14 1992
+;;; Function: PROCESS-TABLE-ELEMENT                          Author: raman
+;;; Created: Tue Jan 28 15:43:54 1992
+;;; Function: MAP2-NESTED-LIST                               Author: raman
+;;; Created: Tue Jan 28 14:17:42 1992
+;;; Function: PROCESS-UNKNOWN-CONSTRUCT                      Author: raman
+;;; Created: Sat Feb 29 13:17:49 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; some helper functions:
+;;; Function: IS-A                                           Author: raman
+;;; Created: Sat Oct 12 13:07:51 1991
+;;; Modified: Mon Apr 20 17:25:37 EDT 1992
+;;; Made inline.
+;;; Function: IS-A-WORD                                      Author: raman
+;;; Created: Mon Oct  7 09:43:05 1991
+;;; Modified: Mon Apr 20 17:25:57 EDT 1992
+;;; Made inline.
+;;; Function: CS-NAME                                        Author: raman
+;;; Created: Mon Nov  4 09:21:55 1991
+;;; Modified: Mon Apr 20 17:41:28 EDT 1992
+;;; made inline.
+;;; Function: MATH-CS-NAME                                   Author: raman
+;;; Created: Tue Mar  3 22:03:26 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; end of file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Created: Thu Jan 30 08:52:45 EST 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Handles tex macros.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: LATEX-EXPAND                                   Author: raman
+;;; Created: Thu May  7 19:32:00 1992
+;;; Function: EG-EXPAND                                      Author: raman
+;;; Created: Tue May 12 18:45:32 1992
+;;; Function: IT-EXPAND                                      Author: raman
+;;; Created: Thu Jan 30 09:25:14 1992
+;;; Function: BF-EXPAND                                      Author: raman
+;;; Created: Thu Jan 30 09:26:28 1992
+;;; Function: EM-EXPAND                                      Author: raman
+;;; Created: Thu Jan 30 09:27:06 1992
+;;; Function: LARGE-EXPAND                                   Author: raman
+;;; Created: Thu Jan 30 09:27:32 1992
+;;; Function: RM-EXPAND                                      Author: raman
+;;; Created: Thu Jan 30 09:28:23 1992
+;;; Function: TT-EXPAND                                      Author: raman
+;;; Created: Fri Feb 21 13:55:41 1992
+;;; Function: SC-EXPAND                                      Author: raman
+;;; Created: Fri Feb 21 14:00:33 1992
+;;; Function: SL-EXPAND                                      Author: raman
+;;; Created: Fri Feb 21 14:10:48 1992
+;;; Function: CITE-EXPAND                                    Author: raman
+;;; Created: Sat Feb  1 12:00:28 1992
+;;; Function: FOOTNOTE-EXPAND                                Author: raman
+;;; Created: Sat Feb  1 12:08:40 1992
+;;; Function: LABEL-EXPAND                                   Author: raman
+;;; Created: Sat Feb  1 12:10:33 1992
+;;; Function: CENTERLINE-EXPAND                              Author: raman
+;;; Created: Mon May  4 15:26:08 1992
+;;; Function: TITLE-EXPAND                                   Author: raman
+;;; Created: Sun Apr 26 18:28:07 1992
+					; using special variable *new-article*
+					;   declared in create-article.
+;;; Function: AUTHOR-EXPAND                                  Author: raman
+;;; Created: Sun Apr 26 18:35:12 1992
+					; using special variable *new-article*
+					; declared in create-article.
+;;; Function: DATE-EXPAND                                    Author: raman
+;;; Created: Sun Apr 26 18:36:44 1992
+					; using special variable *new-article*
+					; declared in create-article.
+;;; Function: ADDRESS-EXPAND                                 Author: raman
+;;; Created: Sun Apr 26 18:38:03 1992
+					; using special variable *new-article*
+					; declared in create-article.
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modified: Sun Feb  2 11:21:59 EST 1992
+;;; Added a structure definition for operators
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Implements a set of simple functions to convert from infix to prefix.
+;;; Guts of this module is taken from Winston and Horn, Ch 32.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: LOOKUP-OPERATOR-WEIGHT                         Author: raman
+;;; Created: Sun Feb  2 13:48:16 1992
+;;; Function: LOOKUP-OPERATOR-N-ARGS                         Author: raman
+;;; Created: Sun Feb  2 13:50:20 1992
+;;; Function: LOOKUP-OPERATOR-NAME                        Author: raman
+;;; Created: Sun Feb  2 14:05:38 1992
+;;; Function: LOOKUP-OPERATOR-STRING                         Author: raman
+;;; Created: Sun Feb  2 14:06:35 1992
+    (t (process-term infix-expression nil nil))  ;Start with empty stacks.
+					; work on rest of
+					;expression after processing first term
+      (endp operators))       ;Termination?
+     (first operands))                      ;Result.
+					;Not end of INFIX-EXPRESSION?
+      (or (endp operators)              ;Empty stack?
+					;Compare weights.
+		   operands))                    ; and continue.
+			  (rest operators)                  ;Pop operator,
+			     ;; clip off used arguments
+;;; Function: IS-AN-OPERAND?                                    Author: raman
+;;; Created: Thu Nov 21 19:30:12 1991
+;;; Function: IS-AN-OPERATOR?                                   Author: raman
+;;; Created: Thu Nov 21 20:14:21 1991
+;;; Modified: Sun Feb  2 13:56:56 EST 1992
+;;; push a structure after building it.
+;;; Function: PUSH-OPERATOR                                  Author: raman
+;;; Created: Fri Nov 22 10:21:40 1991
+;;; Function: GET-ARGUMENTS                                  Author: raman
+;;; Created: Fri Nov 22 11:57:46 1991
+;;; Function: OPERATOR-ARG-COUNT                             Author: raman
+;;; Created: Fri Nov 22 12:03:31 1991
+;;; Function: INCREMENT-ARG-COUNT                            Author: raman
+;;; Created: Fri Nov 22 13:42:41 1991
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; processing math mode of tex.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: PROCESS-MATH                                   Author: raman
+;;; Created: Sat Feb  1 12:27:35 1992
+;;; Function: PROCESS-DELIMITED-EXPRESSION                   Author: raman
+;;; Created: Tue Feb  4 18:48:12 1992
+    ;; Now see what matched.
+	((end-of-buffer? math-buffer) ; unmatched delimiter
+;;; Function: OPEN-DELIMITER?                                     Author: raman
+;;; Created: Wed Feb 19 10:40:56 1992
+;;; Function: CLOSE-DELIMITER?                               Author: raman
+;;; Created: Wed Feb 19 11:05:24 1992
+;;; Function: GET-MATH-PARSER                                Author: raman
+;;; Created: Tue Feb 25 12:39:43 1992
+;;; Function: MARK-AS-PROCESSED                              Author: raman
+;;; Created: Mon Feb 10 09:55:02 1992
+;;; Function: PROCESSED?                                     Author: raman
+;;; Created: Mon Feb 10 09:57:51 1992
+;;; Function: PROCESS-MATH-CS                                Author: raman
+;;; Created: Thu Feb 13 14:25:41 1992
+;;; Function: PROCESS-SUBFORMULA                             Author: raman
+;;; Created: Thu Feb 13 14:30:43 1992
+;;; Function: GET-MATH-OBJECT!                               Author: raman
+;;; Created: Tue Mar  3 22:19:11 1992
+;;; Used by processing functions to peel off the math-cs marker
+;;; If not a math-cs, then object at the current pointer position
+;;; is assumed to be a simple math object, namely a string
+;;; and handed back to caller
+;;; thus assuming that the caller knows what he is doing.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; processing functions for the math symbols classified in
+;;; math-classification.lisp
+;;; At present all these functions look alike,
+;;; but they will evolve differently.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Current classification types:
+;;; ordinary
+;;; large-operator
+;;; binary-operator
+;;; relational-operator
+;;; negation-operator
+;;; arrow-operator
+;;; open-delimiter
+;;; close-delimiter
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: PROCESS-ORDINARY                               Author: raman
+;;; Created: Thu Feb 27 22:01:53 1992
+;;; Function: PROCESS-BIG-OPERATOR                         Author: raman
+;;; Created: Thu Feb 27 22:06:23 1992
+;;; Function: PROCESS-BINARY-OPERATOR                         Author: raman
+;;; Created: Thu Feb 27 22:06:23 1992
+;;; Function: PROCESS-RELATIONAL-OPERATOR                         Author: raman
+;;; Created: Thu Feb 27 22:06:23 1992
+;;; Function: PROCESS-NEGATION-OPERATOR                         Author: raman
+;;; Created: Thu Feb 27 22:06:23 1992
+;;; Function: PROCESS-ARROW-OPERATOR                         Author: raman
+;;; Created: Thu Feb 27 22:06:23 1992
+;;; Function: PROCESS-NUMBER                         Author: raman
+;;; Created: Thu Feb 27 22:06:23 1992
+;;; Function: PROCESS-SUPERSCRIPT                            Author: raman
+;;; Created: Fri Mar  6 09:25:49 1992
+;;; Function: PROCESS-SUBSCRIPT                            Author: raman
+;;; Created: Fri Mar  6 09:25:49 1992
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Implements a buffer structure, which maintains contents as a list,
+;;; and a pointer to the current buffer location.
+;;; buffer is implemented as a structure.
+;;; Operations provided:
+;;; pop-next-entry
+;;; return next entry and mofify buffer pointer.
+;;; lookat-current-entry Return current entry without modifying pointer.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modified: Wed Jan 29 10:42:59 EST 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Added a slot local-environment to the buffer structure.
+;;; This makes passing information about the environment around easier.
+;;; In particular avoid use of special variables for handling font changes.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Structure: BUFFER                                        Author: raman
+;;; Created: Thu Oct 31 09:37:17 1991
+;;; Holds contents as well as a pointer into current
+;;; location.
+;;; Function: PRINT-BUFFER                                   Author: raman
+;;; Created: Sat Feb  8 20:30:58 1992
+;;; Function: pop-next-n-entries                       Author: raman
+;;; Created: Thu Oct 31 12:39:58 1991
+;;; Function: POP-CURRENT-ENTRY                              Author: raman
+;;; Created: Thu Oct 31 13:44:16 1991
+;;; Modified: Mon Apr 20 17:43:46 EDT 1992
+;;; Made inline.
+;;; Function: LOOKAT-CURRENT-ENTRY                           Author: raman
+;;; Created: Thu Oct 31 13:15:56 1991
+;;; Modified: Mon Apr 20 17:42:41 EDT 1992
+;;; made inline
+;;; Function: LOOKAT-NEXT-N-ENTRIES                          Author: raman
+;;; Created: Thu Oct 31 13:31:25 1991
+;;; Function: ADVANCE-POINTER                                   Author: raman
+;;; Created: Fri Nov  1 15:28:02 1991
+;;; Modified: Mon Feb  3 11:44:54 EST 1992
+;;; REturn buffer after advancing pointer.
+;;; Modified: Mon Apr 20 17:47:04 EDT 1992
+;;; made inline.
+;;; Function: POP-WHILE-TRUE                                 Author: raman
+;;; Created: Fri Nov  1 11:07:52 1991
+;;; Function: POP-WHEN-TRUE                                  Author: raman
+;;; Created: Fri Nov  1 11:04:12 1991
+;;; Function: END-OF-BUFFER?                                 Author: raman
+;;; Created: Tue Nov  5 15:51:47 1991
+;;; Modified: Mon Apr 20 17:48:34 EDT 1992
+;;; made inline.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; End of file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: RESET-POINTER                                  Author: raman
+;;; Created: Thu Nov  7 19:14:30 1991
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; clos class definitions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Class: MATH                                              Author: raman
+;;; Created: Mon Feb 17 09:40:10 1992
+;;; Class: MATH-OPERATOR                                          Author: raman
+;;; Created: Mon Feb 17 08:36:17 1992
+;;; Class: SUM                                               Author: raman
+;;; Created: Mon Feb 17 08:51:18 1992
+;;; Class: TIMES                                             Author: raman
+;;; Created: Mon Feb 17 08:51:53 1992
+;;; Class: DIFFERENCE                                        Author: raman
+;;; Created: Mon Feb 17 08:52:24 1992
+;;; Class: QUOTIENT                                          Author: raman
+;;; Created: Mon Feb 17 08:52:48 1992
+;;; Class: POWER                                             Author: raman
+;;; Created: Mon Feb 17 09:19:41 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Class: MATH-VARIABLE                                     Author: raman
+;;; Created: Mon Feb 17 09:34:33 1992
+;;; Class: MATH-FUNCTION                                     Author: raman
+;;; Created: Sun Feb 23 18:57:04 1992
+;;; Class: SIN-FUNCTION                                      Author: raman
+;;; Created: Sun Feb 23 18:59:24 1992
+;;; Class: COSIN-FUNCTION                                      Author: raman
+;;; Created: Sun Feb 23 18:59:24 1992
+;;; Class: TAN-FUNCTION                                      Author: raman
+;;; Created: Sun Feb 23 18:59:24 1992
+;;; Class: LOG-FUNCTION                                      Author: raman
+;;; Created: Sun Feb 23 18:59:24 1992
+;;; Class: MAX-FUNCTION                                      Author: raman
+;;; Created: Sun Feb 23 18:59:24 1992
+;;; Class: MIN-FUNCTION                                      Author: raman
+;;; Created: Sun Feb 23 18:59:24 1992
+;;; Class: ABS-FUNCTION                                      Author: raman
+;;; Created: Sun Feb 23 18:59:24 1992
+;;; Method: DISPLAY                                          Author: raman
+;;; Created: Tue Feb 18 16:31:07 1992
+;;; Method: DISPLAY                                          Author: raman
+;;; Created: Tue Feb 18 16:39:31 1992
+;;; Method: DISPLAY                                          Author: raman
+;;; Created: Tue Feb 18 16:46:10 1992
+;Latex parser
+		 ("S;" "/usr/u/raman/lisp-code")
+  (:default-pathname "PARSER:S;"
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modified: Mon Aug  3 14:33:52 EDT 1992
+;;; Removing duplicate definition of math class.
+;;; Modified: Thu Apr  2 11:02:47 EST 1992
+;;; Introduces classes for document components.
+;;; Will completely replace the structures for document components
+;;; defined in structs.lisp.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Class: DOCUMENT                                          Author: raman
+;;; Created: Thu Apr  2 11:05:22 1992
+;;; Class: ARTICLE                                           Author: raman
+;;; Created: Thu Apr  2 11:05:54 1992
+;;; Method: PRINT-OBJECT                                            Author: raman
+;;; Created: Thu Apr  2 16:56:49 1992
+;;; Class: SECTIONAL-UNIT                                    Author: raman
+;;; Created: Thu Apr  2 11:45:16 1992
+;;; Made more intelligent by adding keyword  argument :unit-name
+;;; Method: print-object                                          Author: raman
+;;; Created: Thu Apr  2 17:12:46 1992
+;;; Class: SECTION                                           Author: raman
+;;; Created: Thu Apr  2 12:47:32 1992
+;;; Class: SUBSECTION                                        Author: raman
+;;; Created: Thu Apr  2 12:48:47 1992
+;;; Class: SUBSUBSECTION                                     Author: raman
+;;; Created: Thu Apr  2 12:50:20 1992
+;;; Class: PARAGRAPH                                         Author: raman
+;;; Created: Thu Apr  2 11:49:01 1992
+;;; Method: print-OBJECT                                   Author: raman
+;;; Created: Mon Apr 13 17:31:22 1992
+;;; Class: TEXT-BLOCK                                        Author: raman
+;;; Created: Thu Apr  2 15:04:11 1992
+;;; Method: PRINT-OBJECT                                     Author: raman
+;;; Created: Thu Apr  2 19:01:40 1992
+;;; Class definitions for latex environments.
+;;; Class: ABSTRACT                                          Author: raman
+;;; Created: Sat Apr 11 17:08:28 1992
+;;; Class: LIST-ENVIRONMENT                                  Author: raman
+;;; Created: Sat Apr 11 17:09:41 1992
+;;; enumerated lists,
+;;; itemized lists,
+;;; description lists,
+;;; all inherit from list-environment.
+;;; Class: ENUMERATED-LIST                                   Author: raman
+;;; Created: Sat Apr 11 17:11:47 1992
+;;; Class: ITEMIZED-LIST                                   Author: raman
+;;; Created: Sat Apr 11 17:11:47 1992
+;;; Class: DESCRIPTION-LIST                                   Author: raman
+;;; Created: Sat Apr 11 17:11:47 1992
+;;; Class: ITEM                                              Author: raman
+;;; Created: Sat Apr 11 17:25:00 1992
+;;; Class: CENTERED-TEXT                                     Author: raman
+;;; Created: Sat Apr 11 17:17:01 1992
+;;; Class: QUOTED-TEXT                                       Author: raman
+;;; Created: Sat Apr 11 17:17:35 1992
+;;; Class: QUOTE-ENVIRONMENT                                 Author: raman
+;;; Created: Sat Apr 11 17:18:17 1992
+;;; Class: QUOTATION-ENVIRONMENT                                 Author: raman
+;;; Created: Sat Apr 11 17:18:17 1992
+;;; Class: INLINE-QUOTE                                      Author: raman
+;;; Created: Mon Apr 13 19:19:50 1992
+;;; Class: COMMENT                                           Author: raman
+;;; Created: Thu Apr 16 19:12:24 1992
+;;; Class: NEW-ENVIRONMENT                                   Author: raman
+;;; Created: Thu Apr 16 19:26:46 1992
+;;; Class: TEX-DEFINED-MACRO                                 Author: raman
+;;; Created: Tue Apr 28 16:43:15 1992
+;;; Class: CITATION                                          Author: raman
+;;; Created: Wed Apr 29 15:24:45 1992
+;;; Class: FOOTNOTE                                          Author: raman
+;;; Created: Wed Apr 29 19:52:14 1992
+;;; Class: SLIDE                                             Author: raman
+;;; Created: Mon May  4 12:29:13 1992
+;;; Class: MATH                                              Author: raman
+;;; Created: Mon May  4 14:41:12 1992
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; CREATED:  FRI:  Feb 21 09:07:40 EST 1992
+;;;  Interface lisp parser to Lex lexical analyser.
+;;; uses run-program.
+;;; This file will also include code for partial parsing of a article
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *LEX-DIR*                                      Author: raman
+;;; Created: Fri Feb 21 09:14:15 1992
+;;; Now set it up:
+;;; Variable: *LEX-PROGRAM*                                  Author: raman
+;;; Created: Fri Feb 21 09:15:19 1992
+;;; Now set it up:
+;;; Function: PARSE-ARTICLE                                 Author: raman
+;;; Created: Fri Feb 21 09:10:37 1992
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Created: Tue Feb 25 16:46:13 EST 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Contains the classification of symbols in math mode.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *MATH-CLASSIFICATION-TABLE*                    Author: raman
+;;; Created: Tue Feb 25 14:51:57 1992
+;;; Function: LOOKUP-MATH-CLASSIFICATION                     Author: raman
+;;; Created: Tue Feb 25 14:53:02 1992
+;;; Macro: DEFINE-MATH-SYMBOL-CLASSIFICATION                      Author: raman
+;;; Created: Tue Feb 25 14:55:33 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Classification of symbols in math mode:
+;;; This classification is taken from Appendix F of the tex book.
+;;; Refer to the file "~raman/books/texdocs/tex3.0/ch35"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Current classification types:
+;;; ordinary
+;;; large-operator
+;;; binary-operator
+;;; relational-operator
+;;; negation-operator
+;;; arrow-operator
+;;; open-delimiter
+;;; close-delimiter
+;;; Upper case greek letters.
+;;; English letters.
+;;; Upper case English letters.
+;;; Misc symbols treated as ordinary by tex.
+;;; These may be reclassified later.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Large operators.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; binary operators: These are rarely subscripted
+;;; as opposed to the  big operators above.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; relations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; handle negation carefully.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; arrows: relations?
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; opening delimiters.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; corresponding closing delimiters:
+;;; handling subscript and superscript here:
+;;; following need to be reclassified.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Simple loader for parser
+;;; Since lucid does not seem to be doing this,
+;;; I do it here, since I will need it.
+;(unless (find-package :parser)
+;  (make-package :parser
+;                :use '(:lisp :clos :user)
+;                :nicknames '(:latex-parser)))
+;;; Function: TAG-PARSER                                     Author: raman
+;;; Created: Sun Feb  2 15:52:27 1992
+;;; Function: PARSER                                         Author: raman
+;;; Created: Sun Feb  2 16:07:11 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; introducing a defsystem for parser.
+;;; Modified: Thu Apr  2 19:38:04 EST 1992
+;;; Variable: *LATEX-PARSER-PATHNMAE*                        Author: raman
+;;; Created: Thu Apr  2 19:40:14 1992
+;;; Variable: *PARSER-AUX-FILES*                             Author: raman
+;;; Created: Thu Apr  2 19:48:24 1992
+;;; Variable: *PARSER-WORKHORSE*                             Author: raman
+;;; Created: Thu Apr  2 19:51:37 1992
+;;; Variable: PARSER-FRONT-END*                              Author: raman
+;;; Created: Thu Apr  2 19:52:37 1992
+;;; Variable: *A-EXAM-PAPER*                                 Author: raman
+;;; Created: Tue May  5 13:12:35 1992
+;;; Variable: *DEMO-PAPER*                                   Author: raman
+;;; Created: Thu May  7 19:05:23 1992
+;;; Variable: *ART*                                          Author: raman
+;;; Created: Tue May  5 13:15:57 1992
+;;; Function: TEST-PARSER                                    Author: raman
+;;; Created: Tue May  5 13:15:01 1992
+;;; Function: DEMO                                           Author: raman
+;;; Created: Thu May  7 19:07:24 1992
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Created: Sat Apr 11 19:20:05 EDT 1992
+;;; Contains  read-aloud methods  and associated code.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *READER-PERIOD-PAUSE*                          Author: raman
+;;; Created: Mon Apr 13 10:01:35 1992
+;;; Variable: *READER-COMMA-PAUSE*                           Author: raman
+;;; Created: Mon Apr 13 10:04:31 1992
+;;; variables defining what sound cues to use:
+;;; Variable: *ARTICLE-CUE*                                  Author: raman
+;;; Created: Sun May  3 19:04:31 1992
+;;; Variable: *ARTICLE-OPEN-CUE*                             Author: raman
+;;; Created: Tue May 12 13:49:55 1992
+;;; Variable: *ARTICLE-CLOSE-CUE*                            Author: raman
+;;; Created: Tue May 12 13:50:26 1992
+;;; Variable: *ABSTRACT-CUE*                                 Author: raman
+;;; Created: Thu May  7 13:00:16 1992
+;;; Variable: *PARAGRAPH-CUE*                                Author: raman
+;;; Created: Sun May  3 19:06:02 1992
+;;; Variable: *SECTION-CUE*                                  Author: raman
+;;; Created: Sun May  3 19:06:33 1992
+;;; Variable: *ITEM-CUE*                                     Author: raman
+;;; Created: Sun May  3 19:11:11 1992
+;;; Variable: *NEWLINE-CUE*                                  Author: raman
+;;; Created: Sun May  3 19:07:03 1992
+;;; Variable: *SLIDE-CUE*                                    Author: raman
+;;; Created: Mon May  4 12:41:54 1992
+;;; end of cues section.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Generic: READ-ALOUD                                      Author: raman
+;;; Created: Mon Apr 13 11:01:28 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Sat Apr 11 21:10:50 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Sat Apr 11 20:58:00 1992
+;;; Method: READ-ALOUD                                          Author: raman
+;;; Created: Sat Apr 11 19:24:02 1992
+;;; Variable: *PLAY-SIGNATURE-TUNE*                          Author: raman
+;;; Created: Wed Apr 29 21:45:41 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Mon Apr 13 11:35:06 1992
+;  (dectalk:speak-string "Body of the document")
+;;; Method: READ-ALOUD                                          Author: raman
+;;; Created: Sat Apr 11 20:38:53 1992
+;  (dectalk:send-text " ")
+;;; Variable: *READ-ALL-TEXT*                                Author: raman
+;;; Created: Wed Apr 29 08:40:46 1992
+;;; Method: READ-ALOUD                                          Author: raman
+;;; Created: Sat Apr 11 20:43:20 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Mon Apr 13 11:41:28 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Mon Apr 13 17:19:50 1992
+;;; The following are read-aloud methods for some parent classes.
+;;; Done as a quick way of getting the document spoken.
+;;; Will be shadowed once more specific methods are implemented.
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Mon Apr 13 19:53:25 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Mon Apr 13 19:59:49 1992
+;  (dectalk::out  "item!")
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Fri May  1 09:40:21 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Mon Apr 13 20:04:26 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Mon Apr 13 20:05:25 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Tue Apr 28 17:32:37 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Thu Apr 16 19:14:59 1992
+  ;; Do nothing.
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Thu Apr 16 19:29:26 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Tue Apr 28 16:47:59 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Wed Apr 29 15:26:32 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Wed Apr 29 19:54:55 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Sun May  3 17:23:25 1992
+;;; Method: READ-ALOUD                                       Author: raman
+;;; Created: Mon May  4 12:34:18 1992
+;;; Function: OUTLINE                                        Author: raman
+;;; Created: Mon May 11 10:53:37 1992
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Created: Thu Mar 12 14:41:32 EST 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; interface to real time csound performance.
+;;; *orch-file* contains instrument definitions,
+;;; *score-file* contains a dummy score.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *ORCH-FILE*                                    Author: raman
+;;; Created: Thu Mar 12 14:42:32 1992
+;;; Variable: *SCORE-FILE*                                   Author: raman
+;;; Created: Thu Mar 12 14:43:31 1992
+;;; Set it to a dummy for real time performance.
+;;; Variable: *CSOUND-STREAM*                                Author: raman
+;;; Created: Thu Mar 12 14:44:41 1992
+;;; Variable: *CSOUND-PROGRAM*                               Author: raman
+;;; Created: Thu Mar 12 14:47:22 1992
+;;; set it up:
+;;; Variable: *CSOUND-REALTIME-ARGS*                         Author: raman
+;;; Created: Thu Mar 12 14:48:00 1992
+;;; set it up to play sparc audio:
+;;; Function: START-CSOUND                                   Author: raman
+;;; Created: Thu Mar 12 14:45:04 1992
+;;; Function: STOP-CSOUND                                    Author: raman
+;;; Created: Thu Mar 12 19:29:00 1992
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Contains code to try out run-program.
+;;; Code taken from the Lucid manual,
+;;; advanced guide: beyondlisp.tex
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; This function prints the output from a program that has been started
+;;; with RUN-PROGRAM. On a heavily loaded system, pauses in program output
+;;; can cause premature termination of this function.  In this case the 
+;;; function can simply be called again to get the rest of the output.
+;; The C shell is set to the stream that is used for standard input and 
+;; standard output for csh.  The terminal remains the standard error
+;; output stream.
+;; Send a date command to csh.
+;    (sleep 1)
+;;; Variable: *INSTRUMENT*                                   Author: raman
+;;; Created: Thu Mar 12 17:37:33 1992
+;;; Variable: *START-TIME*                                   Author: raman
+;;; Created: Thu Mar 12 17:38:06 1992
+;;; Variable: *DURATION*                                     Author: raman
+;;; Created: Thu Mar 12 17:55:39 1992
+;;; Variable: *NOTE*                                         Author: raman
+;;; Created: Thu Mar 12 17:38:35 1992
+;;; Variable: *VOLUME*                                       Author: raman
+;;; Created: Thu Mar 12 17:39:06 1992
+;;; Function: PLAY-NOTE                                      Author: raman
+;;; Created: Thu Mar 12 17:39:41 1992
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Created: Sat Feb 22 17:29:29 EST 1992
+;;; Lisp interface to audio.
+;;; First attempt at using run-program etc.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *CUES*                                         Author: raman
+;;; Created: Sat Feb 22 17:32:27 1992
+;;; Function: PLAY-AUDIO                                     Author: raman
+;;; Created: Sat Feb 22 17:30:24 1992
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modified: Mon Mar  2 21:52:02 EST 1992
+;;; used define-parsing-function to set up table of parsing functions.
+;;; Modified: Sat Feb  8 11:47:12 EST 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Holds all special variables used by the parser.
+;;; Convention:
+;;; Special variables are named as *foo*:
+;;; They are set to nil initially:
+;;; there are macros with names starting with define
+;;; that are used to add table entries.
+;;; At present new items are pushed on to the list which holds the table.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Table for holding the parsing functions for different
+;;; node types  in a article.
+;;; Variable: *PROCESSING-FUNCTION-TABLE*                    Author: raman
+;;; Created: Sun Jan 26 11:17:17 1992
+;;; Macro: DEFINE-PARSING-FUNCTION                           Author: raman
+;;; Created: Mon Mar  2 20:57:04 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Now define the entries in the table.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; parsing functions for math mode:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *TEX-MACRO-TABLE*                              Author: raman
+;;; Created: Thu Jan 30 08:56:15 1992
+;;; Modified: Mon Mar  2 22:11:36 EST 1992
+;;; introducing define macro for setting up table.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Macro: DEFINE-TEX-MACRO                                  Author: raman
+;;; Created: Mon Mar  2 22:12:55 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Now set up the table.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; macros that change font:
+;;; macros that are used in the header of a document:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *TABLE-OF-MATH-FUNCTIONS*                      Author: raman
+;;; Created: Sun Feb  2 16:19:37 1992
+;;; Macro: DEFINE-MATH-FUNCTION                              Author: raman
+;;; Created: Fri Mar  6 10:01:15 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Now set up the table.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *TABLE-OF-OPERATORS*                             Author: raman
+;;; Created: Sun Feb  2 11:24:59 1992
+;;; Macro: DEFINE-MATH-OPERATOR                              Author: raman
+;;; Created: Fri Mar  6 10:15:54 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Set it up.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *TABLE-OF-MATH-DELIMITERS*                     Author: raman
+;;; Created: Tue Feb  4 18:35:59 1992
+;;; Macro: DEFINE-MATH-DELIMITER                             Author: raman
+;;; Created: Fri Mar  6 10:31:33 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Now set up the table
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; boolean variables.
+;;; Affect default behaviour
+;;; Can be toggled with (toggle *var*)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *SIGNAL-ERROR-ON-UNKNOWN-TEX-MACRO*            Author: raman
+;;; Created: Thu Jan 30 11:54:06 1992
+;;; Set it to true for now:
+;;; You can toggle it by using (toggle var)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Variable: *RETURN-A-DEFAULT-PARSER*                      Author: raman
+;;; Created: Sat Feb 29 13:10:37 1992
+;;; Set it to true.
+;;; Variable: *CONVERT-TO-INFIX*                             Author: raman
+;;; Created: Sat Mar  7 13:38:06 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Modified: Thu Apr  2 15:36:36 EST 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Commenting out some of the structure definitions for
+;;; which classes  are being defined.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Structure definitions for various parts of a article.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Structure: PARSE-TABLE                                   Author: raman
+;;; Created: Sun Jan 26 11:21:16 1992
+;;; holds names and their associated parsers.
+;;; Structure: tex-macro                                    Author: raman
+;;; Created: Wed Jan 29 10:34:35 1992
+;;; "Holds all the information about a TeX cs == macro
+;;; Structure: OPERATOR                                      Author: raman
+;;; Created: Sun Feb  2 11:23:00 1992
+;;; An operator such as "+"
+;;; Structure: MATH-DELIMITER                                Author: raman
+;;; Created: Tue Feb  4 18:34:12 1992
+;;; hold a math delimiter 
+;;; Structure: MATH-SYMBOL                                   Author: raman
+;;; Created: Tue Feb 25 13:27:50 1992
+;;; A math symbol classified as variable operator etc.
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Mon Jan 27 09:38:08 EST 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Contains the functions and variable definitions for making
+;;; the parser table driven.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: WHAT-IS?                                       Author: raman
+;;; Created: Sun Jan 26 15:02:43 1992
+;;; Modified: Mon Apr 20 17:36:27 EDT 1992
+;;; made inline.
+;;; Function: MATH-WHAT-IS?                                  Author: raman
+;;; Created: Tue Feb 25 13:13:22 1992
+;;; Function: NUMBER-STRING?                            Author: raman
+;;; Created: Thu Feb 27 10:52:18 1992
+;;; Function: GET-PARSER                                     Author: raman
+;;; Created: Sun Jan 26 15:06:13 1992
+	  (if math-flag; things classified differently in math mode.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; table for handling tex macros.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Function: GET-TEX-MACRO                                  Author: raman
+;;; Created: Thu Jan 30 09:35:39 1992
+;;; Macro: TOGGLE                                         Author: raman
+;;; Created: Tue Feb  4 09:39:38 1992
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; end of file
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

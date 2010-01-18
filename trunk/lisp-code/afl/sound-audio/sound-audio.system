@@ -1,0 +1,29 @@
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       $Id: sound-audio.system,v 1.1.1.1 2001/08/10 23:20:19 raman Exp $ 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(in-package :user)
+
+
+;;; Mon Feb 15 20:21:39 EST 1993
+;;; switching audio-player to use play-sound-file. <(old version backed)>
+;;; Thu Jan  7 14:47:13 EST 1993
+;;; sound system:
+(defsystem sound-audio
+  :source-pathname  (concatenate 'string
+                                 *lisp-code-directory* "/"
+                                 "afl/sound-audio" )
+  :package afl 
+  :finally-do (progn (pushnew  :sound-audio *features* )
+                     (funcall (find-symbol "INITIALIZE-AUDIO-SPACE" "AFL"))
+                     (announce "loaded sound audio"))
+  :components(
+              (:file "point-in-audio-space")
+              (:file "define-point-in-audio-space"
+                     :depends-on ("point-in-audio-space"))
+              (:file "audio-player"
+                     :depends-on ("define-point-in-audio-space"))
+              )
+  )
+

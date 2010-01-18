@@ -1,0 +1,45 @@
+(in-package 'user)
+
+;;; Mon Nov 16 20:36:48 EST 1992
+;;; Introducing modules:
+
+
+(defsystem read-aloud
+    :source-pathname  "/usr/u/raman/lisp-code/read-aloud"
+    :initially-do (announce "loading read aloud")
+    :finally-do (announce "done loading read aloud")
+    :components (
+                 (:module "read-aloud"  :source-pathname " "
+                          :components(
+                                      (:file "read-aloud"))
+                          :depends-on ( "font-definitions"
+                                        "reading-state"
+                                        "pronounce"))
+                 (:module  "font-definitions" :source-pathname " " 
+                           :components(
+                                       (:file "handling-different-fonts")
+                                       (:file "font-afl-state-definitions"
+                                              :depends-on ("handling-different-fonts" ))))
+                 (:module "reading-state" :source-pathname " " 
+                          :components(
+                                      (:file "handling-reading-states")
+                                      (:file  "reading-state-definitions"
+                                              :depends-on ("handling-reading-states" ))))
+                 (:module "pronounce" :source-pathname " "
+                          :components(
+                                      (:file "pronounce")
+                                      (:file "pronunciations"
+                                             :depends-on ("pronounce" ))))
+                 (:module "define-objects"  :source-pathname " "
+                          :components(
+                                      (:file "macros-define-objects")
+                                      (:file "new-document-objects"
+                                             :depends-on ("macros-define-objects" ))))
+                 (:module "reading-rules" :source-pathname " " 
+                          :components(
+                                      (:file "define-reading-rules")
+                                      (:file "reading-rule-definitions"
+                                             :depends-on ("define-reading-rules" ))))
+                 )
+    :depends-on( parser afl)
+    )
