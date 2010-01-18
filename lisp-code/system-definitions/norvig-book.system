@@ -1,0 +1,27 @@
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(in-package :user)
+
+(proclaim '(optimize (compilation-speed 3) (safety 3) (speed 2)))
+;;; Tue Feb 23 09:29:37 EST 1993
+
+;;; Contains objects from  Norvig's book.
+;;; One file will have object definitions, and the rest reading rules.
+
+;;; First load complete read-aloud system then this system 
+
+(defsystem norvig-book
+    :source-pathname
+  (concatenate 'string
+               *lisp-code-directory* "/" "norvig-book") 
+  :initially-do (unless (featurep :read-aloud)
+                  (load-system 'read-aloud))
+  :finally-do (announce "Prepared to read Norvig's book")
+  :components( 
+              (:file "norvig-object-definitions")
+              (:file "norvig-reading-rules"
+                     :depends-on (  "norvig-object-definitions"))
+              )
+  )

@@ -1,0 +1,38 @@
+;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;                                                                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(in-package :user)
+
+(proclaim '(optimize (compilation-speed 3) (safety 3) (speed 2)))
+
+;;; browser:
+;;; Tue Jan 12 16:27:09 EST 1993
+;;; Also load reader-browse.el into emacs:
+
+(defsystem browse
+    :source-pathname (concatenate 'string
+                                  *lisp-code-directory* "/" "browse")
+    :initially-do (unless (featurep :read-aloud )
+                    (load-system 'read-aloud ))
+    :finally-do (progn  (pushnew :browse *features*)
+                        (announce "loaded browser"))
+    :components(
+                (:module "browse-macros"
+                         :source-pathname ""
+                         :components(
+                                     (:file "browse-macros" )))
+                (:module "cross-reference"
+                         :source-pathname ""
+                         :components(
+                                     (:file "cross-references"))
+                         :depends-on ("browse-macros"))
+                (:module "browser-action"
+                         :source-pathname ""
+                         :components (
+                                      (:file "summarize")
+                                      (:file "move-around")
+                                      (:file "bookmark"))
+                         :depends-on ("browse-macros"))
+                )
+    )

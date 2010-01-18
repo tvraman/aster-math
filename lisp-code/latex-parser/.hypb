@@ -1,0 +1,54 @@
+
+"quasi-prefix.lisp"
+("Backed_up_old_version." nil nil link-to-file ("./scratch/push-operator-p.lisp" 484) "raman@cs.cornell.edu" "19930429:00:19:49" nil nil)
+
+"buffers.lisp"
+("backed_up_version_using_do" nil nil link-to-file ("./efficient-buffers.lisp" 729) "raman@cs.cornell.edu" "19930318:18:33:27" nil nil)
+
+"02-text-processing.lisp"
+("using_cons_instead_of_push_backed_up_old_version" nil nil link-to-file ("./efficient-recognizer.lisp" 4395) "raman@cs.cornell.edu" "19930319:12:47:17" nil nil)
+("version_using_do_backed_up." nil nil link-to-file ("./efficient-recognizer.lisp" 518) "raman@cs.cornell.edu" "19930319:02:20:48" nil nil)
+("old_version_using_nconc_backed_up." nil nil link-to-file ("./efficient-recognizer.lisp" 2465) "raman@cs.cornell.edu" "19930319:01:55:18" nil nil)
+("has_been_backed_up." nil nil link-to-file ("./scratch/create-sectional-unit.lisp" 2354) "raman@cs.cornell.edu" "19921229:14:42:57" nil nil)
+
+"01-sections.lisp"
+("old_version_has_been_backed_up." nil nil link-to-file ("./scratch/create-sectional-unit.lisp" 520) "raman@cs.cornell.edu" "19921229:14:23:33" nil nil)
+
+"parents-and-siblings.lisp"
+("First_cut_implementation_backed_up" nil nil link-to-file ("./scratch/parents-and-siblings.lisp") "raman@cs.cornell.edu" "19921225:17:31:35" nil nil)
+
+"special-variables.lisp"
+("old_version_backed_up." nil nil link-to-file ("./scratch/processing-function-table-list-version.lisp" 2933) "raman@cs.cornell.edu" "19921225:14:05:17" nil nil)
+("old_version_using_list_backed_up" nil nil link-to-file ("./scratch/processing-function-table-list-version.lisp" 2933) "raman@cs.cornell.edu" "19921225:14:02:33" nil nil)
+("list_version_backed_up" nil nil link-to-file ("./scratch/processing-function-table-list-version.lisp" 687) "raman@cs.cornell.edu" "19921225:13:41:05" nil nil)
+
+"table-driver.lisp"
+("Switching_to_hash_tables,_old_version_backed_up." nil nil link-to-file ("./scratch/processing-function-table-list-version.lisp" 2937) "raman@cs.cornell.edu" "19921225:14:08:35" nil nil)
+("list_version_backed_up" nil nil link-to-file ("./scratch/processing-function-table-list-version.lisp" 1187) "raman@cs.cornell.edu" "19921225:13:36:50" nil nil)
+
+"document-component-classes.lisp"
+("test_file" nil nil link-to-file ("./print-object.lisp" 1398) "raman@cs.cornell.edu" "19921221:21:35:09" nil nil)
+
+"print-object.lisp"
+("smh@Franz.COM_(Steve_Haflich)" nil nil link-to-file ("/usr/u/raman/Mail/lisp/print-clos-object") "raman@cs.cornell.edu" "19921221:18:44:16" nil nil)
+
+"math-classes.lisp"
+("Handled_by_define-text-object" nil nil link-to-file ("./scratch/fraction-class.lisp" 551) "raman@cs.cornell.edu" "19930408:00:33:27" nil nil)
+("Modified:" nil nil link-to-file ("./scratch/throw-away-math-node.lisp" 1563) "raman@cs.cornell.edu" "19921219:19:10:22" nil nil)
+("setup-operators-class-table" nil nil link-to-file ("./operator-classes.lisp" 2652) "raman@cs.cornell.edu" "19921209:18:27:16" nil nil)
+
+"operator-class-names-mapping.lisp"
+("operator-classes.lisp" nil nil link-to-file ("./operator-classes.lisp" 1936) "raman@cs.cornell.edu" "19921209:17:51:32" nil nil)
+
+"05-math-processing.lisp"
+("use_push_instead_of_cons,_backed_up_old_version" nil nil link-to-file ("./efficient-recognizer.lisp" 9522) "raman@cs.cornell.edu" "19930319:12:54:43" nil nil)
+("refer_to_old_version_which_is_backed_up" nil nil link-to-file ("./efficient-recognizer.lisp" 6616) "raman@cs.cornell.edu" "19930319:03:02:38" nil nil)
+("scratch_pad" nil nil link-to-file ("./scratch/obselete-functions.lisp" 30317) "raman@cs.cornell.edu" "19921201:16:42:35" nil nil)
+
+"macros-define-objects.lisp"
+("macros_define_objects" nil nil link-to-file ("/usr/u/raman/text/notes/21-macros-define-new-objects.tex") "raman@cs.cornell.edu" "19921015:16:58:03" nil nil)
+
+"math-classification.lisp"
+("link_to_appendix_f_of_tex_book" nil nil link-to-file ("/usr/u/raman/books/texdocs/tex3.0/ch35") "raman@cs.cornell.edu" "19930923:13:58:58" nil nil)
+("inserted_into_define-math-delimiter" nil nil link-to-file ("./special-variables.lisp" 9828) "raman@cs.cornell.edu" "19920917:21:19:41" nil nil)
+("math_functions_in_man3.tex" nil nil link-to-file ("/usr/u/raman/books/latex/man3.tex" 31844) "raman@cs.cornell.edu" "19920915:16:45:14" nil nil)

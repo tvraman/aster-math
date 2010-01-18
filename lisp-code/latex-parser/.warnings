@@ -1,0 +1,22 @@
+
+;;; Writing binary file "/usr/u/raman/lisp-code/latex-parser/interface.sbin"
+;;; Warning: The following function is not known to be defined:
+;;;          CREATE-ARTICLE was referenced by PARSE-ARTICLE
+
+;;; Writing binary file "/usr/u/raman/lisp-code/latex-parser/01-sections.sbin"
+;;; Warning: The following functions are not known to be defined:
+;;;          PROCESS-TEXT-BLOCK was referenced by GET-TITLE!,
+;;;             GET-AUTHOR!
+;;;          PROCESS-ABSTRACT was referenced by GET-ABSTRACT!
+;;;          PROCESS-TEXT was referenced by GET-INITIAL-BODY!,
+;;;             CREATE-SECTION, CREATE-SUBSECTION, CREATE-SUBSUBSECTION
+
+;;; Writing binary file "/usr/u/raman/lisp-code/latex-parser/02-text-processing.sbin"
+;;; Warning: The following function is not known to be defined:
+;;;          PROCESS-MATH was referenced by PROCESS-INLINE-MATH,
+;;;             PROCESS-DISPLAY-MATH
+
+;;; Writing binary file "/usr/u/raman/lisp-code/latex-parser/04-infix-to-prefix.sbin"
+;;; Warning: The following function is not known to be defined:
+;;;          BINARY-OPERATOR was referenced by PROCESS-OPERATOR
+

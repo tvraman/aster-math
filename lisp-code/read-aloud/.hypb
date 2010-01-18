@@ -1,0 +1,44 @@
+
+"time-readings.lisp"
+("old_version_has_been_backed_up" nil nil link-to-file ("./scratch/speak-decoded-time.lisp" 256) "raman@cs.cornell.edu" "19940109:18:50:22" nil nil)
+
+"var-subst.lisp"
+("old_version_has_been_backed_up" nil nil link-to-file ("./scratch/var-subst-rule.lisp" 421) "raman@cs.cornell.edu" "19931106:02:11:54" nil nil)
+("based_on_notes_on_variable_substitution" nil nil link-to-file ("/usr/u/raman/text/notes/30-var-substitution.tex" 2657) "raman@cs.cornell.edu" "19930523:14:28:53" nil nil)
+
+"math-reader-aux.lisp"
+("backed_up_old_version." nil nil link-to-file ("./scratch/read-math-child.lisp" 881) "raman@cs.cornell.edu" "19921228:15:09:50" nil nil)
+
+"special-patterns.lisp"
+("backed_up." nil nil link-to-file ("./scratch/special-patterns.lisp") "raman@cs.cornell.edu" "19921227:17:35:06" nil nil)
+
+"special-pattern-macros.lisp"
+("Backing_up_old_version." nil nil link-to-file ("./scratch/special-pattern-macros.lisp") "raman@cs.cornell.edu" "19921227:17:34:25" nil nil)
+
+"read-aloud.lisp"
+("old_version_used_should-i-continue,_has_been_backed_up." nil nil link-to-file ("./scratch/read-aloud-list.lisp" 1216) "raman@cs.cornell.edu" "19921226:13:19:29" nil nil)
+
+"math-reading-rules.lisp"
+("Fixed_the_bug_that_caused_relative_readings_to_fail." nil nil link-to-file ("./scratch/array-readings.lisp" 3051) "raman@cs.cornell.edu" "19930411:17:36:40" nil nil)
+("Refer_to_old_version_for_explanation" nil nil link-to-file ("./scratch/array-readings.lisp" 814) "raman@cs.cornell.edu" "19930411:12:38:37" nil nil)
+("Compare_this_to_the_old_version" nil nil link-to-file ("./old-array-readings.lisp") "raman@cs.cornell.edu" "19921218:14:31:38" nil nil)
+
+"complex-objects.lisp"
+("Removed_unnecessary_cond,_backed_up." nil nil link-to-file ("./scratch/weight-of-subformula" 136) "raman@cs.cornell.edu" "19930408:15:06:57" nil nil)
+("old_method_has_been_backed_up." nil nil link-to-file ("./scratch/throw-away.lisp" 1202) "raman@cs.cornell.edu" "19921212:18:18:37" nil nil)
+
+"macros-define-objects.lisp"
+("backup_is_being_kept" nil nil link-to-file ("./scratch/macros-define-objects.lisp") "raman@cs.cornell.edu" "19921211:16:03:02" nil nil)
+
+"descriptive-math-readings.lisp"
+("Backing_up_old_version." nil nil link-to-file ("./scratch/descriptive-superscript.lisp" 484) "raman@cs.cornell.edu" "19930111:22:19:51" nil nil)
+("math-reading-rules" nil nil link-to-file ("./math-reading-rules.lisp") "raman@cs.cornell.edu" "19921210:21:23:48" nil nil)
+
+
+"reading-styles-and-rules.lisp"
+("refer_to_net_article" nil nil link-to-file ("/usr/u/raman/News/comp/lang/lisp/efficient-coding-style") "raman@cs.cornell.edu" "19940114:17:23:03" nil nil)
+("Backed_up_version_that_did_this" nil nil link-to-file ("./scratch/link-in-reading-order.lisp" 587) "raman@cs.cornell.edu" "19930407:20:44:35" nil nil)
+("refer_to_define-reading-rules.lisp" nil nil link-to-file ("./old-reading-rules/define-reading-rules.lisp") "raman@cs.cornell.edu" "19921209:00:54:29" nil nil)
+
+"read-out-into-file.lisp"
+("refer_to_duplicating_streams" nil nil link-to-file ("/usr/u/raman/News/comp/lang/lisp/duplicating-streams" 1026) "raman@cs.cornell.edu" "19921005:16:48:17" nil nil)

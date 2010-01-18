@@ -1,0 +1,63 @@
+This directory will contain the audio formatting language implemented
+in common lisp.
+
+The language is block structured and the blocks are implemented by a
+macro new-block which expands to a let form.
+
+The audio formatter captures the current state in a variable
+*current-state* in the form of a data structure  containing all the
+current settings.  new-block expands to a let form which first makes
+its own copy of *current-state* and it is this copy that is
+manipulated by the local sets. Thus lisp will do the unsetting
+automatically when exitting the form.
+
+Implement a afl-set macro that will set *current-state* and then call
+a function that sends the actual sequences to the multivoice.
+
+Above achieved by first updating the current point and then calling a
+function with this point, it is this function that will send the
+necessary commands to the hardware. Make sure that this interface is
+clean, so that potentially someone in the future can implement a set
+of their own functions for their own synthesizer.
+
+Implement operators for returning points in speech space as functions.
+
+Have an independent structure for scale factors?
+Yes, have an independent structure for scales. The current point gives
+settings which are passed through a scaling filter, with scales set to
+unity by default. Allowing the user to change these  makes the
+global-set less hairy.
+
+Design data structures.
+
+
+                 Implement speak and pause functions.
+
+The let form implementing new-block enclosed in an unwind-protect
+                  which takes care of interruptions.
+
+Provide macros for specifying the control sequences associated with
+ specific dimensions in the speech space. eg: voice :n headsize   :hs
+etc.
+
+Keep design clean so as to allow future addition of dimensions to the
+                            speech space.
+ Keep design clean to allow synchronization calls. For the first pass
+these will be calls to the dectalk's synch functions.
+
+Allow for multiple speech channels. For the present assume two
+    channels, but leave design clean to add more channels easily.
+
+;;; steps in defining speech space:
+
+First specify what dimensions you have.
+this will be captured in a list.
+Now define your predefined voices which are special points by
+specifying the settings along the various dimensions you have specified
+Immediately put this in the hash table of standard voices.
+Now initialize speech space by specifying start point, think of this
+as the origin.
+Assuming for the present that htis specified as one of the predefined
+voices, ie: special points.
+Initialize space by filling up table of global values from the
+      settings for the origin. Make a current state and set it.
