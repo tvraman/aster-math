@@ -34,6 +34,8 @@
   "Starts up Aster. "
   (interactive)
   (declare (special aster-lisp))
-  (run-lisp aster-lisp)
+  (if (featurep 'slime)
+      (slime aster-lisp)    
+    (run-lisp aster-lisp))
   (load-library "reader-browse"))
 
