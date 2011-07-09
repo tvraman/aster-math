@@ -29,7 +29,9 @@ otherwise expect absolute pathnames")
                                          temp-file))
 
 
-  
+(defvar inferior-lisp-buffer "*inferior-lisp*"
+  "Name of inferior lisp interaction buffer.")
+
 (defun read-aloud-region(start end )
    "Render this region using AsTeR. "
   (interactive "r")
