@@ -35,7 +35,7 @@
   (etypecase char
     (character (write-char char *stream*))
     (string (apply #'format *stream* char format-args))
-    (symbol (write-string (symbol-name char)))  ; two bonus features))
+    (symbol (write-string (symbol-name char)))))
 
 (defun speak-string (string)
   (setf string (string string))

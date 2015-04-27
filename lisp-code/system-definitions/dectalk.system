@@ -57,9 +57,9 @@
     :package dectalk
     :finally-do (multivoice-test)
     :components (
-		 (:file "serial")
+		 (:file "socket")
 		 (:file "dectalk"
-			:depends-on (serial))
+			:depends-on (socket))
 		 (:file "smart-talker"
 			:depends-on ( read-out-into-file))
                  (:file "read-out-into-file")
