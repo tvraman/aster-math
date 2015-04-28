@@ -86,9 +86,8 @@
 
 (defun tts-queue (text)
   "Queue text to speak."
-  (let ((i (tts-input tts)))
-    (unless i (tts-open))
-    (setq  i (tts-input (tts)))
+  (let ((i (tts-input (tts))))
+    (unless i (setq i (tts-open)))
     (write-line (format nil "q {~s}" text) i)
     (write-char #\Return i)
     (finish-output i)))
@@ -116,8 +115,9 @@
   (let ((i (tts-input (tts))))
     (write-line "s"  i)
     (write-char #\Return i)
-    (finish-output i)
-    (write-line (format nil "q {~s}d\n" text) i)
+    (write-line (format nil "q {~s}" text) i)
+    (write-char #\Return i)
+    (write-line (format nil "d"))
     (write-char #\Return i)
     (finish-output i)))
 
