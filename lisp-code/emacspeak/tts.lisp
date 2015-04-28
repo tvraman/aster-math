@@ -38,7 +38,7 @@
 (defvar *emacspeak* "/usr/share/emacs/site-lisp/emacspeak/"
   "Root of Emacspeak installation.")
 
-(defun dtk-exp ()
+(defun tts-dtk-exp ()
   "Return name of dtk-exp server."
   (declare (special *emacspeak*))
   (concatenate 'string   *emacspeak* "servers/dtk-exp"))
@@ -70,7 +70,7 @@
   "Open a TTS session."
   (let ((handle (tts)))
     (setf(tts-input handle)
-         (ext:run-program (tts-engine handle) nil :wait nil  :input :stream))))
+         (ext:run-program (tts-engine handle)  :wait nil  :input :stream))))
 
 (defun tts-close ()
   "Close a TTS session."
