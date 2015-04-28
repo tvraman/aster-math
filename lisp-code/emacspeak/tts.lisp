@@ -69,19 +69,19 @@
 (defun tts-open ()
   "Open a TTS session."
   (let ((handle (tts)))
-  (setf(tts-input handle)
-       (ext:run-program (tts-engine handle) nil :wait nil  :input :stream)))
+    (setf(tts-input handle)
+         (ext:run-program (tts-engine handle) nil :wait nil  :input :stream))))
 
 (defun tts-close ()
   "Close a TTS session."
   (let ((handle (tts)))
     (when (tts-input handle)
-      (ext:close-stream (tts-input handle)))
+      (close (tts-input handle)))
     (setf (tts-input handle) nil)))
 
 (defun tts-running-p ()
   "Is there a tts process up and running?"
-    
+
   (tts-input (tts)))
 
 (defun tts-queue (text)
@@ -94,9 +94,9 @@
 
 (defun tts-force ()
   "Speak all queued text."
-      (let ((i (tts-input (tts))))))
-(write-line "d" i)
-(finish-output i)))
+  (let ((i (tts-input (tts))))
+    (write-line "d" i)
+    (finish-output i)))
 
 ;;; }
 ;;; {Exported Functions
@@ -113,14 +113,14 @@
   (let ((i (tts-input (tts))))
     (write-line "s"  i)
     (finish-output i)
-    (write-line (format nil "q ~s\nd" text) i)
+    (write-line (format nil "q ~s" text) i)
     (finish-output i)))
 
 (defun tts-speak-list (lines)
-      "Speak an arbitrary number of lines."
-      (tts-stop)
-      (mapc 'tts-queue lines)
-      (tts-force))
+  "Speak an arbitrary number of lines."
+  (tts-stop)
+  (mapc 'tts-queue lines)
+  (tts-force))
 
 (defun tts-letter (text)
   "Speak letter."
@@ -130,7 +130,7 @@
     (finish-output i)))
 
 ;;; }
-    (provide 'tts)
+(provide 'tts)
 
 ;;; { end of file
 
