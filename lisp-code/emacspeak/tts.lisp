@@ -31,33 +31,12 @@
 
 ;;; }
 (in-package :user)
-;;; { Settings
+;;; { Setup:
+;;; A TTS structure holds the engine name, process handle, and input/output streams.
+(defstruct tts engine process input output )
 
 (defvar *emacspeak* "/usr/share/emacs/site-lisp/emacspeak/"
   "Root of Emacspeak installation.")
-
-(defvar *tts-process* nil
-  "Handle to tts server connection.")
-
-(defvar *tts-engine* (tts-32-outloud)
-  "Default TTS engine to use.")
-(proclaim '(inline tts-process))
-(defun tts-process ()
-  "Return handle to TTS process."
-  (declare (special *tts-process*))
-  *tts-engine)
-(defun tts-engine ()
-  "Return default tts-engine."
-  (declare (special *tts-engine*))
-  *tts-engine)
-
-
-
-(proclaim '(inline tts-process))
-(defun tts-process ()
-  "Return handle to TTS process."
-  (declare (special *tts-process*))
-  *tts-process)
 
 (defun dtk-exp ()
   "Return name of dtk-exp server."
@@ -74,85 +53,84 @@
   (declare (special *emacspeak*))
   (concatenate 'string   *emacspeak* "servers/32-outloud"))
 
+(defvar *tts*
+  (make-tts :engine (tts-32-outloud))
+  "Handle to tts server connection.")
+
+(proclaim '(inline tts))
+(defun tts ()
+  "Return handle to TTS server."
+  (declare (special *tts*))
+  *tts*)
+
 ;;; }
 ;;; {Internal  Functions
 
 (defun tts-open ()
   "Open a TTS session."
-  (setf(tts-process)
-        (ext:run-program
-         (tts-engine) nil :wait nil  :input :stream)))
+  (let ((handle (tts)))
+  (setf(tts-input handle)
+       (ext:run-program (tts-engine handle) nil :wait nil  :input :stream)))
 
 (defun tts-close ()
   "Close a TTS session."
-  (let ((p (tts-process)))
-  (when(and  (ext:process-p p)
-             (ext:process-alive-p p))
-    (ext:process-close p))
-  (setf (tts-process) nil))
+  (let ((handle (tts)))
+    (when (tts-input handle)
+      (ext:close-stream (tts-input handle)))
+    (setf (tts-input handle) nil)))
 
 (defun tts-running-p ()
   "Is there a tts process up and running?"
-  (let ((p (tts-process)))
-  (and  p
-       (ext:process-p p)
-       (ext:process-alive-p p)))
-
+    
+  (tts-input (tts)))
 
 (defun tts-queue (text)
   "Queue text to speak."
-  (let ((p (tts-process)))
-    (unless (and  p (ext:process-alive-p p))
-      (setq p (tts-open)))
-    (let ((i (ext:process-input p)))
-      (write-line (format nil "q {~s}" text) i)
-      (force-output i))))
+  (let ((i (tts-input tts)))
+    (unless i (tts-open))
+    (setq  i (tts-input (tts)))
+    (write-line (format nil "q {~s}" text) i)
+    (finish-output i)))
 
 (defun tts-force ()
   "Speak all queued text."
-  (let ((i (ext:process-input (tts-process))))
-    (write-line "d" i)
-    (force-output i)))
+      (let ((i (tts-input (tts))))))
+(write-line "d" i)
+(finish-output i)))
 
 ;;; }
 ;;; {Exported Functions
 
 (defun tts-stop ()
   "Stop speech."
-  (let ((i (ext:process-input (tts-process))))
-      (write-line "s"  i)
-      (force-output i)))
+  (let ((i (tts-input (tts))))
+    (write-line "s"  i)
+    (finish-output i)))
 
 (defun tts-speak (text)
   "Speak text."
-  (unless (and  (tts-process)
-                (ext:process-alive-p (tts-process)))
-    (tts-open))
-  (let ((i (ext:process-input (tts-process))))
-      (write-line "s"  i)
-      (force-output i)
+  (unless (tts-input (tts)) (tts-open))
+  (let ((i (tts-input (tts))))
+    (write-line "s"  i)
+    (finish-output i)
     (write-line (format nil "q ~s\nd" text) i)
-    (force-output i)))
-
-
+    (finish-output i)))
 
 (defun tts-speak-list (lines)
-  "Speak an arbitrary number of lines."
-  (tts-stop)
-  (mapc 'tts-queue lines)
-  (tts-force))
+      "Speak an arbitrary number of lines."
+      (tts-stop)
+      (mapc 'tts-queue lines)
+      (tts-force))
 
 (defun tts-letter (text)
   "Speak letter."
-  (unless (and  (tts-process)
-                (ext:process-alive-p (tts-process)))
-    (tts-open))
-  (let ((i (ext:process-input (tts-process))))
+  (unless (tts-input (tts)) (tts-open))
+  (let ((i (tts-input (tts))))
     (write-line (format nil "l ~s" text) i)
-    (force-output i)))
+    (finish-output i)))
 
 ;;; }
-(provide 'tts)
+    (provide 'tts)
 
 ;;; { end of file
 
