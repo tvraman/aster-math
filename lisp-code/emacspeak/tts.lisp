@@ -90,12 +90,14 @@
     (unless i (tts-open))
     (setq  i (tts-input (tts)))
     (write-line (format nil "q {~s}" text) i)
+    (write-char #\Return i)
     (finish-output i)))
 
 (defun tts-force ()
   "Speak all queued text."
   (let ((i (tts-input (tts))))
     (write-line "d" i)
+    (write-char #\Return i)
     (finish-output i)))
 
 ;;; }
@@ -105,6 +107,7 @@
   "Stop speech."
   (let ((i (tts-input (tts))))
     (write-line "s"  i)
+    (write-char #\Return i)
     (finish-output i)))
 
 (defun tts-speak (text)
@@ -112,8 +115,10 @@
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
     (write-line "s"  i)
+    (write-char #\Return i)
     (finish-output i)
-    (write-line (format nil "q ~s" text) i)
+    (write-line (format nil "q {~s}d\n" text) i)
+    (write-char #\Return i)
     (finish-output i)))
 
 (defun tts-speak-list (lines)
@@ -127,6 +132,7 @@
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
     (write-line (format nil "l ~s" text) i)
+    (write-char #\Return i)
     (finish-output i)))
 
 ;;; }
