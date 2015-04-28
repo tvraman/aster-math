@@ -70,7 +70,7 @@
   "Open a TTS session."
   (let ((handle (tts)))
     (setf(tts-input handle)
-         (ext:run-program (tts-engine handle)  :wait nil  :input :stream))))
+         (ext:make-pipe-output-stream (tts-engine handle)))))
 
 (defun tts-close ()
   "Close a TTS session."
