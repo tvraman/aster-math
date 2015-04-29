@@ -9,28 +9,11 @@
 
 (pushnew 'tts *features*)
 
-;;; Variable: *ANNOUNCE*                                     Author: raman
-;;; Created: Sat Dec  5 12:30:50 1992
-;;; set to nil if speech not connected 
-(defvar *announce* nil     "If t announce actions on dectalk")
-
-;;; Function: ANNOUNCE                                       Author: raman
-;;; Created: Tue Sep  1 19:40:28 1992
-
-(defun announce (announcement) 
-  "If TTS ready announce it"
-  (when (and *announce* 
-         (find-package 'tts)
-             (find :tts  *features*))
-    (tts::speak announcement)))
-
-
-
 (defun tts-test () 
   "TTS load test."
   (when   (find-package 'tts)
-    (tts::tts-open)
     (tts::tts-speak "TTS: Ready to talk.")))
+(defvar *lisp-code-directory* "/home/raman/emacs/lisp/aster/lisp-code")
 
 (defsystem tts
     :source-pathname(concatenate 'string
@@ -38,13 +21,6 @@
     :package tts
     :finally-do (tts-test)
     :components (
-		 (:file "tts"))
-:finally-do 
-(defun announce (announcement) 
-(tts::tts-speak announcement)))
+		 (:file "tts")))
 
-(defun announce (announcement) 
-  (when (find-package :tts) 
-    (funcall 
- (find-symbol "tts-speak" :tts) 
-             announcement )))
+
