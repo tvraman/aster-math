@@ -33,7 +33,7 @@
 (in-package :tts)
 (export '(
           tts-queue tts-speak  tts-letter tts-stop  tts-force 
-          tts-open tts-close))
+          tts-init tts-close))
 ;;; { Setup:
 
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
@@ -41,6 +41,10 @@
 
 (defvar *emacspeak* "/usr/share/emacs/site-lisp/emacspeak/"
   "Root of Emacspeak installation.")
+(defun tts-location (engine)
+  "Return location of specified engine."
+  (declare (special *emacspeak*))
+  (concatenate 'string *emacspeak* "servers/" engine))
 
 (defun tts-dtk-exp ()
   "Return name of dtk-exp server."
@@ -57,9 +61,15 @@
   (declare (special *emacspeak*))
   (concatenate 'string *emacspeak* "servers/32-outloud"))
 
-(defvar *tts*
-  (make-tts :engine (tts-32-outloud))
+(defvar *tts* nil
   "Handle to tts server connection.")
+
+(defun tts-init (&key (engine "32-outloud"))
+  "Initialize TTS  system."
+  (declare (special *tts*))
+  (setq *tts*
+        (make-tts :engine (tts-location engine)))
+  (tts-open))
 
 (proclaim '(inline tts))
 (defun tts ()
@@ -137,3 +147,4 @@
 ;;; end:
 
 ;;; }
+
