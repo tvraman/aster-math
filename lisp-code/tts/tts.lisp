@@ -32,7 +32,7 @@
 ;;; }
 (in-package :tts)
 (export '(
-          tts-speak  tts-letter tts-stop  tts-force 
+          tts-queue tts-speak  tts-letter tts-stop  tts-force 
           tts-open tts-close))
 ;;; { Setup:
 
