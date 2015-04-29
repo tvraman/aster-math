@@ -70,7 +70,8 @@
   "Open a TTS session."
   (let ((handle (tts)))
     (setf(tts-input handle)
-         (ext:make-pipe-output-stream (tts-engine handle)))))
+         (ext:make-pipe-output-stream (tts-engine handle)
+                                      :buffered nil))))
 
 (defun tts-close ()
   "Close a TTS session."
@@ -117,7 +118,7 @@
     (write-char #\Return i)
     (write-line (format nil "q {~s}" text) i)
     (write-char #\Return i)
-    (write-line (format nil "d"))
+    (write-line (format nil "d") i)
     (write-char #\Return i)
     (finish-output i)))
 
