@@ -32,6 +32,7 @@
 ;;; }
 (in-package :user)
 ;;; { Setup:
+
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
 
@@ -70,8 +71,7 @@
   "Open a TTS session."
   (let ((handle (tts)))
     (setf(tts-input handle)
-         (ext:make-pipe-output-stream (tts-engine handle)
-                                      :buffered nil))))
+         (ext:make-pipe-output-stream (tts-engine handle) :buffered nil))))
 
 (defun tts-close ()
   "Close a TTS session."
@@ -79,11 +79,6 @@
     (when (tts-input handle)
       (close (tts-input handle)))
     (setf (tts-input handle) nil)))
-
-(defun tts-running-p ()
-  "Is there a tts process up and running?"
-
-  (tts-input (tts)))
 
 (defun tts-queue (text)
   "Queue text to speak."
@@ -114,8 +109,6 @@
   "Speak text."
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
-    (write-line "s"  i)
-    (write-char #\Return i)
     (write-line (format nil "q {~s}" text) i)
     (write-char #\Return i)
     (write-line (format nil "d") i)
