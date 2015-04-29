@@ -1,10 +1,10 @@
-;;; tts.lisp -- Common Lisp interface  to Emacspeak speech servers
+;;; tts.lisp -- Common Lisp interface to Emacspeak speech servers
 ;;; $Author: tv.raman.tv $
-;;; Description:   Interface Common Lisp   to Emacspeak TTS servers
+;;; Description: Interface Common Lisp to Emacspeak TTS servers
 ;;; Keywords: AsTeR, Emacspeak, Audio Desktop
-;;; {  Copyright:
+;;; { Copyright:
 
-;;; Copyright (C)  2011, T. V. Raman<raman@cs.cornell.edu>
+;;; Copyright (C) 2011, T. V. Raman<raman@cs.cornell.edu>
 ;;; All Rights Reserved.
 ;;;
 ;;; This file is not part of GNU Emacs, but the same permissions apply.
@@ -16,21 +16,21 @@
 ;;;
 ;;; GNU Emacs is distributed in the hope that it will be useful,
 ;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 ;;; GNU General Public License for more details.
 ;;;
 ;;; You should have received a copy of the GNU General Public License
-;;; along with GNU Emacs; see the file COPYING.  If not, write to
+;;; along with GNU Emacs; see the file COPYING. If not, write to
 ;;; the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 
 ;;; }
 ;;; { Introduction:
 
 ;;; Commentary:
-;;; Interface Common  Lisp  to Emacspeak TTS servers
+;;; Interface Common Lisp to Emacspeak TTS servers
 
 ;;; }
-(in-package :user)
+(in-package :tts)
 ;;; { Setup:
 
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
@@ -42,17 +42,17 @@
 (defun tts-dtk-exp ()
   "Return name of dtk-exp server."
   (declare (special *emacspeak*))
-  (concatenate 'string   *emacspeak* "servers/dtk-exp"))
+  (concatenate 'string *emacspeak* "servers/dtk-exp"))
 
 (defun tts-outloud ()
   "Outloud tcl server"
   (declare (special *emacspeak*))
-  (concatenate 'string   *emacspeak* "servers/outloud"))
+  (concatenate 'string *emacspeak* "servers/outloud"))
 
 (defun tts-32-outloud ()
   "Return location of 32-outloud server."
   (declare (special *emacspeak*))
-  (concatenate 'string   *emacspeak* "servers/32-outloud"))
+  (concatenate 'string *emacspeak* "servers/32-outloud"))
 
 (defvar *tts*
   (make-tts :engine (tts-32-outloud))
@@ -65,7 +65,7 @@
   *tts*)
 
 ;;; }
-;;; {Internal  Functions
+;;; {Internal Functions
 
 (defun tts-open ()
   "Open a TTS session."
@@ -84,15 +84,13 @@
   "Queue text to speak."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
-    (write-line (format nil "q {~s}" text) i)
-    (write-char #\Return i)
+    (format i "q {~s}~%" text) 
     (finish-output i)))
 
 (defun tts-force ()
   "Speak all queued text."
   (let ((i (tts-input (tts))))
-    (write-line "d" i)
-    (write-char #\Return i)
+    (format i "d~%" )
     (finish-output i)))
 
 ;;; }
@@ -101,18 +99,15 @@
 (defun tts-stop ()
   "Stop speech."
   (let ((i (tts-input (tts))))
-    (write-line "s"  i)
-    (write-char #\Return i)
+    (format i "s~%")
     (finish-output i)))
 
 (defun tts-speak (text)
   "Speak text."
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
-    (write-line (format nil "q {~s}" text) i)
-    (write-char #\Return i)
-    (write-line (format nil "d") i)
-    (write-char #\Return i)
+    (format i "q {~s}~%" text)
+    (format i "d~%")
     (finish-output i)))
 
 (defun tts-speak-list (lines)
@@ -125,8 +120,7 @@
   "Speak letter."
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
-    (write-line (format nil "l ~s" text) i)
-    (write-char #\Return i)
+    (format i "l ~s~%" text)
     (finish-output i)))
 
 ;;; }
