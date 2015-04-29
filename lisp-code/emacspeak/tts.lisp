@@ -31,6 +31,9 @@
 
 ;;; }
 (in-package :tts)
+(export '(
+          tts-speak  tts-letter tts-stop  tts-force 
+          tts-open tts-close))
 ;;; { Setup:
 
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
