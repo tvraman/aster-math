@@ -69,7 +69,6 @@
      ,@body
      (tts:pause ,pause-amount)))
 
-(import 'tts:force-speech (find-package :afl))
 (defun force-speech ()
   (tts:force))
   
