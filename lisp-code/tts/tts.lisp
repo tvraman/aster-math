@@ -32,8 +32,9 @@
 ;;; }
 (in-package :tts)
 (export '(
-          tts-queue tts-speak  tts-letter tts-stop  tts-force 
-          tts-init tts-close))
+          queue speak  letter
+          stop  force
+          init shutdown))
 ;;; { Setup:
 
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
@@ -64,7 +65,7 @@
 (defvar *tts* nil
   "Handle to tts server connection.")
 
-(defun tts-init (&key (engine "32-outloud"))
+(defun init (&key (engine "32-outloud"))
   "Initialize TTS  system."
   (declare (special *tts*))
   (setq *tts*
@@ -86,21 +87,21 @@
     (setf(tts-input handle)
          (ext:make-pipe-output-stream (tts-engine handle) :buffered nil))))
 
-(defun tts-close ()
-  "Close a TTS session."
+(defun shutdown ()
+  "Shutdown a TTS session."
   (let ((handle (tts)))
     (when (tts-input handle)
       (close (tts-input handle)))
     (setf (tts-input handle) nil)))
 
-(defun tts-queue (text)
+(defun queue (text)
   "Queue text to speak."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
     (format i "q {~s}~%" text) 
     (finish-output i)))
 
-(defun tts-force ()
+(defun force ()
   "Speak all queued text."
   (let ((i (tts-input (tts))))
     (format i "d~%" )
@@ -109,13 +110,13 @@
 ;;; }
 ;;; {Exported Functions
 
-(defun tts-stop ()
+(defun stop ()
   "Stop speech."
   (let ((i (tts-input (tts))))
     (format i "s~%")
     (finish-output i)))
 
-(defun tts-speak (text)
+(defun speak (text)
   "Speak text."
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
@@ -129,7 +130,7 @@
   (mapc 'tts-queue lines)
   (tts-force))
 
-(defun tts-letter (text)
+(defun letter (text)
   "Speak letter."
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
