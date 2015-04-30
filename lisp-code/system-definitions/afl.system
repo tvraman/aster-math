@@ -15,19 +15,18 @@
 
 
 ;;; make needed packages.
-(unless (find-package :dectalk)
-  (make-package :dectalk :use '(lisp )))
+
 
 #+lucid 
 (unless (find-package 'afl)
-  (make-package 'afl :use '(lisp    lucid lcl dectalk clos make
+  (make-package 'afl :use '(lisp    lucid lcl  clos make
                             )))
 #+(and pcl clisp)
 (unless (find-package 'afl)
-  (make-package 'afl :use '(lisp    dectalk pcl  make)))
+  (make-package 'afl :use '(lisp    tts pcl  make)))
 #+(and clos clisp) 
 (unless (find-package 'afl)
-  (make-package 'afl :use '(lisp    dectalk clos  make)))
+  (make-package 'afl :use '(lisp    tts clos  make)))
 
 ;;; Variable: *AFL-PATHNAME*                                 Author: raman
 ;;; Created: Fri Aug  7 17:34:12 1992
@@ -94,7 +93,7 @@
                                     (:file "04-moving-in-speech-space")
                                     (:file "05-block-structure" )
                                     (:file "06-synthesizer-codes")
-                                    (:file "dectalk-specific-code")
+                                    (:file "tts") ; replaces dectalk code
                                     (:file "07-final-scaling")
                                     )
                         )
@@ -136,7 +135,7 @@
                         :depends-on ( "pronounce" "speech-component"
                                       "sound-audio"))
                )
-  :depends-on (dectalk   )
+  :depends-on (tts   )
   )
 
 ;;; Variable: *AFL-SOURCE-FILES*                             Author: raman

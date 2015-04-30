@@ -235,7 +235,7 @@ scaling"
                (format dectalk:*stream* command-string))
       #+clisp (progn                    ; does not have with-interruptions-inhibited
                 (setf *speech-hardware-state* new-state )
-                (format dectalk:*stream* command-string))
+                (tts:queue  command-string))
       (when *afl-set-state-debug* 
         (format t "~% ~a  "command-string))
       ))

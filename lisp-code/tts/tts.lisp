@@ -33,7 +33,7 @@
 (in-package :tts)
 (export '(
           queue speak  letter
-          stop  force
+          pause stop  force
           init shutdown))
 ;;; { Setup:
 
@@ -100,6 +100,12 @@
     (unless i (setq i (tts-open)))
     (format i "q {~s}~%" text) 
     (finish-output i)))
+
+(defun pause (ms)
+  "Send silence"
+(let ((i (tts-input (tts))))
+    (format i "sh {~s}~%" ms) 
+    (finish-output i))  )
 
 (defun force ()
   "Speak all queued text."
