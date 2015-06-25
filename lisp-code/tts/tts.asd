@@ -1,4 +1,3 @@
-
 (unless (find-package 'tts)
   (make-package 'tts :use '(cl)))
 (in-package :asdf)

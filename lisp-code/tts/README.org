@@ -8,6 +8,12 @@ Building a bridge from AsTeR to Emacspeak consists of two steps:
   1. Implement the equivalent of emacspeak/stumpwm/tts.lisp to connect to a listening Emacspeak TTS server.
   2. Implement AFL modules that map the various audio dimensions to synthesizer specific codes.
 
-** TBD:
+** Clisp Usage Instructions
 
-  1. Support Clisp, SBCL or both?
+  1. We use ASDF as the system definition facility ---  these
+     instructions assume ASDF is installed.
+  2. Start Clisp with the .clisprc provided in the base directory  ---
+     this loads ASDF.
+  3. Evaluate (asdf:load-system :tts) to load the TTS module.
+  4. (tts:init) to initialize TTS.
+  5. (tts:speak "This is a test.")

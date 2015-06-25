@@ -30,11 +30,15 @@
 ;;; Interface Common Lisp to Emacspeak TTS servers
 
 ;;; }
+;;; {Package Exports:
+
 (in-package :tts)
 (export '(
           queue speak  letter
           pause stop  force
-          init shutdown))
+          speak-list init shutdown))
+
+;;; }
 ;;; { Setup:
 
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
@@ -87,6 +91,9 @@
     (setf(tts-input handle)
          (ext:make-pipe-output-stream (tts-engine handle) :buffered nil))))
 
+;;; }
+;;; {Exported Functions
+
 (defun shutdown ()
   "Shutdown a TTS session."
   (let ((handle (tts)))
@@ -113,9 +120,6 @@
     (format i "d~%" )
     (finish-output i)))
 
-;;; }
-;;; {Exported Functions
-
 (defun stop ()
   "Stop speech."
   (let ((i (tts-input (tts))))
@@ -130,7 +134,7 @@
     (format i "d~%")
     (finish-output i)))
 
-(defun tts-speak-list (lines)
+(defun speak-list (lines)
   "Speak an arbitrary number of lines."
   (tts-stop)
   (mapc 'tts-queue lines)
@@ -154,4 +158,3 @@
 ;;; end:
 
 ;;; }
-
