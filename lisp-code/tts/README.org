@@ -1,6 +1,7 @@
 
-This directory will implement a module to implement a bridge between AsTeR and the Emacspeak family of speech servers.
-When fully implemented, it will replace module dectalk implemented in ../synthesizer.
+This directory will implement a module to bridge between AsTeR and the
+Emacspeak family of speech servers. When fully implemented, it will
+replace module dectalk implemented in ../synthesizer.
 
 Building a bridge from AsTeR to Emacspeak consists of two steps:
 
