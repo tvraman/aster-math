@@ -34,7 +34,7 @@
 
 (in-package :tts)
 (export '(
-          queue speak  letter
+          code queue speak  letter
           pause stop  force
           speak-list init shutdown))
 
@@ -101,6 +101,13 @@
       (close (tts-input handle)))
     (setf (tts-input handle) nil)))
 
+(defun code (cmd)
+  "Queue TTS code  to engine."
+  (let ((i (tts-input (tts))))
+    (unless i (setq i (tts-open)))
+    (format i "c {~s}~%" cmd) 
+    (finish-output i)))
+
 (defun queue (text)
   "Queue text to speak."
   (let ((i (tts-input (tts))))
@@ -136,9 +143,9 @@
 
 (defun speak-list (lines)
   "Speak an arbitrary number of lines."
-  (tts-stop)
+  (tts)
   (mapc 'tts-queue lines)
-  (tts-force))
+  (force))
 
 (defun letter (text)
   "Speak letter."
