@@ -35,9 +35,9 @@
   (unless (find-package :tts) (make-package :tts)))
 (in-package :tts)
 (export '(
-          code queue speak  letter
+          code queue speak  letter speak-list
           pause stop  force
-          speak-list init shutdown))
+           init shutdown))
 
 ;;; }
 ;;; { Setup:
