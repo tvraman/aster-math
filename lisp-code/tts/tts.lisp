@@ -31,7 +31,8 @@
 
 ;;; }
 ;;; {Package Exports:
-
+(eval-when (eval load compile)
+  (unless (find-package :tts) (make-package :tts)))
 (in-package :tts)
 (export '(
           code queue speak  letter

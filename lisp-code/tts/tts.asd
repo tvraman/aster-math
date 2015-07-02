@@ -1,6 +1,4 @@
 (in-package :asdf)
-(unless (find-package 'tts)
-  (make-package 'tts :use '(cl)))
 
 (defsystem "tts"
   :description "TTS: Connect Lisp to Emacspeak Speech Server"
