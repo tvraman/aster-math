@@ -11,3 +11,11 @@
     '("latex-parser/" "tts/" "clos-helper/")
     do
        (push (concatenate 'string aster d) asdf:*central-registry*)))
+
+(defun aster ()
+  "Load AsTeR modules and initialize system."
+  (asdf:load-system :tts)
+  (tts:init)
+  (tts:speak "TTS: Ready to talk.")
+  (asdf:load-system :latex-parser)
+  (tts:speak "Loaded LaTeX parser."))
