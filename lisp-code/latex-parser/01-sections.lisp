@@ -519,27 +519,27 @@ Leaves the pointer of text buffer pointing at  next unit"
 			  ))
   )
 (define-parsing-function 'part
-          #'(lambda(x &key (do-not-test nil ))
+          #'(lambda(x)
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'part)))
 
         (define-parsing-function 'chapter 
-          #'(lambda(x &key (do-not-test nil ))
+          #'(lambda(x )
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'chapter)))
 
 (define-parsing-function 'section 
-          #'(lambda(x &key (do-not-test nil ))
+          #'(lambda(x )
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'section)))
 (define-parsing-function 'subsection 
-          #'(lambda(x &key (do-not-test nil ))
+          #'(lambda(x )
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'subsection )))
 
 
 (define-parsing-function 'subsubsection 
-          #'(lambda(x &key (do-not-test nil ))
+          #'(lambda(x )
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'subsubsection)))
 
