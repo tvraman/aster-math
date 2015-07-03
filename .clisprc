@@ -1,6 +1,10 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
-(setq tts-directory
-      (concatenate  'string
-                (namestring (user-homedir-pathname))
-                "emacs/lisp/aster-math/lisp-code/tts/"))
-(push tts-directory asdf:*central-registry*) 
+
+(let* ((aster-base "emacs/lisp/aster-math/lisp-code/")
+       (aster
+         (concatenate  'string (namestring (user-homedir-pathname)) aster-base)))
+  (loop
+    for d in
+    '("latex-parser/" "tts/")
+    do
+       (push (concatenate 'string aster d) asdf:*central-registry*)))
