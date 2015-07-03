@@ -986,9 +986,8 @@ enumerated and itemized lists."))
   ;;; Created: Sat Dec 26 07:19:58 1992
 
 (defclass word (document)
-  ((contents :initform nil :initarg :contents :accessor word-contents
-             
-             :accessor contents))
+  ((contents :initform nil :initarg :contents
+             :accessor word-contents :accessor contents))
   (:documentation "A word"))
 
 (defun make-word ()
