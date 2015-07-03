@@ -244,7 +244,7 @@
 ;;; Function: SETUP-PRECEDENCE-TABLE                         Author: raman
 ;;; Created: Wed Oct 28 15:56:29 1992
 
-#+clisp 
+
 (defun setup-precedence-table () 
   "Setup precedence table of operators. "
   (add-precedence-row 'arrow-operator :where :before
@@ -304,6 +304,7 @@
         do (define-precedence 
                math-symbol :same-as 'quantifier))
   )
+
 #+lucid
 (defun setup-precedence-table () 
   "Setup precedence table of operators. "
