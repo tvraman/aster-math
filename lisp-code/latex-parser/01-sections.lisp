@@ -5,7 +5,6 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (provide '01-sections)
 
@@ -519,27 +518,27 @@ Leaves the pointer of text buffer pointing at  next unit"
 			  ))
   )
 (define-parsing-function 'part
-          #'(lambda(x)
+          #'(lambda(x &key (do-not-test nil ))
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'part)))
 
         (define-parsing-function 'chapter 
-          #'(lambda(x )
+          #'(lambda(x &key (do-not-test nil ))
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'chapter)))
 
 (define-parsing-function 'section 
-          #'(lambda(x )
+          #'(lambda(x &key (do-not-test nil ))
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'section)))
 (define-parsing-function 'subsection 
-          #'(lambda(x )
+          #'(lambda(x &key (do-not-test nil ))
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'subsection )))
 
 
 (define-parsing-function 'subsubsection 
-          #'(lambda(x )
+          #'(lambda(x &key (do-not-test nil ))
              (create-sectional-unit  (pop-current-entry x )
                                     :sectional-unit-name 'subsubsection)))
 
