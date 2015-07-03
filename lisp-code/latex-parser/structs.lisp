@@ -21,8 +21,7 @@
 
 ;;; holds names and their associated parsers.
 
-(defstruct (parse-table (:type list)
-			(:named))
+(defstruct (parse-table (:type list))
   (name)
   (parser)
   )
@@ -32,8 +31,7 @@
 
 ;;; "Holds all the information about a TeX cs == macro
 
-(defstruct (tex-macro (:type list)
-		      (:named ))
+(defstruct (tex-macro (:type list))
   "Holds the information about a TeX control sequence, ie. a macro"
   (name)
   (number-of-args)
@@ -45,8 +43,7 @@
 
 ;;; hold a math delimiter 
 
-(defstruct (math-delimiter (:type  list)
-			   (:named))
+(defstruct (math-delimiter (:type  list))
   (open)
   (close)
   (name)
