@@ -1,12 +1,10 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
-(defvar *lisp-code-directory*
-  "/home/raman/emacs/lisp/aster/lisp-code"
-  "directory under which lisp code is organized")
 
-(let* ((aster-base "emacs/lisp/aster-math/lisp-code/")
-       (aster
-         (concatenate  'string (namestring (user-homedir-pathname)) aster-base)))
-  (loop
+(defvar *lisp-code-directory*
+  "/home/raman/emacs/lisp/aster-math/lisp-code/"
+  "directory under which lisp code is organized")
+(let ((aster *lisp-code-directory*))
+(loop
     for d in
     '("latex-parser/" "tts/" "clos-helper/")
     do
@@ -15,7 +13,10 @@
 (defun aster ()
   "Load AsTeR modules and initialize system."
   (asdf:load-system :tts)
-  (tts:init)
-  (tts:speak "TTS: Ready to talk.")
-  (asdf:load-system :latex-parser)
-  (tts:speak "Loaded LaTeX parser."))
+  (asdf:load-system :parser)
+  (asdf:load-system :clos-helper))
+
+
+;;; local variables:
+;;; mode: lisp
+;;; end:
