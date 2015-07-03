@@ -5,7 +5,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :user)
+
 #+clisp (use-package :clos)
 #+lucid (use-package :clos)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))

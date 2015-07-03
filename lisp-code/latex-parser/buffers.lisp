@@ -5,7 +5,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :user)
+
 (proclaim '(optimize (compilation-speed 0) (safety 0) (speed 3)))
 ;;; Modified: Thu Sep 24 20:55:06 EDT 1992
 ;;; Added optimising declaration since buffers is working safely.

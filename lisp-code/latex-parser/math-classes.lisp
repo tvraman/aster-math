@@ -5,7 +5,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :user)
+
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 ;;; Modified: Thu Dec 24 11:00:35 EST 1992
 ;;; Changing predicates like math-object-p to use typep instead of
