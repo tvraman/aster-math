@@ -35,7 +35,7 @@
   (unless (find-package :tts) (make-package :tts)))
 (in-package :tts)
 (export '(
-          code queue speak  letter speak-list
+          code queue speak  letter speak-list icon
           pause stop  force
            init shutdown))
 
@@ -92,6 +92,14 @@
     (setf(tts-input handle)
          (ext:make-pipe-output-stream (tts-engine handle) :buffered nil))))
 
+;;; Hard-wiring 3d theme for now:
+
+(defun icon-file (icon)
+  "Convert auditory icon name to a sound-file name."
+  (declare (special *emacspeak*))
+  (format nil "~a/sounds/3d/~a.wav"  *emacspeak* icon))
+  
+
 ;;; }
 ;;; {Exported Functions
 
@@ -107,6 +115,13 @@
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
     (format i "c {~a}~%" cmd) 
+    (finish-output i)))
+
+(defun icon (icon)
+  "Queue auditory icon  to play."
+  (let ((i (tts-input (tts))))
+    (unless i (setq i (tts-open)))
+    (format i "a {~a}~%" (icon-file icon))
     (finish-output i)))
 
 (defun queue (text)
