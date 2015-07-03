@@ -5,7 +5,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :user)
+(in-package :parser)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 ;;; Modified: Thu Dec 24 11:00:35 EST 1992
 ;;; Changing predicates like math-object-p to use typep instead of
@@ -642,7 +642,34 @@
   )
 
 ;;; }
+;;; { integrals 
 
+;;; Class: INTEGRAL-D                                        Author: raman
+;;; Created: Tue Nov  3 12:27:00 1992
+
+(defclass integral-d (math-object)
+  ()
+  (:documentation "Integral close delimiter"))
+
+(defun make-integral-d ()
+  (let ((self (make-instance 'integral-d)))
+    self))
+
+(proclaim '(inline integral-d-p))
+
+(defun integral-d-p (self)
+  (typep self  'integral-d))
+
+
+;;; Function: INTEGRAL-D-SUBTYPE-P                           Author: raman
+;;; Created: Tue Nov  3 13:00:47 1992
+
+(defun integral-d-subtype-p (self) 
+  "Check if arg is an integral d or a subtype"
+  (typep self 'integral-d) 
+  )
+
+;;; }
 ;;; { accessors for integral
 
   ;;; Method: INTEGRAND                                        Author: raman
@@ -759,36 +786,6 @@
   (typep self  'fraction))
 
 ;;; }
-;;; { integrals 
-
-;;; Class: INTEGRAL-D                                        Author: raman
-;;; Created: Tue Nov  3 12:27:00 1992
-
-(defclass integral-d (math-object)
-  ()
-  (:documentation "Integral close delimiter"))
-
-(defun make-integral-d ()
-  (let ((self (make-instance 'integral-d)))
-    self))
-
-(proclaim '(inline integral-d-p))
-
-(defun integral-d-p (self)
-  (typep self  'integral-d))
-
-
-;;; Function: INTEGRAL-D-SUBTYPE-P                           Author: raman
-;;; Created: Tue Nov  3 13:00:47 1992
-
-(defun integral-d-subtype-p (self) 
-  "Check if arg is an integral d or a subtype"
-  (typep self 'integral-d) 
-  )
-
-;;; }
-
-
 ;;; { root
 
   ;;; Class: GENERALIZED-ROOT                                  Author: raman

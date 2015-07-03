@@ -5,7 +5,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :user)
+(in-package :parser)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -44,7 +44,7 @@
   "Parses a Latex article "
   (announce "Performing lexical analysis")
   (with-open-stream
-      (in-stream (user:run-program
+      (in-stream (ext:run-program
                   (concatenate'string
                    *lex-dir*
                    "/"

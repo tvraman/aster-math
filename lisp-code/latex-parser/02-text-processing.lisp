@@ -15,7 +15,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :user)
+(in-package :parser)
 ;;; Modified: Thu Mar 18 22:12:24 EST 1993
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 

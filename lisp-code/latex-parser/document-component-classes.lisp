@@ -1,13 +1,13 @@
-;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;   -*- Syntax: Common-Lisp; Package: PARSER; Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :user)
-#+clisp (use-package :clos)
-#+lucid (use-package :clos)
+(in-package :parser)
+
+
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 ;;; Modified: Thu Dec 24 14:08:54 EST 1992
 ;;; Adding extra accessors for slots
@@ -160,7 +160,7 @@
           :accessor  title )
    (time-to-read :initform nil :initarg :time-to-read
                  :accessor internal-time-to-read )
-   (number  :initform nil :initarg :number :accessor
+   (number :initform nil :initarg :number :accessor
             sectional-unit-number)
    (body :initform nil :initarg :body :accessor sectional-unit-body
          :accessor  body  :accessor contents )
@@ -431,7 +431,7 @@ enumerated and itemized lists."))
 (defclass numbered-class ()
   ((number :initform nil :initarg :number :accessor
            numbered-class-number
-           :accessor number ))
+            ))
   (:documentation "Mixin class, makes things numbered. "))
 
 (defun make-numbered-class ()
