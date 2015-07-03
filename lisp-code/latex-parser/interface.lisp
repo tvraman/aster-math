@@ -39,28 +39,23 @@
 
 ;;; Function: PARSE-ARTICLE                                 Author: raman
 ;;; Created: Fri Feb 21 09:10:37 1992
-#+clisp 
+
 (defun parse-article (filename) 
   "Parses a Latex article "
-  (announce "Performing lexical analysis")
+  (print "Performing lexical analysis")
   (with-open-stream
       (in-stream (ext:run-program
                   (concatenate'string
-                   *lex-dir*
-                   "/"
-                   *lex-program*)
+                   *lex-dir* "/" *lex-program*)
                   :input filename
                   :output  :stream
                   ))
-    (create-article
-     (read in-stream nil))
-    )
-  )
+    (create-article (read in-stream nil))))
 ;;; lucid needs a :wait argument
 #+lucid 
 (defun parse-article (filename) 
   "Parses a Latex article "
-  (announce "Performing lexical analysis")
+  (print "Performing lexical analysis")
   (with-open-stream
       (in-stream (user:run-program
                   (concatenate'string
