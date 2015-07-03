@@ -8,6 +8,6 @@
          (concatenate  'string (namestring (user-homedir-pathname)) aster-base)))
   (loop
     for d in
-    '("latex-parser/" "tts/")
+    '("latex-parser/" "tts/" "clos-helper/")
     do
        (push (concatenate 'string aster d) asdf:*central-registry*)))
