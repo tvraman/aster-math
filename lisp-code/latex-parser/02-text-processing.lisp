@@ -435,7 +435,7 @@ in front, but has ~a instead"
     (when (numbered-class-p new-environment)
       (increment-counter-value
        (class-name (class-of new-environment )))
-      (setf (number new-environment) (next-counter-value
+      (setf (numbered-class-number new-environment) (next-counter-value
                                       (class-name (class-of new-environment )) )))
     (setf (contents new-environment) (process-text
                                       (make-buffer
@@ -872,7 +872,7 @@ default is enumerated list."
       (add-enclosing-referend math-equation))
     (when (numbered-class-p math-equation )
       (increment-counter-value 'math-equation)
-      (setf (number math-equation )  (next-counter-value "MATH-EQUATION"  )))
+      (setf (numbered-class-number math-equation )  (next-counter-value "MATH-EQUATION"  )))
     (setf  (contents math-equation ) 
            (list  (process-math
                    equation-buffer )))

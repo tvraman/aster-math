@@ -1,4 +1,7 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
+(defvar *lisp-code-directory*
+  "/home/raman/emacs/lisp/aster/lisp-code"
+  "directory under which lisp code is organized")
 
 (let* ((aster-base "emacs/lisp/aster-math/lisp-code/")
        (aster

@@ -44,7 +44,7 @@
   "Parses a Latex article "
   (announce "Performing lexical analysis")
   (with-open-stream
-      (in-stream (user:run-program
+      (in-stream (ext:run-program
                   (concatenate'string
                    *lex-dir*
                    "/"

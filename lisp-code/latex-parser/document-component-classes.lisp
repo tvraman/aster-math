@@ -121,8 +121,7 @@
           :accessor title )
    (author :initform nil :initarg :author :accessor article-author
            :accessor author )
-   (address :initform nil :initarg :address :accessor article-address
-            :accessor address )
+   (address :initform nil :initarg :address :accessor article-address)
    (date :initform nil :initarg :date :accessor article-date
          :accessor date )
    (abstract :initform nil :initarg :abstract :accessor
@@ -430,8 +429,7 @@ enumerated and itemized lists."))
 
 (defclass numbered-class ()
   ((number :initform nil :initarg :number :accessor
-           numbered-class-number
-           :accessor number ))
+           numbered-class-number))
   (:documentation "Mixin class, makes things numbered. "))
 
 (defun make-numbered-class ()
