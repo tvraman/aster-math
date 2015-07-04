@@ -6,7 +6,8 @@
 (let ((aster *lisp-code-directory*))
 (loop
     for d in
-    '("latex-parser" "tts" "clos-helper" "afl")
+    '("latex-parser" "tts" "clos-helper"
+      "afl" "afl/pronounce")
     do
        (push (concatenate 'string aster d "/") asdf:*central-registry*)))
 
@@ -15,7 +16,8 @@
   (asdf:load-system :tts)
   (asdf:load-system :parser)
   (asdf:load-system :clos-helper)
-  (asdf:load-system :afl))
+  (asdf:load-system :afl)
+  (asdf:load-system :pronounce))
 
 
 ;;; local variables:

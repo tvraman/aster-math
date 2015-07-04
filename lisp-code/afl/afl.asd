@@ -24,9 +24,10 @@
    (:file "04-moving-in-speech-space")
    (:file "05-block-structure" )
    (:file "06-synthesizer-codes")
-   ;(:file "dectalk-specific-code")
-   (:file "07-final-scaling")
-   ;(:file "total-space/total-space-state" )
-  ) 
-   )
+   (:file "dectalk-specific-code")
+   (:file "tts")
+   (:file "07-final-scaling")))
   
+
+
+                        

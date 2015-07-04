@@ -5,14 +5,6 @@
 (in-package :afl)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-
-;;; These functions are also mostly defined in the dectalk package.
-;;; I am using some of these extensively in the reader, and rather
-;;;  and am importing them into the afl package. At a future time, I
-;;;  might actually redefine them all in the afl package.
-
-
-
 ;;; Redefining some of the more important functions in the afl
 ;;; package.
 
@@ -32,9 +24,9 @@
           subclause-boundary
           ))
 
-(import 'dectalk:send-space (find-package :afl))
+
 (export 'send-space)
-(import  'dectalk:speak-file (find-package  :afl))
+
 (export 'speak-file)
 
 (export (list 'with-file-as-well-as-dectalk
@@ -50,13 +42,13 @@
   )
 (export 'set-period-pause)
 (export 'set-comma-pause)
-(import 'dectalk:*stream*  (find-package :afl))
+
 (export '*stream*)
 
-(import  'dectalk:should-i-continue? (find-package :afl))
+
 (export 'should-i-continue?)
 
-(import 'dectalk:should-i-stop? (find-package :afl))
+
 (export 'should-i-stop?)
 
 ;;; Progressively removing redundant definitions:
@@ -84,17 +76,17 @@
     (afl::pause ,pause-amount))
   )
 
-(import 'dectalk:force-speech (find-package :afl))
+
 (export 'force-speech)
 
 (export 'synchronize-and-play)
 
-(import 'dectalk:send-text (find-package :afl))
+
 (export 'send-text)
 
-(import 'dectalk:speak-number-string (find-package :afl))
+
 (export 'speak-number-string )
-(import 'dectalk:await-silence (find-package :afl ))
+
 (export 'await-silence)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; intonation
@@ -115,7 +107,7 @@
 (proclaim '(inline subclause-boundary))
 (defun subclause-boundary () 
   "Insert a subclause boundary"
-  (format dectalk:*stream* "[)]")
+  (format t "[)]")
   )
 
 
