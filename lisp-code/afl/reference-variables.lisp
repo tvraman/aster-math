@@ -16,28 +16,23 @@
 ;;; { Structure: REFERENCE                                     Author: raman
 ;;; Created: Fri Aug  7 11:27:54 1992
 ;;; A mutable object that implements reference variables
-(defstruct reference
-  val
-  )
+(defstruct reference val)
 ;;; }
-
 ;;; { method reference-value
 
 ;;; Overloading reference-value. If argument is not a reference
 ;;; object, just return it, otherwise return the slot value.
 ;;; Method: REFERENCE-VALUE                                  Author: raman
 ;;; Created: Fri Aug  7 11:44:54 1992
-(defmethod reference-value ((ordinary t) )
+(defmethod reference-value ((ordinary t))
   "return argument"
-  ordinary
-  )
+  ordinary)
 
 ;;; Method: REFERENCE-VALUE                                  Author: raman
 ;;; Created: Fri Aug  7 11:48:37 1992
 (defmethod reference-value ((reference reference))
   "return value of ref"
-  (reference-val reference)
-  )
+  (reference-val reference))
 
 ;;; }
 
