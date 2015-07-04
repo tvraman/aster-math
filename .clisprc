@@ -6,15 +6,16 @@
 (let ((aster *lisp-code-directory*))
 (loop
     for d in
-    '("latex-parser/" "tts/" "clos-helper/")
+    '("latex-parser" "tts" "clos-helper" "afl")
     do
-       (push (concatenate 'string aster d) asdf:*central-registry*)))
+       (push (concatenate 'string aster d "/") asdf:*central-registry*)))
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
   (asdf:load-system :tts)
   (asdf:load-system :parser)
-  (asdf:load-system :clos-helper))
+  (asdf:load-system :clos-helper)
+  (asdf:load-system :afl))
 
 
 ;;; local variables:
