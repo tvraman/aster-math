@@ -35,11 +35,3 @@
   (reference-val reference))
 
 ;;; }
-
-
-;;; This function is taken from Norvig's book.
-;;; It is useful for building up function names etc.
-;;; 
-(defun symbol (&rest args)
-  "Concatenate symbols or strings to form an interned symbol"
-  (intern (format nil "~{~a~}" args)))

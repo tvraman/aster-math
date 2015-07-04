@@ -1,6 +1,6 @@
 (in-package :asdf)
 
-(unless (find-package :afl) (make-package :afl :use '(:tts)))
+(unless (find-package :afl) (make-package :afl ))
 
 (defsystem "afl"
   :description "AFL: Audio Formatting Language"
