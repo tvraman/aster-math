@@ -86,34 +86,21 @@
   "sets up a new block in afl"
   (let ((name (afl-block-name )))
     `(block ,name 
-      (let* 
-          ((previous-speech-state *current-speech-state*)
-           (*current-speech-state*
-            (copy-point-in-speech-space *current-speech-state* ))
-           (previous-pronunciation-mode *pronunciation-mode*) 
+       (let* ((previous-speech-state *current-speech-state*)
+            (*current-speech-state* (copy-point-in-speech-space *current-speech-state* ))
+            (previous-pronunciation-mode *pronunciation-mode*) 
                                         ;simple variable   need not be copied
-           (previous-audio-state *current-audio-state*)
-           (*current-audio-state*
-            (copy-point-in-audio-space *current-audio-state* ))
-           (*current-total-audio-state*  (make-total-audio-state
-                                          :speech
-                                          *current-speech-state*
-                                          :sound *current-audio-state*
-                                          :pronounce *pronunciation-mode*))
-           (*current-exit* #'(lambda() (return-from   ,name nil)))
-           )
-        (unwind-protect
-             (progn
-               ,@body)
-    ;;; reset state
-          (progn
-            (set-speech-state previous-speech-state )
-            (set-pronunciation-mode previous-pronunciation-mode)
-            (set-audio-state previous-audio-state))
-          )
-        )
-      )
-    ))
+            (*current-total-audio-state*  (make-total-audio-state
+                                           :speech *current-speech-state*
+                                           :pronounce *pronunciation-mode*))
+            (*current-exit* #'(lambda() (return-from   ,name nil))))
+         (unwind-protect
+              (progn
+                ,@body)
+;;; reset state
+           (progn
+             (set-speech-state previous-speech-state )
+             (set-pronunciation-mode previous-pronunciation-mode)))))))
 
 
 ;;; Function: EXIT-BLOCK                                     Author: raman

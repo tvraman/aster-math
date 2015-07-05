@@ -126,8 +126,6 @@
     )
   (tts:icon *abstract-cue*  )
   (afl:new-block
-                                        ;   (afl:local-set-state (afl:switch-on
-                                        ;                         afl:*current-audio-state* ))
     (afl:send-text "[+]")
     (afl:local-set-state
      (reading-state 'abstract))
@@ -285,7 +283,7 @@
   (with-slots  ((contents contents )) word
     (cond
       ((punctuation? contents)
-       (format afl:*stream* "~a"
+       (tts:queue "~a"
                (afl:get-pronunciation contents )))
       (t (afl:send-space)
          (afl:send-text (afl:get-pronunciation contents )))
@@ -302,7 +300,7 @@
       ((pronounce (afl:get-pronunciation string )))
     (cond
       ((punctuation? string)
-       (format afl:*stream* "[_]~a" pronounce)
+       (tts:queue "[_]~a" pronounce)
        (afl:force-speech))
       (t (afl:send-space)
          (afl:send-text pronounce  ))
@@ -708,20 +706,22 @@ reading full documents. ")
 
 (defmethod read-aloud ((math-array math-array))
   "Read math array, not fully implemented"
-  (afl:with-pronunciation-mode (:mode :math)
+  (afl:with-pronunciation-mode (:mode :math) 
     (let
         ((contents  (if *transpose-table*
                         (transpose-table (contents
                                           math-array))
                         (contents math-array ))))
-      (loop for row in   contents
+      (loop for row in   contents 
             do
-               (loop for column in row
-                     and
-                       col-index = 1 then (+ 1 col-index)
-                     do
-                        (dotimes (i col-index)
-                          (tts:icon  *column-cue*
+            (loop for column in row
+                  and
+                  col-index = 1 then (+ 1 col-index) 
+                  do
+                  (dotimes (i col-index) 
+                    (afl:synchronize-and-play  *column-cue*))
+                  (read-aloud  column))
+            (afl:synchronize-and-play  *row-cue*)))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Nov 19 15:30:15 1992
