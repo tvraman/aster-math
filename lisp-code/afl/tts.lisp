@@ -8,7 +8,7 @@
 ;;; Connecting AFL module to TTS.
 
 (export '( 
-          pause
+          pause await-silence
           interrogative
           exclamation
           primary-stress

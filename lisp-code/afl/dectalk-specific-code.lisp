@@ -42,10 +42,6 @@
   )
 (export 'set-period-pause)
 (export 'set-comma-pause)
-
-(export '*stream*)
-
-
 (export 'should-i-continue?)
 
 
@@ -53,29 +49,13 @@
 
 ;;; Progressively removing redundant definitions:
 
-;;; Function: PAUSE                                          Author: raman
-;;; Created: Thu Nov 26 12:03:17 1992
 
-(defun pause (milliseconds) 
-  "Pause for so many milliseconds"
-  (assert (typep milliseconds 'fixnum) nil
-          "Milliseconds = ~a, which is not a number"
-          milliseconds)
-  (when (> milliseconds 0) 
-    (format afl::*stream* " [_<~d>] "
-            milliseconds))
-  )
+
+
+
 
 ;;; Macro: WITH-SURROUNDING-PAUSE                            Author: raman
 ;;; Created: Thu Nov 26 12:32:58 1992
-
-(defmacro with-surrounding-pause (pause-amount &body body) 
-  "Execute body with surrounding pause specified by pause-amount"
-  `(progn (afl::pause ,pause-amount)
-    ,@body
-    (afl::pause ,pause-amount))
-  )
-
 
 (export 'force-speech)
 
@@ -118,8 +98,7 @@
 (proclaim '(inline high-intonation))
 (defun high-intonation () 
   "Generate H*"
-  (format afl::*stream* "[/]")
-  )
+  (tts:queue  "[/]"))
 
 
   ;;; Function: LOW-INTONATION                                 Author: raman
@@ -127,7 +106,7 @@
 (proclaim'(inline low-intonation))
 (defun low-intonation () 
   "Generate L*"
-  (format afl::*stream* "[\]")
+  (tts:queue "[\]")
   )
 
 
@@ -137,7 +116,7 @@
 (proclaim '(inline high-low-intonation))
 (defun high-low-intonation () 
   "Generate Hl*"
-  (format afl::*stream* "[/\]")
+  (tts:queue "[/\]")
   )
 
 
@@ -146,12 +125,12 @@
 (proclaim '(inline comma-intonation ))
 (defun comma-intonation () 
   "Generate a comma intonation"
-  (format *stream* "[_,] ")
+  (tts:queue "[_,] ")
   )
 (proclaim '(inline period-intonation ))
 (defun period-intonation () 
   "Generate a period intonation"
-  (format *stream* "[_.] ")
+  (tts:queue "[_.] ")
   )
 
 
@@ -161,37 +140,37 @@
 (proclaim '(inline paragraph-begin))
 (defun paragraph-begin  () 
   "Begin a paragraph"
-  (format *stream* "[+]")
+  (tts:queue "[+]")
   )
 
 (proclaim '(inline exclamation))
 (defun exclamation  () 
   "Send an exclamation. "
-  (format *stream* "[_!]")
+  (tts:queue "[_!]")
   )
 
 (proclaim '(inline interrogative))
 (defun interrogative  () 
   "Send an interrogative. "
-  (format *stream* "[_?]")
+  (tts:queue "[_?]")
   )
 
 (proclaim '(inline primary-stress))
 (defun primary-stress  () 
   "Send a  primary-stress. "
-  (format *stream* "[']")
+  (tts:queue "[']")
   )
 
 (proclaim '(inline secondary-stress))
 (defun secondary-stress  () 
   "Send a  secondary-stress. "
-  (format *stream* "[`]")
+  (tts:queue "[`]")
   )
 
 (proclaim '(inline exclamatory-stress))
 (defun exclamatory-stress  () 
   "Send an   exclamatory-stress. "
-  (format *stream* "[\"]")
+  (tts:queue "[\"]")
   )
 
 

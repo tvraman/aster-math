@@ -19,6 +19,7 @@
 (defstruct reference val)
 ;;; }
 ;;; { method reference-value
+(defgeneric reference-value (ref))
 
 ;;; Overloading reference-value. If argument is not a reference
 ;;; object, just return it, otherwise return the slot value.
