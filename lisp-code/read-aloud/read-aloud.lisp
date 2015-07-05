@@ -365,18 +365,14 @@
 (defmethod read-aloud ((text-block text-block))
   "read aloud a text block,. " 
   (afl:new-block
-   (dolist
-       (item (text-block-local-environment text-block) )
-     (afl:local-set-state 
-      (funcall
-       (retrieve-font-rule item)
-       afl:*current-speech-state*))
-     )
-   (when (eql :math (afl:current-pronunciation-mode))
-     (afl:local-set-state :text ))
-   (read-aloud (text-block-contents text-block))
-   )
-  )
+    (dolist
+        (item (text-block-local-environment text-block) )
+      (afl:local-set-state 
+       (funcall (retrieve-font-rule item) afl:*current-speech-state*)))
+    (when (eql :math (afl:current-pronunciation-mode))
+      (afl:local-set-state :text ))
+    (read-aloud (text-block-contents text-block))
+    ))
 
 
 

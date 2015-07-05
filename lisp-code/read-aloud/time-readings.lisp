@@ -63,25 +63,20 @@
 
 (defmethod time-to-read ((sectional-unit sectional-unit))
   "Time taken to render this sectional unit."
-  (let
-      ((guess  (null (internal-time-to-read sectional-unit ))))
+  (let ((guess  (null (internal-time-to-read sectional-unit ))))
     (cond
       (guess (guess-how-long-to-read sectional-unit))
       (t (speak-decoded-time
           (duration  (internal-time-to-read sectional-unit ))))
-      ))
-  )
+      )))
+
 (defmethod time-to-read ((article article))
   "Time taken to render this sectional unit."
-  (let
-      ((guess  (null (internal-time-to-read article ))))
+  (let ((guess  (null (internal-time-to-read article ))))
     (cond
       (guess (guess-how-long-to-read article))
       (t (speak-decoded-time
-          (duration  (internal-time-to-read article ))))
-      ))
-  )
-
+          (duration  (internal-time-to-read article )))))))
 
   ;;; Constant: *TIME-FIELDS*                                  Author: raman
   ;;; Created: Sat Jan  8 12:19:20 1994
