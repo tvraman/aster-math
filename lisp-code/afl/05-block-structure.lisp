@@ -69,7 +69,7 @@
 
 (defun afl-block-name()
   "Generate a afl block name"
-  (symbol 'block- (incf *afl-block-id*))
+  (afl-symbol 'block- (incf *afl-block-id*))
   )
 
 

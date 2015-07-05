@@ -36,3 +36,11 @@
   (reference-val reference))
 
 ;;; }
+
+;;; {Symbol:
+;;; Hack!
+(defun afl-symbol (&rest args)
+  "Concatenate symbols or strings to form an interned symbol"
+  (intern (format nil "~{~a~}" args)))
+;;; }
+

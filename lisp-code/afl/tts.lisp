@@ -4,8 +4,8 @@
 ;;; TTS Calls used by  read-aloud.
 
 (export
- '(
-   audio-prompt
+ '(synchronize-and-play should-i-stop? should-i-continue?
+   audio-prompt send-space
    high-intonation low-intonation high-low-intonation
    comma-intonation period-intonation paragraph-begin
    set-period-pause set-comma-pause
@@ -20,6 +20,19 @@
      (tts:pause ,pause-amount)
      ,@body
      (tts:pause ,pause-amount)))
+
+(defun should-i-stop? (&rest ignore)
+"stub"
+nil)
+(defun should-i-continue? (&rest ignore)
+"stub"
+nil)
+
+(defun synchronize-and-play (name  &rest ignore)
+  "Stub"
+  (tts:icon name)
+  (tts:force))
+
 ;;; The functions  below will be auto-generated based on engine in  use.
 
 ;;; Stubbed for now
