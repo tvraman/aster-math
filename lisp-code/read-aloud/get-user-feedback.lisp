@@ -43,7 +43,7 @@
   ;;; Created: Sat May  1 13:06:02 1993
 
 (defparameter *prompt-cue*
-  (afl:make-audio-filename "arcade_beep")
+  "prompt"
   "Sound to play when prompting. ")
 
   ;;; Parameter: *GET-LABEL-WAIT*                              Author: raman
@@ -60,13 +60,12 @@
   "Get label for this object from user.
 Wait for *get-label-wait* seconds before returning. "
   (unless (zerop *get-label-wait*)
-    (afl:synchronize-and-play *prompt-cue*)
+    (tts:icon *prompt-cue*)
     (when (query:y-or-n-p-wait   #\n *get-label-wait*
                                  "Do you want to enter a new label. ")
       (afl:send-text "enter label. ")
       (format t "~% enter label.~% ")
-      (fix-read-line )))
-  )
+      (fix-read-line ))))
 
 
 

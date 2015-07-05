@@ -29,7 +29,7 @@
 ;;; Created: Sun May  3 19:04:31 1992
 
 (defvar *article-cue*
-  (afl:make-audio-filename "article" )
+   "article" 
   "Cue to use at the start and end of articles.")
 
 
@@ -38,14 +38,14 @@
 ;;; Created: Tue May 12 13:49:55 1992
 
 (defvar *article-open-cue*
-  (afl:make-audio-filename "article-open")
+  "article-open"
   "open an article")
 
 ;;; Variable: *ARTICLE-CLOSE-CUE*                            Author: raman
 ;;; Created: Tue May 12 13:50:26 1992
 
 (defvar *article-close-cue*
-  (afl:make-audio-filename "article-close" )
+   "article-close" 
   "close an article.")
 
 
@@ -56,7 +56,7 @@
 
 (defvar *abstract-cue*
 
-  (afl:make-audio-filename "abstract")
+  "abstract"
   "cue for abstract")
 
 
@@ -65,7 +65,7 @@
 ;;; Created: Sun May  3 19:06:02 1992
 
 (defvar *paragraph-cue*
-  (afl:make-audio-filename "paragraph")
+  "paragraph"
   "cue to use at the start of a new paragraph.")
 
 
@@ -75,7 +75,7 @@
 ;;; Created: Sun May  3 19:06:33 1992
 
 (defvar *section-cue*
-  (afl:make-audio-filename "section")
+  "section"
   "cue at the beginning of sections.")
 
 
@@ -86,7 +86,7 @@
 ;;; Created: Sun May  3 19:11:11 1992
 
 (defvar *item-cue*
-  (afl:make-audio-filename "item")
+  "item"
   "Cue for items.")
 
 
@@ -95,7 +95,7 @@
 ;;; Created: Sun May  3 19:07:03 1992
 
 (defvar *newline-cue*
-  (afl:make-audio-filename "newline")
+  "newline"
   "Cue for newlines.")
 
 
@@ -105,14 +105,14 @@
   ;;; Created: Tue Sep 28 14:27:01 1993
 
 (defparameter *field-separator-cue*
-  (afl:make-audio-filename "quiet-beep")
+   "quiet-beep"
   "sound cue for field separator. ")
 
 ;;; Variable: *SLIDE-CUE*                                    Author: raman
 ;;; Created: Mon May  4 12:41:54 1992
 
 (defvar *slide-cue*
-  (afl:make-audio-filename "slide")
+  "slide"
   "cue for slides.")
 
 
@@ -156,8 +156,7 @@
     (read-aloud  " Abstract,   ")
     (afl:force-speech)
     )
-  (afl:synchronize-and-play
-   *abstract-cue* :background-flag t )
+  (tts:icon *abstract-cue*  )
   (afl:new-block
                                         ;   (afl:local-set-state (afl:switch-on
                                         ;                         afl:*current-audio-state* ))
@@ -202,8 +201,7 @@
   "read aloud an article"
   (afl:new-block
    (afl:initialize-speech-space)
-   (when *play-signature-tune*(afl:synchronize-and-play
-                               *article-open-cue*))
+   (when *play-signature-tune*(tts:icon *article-open-cue*))
    (when (article-title article)
      (with-reading-state (reading-state 'annotation-voice)
        (read-aloud   "Title. ")
@@ -223,8 +221,7 @@
    (read-aloud (article-abstract article))
    (read-aloud (article-initial-body article))
    (read-aloud  (article-sectional-units article))
-   (when *play-signature-tune*(afl:synchronize-and-play
-                               *article-close-cue*))
+   (when *play-signature-tune*(tts:icon *article-close-cue*))
    (afl:force-speech) )
   )
 
@@ -388,8 +385,7 @@
 
 (defmethod read-aloud ((paragraph paragraph))
   "read aloud a paragraph."
-  (afl:synchronize-and-play 
-   *paragraph-cue* :background-flag t)
+  (tts:icon *paragraph-cue*)
   (afl:send-text "[+] ")
   (read-aloud (paragraph-contents paragraph))
   )
@@ -418,8 +414,7 @@
 
 (defmethod read-aloud ((item item))
   "read aloud an item."
-  (afl:synchronize-and-play 
-   *item-cue* :background-flag *read-all-text*)
+  (tts:icon *item-cue*)
   (when (item-marker item)
     (with-reading-state (reading-state 'annotation-voice)
       (read-aloud (item-marker item ))))
@@ -500,8 +495,7 @@
       (afl:speak-number-string
        (sectional-unit-number section)))
     )
-  (afl:synchronize-and-play 
-   *section-cue* :background-flag *read-all-text*)
+  (tts:icon *section-cue* )
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (sectional-unit-title section)))
   (when (sectional-unit-body section) 
@@ -599,12 +593,12 @@
 (defmethod read-aloud ((newline (eql  'newline)))
   "read aloud new lines"
   (afl:force-speech)
-  (afl:synchronize-and-play *newline-cue* :background-flag t)
+  (tts:icon *newline-cue* )
   )
 
 (defmethod read-aloud ((field-separator (eql  'field-separator)))
   "read aloud new lines"
-  (afl:synchronize-and-play *field-separator-cue* :background-flag t)
+  (tts:icon *field-separator-cue* )
   )
 
 
@@ -613,10 +607,8 @@
 
 (defmethod read-aloud ((slide slide))
   "read aloud a slide"
-                                        ;  (afl:synchronize-and-play 
-                                        ;   *slide-cue* :background-flag *read-all-text*)
-  (read-aloud (slide-contents slide))
-  )
+  (tts:icon *slide-cue* )
+  (read-aloud (slide-contents slide)))
 
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -653,7 +645,7 @@
 ;;; Created: Mon Sep  7 13:24:46 1992
 
 (defparameter *math-cue*
-  (afl:make-audio-filename "jazz_piano_beep")
+  "jazz_piano_beep"
   "cue math")
 
 ;;; Variable: *READ-MATH-ALOUD*                              Author: raman
@@ -795,7 +787,7 @@ reading full documents. ")
 ;;; Created: Sat Oct 31 11:16:32 1992
 
 (defvar *column-cue*
-  (afl:make-audio-filename "column")
+  "column"
   "Column cue")
 
 
@@ -803,7 +795,7 @@ reading full documents. ")
 ;;; Created: Sat Oct 31 11:17:10 1992
 
 (defvar *row-cue*
-  (afl:make-audio-filename "long-beep")
+   "long-beep"
   "Row cue")
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Fri Oct 30 12:00:29 1992
@@ -823,11 +815,7 @@ reading full documents. ")
                   col-index = 1 then (+ 1 col-index) 
                   do
                   (dotimes (i col-index) 
-                    (afl:synchronize-and-play  *column-cue*
-                                               :background-flag t))
-                  (read-aloud  column))
-            (afl:synchronize-and-play  *row-cue*)))
-    ))
+                    (tts:icon  *column-cue* 
 
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -845,10 +833,9 @@ reading full documents. ")
                 col-index = 1 then (+ 1 col-index) 
                 do
                 (dotimes (i col-index) 
-                  (afl:synchronize-and-play  *column-cue*
-                                             :background-flag t))
+                  (tts:icon  *column-cue*))
                 (read-aloud  column))
-          (afl:synchronize-and-play  *row-cue*)))
+          (tts:icon  *row-cue*)))
   )
 
 (defmethod read-aloud ((math-eqnarray math-eqnarray))
@@ -860,10 +847,9 @@ reading full documents. ")
               col-index = 1 then (+ 1 col-index) 
               do
               (dotimes (i col-index) 
-                (afl:synchronize-and-play  *column-cue*
-                                           :background-flag t))
+                (tts:icon  *column-cue*))
               (read-aloud  column))
-        (afl:synchronize-and-play  *row-cue*))
+        (tts:icon  *row-cue*))
   )
 
 ;;; Method: READ-ALOUD                                       Author: raman

@@ -4,12 +4,15 @@
   "/home/raman/emacs/lisp/aster-math/lisp-code/"
   "directory under which lisp code is organized")
 (let ((aster *lisp-code-directory*))
+  (load
+   (concatenate 'string
+                aster  "lisp-utilities/query"))
   (loop
-     for d in
-       '("latex-parser" "tts" "clos-helper"
-         "afl" "afl/pronounce" "afl/total-space")
-     do
-       (push (concatenate 'string aster d "/") asdf:*central-registry*)))
+    for d in
+    '("latex-parser" "tts" "clos-helper"
+      "afl" "afl/pronounce" "afl/total-space" "read-aloud")
+    do
+       (pushnew  (concatenate 'string aster d "/") asdf:*central-registry*)))
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
@@ -18,7 +21,8 @@
   (asdf:load-system :clos-helper)
   (asdf:load-system :afl)
   (asdf:load-system :pronounce)
-  (asdf:load-system :total-space))
+  (asdf:load-system :total-space)
+  (asdf:load-system :read-aloud))
 
 
 ;;; local variables:
