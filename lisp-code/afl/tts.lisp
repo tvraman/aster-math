@@ -22,6 +22,11 @@
      (tts:pause ,pause-amount)))
 ;;; The functions  below will be auto-generated based on engine in  use.
 
+;;; Stubbed for now
+(defun  make-audio-filename (name)
+  "Stubbed for now"
+  name)
+
 (defun send-space ()
   "Send a space to TTS."
   (tts:queue " "))

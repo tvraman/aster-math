@@ -1,5 +1,10 @@
 (in-package :asdf)
 
+;;; Hack!
+(defun symbol (&rest args)
+  "Concatenate symbols or strings to form an interned symbol"
+  (intern (format nil "~{~a~}" args)))
+
 (defsystem "read-aloud"
   :description "AsTeR's Audio Formatting Rules"
   :version "1.0"
