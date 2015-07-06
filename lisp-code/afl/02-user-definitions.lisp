@@ -52,9 +52,9 @@ is at front"
 ;;; determined by the value to which we would have set right volume.
 ;;; What a kluge:- 
  (add-dimension 'left-volume)
- ;(add-dimension 'right-volume)
+ (add-dimension 'right-volume)
 ;;; this went away after dectalk 3: 
- ;(add-dimension 'loudness)
+ (add-dimension 'loudness)
 ;;; common dimensions to multivoice and express 
 (add-dimension 'lax-breathiness)
 (add-dimension 'average-pitch)
@@ -78,8 +78,8 @@ is at front"
 ;;; defining some synthesizer codes. dectalk specific
 
  (define-synthesizer-code 'left-volume " :vs ")
-;#+multivoice (define-synthesizer-code 'right-volume " :ve ")
-;#+express  (define-synthesizer-code 'right-volume ":sync  :tone 500 ")
+#+multivoice (define-synthesizer-code 'right-volume " :ve ")
+#+express  (define-synthesizer-code 'right-volume ":sync  :tone 500 ")
 (define-synthesizer-code 'lax-breathiness " :dv lx ")
 (define-synthesizer-code 'voice ":n")
 (define-synthesizer-code 'head-size ":dv hs ")
@@ -95,8 +95,8 @@ is at front"
 (define-synthesizer-code 'stress-rise " :dv sr ")
 (define-synthesizer-code 'assertiveness " :dv as ")
 (define-synthesizer-code 'quickness " :dv qu ")
-;#+multivoice (define-synthesizer-code 'loudness ":dv lo ")
-;#+express  (define-synthesizer-code 'loudness ":dv g5 ")
+#+multivoice (define-synthesizer-code 'loudness ":dv lo ")
+#+express  (define-synthesizer-code 'loudness ":dv g5 ")
 ;;; }
 ;;; { define-default-value 
 
