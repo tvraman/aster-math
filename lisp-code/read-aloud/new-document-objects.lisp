@@ -326,7 +326,7 @@
 ;;; Use slots argument-argument-1 in                         read-aloud 
 (defmethod read-aloud  (( h-space h-space )) 
   "Read aloud method for object h-space "
-  (format dectalk:*stream* "[_<300>]")
+  (tts:queue "[_<300>]")
   )
 
 
