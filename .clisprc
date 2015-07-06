@@ -1,7 +1,10 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
 (setq CUSTOM:*SUPPRESS-CHECK-REDEFINITION*  t)
 (defvar *lisp-code-directory*
-  "/home/raman/emacs/lisp/aster-math/lisp-code/"
+  (concatenate
+   'string
+                (namestring (user-homedir-pathname))
+                "emacs/lisp/aster-math/lisp-code/")
   "directory under which lisp code is organized")
 (let ((aster *lisp-code-directory*))
   (load
