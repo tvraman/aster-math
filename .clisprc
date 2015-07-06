@@ -14,7 +14,7 @@
   (loop
     for d in
     '("latex-parser" "tts" "clos-helper"
-      "afl" "afl/pronounce" "afl/total-space" "read-aloud")
+      "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
     do
        (pushnew  (concatenate 'string aster d "/") asdf:*central-registry*)))
 
@@ -26,7 +26,8 @@
   (asdf:load-system :afl)
   (asdf:load-system :pronounce)
   (asdf:load-system :total-space)
-  (asdf:load-system :read-aloud))
+  (asdf:load-system :read-aloud)
+  (asdf:load-system :browse))
 
 
 (defun aster-setup ()
