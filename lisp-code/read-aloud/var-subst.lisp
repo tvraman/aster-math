@@ -142,8 +142,6 @@ continues if y is not  pressed.")
                               (expression substituted-expression )))
                            (when (substitutions substituted-expression )
                              (afl:new-block
-                              (afl:local-set-state (afl:switch-on
-                                                    afl:*current-audio-state* ))
                               (cond
                                 ((and (numberp
                                        *wait-before-reading-substitutions* )

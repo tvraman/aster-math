@@ -5,6 +5,7 @@
 
 (export
  '(synchronize-and-play should-i-stop? should-i-continue?
+   make-audio-filename ;will be nuked
    audio-prompt send-space
    high-intonation low-intonation high-low-intonation
    comma-intonation period-intonation paragraph-begin
