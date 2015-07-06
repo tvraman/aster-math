@@ -37,7 +37,7 @@
                                              :depends-on  ("read-aloud"))
                                       )
                           :depends-on ( "font-definitions"
-                                        "user-input"
+                                       "user-input"
                                         "reading-state"))
                  (:module  "font-definitions" :source-pathname ""
                            :components(
@@ -77,6 +77,7 @@
                                        (:file "standard-math-objects")
                                        (:file "literature")
                                        (:file "new-environment-definitions")
+                                       (:file "literature")
                                        )
                           )
                  (:module "complexity" :source-pathname ""

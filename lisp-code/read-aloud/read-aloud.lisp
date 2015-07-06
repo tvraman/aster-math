@@ -283,8 +283,7 @@
   (with-slots  ((contents contents )) word
     (cond
       ((punctuation? contents)
-       (tts:queue "~a"
-               (afl:get-pronunciation contents )))
+       (tts:queue (format nil "~a" (afl:get-pronunciation contents ))))
       (t (afl:send-space)
          (afl:send-text (afl:get-pronunciation contents )))
       ))
@@ -300,7 +299,7 @@
       ((pronounce (afl:get-pronunciation string )))
     (cond
       ((punctuation? string)
-       (tts:queue "[_]~a" pronounce)
+       (tts:queue (format nil "[_]~a" pronounce))
        (afl:force-speech))
       (t (afl:send-space)
          (afl:send-text pronounce  ))

@@ -21,6 +21,7 @@
    (:file "standard-math-objects")
    (:file "new-document-objects")
    (:file "new-environment-definitions")
+   (:file "literature")
    (:file "complex-objects")
    (:file "reading-styles-and-rules" )
    (:file "math-reader-aux")
@@ -33,4 +34,6 @@
    (:file "descriptive-math-readings"
     :depends-on
     ("reading-styles-and-rules" "math-reader-aux" ))
-   ))
+   (:file "special-pattern-macros")
+   (:file "special-patterns" :depends-on ("special-pattern-macros"))
+          ))
