@@ -18,7 +18,6 @@
   (setf *current-total-audio-state*
         (make-total-audio-state
          :speech *current-speech-state*
-         :sound *current-audio-state*
          :pronounce *pronunciation-mode* ))
   (setf *global-total-audio-state* *current-total-audio-state* )
   )
