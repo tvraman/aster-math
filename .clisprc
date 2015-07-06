@@ -1,5 +1,6 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
-(setq CUSTOM:*SUPPRESS-CHECK-REDEFINITION*  t)
+(setq CUSTOM:*SUPPRESS-CHECK-REDEFINITION*  t
+      EXT:APPEASE-CERRORS t)
 (defvar *lisp-code-directory*
   (concatenate
    'string
