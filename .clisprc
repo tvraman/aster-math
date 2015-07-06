@@ -18,18 +18,6 @@
     do
        (pushnew  (concatenate 'string aster d "/") asdf:*central-registry*)))
 
-(defun aster ()
-  "Load AsTeR modules and initialize system."
-  (asdf:load-system :tts)
-  (asdf:load-system :parser)
-  (asdf:load-system :clos-helper)
-  (asdf:load-system :afl)
-  (asdf:load-system :pronounce)
-  (asdf:load-system :total-space)
-  (asdf:load-system :read-aloud)
-  (asdf:load-system :browse))
-
-
 (defun aster-setup ()
   "Setup default reading rules and styles."
   (activate-rule 'stackrel 'default)
@@ -44,9 +32,23 @@
   (activate-rule 'footnote 'float)
   (activate-style  'use-special-pattern)
   (setf *follow-cross-ref-wait* 0
-        *get-label-wait* 0))
+        *get-label-wait* 0)
+  (pushnew :express   *features*))
+
+
+(defun aster ()
+  "Load AsTeR modules and initialize system."
+  (asdf:load-system :tts)
+  (asdf:load-system :parser)
+  (asdf:load-system :clos-helper)
+  (asdf:load-system :afl)
+  (asdf:load-system :pronounce)
+  (asdf:load-system :total-space)
+  (asdf:load-system :read-aloud)
+  (asdf:load-system :browse)
+  (aster-setup))
 
 ;;; local variables:
 ;;; mode: lisp
 ;;; end:
-(pushnew :express   *features*)
+

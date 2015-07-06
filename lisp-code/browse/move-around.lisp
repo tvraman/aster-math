@@ -102,10 +102,7 @@
                                         (inline-math-p *read-pointer* ))))))
           (afl:new-block
            (afl:local-set-state afl:*global-total-audio-state*)
-           (afl:local-set-state
-            (afl:select-sound "soft-beep" afl:*current-audio-state*))
-           (afl:local-set-state (afl:switch-on
-                                 afl:*current-audio-state*))
+           (afl:local-set-state)
            (if  math-flag
                (with-reading-state (reading-state 'math)
                                    (afl:local-set-state :math) 
