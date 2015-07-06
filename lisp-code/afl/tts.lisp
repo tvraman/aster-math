@@ -43,7 +43,7 @@ nil)
 
 (defun send-space ()
   "Send a space to TTS."
-  (tts:queue " "))
+  nil)
 
 (defun set-period-pause (msec)
   (send-text  (format nil "[:pp ~a]" msec)))
