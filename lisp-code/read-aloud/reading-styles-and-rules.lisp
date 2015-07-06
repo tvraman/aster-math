@@ -174,7 +174,8 @@
            "Around method"
            (when document 
                                         ; record for browsing
-             (setf *previous-read-pointer* *read-pointer* )
+             (when *read-pointer*
+               (setf *previous-read-pointer* *read-pointer* ))
              (setf *read-pointer* document)
              (unless (afl-state document)
                (setf (afl-state document)
