@@ -1,6 +1,5 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
-(setq CUSTOM:*SUPPRESS-CHECK-REDEFINITION*  t
-      EXT:APPEASE-CERRORS t)
+(setq CUSTOM:*SUPPRESS-CHECK-REDEFINITION*  t)
 (defvar *lisp-code-directory*
   (concatenate
    'string
@@ -35,7 +34,6 @@
         *get-label-wait* 0)
   (pushnew :express   *features*))
 
-
 (defun aster ()
   "Load AsTeR modules and initialize system."
   (asdf:load-system :tts)
@@ -44,7 +42,7 @@
   (asdf:load-system :afl)
   (asdf:load-system :pronounce)
   (asdf:load-system :total-space)
-  (asdf:load-system :read-aloud)
+  (EXT:WITHOUT-PACKAGE-LOCK (:clos) (asdf:load-system :read-aloud))
   (asdf:load-system :browse)
   (aster-setup))
 
