@@ -18,6 +18,7 @@
 
 (defun aster-setup ()
   "Setup default reading rules and styles."
+  (pushnew :express   *features*)
   (activate-rule 'stackrel 'default)
   (activate-rule 'overbrace 'default)
   (activate-rule 'underbrace 'default)
@@ -31,19 +32,20 @@
   (activate-style  'use-special-pattern)
   (setf *follow-cross-ref-wait* 0
         *get-label-wait* 0)
-  (pushnew :express   *features*))
+  )
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
-  (asdf:load-system :tts)
-  (asdf:load-system :parser)
-  (asdf:load-system :clos-helper)
-  (asdf:load-system :afl)
-  (asdf:load-system :pronounce)
-  (asdf:load-system :total-space)
-  (EXT:WITHOUT-PACKAGE-LOCK (:common-lisp :clos) (asdf:load-system :read-aloud))
-  (asdf:load-system :browse)
-  (aster-setup))
+  (let ((CUSTOM:*SUPPRESS-CHECK-REDEFINITION*  t))
+    (asdf:load-system :tts)
+    (asdf:load-system :parser)
+    (asdf:load-system :clos-helper)
+    (asdf:load-system :afl)
+    (asdf:load-system :pronounce)
+    (asdf:load-system :total-space)
+    (EXT:WITHOUT-PACKAGE-LOCK (:common-lisp :clos) (asdf:load-system :read-aloud))
+    (asdf:load-system :browse)
+    (aster-setup)))
 
 ;;; local variables:
 ;;; mode: lisp
