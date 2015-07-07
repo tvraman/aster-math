@@ -41,7 +41,7 @@
   (asdf:load-system :afl)
   (asdf:load-system :pronounce)
   (asdf:load-system :total-space)
-  (EXT:WITHOUT-PACKAGE-LOCK (:clos) (asdf:load-system :read-aloud))
+  (EXT:WITHOUT-PACKAGE-LOCK (:common-lisp :clos) (asdf:load-system :read-aloud))
   (asdf:load-system :browse)
   (aster-setup))
 
