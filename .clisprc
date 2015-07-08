@@ -12,7 +12,7 @@
     "tcs-chicago"
     "rz-book"
     "norvig-book"
-    ;"gries-book"
+    "gries-book"
     "dennis-math-books"
     "cs611-notes"
     )
@@ -59,7 +59,9 @@
     (asdf:load-system :total-space)
     (EXT:WITHOUT-PACKAGE-LOCK (:common-lisp :clos) (asdf:load-system :read-aloud))
     (asdf:load-system :browse)
-    (mapc #'asdf:load-system *books*)
+    (EXT:WITHOUT-PACKAGE-LOCK
+     (:common-lisp :clos)
+     (mapc #'asdf:load-system *books*))
     (aster-setup)))
 
 ;;; local variables:

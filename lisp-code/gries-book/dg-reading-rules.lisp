@@ -13,9 +13,6 @@
        (read-aloud (format nil "~a  ~a. "
                            (contents boxed-equation)
                            (number boxed-equation ))))
-   (afl:local-set-state (afl:switch-on afl:*current-audio-state* ))
-   (process-allow-schedule)
-   (sleep 1)
    (afl:pause 5) 
    (read-aloud (argument 1 boxed-equation))
    )
