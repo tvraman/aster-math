@@ -1,4 +1,4 @@
-(in-package 'asdf)
+(in-package :asdf)
 
 ;;; Contains objects from tcs chicago journal 
 ;;; One file will have object definitions, and the rest reading rules.

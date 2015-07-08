@@ -1,5 +1,5 @@
 
-(in-package :asd)
+(in-package :asdf)
 
 ;;; Contains objects from Dennis-Math-Books's
 ;;; One file will have object definitions, and the rest reading rules.

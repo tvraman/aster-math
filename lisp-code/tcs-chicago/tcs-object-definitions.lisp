@@ -47,9 +47,10 @@
       (setf contents (first contents )))
     (when (word-p contents )
       (setf contents (contents contents )))
-    (format afl:*stream* "~a"
+    (tts:queue
+     (format nil "~a"
             (afl:get-pronunciation
-             contents  )))
+             contents  ))))
   )
 
 ;;; }

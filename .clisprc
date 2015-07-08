@@ -7,21 +7,20 @@
   "directory under which lisp code is organized")
 (defvar *books*
   '(
-    "vavasis-book/"
-    "vanloan-book/"
-    "tcs-chicago/"
-    "rz-book/"
-    "norvig-book/"
-    "gries-book/"
-    "dennis-math-books/"
-    "cs611-notes/"
+    "vavasis-book"
+    "vanloan-book"
+    "tcs-chicago"
+    "rz-book"
+    "norvig-book"
+    ;"gries-book"
+    "dennis-math-books"
+    "cs611-notes"
     )
   "List of books")
 
 (let ((aster *lisp-code-directory*))
   (load
-   (concatenate 'string
-                aster  "lisp-utilities/query"))
+   (concatenate 'string aster  "lisp-utilities/query"))
   (loop
     for d in
        (append 
@@ -60,6 +59,7 @@
     (asdf:load-system :total-space)
     (EXT:WITHOUT-PACKAGE-LOCK (:common-lisp :clos) (asdf:load-system :read-aloud))
     (asdf:load-system :browse)
+    (mapc #'asdf:load-system *books*)
     (aster-setup)))
 
 ;;; local variables:

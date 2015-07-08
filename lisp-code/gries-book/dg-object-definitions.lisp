@@ -46,7 +46,8 @@
        (read-aloud (label-name (label defined-text-object-with-label )))
        (read-aloud (format nil "~a  ~a. "
                            (contents defined-text-object-with-label)
-                           (number defined-text-object-with-label ))))
+                           (number defined-text-object-with-label )
+                           )))
    (afl:pause 5)
    (read-aloud (argument 1 defined-text-object-with-label))
    (relabel-if-necessary (label defined-text-object-with-label )))

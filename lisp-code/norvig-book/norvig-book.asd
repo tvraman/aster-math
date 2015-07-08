@@ -1,5 +1,5 @@
 
-(in-package :asd)
+(in-package :asdf)
 
 
 ;;; Tue Feb 23 09:29:37 EST 1993
