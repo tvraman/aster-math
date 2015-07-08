@@ -5,14 +5,29 @@
                 (namestring (user-homedir-pathname))
                 "emacs/lisp/aster-math/lisp-code/")
   "directory under which lisp code is organized")
+(defvar *books*
+  '(
+    "vavasis-book/"
+    "vanloan-book/"
+    "tcs-chicago/"
+    "rz-book/"
+    "norvig-book/"
+    "gries-book/"
+    "dennis-math-books/"
+    "cs611-notes/"
+    )
+  "List of books")
+
 (let ((aster *lisp-code-directory*))
   (load
    (concatenate 'string
                 aster  "lisp-utilities/query"))
   (loop
     for d in
+       (append 
     '("latex-parser" "tts" "clos-helper"
       "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
+    *books*)
     do
        (pushnew  (concatenate 'string aster d "/") asdf:*central-registry*)))
 
