@@ -10,9 +10,8 @@
 
 ;;; export all dimension names.
 ;;; This defines the Speech-Space in terms of Aural CSS (ACSS).
-;;; { *list-of-speech-dimensions*
-
 ;;; Dimensions are from Aural CSS (ACSS).
+
 (defstruct acss
   "Aural CSS"
   family gain
