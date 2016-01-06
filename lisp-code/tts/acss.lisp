@@ -25,7 +25,7 @@
 ;;; the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 
 ;;; }m
-(in-package :afl)
+(in-package :tts)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
 (defstruct acss

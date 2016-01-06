@@ -1,10 +1,11 @@
+;;;   -*- Syntax: Common-Lisp; Package: tts ; Mode: LISP -*-    ;;;
 ;;; tts.lisp -- Common Lisp interface to Emacspeak speech servers
 ;;; $Author: tv.raman.tv $
 ;;; Description: Interface Common Lisp to Emacspeak TTS servers
 ;;; Keywords: AsTeR, Emacspeak, Audio Desktop
 ;;; { Copyright:
 
-;;; Copyright (C) 2011, T. V. Raman<raman@cs.cornell.edu>
+;;; Copyright (C) 2011 -- 2016, T. V. Raman<tv.raman.tv@gmail.com>
 ;;; All Rights Reserved.
 ;;;
 ;;; This file is not part of GNU Emacs, but the same permissions apply.
