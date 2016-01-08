@@ -1,4 +1,3 @@
-
 (asdf:defsystem "tts"
   :description "TTS: Connect Lisp to Emacspeak Speech Server"
   :version "1.0"
