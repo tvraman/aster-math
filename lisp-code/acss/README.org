@@ -1,0 +1,7 @@
+* ACSS: AFL Implementation That Outputs ACSS
+
+A new implementation of Audio Formatting Language (AFL) as used in
+AsTeR. This implementation wil output strings annotated with ACSS
+properties, and make that output available via a socket. When
+complete, swapping out the old AFL implementation in AsTeR should give
+us a version of AsTeR that module ~emacspeak-maths~ can use.
