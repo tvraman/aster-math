@@ -5,3 +5,5 @@ AsTeR. This implementation wil output strings annotated with ACSS
 properties, and make that output available via a socket. When
 complete, swapping out the old AFL implementation in AsTeR should give
 us a version of AsTeR that module ~emacspeak-maths~ can use.
+
+Fri Oct 21 15:35:27 PDT 2016
