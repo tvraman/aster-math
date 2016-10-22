@@ -18,46 +18,46 @@ Fri Oct 21 15:35:27 PDT 2016
 #+END_SRC
 
 #+BEGIN_SRC lisp
-  (AFL:*GLOBAL-AUDIO-STATE* AFL:MINIMUM-VALUE AFL:RICHNESS AFL:*SOUND-PRIORITY*
-   AFL:URSULA AFL:*GLOBAL-SPEECH-STATE* AFL:SCALE-BY AFL:KID
-   AFL:DEFINE-STANDARD-VOICE AFL:INTERROGATIVE AFL:*READER-COMMA-PAUSE*
-   AFL:MULTI-MOVE-TO AFL:GENERALIZED-AFL-OPERATOR AFL:SWITCH
-   AFL:MAKE-AUDIO-FILENAME AFL:*PRONOUNCE-IGNORE-CASE-IN-TEXT*
-   AFL:DEFINE-MINIMUM-VALUE AFL:MAXIMUM-VALUE AFL:VOICE AFL:RIGHT-VOLUME
-   AFL:WITH-SURROUNDING-PAUSE AFL:QUICKNESS AFL:SELECT-SOUND
-   AFL:*CURRENT-AUDIO-STATE* AFL:LENGTH-OF-SUBINTERVAL AFL:AUDIO-MOVE-TO
-   AFL:*ALWAYS-DEHYPHENATE* AFL:SET-PERIOD-PAUSE AFL:*GLOBAL-TOTAL-AUDIO-STATE*
-   AFL:PLAY-REPEATEDLY AFL:MULTI-SCALE-BY AFL:GET-POINT-IN-SPEECH-SPACE
-   AFL:SOUND-NAME AFL:RESET-DECTALK AFL:VALUE AFL:PARAGRAPH-BEGIN AFL:NEW-BLOCK
-   AFL:DEFINE-FINAL-SCALE-FACTOR AFL:BREATHINESS AFL:HARRY
-   AFL:WITH-LAZY-SET-STATE DECTALK:SEND-TEXT AFL:INITIALIZE-AUDIO-SPACE
-   AFL:MULTI-MOVE-BY DECTALK:SPEAK-FILE AFL:PAUL AFL:SWITCH-OFF AFL:SMOOTHNESS
-   AFL:INTERVAL AFL:GET-FINAL-SCALE-FACTOR DECTALK:SPEAK-NUMBER-STRING
-   AFL:CURRENT-PRONUNCIATION-MODE AFL:SECONDARY-STRESS AFL:SWITCH-ON
-   AFL:PRIMARY-STRESS AFL:*CURRENT-TOTAL-AUDIO-STATE* AFL:LOCAL-SET-STATE
-   AFL:GET-PRONUNCIATION DECTALK:SHOULD-I-CONTINUE? AFL:PITCH-RANGE AFL:WENDY
-   AFL:PAUSE AFL:ID AFL:*GLOBAL-PRONUNCIATION-MODE* AFL:ACTIVATE-SOUND-AUDIO
-   AFL:BASELINE-FALL DECTALK:SHOULD-I-STOP? AFL:LOW-INTONATION
-   AFL:DEFINE-DEFAULT-VALUE AFL:SET-COMMA-PAUSE AFL:COMMA-INTONATION
-   AFL:SAVE-POINT-IN-SPEECH-SPACE AFL:DEFINE-MAXIMUM-VALUE AFL:FRANK
-   AFL:*LAZY-SET-STATE* AFL:*PRONUNCIATION-MODE* AFL:*CURRENT-SPEECH-STATE*
-   AFL:EXCLAMATORY-STRESS AFL:DEFINE-SYNTHESIZER-CODE AFL:SET-STEP-SIZE
-   AFL:MULTI-STEP-BY AFL:INITIALIZE-TOTAL-SPACE DECTALK:*STREAM* AFL:EXIT-BLOCK
-   AFL:SPEECH-RATE AFL:SUBCLAUSE-BOUNDARY DECTALK:SEND-SPACE AFL:HIGH-INTONATION
-   DECTALK:WITH-FILE-INSTEAD-OF-DECTALK AFL:RE-INITIALIZE-SPEECH-SPACE AFL:PORT
-   AFL:RITA AFL:CURRENT-VALUE AFL:TOGGLE-SWITCH AFL:DEACTIVATE-SOUND-AUDIO
-   AFL:ADD-DIMENSION AFL:HIGH-LOW-INTONATION DECTALK:WITH-FILE-AS-WELL-AS-DECTALK
-   AFL:GLOBAL-SET-STATE AFL:MOVE-BY AFL:VOLUME AFL:LOUDNESS AFL:GET-STEP-SIZE
-   AFL:DEFINE-PRONUNCIATION AFL:MOVE-TO AFL:AVERAGE-PITCH AFL:STRESS-RISE
-   AFL:AUDIO-PROMPT AFL:SYNCHRONIZE-AND-PLAY DECTALK:AWAIT-SILENCE AFL:DENNIS
-   AFL:LEFT-VOLUME AFL:EXCLAMATION AFL:DIMENSION-RANGE AFL:LAX-BREATHINESS
-   AFL:REFRESH AFL:*AWAIT-SILENCE-WHEN-USING-STEREO* AFL:NAMED-BLOCK
-   AFL:SET-FINAL-SCALE-FACTOR DECTALK:FORCE-SPEECH AFL:STEP-BY
-   AFL:PERIOD-INTONATION AFL:BETTY AFL:DEFINE-UNIT-SIZE AFL:LARYNGILIZATION
-   AFL:PLAY-ONCE AFL:HEAD-SIZE AFL:DEFINE-STEP-SIZE AFL:COMPUTE-RANGE
-   AFL:STEP-SIZE AFL:*READER-PERIOD-PAUSE* AFL:*SOUND-DIR-NAME*
-   AFL:*DEFAULT-VOICE* AFL:HAT-RISE AFL:WITH-PRONUNCIATION-MODE
-   AFL:INITIALIZE-SPEECH-SPACE AFL:LIST-OF-SPEECH-DIMENSIONS AFL:ASSERTIVENESS)
+  (afl:*global-audio-state* afl:minimum-value afl:richness afl:*sound-priority*
+   afl:ursula afl:*global-speech-state* afl:scale-by afl:kid
+   afl:define-standard-voice afl:interrogative afl:*reader-comma-pause*
+   afl:multi-move-to afl:generalized-afl-operator afl:switch
+   afl:make-audio-filename afl:*pronounce-ignore-case-in-text*
+   afl:define-minimum-value afl:maximum-value afl:voice afl:right-volume
+   afl:with-surrounding-pause afl:quickness afl:select-sound
+   afl:*current-audio-state* afl:length-of-subinterval afl:audio-move-to
+   afl:*always-dehyphenate* afl:set-period-pause afl:*global-total-audio-state*
+   afl:play-repeatedly afl:multi-scale-by afl:get-point-in-speech-space
+   afl:sound-name afl:reset-dectalk afl:value afl:paragraph-begin afl:new-block
+   afl:define-final-scale-factor afl:breathiness afl:harry
+   afl:with-lazy-set-state dectalk:send-text afl:initialize-audio-space
+   afl:multi-move-by dectalk:speak-file afl:paul afl:switch-off afl:smoothness
+   afl:interval afl:get-final-scale-factor dectalk:speak-number-string
+   afl:current-pronunciation-mode afl:secondary-stress afl:switch-on
+   afl:primary-stress afl:*current-total-audio-state* afl:local-set-state
+   afl:get-pronunciation dectalk:should-i-continue? afl:pitch-range afl:wendy
+   afl:pause afl:id afl:*global-pronunciation-mode* afl:activate-sound-audio
+   afl:baseline-fall dectalk:should-i-stop? afl:low-intonation
+   afl:define-default-value afl:set-comma-pause afl:comma-intonation
+   afl:save-point-in-speech-space afl:define-maximum-value afl:frank
+   afl:*lazy-set-state* afl:*pronunciation-mode* afl:*current-speech-state*
+   afl:exclamatory-stress afl:define-synthesizer-code afl:set-step-size
+   afl:multi-step-by afl:initialize-total-space dectalk:*stream* afl:exit-block
+   afl:speech-rate afl:subclause-boundary dectalk:send-space afl:high-intonation
+   dectalk:with-file-instead-of-dectalk afl:re-initialize-speech-space afl:port
+   afl:rita afl:current-value afl:toggle-switch afl:deactivate-sound-audio
+   afl:add-dimension afl:high-low-intonation dectalk:with-file-as-well-as-dectalk
+   afl:global-set-state afl:move-by afl:volume afl:loudness afl:get-step-size
+   afl:define-pronunciation afl:move-to afl:average-pitch afl:stress-rise
+   afl:audio-prompt afl:synchronize-and-play dectalk:await-silence afl:dennis
+   afl:left-volume afl:exclamation afl:dimension-range afl:lax-breathiness
+   afl:refresh afl:*await-silence-when-using-stereo* afl:named-block
+   afl:set-final-scale-factor dectalk:force-speech afl:step-by
+   afl:period-intonation afl:betty afl:define-unit-size afl:laryngilization
+   afl:play-once afl:head-size afl:define-step-size afl:compute-range
+   afl:step-size afl:*reader-period-pause* afl:*sound-dir-name*
+   afl:*default-voice* afl:hat-rise afl:with-pronunciation-mode
+   afl:initialize-speech-space afl:list-of-speech-dimensions afl:assertiveness)
 #+END_SRC
 
 ** Exported Functions 
@@ -69,24 +69,24 @@ Fri Oct 21 15:35:27 PDT 2016
 #+END_SRC
 
 #+BEGIN_SRC  lisp
-(AFL:MINIMUM-VALUE AFL:SCALE-BY AFL:DEFINE-STANDARD-VOICE AFL:INTERROGATIVE AFL:MULTI-MOVE-TO
- AFL:GENERALIZED-AFL-OPERATOR AFL:SWITCH AFL:MAKE-AUDIO-FILENAME AFL:DEFINE-MINIMUM-VALUE AFL:MAXIMUM-VALUE
- AFL:WITH-SURROUNDING-PAUSE AFL:SELECT-SOUND AFL:LENGTH-OF-SUBINTERVAL AFL:SET-PERIOD-PAUSE AFL:PLAY-REPEATEDLY
- AFL:MULTI-SCALE-BY AFL:GET-POINT-IN-SPEECH-SPACE AFL:RESET-DECTALK AFL:PARAGRAPH-BEGIN AFL:NEW-BLOCK
- AFL:DEFINE-FINAL-SCALE-FACTOR AFL:WITH-LAZY-SET-STATE DECTALK:SEND-TEXT AFL:INITIALIZE-AUDIO-SPACE AFL:MULTI-MOVE-BY
- DECTALK:SPEAK-FILE AFL:SWITCH-OFF AFL:INTERVAL AFL:GET-FINAL-SCALE-FACTOR DECTALK:SPEAK-NUMBER-STRING
- AFL:CURRENT-PRONUNCIATION-MODE AFL:SECONDARY-STRESS AFL:SWITCH-ON AFL:PRIMARY-STRESS AFL:LOCAL-SET-STATE
- AFL:GET-PRONUNCIATION DECTALK:SHOULD-I-CONTINUE? AFL:PAUSE AFL:ACTIVATE-SOUND-AUDIO DECTALK:SHOULD-I-STOP?
- AFL:LOW-INTONATION AFL:DEFINE-DEFAULT-VALUE AFL:SET-COMMA-PAUSE AFL:COMMA-INTONATION AFL:SAVE-POINT-IN-SPEECH-SPACE
- AFL:DEFINE-MAXIMUM-VALUE AFL:EXCLAMATORY-STRESS AFL:DEFINE-SYNTHESIZER-CODE AFL:SET-STEP-SIZE AFL:MULTI-STEP-BY
- AFL:INITIALIZE-TOTAL-SPACE AFL:EXIT-BLOCK AFL:SUBCLAUSE-BOUNDARY DECTALK:SEND-SPACE AFL:HIGH-INTONATION
- DECTALK:WITH-FILE-INSTEAD-OF-DECTALK AFL:RE-INITIALIZE-SPEECH-SPACE AFL:CURRENT-VALUE AFL:TOGGLE-SWITCH
- AFL:DEACTIVATE-SOUND-AUDIO AFL:ADD-DIMENSION AFL:HIGH-LOW-INTONATION DECTALK:WITH-FILE-AS-WELL-AS-DECTALK
- AFL:GLOBAL-SET-STATE AFL:MOVE-BY AFL:GET-STEP-SIZE AFL:DEFINE-PRONUNCIATION AFL:MOVE-TO AFL:AUDIO-PROMPT
- AFL:SYNCHRONIZE-AND-PLAY DECTALK:AWAIT-SILENCE AFL:EXCLAMATION AFL:DIMENSION-RANGE AFL:REFRESH
- AFL:SET-FINAL-SCALE-FACTOR DECTALK:FORCE-SPEECH AFL:STEP-BY AFL:PERIOD-INTONATION AFL:DEFINE-UNIT-SIZE AFL:PLAY-ONCE
- AFL:DEFINE-STEP-SIZE AFL:COMPUTE-RANGE AFL:WITH-PRONUNCIATION-MODE AFL:INITIALIZE-SPEECH-SPACE
- AFL:LIST-OF-SPEECH-DIMENSIONS)
+(afl:minimum-value afl:scale-by afl:define-standard-voice afl:interrogative afl:multi-move-to
+ afl:generalized-afl-operator afl:switch afl:make-audio-filename afl:define-minimum-value afl:maximum-value
+ afl:with-surrounding-pause afl:select-sound afl:length-of-subinterval afl:set-period-pause afl:play-repeatedly
+ afl:multi-scale-by afl:get-point-in-speech-space afl:reset-dectalk afl:paragraph-begin afl:new-block
+ afl:define-final-scale-factor afl:with-lazy-set-state dectalk:send-text afl:initialize-audio-space afl:multi-move-by
+ dectalk:speak-file afl:switch-off afl:interval afl:get-final-scale-factor dectalk:speak-number-string
+ afl:current-pronunciation-mode afl:secondary-stress afl:switch-on afl:primary-stress afl:local-set-state
+ afl:get-pronunciation dectalk:should-i-continue? afl:pause afl:activate-sound-audio dectalk:should-i-stop?
+ afl:low-intonation afl:define-default-value afl:set-comma-pause afl:comma-intonation afl:save-point-in-speech-space
+ afl:define-maximum-value afl:exclamatory-stress afl:define-synthesizer-code afl:set-step-size afl:multi-step-by
+ afl:initialize-total-space afl:exit-block afl:subclause-boundary dectalk:send-space afl:high-intonation
+ dectalk:with-file-instead-of-dectalk afl:re-initialize-speech-space afl:current-value afl:toggle-switch
+ afl:deactivate-sound-audio afl:add-dimension afl:high-low-intonation dectalk:with-file-as-well-as-dectalk
+ afl:global-set-state afl:move-by afl:get-step-size afl:define-pronunciation afl:move-to afl:audio-prompt
+ afl:synchronize-and-play dectalk:await-silence afl:exclamation afl:dimension-range afl:refresh
+ afl:set-final-scale-factor dectalk:force-speech afl:step-by afl:period-intonation afl:define-unit-size afl:play-once
+ afl:define-step-size afl:compute-range afl:with-pronunciation-mode afl:initialize-speech-space
+ afl:list-of-speech-dimensions)
 #+END_SRC
 
 **  Exported Variables 
@@ -98,13 +98,13 @@ Fri Oct 21 15:35:27 PDT 2016
 #+END_SRC
 
 #+BEGIN_SRC  lisp
-(AFL:*GLOBAL-AUDIO-STATE* AFL:RICHNESS AFL:*SOUND-PRIORITY* AFL:URSULA AFL:*GLOBAL-SPEECH-STATE* AFL:KID
- AFL:*READER-COMMA-PAUSE* AFL:*PRONOUNCE-IGNORE-CASE-IN-TEXT* AFL:VOICE AFL:RIGHT-VOLUME AFL:QUICKNESS
- AFL:*CURRENT-AUDIO-STATE* AFL:AUDIO-MOVE-TO AFL:*ALWAYS-DEHYPHENATE* AFL:*GLOBAL-TOTAL-AUDIO-STATE* AFL:SOUND-NAME
- AFL:VALUE AFL:BREATHINESS AFL:HARRY AFL:PAUL AFL:SMOOTHNESS AFL:*CURRENT-TOTAL-AUDIO-STATE* AFL:PITCH-RANGE AFL:WENDY
- AFL:ID AFL:*GLOBAL-PRONUNCIATION-MODE* AFL:BASELINE-FALL AFL:FRANK AFL:*LAZY-SET-STATE* AFL:*PRONUNCIATION-MODE*
- AFL:*CURRENT-SPEECH-STATE* DECTALK:*STREAM* AFL:SPEECH-RATE AFL:PORT AFL:RITA AFL:VOLUME AFL:LOUDNESS
- AFL:AVERAGE-PITCH AFL:STRESS-RISE AFL:DENNIS AFL:LEFT-VOLUME AFL:LAX-BREATHINESS
- AFL:*AWAIT-SILENCE-WHEN-USING-STEREO* AFL:NAMED-BLOCK AFL:BETTY AFL:LARYNGILIZATION AFL:HEAD-SIZE AFL:STEP-SIZE
- AFL:*READER-PERIOD-PAUSE* AFL:*SOUND-DIR-NAME* AFL:*DEFAULT-VOICE* AFL:HAT-RISE AFL:ASSERTIVENESS)
+(afl:*global-audio-state* afl:richness afl:*sound-priority* afl:ursula afl:*global-speech-state* afl:kid
+ afl:*reader-comma-pause* afl:*pronounce-ignore-case-in-text* afl:voice afl:right-volume afl:quickness
+ afl:*current-audio-state* afl:audio-move-to afl:*always-dehyphenate* afl:*global-total-audio-state* afl:sound-name
+ afl:value afl:breathiness afl:harry afl:paul afl:smoothness afl:*current-total-audio-state* afl:pitch-range afl:wendy
+ afl:id afl:*global-pronunciation-mode* afl:baseline-fall afl:frank afl:*lazy-set-state* afl:*pronunciation-mode*
+ afl:*current-speech-state* dectalk:*stream* afl:speech-rate afl:port afl:rita afl:volume afl:loudness
+ afl:average-pitch afl:stress-rise afl:dennis afl:left-volume afl:lax-breathiness
+ afl:*await-silence-when-using-stereo* afl:named-block afl:betty afl:laryngilization afl:head-size afl:step-size
+ afl:*reader-period-pause* afl:*sound-dir-name* afl:*default-voice* afl:hat-rise afl:assertiveness)
 #+END_SRC
