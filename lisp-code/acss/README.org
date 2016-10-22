@@ -8,6 +8,9 @@ us a version of AsTeR that module ~emacspeak-maths~ can use.
 
 Fri Oct 21 15:35:27 PDT 2016
 ** AFL Exported Symbols:
+
+** All Exported Symbols 
+
 #+BEGIN_SRC lisp
 (loop 
  for s being the external-symbols of (find-package "AFL") 
@@ -55,4 +58,20 @@ Fri Oct 21 15:35:27 PDT 2016
    AFL:STEP-SIZE AFL:*READER-PERIOD-PAUSE* AFL:*SOUND-DIR-NAME*
    AFL:*DEFAULT-VOICE* AFL:HAT-RISE AFL:WITH-PRONUNCIATION-MODE
    AFL:INITIALIZE-SPEECH-SPACE AFL:LIST-OF-SPEECH-DIMENSIONS AFL:ASSERTIVENESS)
+#+END_SRC
+
+** Exported Functions 
+
+#+BEGIN_SRC  lisp
+(loop 
+ for s being the external-symbols of (find-package "AFL") 
+ when (fboundp s)collect s)
+#+END_SRC
+
+**  Exported Variables 
+#+BEGIN_SRC  lisp
+(loop 
+ for s being the external-symbols of (find-package "AFL") 
+ unless (fboundp s)collect s)
+
 #+END_SRC
