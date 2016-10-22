@@ -25,7 +25,7 @@
     for d in
        (append 
     '("latex-parser" "tts" "clos-helper"
-      "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
+      "acss" "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
     *books*)
     do
        (pushnew  (concatenate 'string aster d "/") asdf:*central-registry*)))

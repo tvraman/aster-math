@@ -3,3 +3,4 @@
 *.o
 lisp-code/lexer/lispify
 lisp-code/lexer/lispify.c
+auto/

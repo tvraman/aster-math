@@ -10,4 +10,4 @@
   :author "T. V. Raman <tv.raman.tv@gmail.com>"
   :licence "GPL V2"
   :components
-  ((:file "acss.lisp")))
+  ((:file "acss")))
