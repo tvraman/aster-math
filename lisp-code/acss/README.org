@@ -9,8 +9,7 @@ us a version of AsTeR that module ~emacspeak-maths~ can use.
 Fri Oct 21 15:35:27 PDT 2016
 ** AFL Exported Symbols:
 
-(loop for s being the external-symbols of (find-package "AFL") collect
-s)
+(loop for s being the external-symbols of (find-package "AFL") collect s)
 
 (AFL:*GLOBAL-AUDIO-STATE* AFL:MINIMUM-VALUE AFL:RICHNESS AFL:*SOUND-PRIORITY*
  AFL:URSULA AFL:*GLOBAL-SPEECH-STATE* AFL:SCALE-BY AFL:KID
