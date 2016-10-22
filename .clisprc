@@ -68,3 +68,8 @@
 ;;; mode: lisp
 ;;; end:
 
+(defun read-aloud-file (filename)
+  "Read aloud this file by first parsing it. "
+  (declare (special *document*)) 
+  (setf *document* (parse-article filename))
+  (read-aloud *document* ))
