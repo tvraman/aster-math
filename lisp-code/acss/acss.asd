@@ -1,6 +1,8 @@
 (in-package :asdf)
 
-(unless (find-package :acss) (make-package :acss ))
+
+  (defpackage :acss
+    (:use :common-lisp))
 
 (defsystem "acss"
   :description "AFL: Audio Formatting Language Using ACSS"
@@ -8,5 +10,4 @@
   :author "T. V. Raman <tv.raman.tv@gmail.com>"
   :licence "GPL V2"
   :components
-  (
-   ))
+  ((:file "acss.lisp")))
