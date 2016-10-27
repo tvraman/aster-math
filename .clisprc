@@ -1,10 +1,16 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
+
+;;; The following lines added by ql:add-to-init-file:
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+
 (defvar *lisp-code-directory*
-  (concatenate
-   'string
-                (namestring (user-homedir-pathname))
-                "emacs/lisp/aster-math/lisp-code/")
+  (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
+
 (defvar *books*
   '(
     "vavasis-book"
@@ -19,8 +25,7 @@
   "List of books")
 
 (let ((aster *lisp-code-directory*))
-  (load
-   (concatenate 'string aster  "lisp-utilities/query"))
+  (load (merge-pathnames "lisp-utilities/query"  aster))
   (loop
     for d in
        (append 
@@ -28,7 +33,7 @@
       "acss" "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
     *books*)
     do
-       (pushnew  (concatenate 'string aster d "/") asdf:*central-registry*)))
+       (pushnew  (merge-pathnames  d aster ) asdf:*central-registry*)))
 
 (defun aster-setup ()
   "Setup default reading rules and styles."
@@ -63,13 +68,14 @@
      (:common-lisp :clos)
      (mapc #'asdf:load-system *books*))
     (aster-setup)))
-
-;;; local variables:
-;;; mode: lisp
-;;; end:
-
 (defun read-aloud-file (filename)
   "Read aloud this file by first parsing it. "
   (declare (special *document*)) 
   (setf *document* (parse-article filename))
   (read-aloud *document* ))
+
+
+
+;;; local variables:
+;;; mode: lisp
+;;; end:
