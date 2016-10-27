@@ -26,7 +26,7 @@
 ;;; Created: Mon Mar 30 19:55:16 1992
 
 (defvar *lisp-code-directory*
-  "/home/raman/emacs/lisp/aster/lisp-code"
+  "/usr/local/google/home/raman/emacs/lisp/aster/lisp-code"
   "directory under which lisp code is organized")
 
 ;;; load defsystem
@@ -64,4 +64,5 @@
 )
 
 (load-system :read-aloud)
+(afl:initialize-speech-space)
 (afl:initialize-total-space)
