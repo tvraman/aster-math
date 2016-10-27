@@ -9,7 +9,7 @@
 (export '(*stream* setup finish speak-string))
 
 (defvar *serial-device* nil "Dectalk Serial Port.")
-#+(and PC386 UNIX) (setf *serial-device*  "/dev/ttyS0")
+#+(and PC386 UNIX) (setf *serial-device*  "/dev/ttyUSB0")
 #+SUN4 (setf *serial-device*  "/dev/ttya")
 (unless *serial-device*
   (setf *serial-device* "/dev/tty00" ))
