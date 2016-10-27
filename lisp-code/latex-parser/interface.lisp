@@ -21,9 +21,7 @@
 ;;; external variable: 
 (defvar *lex-dir* nil "Directory where the lexer resides")
 ;;; Now set it up:
-(setf *lex-dir*
-      (concatenate 'string
-                   *lisp-code-directory* "/" "lexer" ))
+(setf *lex-dir* (merge-pathnames "lexer/" *lisp-code-directory* ))
 
 
 ;;; Variable: *LEX-PROGRAM*                                  Author: raman

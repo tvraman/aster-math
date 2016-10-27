@@ -13,26 +13,26 @@
 
 (defvar *books*
   '(
-    "vavasis-book/"
-    "vanloan-book/"
-    "tcs-chicago/"
-    "rz-book/"
-    "norvig-book/"
-    "gries-book/"
-    "dennis-math-books/"
-    "cs611-notes/"
+    "vavasis-book"
+    "vanloan-book"
+    "tcs-chicago"
+    "rz-book"
+    "norvig-book"
+    "gries-book"
+    "dennis-math-books"
+    "cs611-notes"
     )
   "List of books")
 
 (let ((aster *lisp-code-directory*))
   (load (merge-pathnames "lisp-utilities/query"  aster))
   (loop
-    for d in
+     for d in
        (append 
-    '("latex-parser/" "tts/" "clos-helper/"
-      "acss/" "afl/" "afl/pronounce/" "afl/total-space/" "read-aloud/" "browse/")
-    *books*)
-    do
+        '("latex-parser/" "tts/" "clos-helper/"
+          "acss/" "afl/" "afl/pronounce/" "afl/total-space/" "read-aloud/" "browse/")
+        (mapcar #'(lambda (d) (concatenate 'string d "/"))*books*))
+     do
        (pushnew  (merge-pathnames  d aster ) asdf:*central-registry*)))
 
 (defun aster-setup ()
