@@ -13,14 +13,14 @@
 
 (defvar *books*
   '(
-    "vavasis-book"
-    "vanloan-book"
-    "tcs-chicago"
-    "rz-book"
-    "norvig-book"
-    "gries-book"
-    "dennis-math-books"
-    "cs611-notes"
+    "vavasis-book/"
+    "vanloan-book/"
+    "tcs-chicago/"
+    "rz-book/"
+    "norvig-book/"
+    "gries-book/"
+    "dennis-math-books/"
+    "cs611-notes/"
     )
   "List of books")
 
@@ -29,8 +29,8 @@
   (loop
     for d in
        (append 
-    '("latex-parser" "tts" "clos-helper"
-      "acss" "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
+    '("latex-parser/" "tts/" "clos-helper/"
+      "acss/" "afl/" "afl/pronounce/" "afl/total-space/" "read-aloud/" "browse/")
     *books*)
     do
        (pushnew  (merge-pathnames  d aster ) asdf:*central-registry*)))
