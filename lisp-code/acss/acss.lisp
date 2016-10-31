@@ -31,8 +31,12 @@
 
 (defsetf dimension-accessor (slot dimension) (new-value)
   `(funcall (third (assoc ,slot *dimension-accessor-table*))
-     ,dimension ,new-value)
-  )
+     ,dimension ,new-value))
+
+(defvar *list-of-speech-dimensions*
+  '(average-pitch pitch-range stress richness)
+  "List of ACSS speech dimensions.")
+
 
 (defmacro define-point-in-speech-space ()
   "define point in speech space  from dimensions defined so far"
