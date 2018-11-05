@@ -32,13 +32,17 @@
 
 ;;; }
 ;;; {Package Exports:
-(eval-when (eval load compile)
-  (unless (find-package :tts) (make-package :tts)))
+(in-package :cl-user)
+
+(defpackage :tts
+  (:use :common-lisp)
+  (:export
+ #:code #:queue #:speak #:letter #:speak-list #:icon
+ #:pause #:stop #:force
+ #:init #:shutdown)
+  )
 (in-package :tts)
-(export '(
-          code queue speak  letter speak-list icon
-          pause stop  force
-           init shutdown))
+
 
 ;;; }
 ;;; { Setup:
@@ -63,15 +67,10 @@
   (declare (special *emacspeak*))
   (concatenate 'string *emacspeak* "servers/outloud"))
 
-(defun tts-32-outloud ()
-  "Return location of 32-outloud server."
-  (declare (special *emacspeak*))
-  (concatenate 'string *emacspeak* "servers/32-outloud"))
-
 (defvar *tts* nil
   "Handle to tts server connection.")
 
-(defun init (&key (engine "32-outloud"))
+(defun init (&key (engine "outloud"))
   "Initialize TTS  system."
   (declare (special *tts*))
   (setq *tts*
