@@ -118,7 +118,7 @@
                                        "new-document-objects")
                           )
                  )
-    :depends-on( parser afl query )
+    :depends-on( parser afl)
     )
 
   ;;; Parameter: *BOOKS*                                       Author: raman

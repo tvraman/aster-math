@@ -61,7 +61,7 @@
 Wait for *get-label-wait* seconds before returning. "
   (unless (zerop *get-label-wait*)
     (tts:icon *prompt-cue*)
-    (when (query:y-or-n-p-wait   #\n *get-label-wait*
+    (when (y-or-n-p   #\n *get-label-wait*
                                  "Do you want to enter a new label. ")
       (afl:send-text "enter label. ")
       (format t "~% enter label.~% ")

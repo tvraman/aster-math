@@ -146,7 +146,7 @@ continues if y is not  pressed.")
                                 ((and (numberp
                                        *wait-before-reading-substitutions* )
                                       (afl:audio-prompt "read substitutions? ")
-                                      (query:y-or-n-p-wait
+                                      (y-or-n-p
                                        #\n *wait-before-reading-substitutions*))
                                  (afl:send-text "where, ")
                                  (read-aloud

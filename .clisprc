@@ -25,7 +25,6 @@
   "List of books")
 
 (let ((aster *lisp-code-directory*))
-  (load (merge-pathnames "lisp-utilities/query"  aster))
   (loop
      for d in
        (append 
@@ -55,18 +54,28 @@
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
-  (let ((CUSTOM:*SUPPRESS-CHECK-REDEFINITION*  t))
+  (let (
+        #+clisp
+        (CUSTOM:*SUPPRESS-CHECK-REDEFINITION*  t) 
+        )
     (asdf:load-system :tts)
     (asdf:load-system :parser)
     (asdf:load-system :clos-helper)
     (asdf:load-system :afl)
     (asdf:load-system :pronounce)
     (asdf:load-system :total-space)
-    (EXT:WITHOUT-PACKAGE-LOCK (:common-lisp :clos) (asdf:load-system :read-aloud))
+    #+clisp
+    (EXT:WITHOUT-PACKAGE-LOCK (:common-lisp :clos) (asdf:load-system
+                                                    :read-aloud))
+    #-clisp
+    (asdf:load-system :read-aloud)
     (asdf:load-system :browse)
+    #+clisp
     (EXT:WITHOUT-PACKAGE-LOCK
-     (:common-lisp :clos)
-     (mapc #'asdf:load-system *books*))
+        (:common-lisp :clos)
+      (mapc #'asdf:load-system *books*))
+    #-clisp
+    (mapc #'asdf:load-system *books*)
     (aster-setup)))
 (defun read-aloud-file (filename)
   "Read aloud this file by first parsing it. "
