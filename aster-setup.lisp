@@ -46,7 +46,6 @@
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
-  (asdf:load-system :tts)
   (asdf:load-system :parser)
   (asdf:load-system :clos-helper)
   (asdf:load-system :afl)
