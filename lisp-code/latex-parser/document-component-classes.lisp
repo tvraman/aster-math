@@ -985,7 +985,7 @@ enumerated and itemized lists."))
   ;;; Class: WORD                                              Author: raman
   ;;; Created: Sat Dec 26 07:19:58 1992
 
-(defclass word (document)
+(defclass a-word (document)
   ((contents :initform nil :initarg :contents
              :accessor word-contents :accessor contents))
   (:documentation "A word"))
@@ -996,11 +996,11 @@ enumerated and itemized lists."))
 
 (proclaim '(inline word-p))
 
-(defun word-p (self)
-  (typep self 'word))
+(defun a-word-p (self)
+  (typep self 'a-word))
 
 (defun word-subtype-p (self)
-  (typep  self 'word))
+  (typep  self 'a-word))
 
 
 
