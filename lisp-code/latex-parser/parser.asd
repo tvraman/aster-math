@@ -63,8 +63,7 @@
      "math-classification"
      "table-driver"
      ))
-   (
-    :file "05-math-processing"
+   (:file "05-math-processing"
     :depends-on 
     (
      "structs"
@@ -75,8 +74,7 @@
      "math-classification"
      "table-driver"
      ))
-   (
-    :file "interface"
+   (:file "interface"
     :depends-on 
     (
      "structs"
@@ -91,8 +89,7 @@
      "03-tex-macro-expand"
      "05-math-processing"
      ))
-   (
-    :file "precedence-of-operators"
+   (:file "precedence-of-operators"
     :depends-on 
     (
      "math-classification" ))
@@ -101,8 +98,7 @@
     :depends-on 
     (
      "precedence-of-operators"))
-   (
-    :file "quasi-prefix"
+   (:file "quasi-prefix"
     :depends-on 
     (
      "05-math-processing"

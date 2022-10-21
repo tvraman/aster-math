@@ -7,7 +7,7 @@
 ;;;
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (provide '01-sections)
-(in-package :parser)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Modified: Thu Apr  9 19:49:28 EDT 1992
 ;;; Introduced two new functions:
