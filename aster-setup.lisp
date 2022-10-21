@@ -1,7 +1,7 @@
+(unlock-package :common-lisp)
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
 (require "asdf")
-(unlock-package :sb-exp)
-(unlock-package :common-lisp)
+
 (defvar *lisp-code-directory*
   (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
@@ -35,7 +35,16 @@
   (asdf:load-system :total-space)
   (asdf:load-system :read-aloud)
   (asdf:load-system :browse)
-  (mapc #'asdf:load-system *books*)
+  (mapc #'asdf:load-system
+        '(
+    "vavasis-book"
+    "vanloan-book"
+    "tcs-chicago"
+    "rz-book"
+    "norvig-book"
+    "gries-book"
+    "dennis-math-books"
+    "cs611-notes"))
   (aster-setup))
 
 (defun read-aloud-file (filename)
@@ -43,6 +52,9 @@
   (declare (special *document*)) 
   (setf *document* (parse-article filename))
   (read-aloud *document* ))
+
+
+
 
 ;;; local variables:
 ;;; mode: lisp
