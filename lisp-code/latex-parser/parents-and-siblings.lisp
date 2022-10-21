@@ -143,7 +143,7 @@
                 do
                 (unless (equal  'undefined (parent block ))
                   (setf (parent block) current)
-                  (unless (a-word-p block )
+                  (unless (word-p block )
                     (link-children-to-parent block ))))))
       (unless (equal 'undefined children ) 
         (link-siblings children)
@@ -157,7 +157,7 @@
   )
 
 
-(defmethod link-children-to-parent ((a-word a-word ))
+(defmethod link-children-to-parent ((word word ))
   "Words do not have any children at present"
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
                                         ;do nothing

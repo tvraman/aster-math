@@ -1,5 +1,6 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
 (require "asdf")
+(unlock-package :common-lisp)
 (defvar *lisp-code-directory*
   (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
