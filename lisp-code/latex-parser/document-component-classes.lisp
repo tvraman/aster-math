@@ -1,11 +1,11 @@
-;;;   -*- Syntax: Common-Lisp;  Base: 10; Mode: LISP -*-    ;;;
+;;;   -*- Syntax: Common-Lisp; Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-
+(in-package :cl-user)
 #+clisp (use-package :clos)
 #+lucid (use-package :clos)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
@@ -121,7 +121,8 @@
           :accessor title )
    (author :initform nil :initarg :author :accessor article-author
            :accessor author )
-   (address :initform nil :initarg :address :accessor article-address)
+   (address :initform nil :initarg :address :accessor article-address
+            :accessor address )
    (date :initform nil :initarg :date :accessor article-date
          :accessor date )
    (abstract :initform nil :initarg :abstract :accessor
@@ -429,7 +430,8 @@ enumerated and itemized lists."))
 
 (defclass numbered-class ()
   ((number :initform nil :initarg :number :accessor
-           numbered-class-number))
+           numbered-class-number
+           :accessor number ))
   (:documentation "Mixin class, makes things numbered. "))
 
 (defun make-numbered-class ()
@@ -985,9 +987,10 @@ enumerated and itemized lists."))
   ;;; Class: WORD                                              Author: raman
   ;;; Created: Sat Dec 26 07:19:58 1992
 
-(defclass a-word (document)
-  ((contents :initform nil :initarg :contents
-             :accessor word-contents :accessor contents))
+(defclass word (document)
+  ((contents :initform nil :initarg :contents :accessor word-contents
+             
+             :accessor contents))
   (:documentation "A word"))
 
 (defun make-word ()
@@ -996,11 +999,11 @@ enumerated and itemized lists."))
 
 (proclaim '(inline word-p))
 
-(defun a-word-p (self)
-  (typep self 'a-word))
+(defun word-p (self)
+  (typep self 'word))
 
 (defun word-subtype-p (self)
-  (typep  self 'a-word))
+  (typep  self 'word))
 
 
 

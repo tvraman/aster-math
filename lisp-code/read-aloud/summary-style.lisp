@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(in-package :user)
+(in-package :cl-user)
 
 ;;; Sat Apr 17 13:31:30 EDT 1993
 ;;; Summary reading style.

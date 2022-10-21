@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(in-package :user)
+(in-package :cl-user)
 
 (proclaim '(optimize (compilation-speed 3) (safety 3) (speed 2)))
 ;;; Wed Nov 11 15:13:25 EST 1992

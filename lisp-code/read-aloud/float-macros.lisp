@@ -5,7 +5,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :user)
+(in-package :cl-user)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
 ;;; Mon Oct 25 08:54:44 EDT 1993

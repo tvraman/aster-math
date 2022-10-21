@@ -18,11 +18,12 @@
 (defun parse-article (filename) 
   "Parses a Latex article "
   (format t "Performing lexical analysis on ~a" filename)
-  (with-open-stream
-      (in-stream
-       (run-program
-        (namestring  (merge-pathnames "lexer/lispify" *lisp-code-directory*))
-        nil
-        :input filename
-        :output  :stream))
-    (create-article (read in-stream nil))))
+  (with-open-file (in-stream filename)
+    (let ((process
+            (run-program
+             (namestring  (merge-pathnames "lexer/lispify" *lisp-code-directory*))
+             nil
+             :input in-stream :wait t :output  :stream)))
+      (create-article
+       (read
+        (process-output process) nil)))))

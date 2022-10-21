@@ -2,16 +2,16 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq EXT:APPEASE-CERRORS t)
-(in-package :user)
+(in-package :cl-user)
 
 
 
 ;;; Fri Feb 19 09:38:37 EST 1993
-;;; Someone's making dectalk use the :user package!
+;;; Someone's making dectalk use the :cl-user package!
 ;;; Until I can find the offending code and delete it, (probably comes
 ;;; from the time when I did something without fully understanding the
 ;;; package system) just undoing the use here.
-(unuse-package :user (find-package :dectalk))
+(unuse-package :cl-user (find-package :dectalk))
 ;;; Thu Dec 24 14:46:45 EST 1992
 ;;; All that I need to execute after loading everything.
 ;;; Placed here to avoid typing.
