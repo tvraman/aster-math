@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-(in-package :parser)
+(unlock-package :common-lisp)
 ;;; Modified: Thu Dec 24 14:08:54 EST 1992
 ;;; Adding extra accessors for slots
 ;;; accessors like article-title etc could just be title, for the
