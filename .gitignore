@@ -4,3 +4,5 @@
 lisp-code/lexer/lispify
 lisp-code/lexer/lispify.c
 auto/
+**.lib
+**.fas
