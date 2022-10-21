@@ -8,7 +8,6 @@
 
 (defsystem cs611-notes
     :components(
-                
 (:file "cs611-object-definitions")
 (:file "cs611-macros") 
 (:file "cs611-reading-rules"

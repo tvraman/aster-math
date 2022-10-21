@@ -15,16 +15,17 @@
     )
   "List of books")
 
-(let ((aster *lisp-code-directory*))
-  ;(load (merge-pathnames "lisp-utilities/query"  aster))
-  (loop
-    for d in
-       (append 
-    '("latex-parser" "tts" "clos-helper"
-      "acss" "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
-    *books*)
-    do
-       (pushnew  (merge-pathnames d aster) asdf:*central-registry*)))
+(defvar aster *lisp-code-directory*)
+
+                                        ;(load (merge-pathnames "lisp-utilities/query"  aster))
+(loop
+  for d in
+        (append 
+         '("latex-parser" "tts" "clos-helper"
+           "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
+         *books*)
+  do
+     (pushnew  (merge-pathnames d aster) asdf:*central-registry*))
 
 (defun aster-setup ()
   "Setup default reading rules and styles."
