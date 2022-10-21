@@ -1,4 +1,4 @@
-;;;   -*- SYNTAX: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;   -*- SYNTAX: Common-Lisp;  Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -1,4 +1,4 @@
-;;;   -*- Syntax: Common-Lisp; Package: USER; Base: 10; Mode: LISP -*-    ;;;
+;;;   -*- Syntax: Common-Lisp;  Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;; $Id: audio-player.lisp,v 1.1.1.1 2001/08/10 23:20:19 raman Exp $
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
