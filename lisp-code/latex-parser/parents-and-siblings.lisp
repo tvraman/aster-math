@@ -157,11 +157,11 @@
   )
 
 
-(defmethod link-children-to-parent ((word word ))
+(defmethod link-children-to-parent ((aword aword ))
   "Words do not have any children at present"
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
                                         ;do nothing
-  word)
+  aword)
 
 ;;; Footnotes parent is currently the word that carries the footnote.
 ;;; Could also make the parent the paragraph in which the footnote

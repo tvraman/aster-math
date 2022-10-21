@@ -6,8 +6,8 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :cl-user)
-#+clisp (use-package :clos)
-#+lucid (use-package :clos)
+(use-package :clos)
+
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 ;;; Modified: Thu Dec 24 14:08:54 EST 1992
 ;;; Adding extra accessors for slots
@@ -987,26 +987,22 @@ enumerated and itemized lists."))
   ;;; Class: WORD                                              Author: raman
   ;;; Created: Sat Dec 26 07:19:58 1992
 
-(defclass word (document)
+(defclass aword (document)
   ((contents :initform nil :initarg :contents :accessor word-contents
-             
              :accessor contents))
   (:documentation "A word"))
 
 (defun make-word ()
-  (let ((self (make-instance 'word)))
+  (let ((self (make-instance 'aword)))
     self))
 
 (proclaim '(inline word-p))
 
 (defun word-p (self)
-  (typep self 'word))
+  (typep self 'aword))
 
 (defun word-subtype-p (self)
-  (typep  self 'word))
-
-
-
+  (typep  self 'aword))
 
   ;;; Class: LABEL                                             Author: raman
   ;;; Created: Mon Dec 28 14:12:49 1992
