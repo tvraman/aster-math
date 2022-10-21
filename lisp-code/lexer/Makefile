@@ -8,9 +8,9 @@ LEX = flex
 CC = gcc
 lispify: $(OBJ)
 	$(CC)  $(CFLAGS) $(OBJ)  $(CFLEXFLAGS)  -o $@
+	chmod 755 $@
 lispify.c: lispify.l
 	rm -f lispify.c
 	$(LEX)  $(FLEXFLAGS) lispify.l >   $@
 clean:
 	rm -f lispify.o lispify.c lispify 
-	
