@@ -8,39 +8,21 @@
 
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (export '(parse-article))
-;;; CREATED:  FRI:  Feb 21 09:07:40 EST 1992
-;;;  Interface lisp parser to Lex lexical analyser.
-;;; uses run-program.
-;;; This file will also include code for partial parsing of a article
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; Variable: *LEX-DIR*                                      Author: raman
-;;; Created: Fri Feb 21 09:14:15 1992
-;;; external variable: 
-(defvar *lex-dir* nil "Directory where the lexer resides")
-;;; Now set it up:
-(setf *lex-dir* (merge-pathnames "lexer/" *lisp-code-directory* ))
-
 ;;; Variable: *LEX-PROGRAM*                                  Author: raman
 ;;; Created: Fri Feb 21 09:15:19 1992
-;;; external variable: 
-(defvar *lex-program* nil "The program which does the lexical analysis")
-;;; Now set it up:
-
-(setf *lex-program* "lispify")
 
 ;;; Function: PARSE-ARTICLE                                 Author: raman
 ;;; Created: Fri Feb 21 09:10:37 1992
 
 (defun parse-article (filename) 
   "Parses a Latex article "
-  (print "Performing lexical analysis")
+  (format t "Performing lexical analysis on ~a" filename)
   (with-open-stream
       (in-stream
        (run-program
-        (merge-pathnames *lex-program* *lex-dir*)
+        (namestring  (merge-pathnames "lexer/lispify" *lisp-code-directory*))
+        nil
         :input filename
         :output  :stream))
     (create-article (read in-stream nil))))
