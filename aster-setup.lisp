@@ -4,9 +4,6 @@
   (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
 
-
-
-                                        
 ;;; See ~/.config/common-lisp/source-registry.conf.daster.conf for registering and finding packages
 
 (defun aster-setup ()
@@ -44,7 +41,6 @@
   (declare (special *document*)) 
   (setf *document* (parse-article filename))
   (read-aloud *document* ))
-
 
 ;;; local variables:
 ;;; mode: lisp
