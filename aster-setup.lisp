@@ -1,5 +1,4 @@
-(unlock-package :common-lisp)
-(load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
+                                        ;(load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
 (require "asdf")
 
 (defvar *lisp-code-directory*
