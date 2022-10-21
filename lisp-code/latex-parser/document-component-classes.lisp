@@ -5,10 +5,8 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :cl-user)
-(use-package :clos)
-
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+(in-package :parser)
 ;;; Modified: Thu Dec 24 14:08:54 EST 1992
 ;;; Adding extra accessors for slots
 ;;; accessors like article-title etc could just be title, for the
