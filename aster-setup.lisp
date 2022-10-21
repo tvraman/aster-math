@@ -1,31 +1,13 @@
 (load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
+(require "asdf")
 (defvar *lisp-code-directory*
   (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
-(defvar *books*
-  '(
-    "vavasis-book"
-    "vanloan-book"
-    "tcs-chicago"
-    "rz-book"
-    "norvig-book"
-    "gries-book"
-    "dennis-math-books"
-    "cs611-notes"
-    )
-  "List of books")
 
-(defvar aster *lisp-code-directory*)
 
-                                        ;(load (merge-pathnames "lisp-utilities/query"  aster))
-(loop
-  for d in
-        (append 
-         '("latex-parser" "tts" "clos-helper"
-           "afl" "afl/pronounce" "afl/total-space" "read-aloud" "browse")
-         *books*)
-  do
-     (pushnew  (merge-pathnames d aster) asdf:*central-registry*))
+
+                                        
+;;; See ~/.config/common-lisp/source-registry.conf.daster.conf for registering and finding packages
 
 (defun aster-setup ()
   "Setup default reading rules and styles."
