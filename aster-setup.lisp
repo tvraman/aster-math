@@ -9,6 +9,9 @@
   "directory under which lisp code is organized")
 
 (require :parser)
+(require :clos-helper)
+(require :afl)
+
 (defun aster-setup ()
   "Setup default reading rules and styles."
   (pushnew :express   *features*)
