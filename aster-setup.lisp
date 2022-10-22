@@ -1,14 +1,14 @@
 (require "asdf")
+;; Place 10-aster.conf in  ~/.config/common-lisp/source-registry.conf.d/aster.conf
+;; for registering and finding packages
+
 (asdf:clear-source-registry)
+
 (require :parser)
 
 (defvar *lisp-code-directory*
   (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
-
-;; See ~/.config/common-lisp/source-registry.conf.d/aster.conf
-;; for registering and finding packages
-;; May need to run (asdf:clear-source-registry) the first time 
 
 (defun aster-setup ()
   "Setup default reading rules and styles."
