@@ -35,7 +35,7 @@
 (in-package :afl)
 
 (export
- '(tts-init tts-open tts-close
+ '(tts-init tts-open tts-shutdown
    tts-icon tts-speak tts-force tts-queue 
    ))
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
