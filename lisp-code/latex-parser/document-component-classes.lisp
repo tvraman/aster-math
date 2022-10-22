@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-(unlock-package :common-lisp)
+;(unlock-package :common-lisp)
 ;;; Modified: Thu Dec 24 14:08:54 EST 1992
 ;;; Adding extra accessors for slots
 ;;; accessors like article-title etc could just be title, for the
@@ -427,9 +427,9 @@ enumerated and itemized lists."))
   ;;; Created: Mon May  3 18:33:33 1993
 
 (defclass numbered-class ()
-  ((anumber :initform nil :initarg :number :accessor
+  ((anumber :initform nil :initarg :anumber :accessor
            numbered-class-number
-           :accessor number ))
+           :accessor anumber ))
   (:documentation "Mixin class, makes things numbered. "))
 
 (defun make-numbered-class ()

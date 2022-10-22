@@ -32,7 +32,7 @@
 
 ;;}}}
 ;;{{{ Setup:
-
+(in-package :afl)
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
 
