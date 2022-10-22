@@ -151,7 +151,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   ;;; Variable: *LINK-WORDS*                                   Author: raman
   ;;; Created: Sat Dec 26 08:51:44 1992
 
-(defvar *link-words* t "If t words linked so make up a word object")
+(defvar *link-words* nil "If t words linked so make up a word object")
 ;;; made inline.
 (proclaim '(inline process-word))
 
@@ -163,7 +163,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 	       "Error: Argument to process-word, ~a, is not a word"
 	       (lookat-current-entry text-buffer)))
   (if *link-words*
-      (make-instance 'word :contents (pop-current-entry text-buffer))
+      (make-instance 'aword :contents (pop-current-entry text-buffer))
     (pop-current-entry text-buffer))
   )
 
