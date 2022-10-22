@@ -1,125 +1,171 @@
-(in-package :afl)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+;;;   -*- Syntax: Common-Lisp; Mode: LISP -*-    ;;;
+;;; tts.lisp -- Common Lisp interface to Emacspeak speech server
+;;; $Author: tv.raman.tv $
+;;; Description: Interface Common Lisp to Emacspeak TTS servers
+;;; Keywords: AsTeR, Emacspeak, Audio Desktop
+;;{{{ Copyright:
 
-;;; TTS Calls used by  read-aloud.
+;;; Copyright (C) 2011 -- 2016, T. V. Raman<tv.raman.tv@gmail.com>
+;;; All Rights Reserved.
+;;;
+;;; This file is not part of GNU Emacs, but the same permissions apply.
+;;;
+;;; GNU Emacs is free software; you can redistribute it and/or modify
+;;; it under the terms of the GNU General Public License as published by
+;;; the Free Software Foundation; either version 2, or (at your option)
+;;; any later version.
+;;;
+;;; GNU Emacs is distributed in the hope that it will be useful,
+;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+;;; GNU General Public License for more details.
+;;;
+;;; You should have received a copy of the GNU General Public License
+;;; along with GNU Emacs; see the file COPYING. If not, write to
+;;; the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 
-(export
- '(synchronize-and-play should-i-stop? should-i-continue?
-   make-audio-filename ;will be nuked
-   audio-prompt send-space
-   high-intonation low-intonation high-low-intonation
-   comma-intonation period-intonation paragraph-begin
-   set-period-pause set-comma-pause
-   pause await-silence
-   interrogative exclamation
-   primary-stress secondary-stress exclamatory-stress
-   with-surrounding-pause force-speech
-   send-text speak-number-string subclause-boundary))
-(defmacro with-surrounding-pause (pause-amount &body body)
-  "Execute body with surrounding pause specified by pause-amount"
-  `(progn
-     (tts:pause ,pause-amount)
-     ,@body
-     (tts:pause ,pause-amount)))
+;;}}}
+;;{{{ Introduction:
 
-(defun should-i-stop? (&rest ignore)
-"stub"
-nil)
-(defun should-i-continue? (&rest ignore)
-"stub"
-nil)
+;;; Commentary:
+;;; Interface Common Lisp to Emacspeak TTS servers
 
-(defun synchronize-and-play (name  &rest ignore)
-  "Stub"
-  (tts:icon name)
-  (tts:force))
+;;}}}
+;;{{{ Setup:
 
-;;; The functions  below will be auto-generated based on engine in  use.
+;;; A TTS structure holds the engine name, process handle, and input/output streams.
+(defstruct tts engine process input output )
 
-;;; Stubbed for now
-(defun  make-audio-filename (name)
-  "Stubbed for now"
-  name)
+(defvar *emacspeak* "/home/raman/emacs/lisp/emacspeak/"
+  "Root of Emacspeak installation.")
+(defun tts-location (engine)
+  "Return location of specified engine."
+  (declare (special *emacspeak*))
+  (concatenate 'string *emacspeak* "servers/" engine))
 
-(defun send-space ()
-  "Send a space to TTS."
-  nil)
+(defun tts-dtk ()
+  "Return name of dtk-soft server."
+  (declare (special *emacspeak*))
+  (concatenate 'string *emacspeak* "servers/dtk-soft"))
 
-(defun set-period-pause (msec)
-  (send-text  (format nil "[:pp ~a]" msec)))
+(defun tts-outloud ()
+  "Outloud tcl server"
+  (declare (special *emacspeak*))
+  (concatenate 'string *emacspeak* "servers/outloud"))
 
-(defun set-comma-pause(msec)
-  (send-text (format nil "[:cp ~a]" msec)))
+(defvar *tts* nil
+  "Handle to tts server connection.")
 
-(defun pause (milliseconds)
-  "Pause for so many milliseconds"
-  (assert (typep milliseconds 'fixnum) nil
-          "Milliseconds = ~a, which is not a number" milliseconds)
-  (when (> milliseconds 0)
-    (tts:pause  milliseconds)))
+(defun tts-init (&key (engine "dtk-soft"))
+  "Initialize TTS  system."
+  (declare (special *tts*))
+  (setq *tts*
+        (make-tts :engine (tts-location engine)))
+  (tts-open))
 
-(defun force-speech ()
-  (tts:force))
 
-(defun send-text (text)
-  (tts:queue text))
+(defun tts ()
+  "Return handle to TTS server."
+  (declare (special *tts*))
+  *tts*)
 
-(defun speak-number-string (number-string)
-  (tts:queue number-string))
-;;; no-op
-(defun await-silence () t)
+;;}}}
+;;{{{Internal Functions
 
-;;;not implemented
+(defun tts-open ()
+  "Open a TTS session."
+  (let ((handle (tts)))
+    (setf (tts-process handle)
+          (sb-ext:run-program
+           (tts-engine handle) nil :wait nil :input :stream))
+    (setf (tts-input handle) (sb-ext:process-input (tts-process handle)))
+    (write-line (format nil "tts_set_punctuations all") (tts-input handle))
+    (force-output (tts-input handle))))
 
-(defun subclause-boundary ()
-  "Insert a subclause boundary"
-  (tts:queue " "))
+(defun icon-file (icon)
+  "Convert auditory icon name to a sound-file name."
+  (declare (special *emacspeak*))
+  (format nil "~a/sounds/pan-chimes/~a.wav"  *emacspeak* icon))
+  
 
-(defun high-intonation ()
-  "Generate H*"
-  (tts:queue " "))
+;;}}}
+;;{{{Exported Functions
 
-(defun low-intonation ()
-  "Generate L*"
-  (tts:queue " "))
+(defun tts-shutdown ()
+  "Shutdown a TTS session."
+  (let ((handle (tts)))
+    (when (tts-input handle)
+      (close (tts-input handle)))
+    (setf (tts-input handle) nil)))
 
-(defun high-low-intonation ()
-  "Generate Hl*"
-  (tts:queue " "))
+(defun tts-code (cmd)
+  "Queue TTS code  to engine."
+  (let ((i (tts-input (tts))))
+    (unless i (setq i (tts-open)))
+    (format i "c {~a}~%" cmd) 
+    (finish-output i)))
 
-(defun comma-intonation ()
-  "Generate a comma intonation"
-  (tts:queue " "))
+(defun tts-icon (icon)
+  "Queue auditory icon  to play."
+  (let ((i (tts-input (tts))))
+    (unless i (setq i (tts-open)))
+    (format i "a {~a}~%" (icon-file icon))
+    (finish-output i)))
 
-(defun period-intonation ()
-  "Generate a period intonation"
-  (tts:queue " "))
+(defun tts-queue (text)
+  "Queue text to speak."
+  (let ((i (tts-input (tts))))
+    (unless i (setq i (tts-open)))
+    (format i "q {~a}~%" text) 
+    (finish-output i)))
 
-(defun paragraph-begin  ()
-  "Begin a paragraph"
-  (tts:queue " "))
+(defun tts-pause (ms)
+  "Send silence"
+(let ((i (tts-input (tts))))
+    (format i "sh {~a}~%" ms) 
+    (finish-output i))  )
 
-(defun exclamation  ()
-  "Send an exclamation. "
-  (tts:queue " "))
+(defun tts-force ()
+  "Speak all queued text."
+  (let ((i (tts-input (tts))))
+    (format i "d~%" )
+    (finish-output i)))
 
-(defun interrogative  ()
-  "Send an interrogative. "
-  (tts:queue " "))
+(defun tts-stop ()
+  "Stop speech."
+  (let ((i (tts-input (tts))))
+    (format i "s~%")
+    (finish-output i)))
 
-(defun primary-stress  ()
-  "Send a  primary-stress. "
-  (tts:queue " "))
+(defun tts-speak (text)
+  "Speak text."
+  (unless (tts-input (tts)) (tts-open))
+  (let ((i (tts-input (tts))))
+    (format i "q {~a}~%" text)
+    (format i "d~%")
+    (finish-output i)))
 
-(defun secondary-stress  ()
-  "Send a  secondary-stress. "
-  (tts:queue " "))
+(defun tts-speak-list (lines)
+  "Speak an arbitrary number of lines."
+  (tts)
+  (mapc 'tts-queue lines)
+  (force))
 
-(defun exclamatory-stress  ()
-  "Send an   exclamatory-stress. "
-  (tts:queue " "))
+(defun tts-letter (text)
+  "Speak letter."
+  (unless (tts-input (tts)) (tts-open))
+  (let ((i (tts-input (tts))))
+    (format i "l ~a~%" text)
+    (finish-output i)))
 
-(defun audio-prompt(control-string &rest arguments)
-  "Send a prompt to the speech device and return T. "
-  (tts:speak (format nil control-string arguments ))
-  t)
+;;}}}
+(provide 'tts)
+
+;;{{{ end of file
+
+;;; local variables:
+;;; folded-file: t
+ 
+;;; end:
+
+;;}}}
