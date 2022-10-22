@@ -1,6 +1,7 @@
 (in-package :asdf)
 
-(unless (find-package :afl) (make-package :afl ))
+(unless (find-package :afl)
+  (make-package :afl :use '(:cl :common-lisp )))
 
 (defsystem "afl"
   :description "AFL: Audio Formatting Language"

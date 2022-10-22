@@ -87,13 +87,14 @@
   (let ((name (afl-block-name )))
     `(block ,name 
        (let* ((previous-speech-state *current-speech-state*)
-            (*current-speech-state* (copy-point-in-speech-space *current-speech-state* ))
-            (previous-pronunciation-mode *pronunciation-mode*) 
+              (*current-speech-state* (copy-point-in-speech-space *current-speech-state* ))
+              (previous-pronunciation-mode *pronunciation-mode*) 
                                         ;simple variable   need not be copied
-            (*current-total-audio-state*  (make-total-audio-state
-                                           :speech *current-speech-state*
-                                           :pronounce *pronunciation-mode*))
-            (*current-exit* #'(lambda() (return-from   ,name nil))))
+              ;(*current-total-audio-state*
+                ;(make-total-audio-state
+                 ;:speech *current-speech-state*
+                 ;:pronounce *pronunciation-mode*))
+              (*current-exit* #'(lambda() (return-from   ,name nil))))
          (unwind-protect
               (progn
                 ,@body)
@@ -307,10 +308,8 @@ unsets *lazy-set-state*"
           "~a is not a point in speech space"
           new-state )
   (setf *current-speech-state*   new-state)
-  (setf (total-audio-state-speech *current-total-audio-state*)
-        new-state)
-  (set-speech-state   *current-speech-state* )
-  )
+  ;(setf (total-audio-state-speech *current-total-audio-state*) new-state)
+  (set-speech-state   *current-speech-state* ))
 
 
 

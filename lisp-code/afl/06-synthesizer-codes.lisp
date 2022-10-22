@@ -73,7 +73,7 @@
 ;;; Created: Tue Aug 11 14:58:10 1992
 
 (defstruct (voice-code
-             (:named)
+             ;(:named)
              (:type list))
   voice
   code)

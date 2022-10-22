@@ -133,7 +133,7 @@
 (defmacro define-point-in-speech-space ()
   "define point in speech space  from dimensions defined so far"
   `(defstruct (point-in-speech-space
-               (:named)
+               ;(:named)
                (:type list))
     ,@ *list-of-speech-dimensions* 
     )
