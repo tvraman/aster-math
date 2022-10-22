@@ -1,11 +1,12 @@
-                                        ;(load "/usr/share/common-lisp/source/cl-asdf/asdf.lisp")
 (require "asdf")
 
 (defvar *lisp-code-directory*
   (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
 
-;;; See ~/.config/common-lisp/source-registry.conf.daster.conf for registering and finding packages
+;; See ~/.config/common-lisp/source-registry.conf.d/aster.conf
+;; for registering and finding packages
+;; May need to run (asdf:clear-source-registry) the first time 
 
 (defun aster-setup ()
   "Setup default reading rules and styles."
@@ -36,25 +37,20 @@
   (asdf:load-system :browse)
   (mapc #'asdf:load-system
         '(
-    "vavasis-book"
-    "vanloan-book"
-    "tcs-chicago"
-    "rz-book"
-    "norvig-book"
-    "gries-book"
-    "dennis-math-books"
-    "cs611-notes"))
+          "vavasis-book"
+          "vanloan-book"
+          "tcs-chicago"
+          "rz-book"
+          "norvig-book"
+          "gries-book"
+          "dennis-math-books"
+          "cs611-notes"))
   (aster-setup))
 
 (defun read-aloud-file (filename)
   "Read aloud this file by first parsing it. "
-  (declare (special *document*)) 
+  (declare (special *document*))
   (setf *document* (parse-article filename))
   (read-aloud *document* ))
 
-
-
-
-;;; local variables:
-;;; mode: lisp
-;;; end:
+;;for above to take effect. 
