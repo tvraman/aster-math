@@ -32,17 +32,16 @@
 
 ;;}}}
 ;;{{{Package Exports:
+
 (in-package :cl-user)
 
 (defpackage :tts
-  (:use :common-lisp)
   (:export
  #:code #:queue #:speak #:letter #:speak-list #:icon
  #:pause #:stop #:force
  #:init #:shutdown)
   )
 (in-package :tts)
-
 
 ;;}}}
 ;;{{{ Setup:
@@ -57,7 +56,7 @@
   (declare (special *emacspeak*))
   (concatenate 'string *emacspeak* "servers/" engine))
 
-(defun tts-dtk-soft ()
+(defun tts-dtk ()
   "Return name of dtk-soft server."
   (declare (special *emacspeak*))
   (concatenate 'string *emacspeak* "servers/dtk-soft"))
@@ -77,7 +76,7 @@
         (make-tts :engine (tts-location engine)))
   (tts-open))
 
-;(proclaim '(inline tts))
+
 (defun tts ()
   "Return handle to TTS server."
   (declare (special *tts*))
@@ -89,8 +88,12 @@
 (defun tts-open ()
   "Open a TTS session."
   (let ((handle (tts)))
-    (setf(tts-input handle)
-         (ext:make-pipe-output-stream (tts-engine handle) :buffered nil))))
+    (setf (tts-process handle)
+          (sb-ext:run-program
+           *tts-engine* nil :wait nil :input :stream)
+          (setf (tts-input handle) (sb-ext:process-input (tts-process handle))))
+    (write-line (format nil "tts_set_punctuations all") (tts-input handle))
+    (force-output (tts-input handle))))
 
 (defun icon-file (icon)
   "Convert auditory icon name to a sound-file name."
