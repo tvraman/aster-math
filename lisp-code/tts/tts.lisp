@@ -3,7 +3,7 @@
 ;;; $Author: tv.raman.tv $
 ;;; Description: Interface Common Lisp to Emacspeak TTS servers
 ;;; Keywords: AsTeR, Emacspeak, Audio Desktop
-;;; { Copyright:
+;;{{{ Copyright:
 
 ;;; Copyright (C) 2011 -- 2016, T. V. Raman<tv.raman.tv@gmail.com>
 ;;; All Rights Reserved.
@@ -24,14 +24,14 @@
 ;;; along with GNU Emacs; see the file COPYING. If not, write to
 ;;; the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 
-;;; }
-;;; { Introduction:
+;;}}}
+;;{{{ Introduction:
 
 ;;; Commentary:
 ;;; Interface Common Lisp to Emacspeak TTS servers
 
-;;; }
-;;; {Package Exports:
+;;}}}
+;;{{{Package Exports:
 (in-package :cl-user)
 
 (defpackage :tts
@@ -44,8 +44,8 @@
 (in-package :tts)
 
 
-;;; }
-;;; { Setup:
+;;}}}
+;;{{{ Setup:
 
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
@@ -83,8 +83,8 @@
   (declare (special *tts*))
   *tts*)
 
-;;; }
-;;; {Internal Functions
+;;}}}
+;;{{{Internal Functions
 
 (defun tts-open ()
   "Open a TTS session."
@@ -98,8 +98,8 @@
   (format nil "~a/sounds/pan-chimes/~a.wav"  *emacspeak* icon))
   
 
-;;; }
-;;; {Exported Functions
+;;}}}
+;;{{{Exported Functions
 
 (defun shutdown ()
   "Shutdown a TTS session."
@@ -168,14 +168,14 @@
     (format i "l ~a~%" text)
     (finish-output i)))
 
-;;; }
+;;}}}
 (provide 'tts)
 
-;;; { end of file
+;;{{{ end of file
 
 ;;; local variables:
 ;;; folded-file: t
  
 ;;; end:
 
-;;; }
+;;}}}
