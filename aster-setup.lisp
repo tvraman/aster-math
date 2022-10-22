@@ -1,6 +1,7 @@
 (require "asdf")
 (asdf:clear-source-registry)
 (require :parser)
+
 (defvar *lisp-code-directory*
   (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
