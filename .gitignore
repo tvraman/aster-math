@@ -6,3 +6,4 @@ lisp-code/lexer/lispify.c
 auto/
 **.lib
 **.fas
+**.fasl
