@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (in-package :cl-user)
-(use-package :clos)
+;(use-package :clos)
 
 ;;; Sun Apr  4 19:11:55 EDT 1993
 ;;; Compute the closest common ancestor of a list of objects.

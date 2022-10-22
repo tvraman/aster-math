@@ -4,7 +4,7 @@
 
 (in-package :cl-user)
 
-(use-package :clos)
+;(use-package :clos)
 
 (proclaim '(optimize (compilation-speed 3) (safety 3) (speed 2)))
 ;;; Sun Feb 14 09:37:53 EST 1993

@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (in-package :cl-user)
-(use-package :clos)
+;(use-package :clos)
 
 ;;; Sun Apr  4 19:45:50 EDT 1993
 ;;; To copy class objects one level.
