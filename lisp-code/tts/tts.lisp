@@ -50,17 +50,17 @@
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
 
-(defvar *emacspeak* "/usr/share/emacs/site-lisp/emacspeak/"
+(defvar *emacspeak* "/home/raman/emacs/lisp/emacspeak"
   "Root of Emacspeak installation.")
 (defun tts-location (engine)
   "Return location of specified engine."
   (declare (special *emacspeak*))
   (concatenate 'string *emacspeak* "servers/" engine))
 
-(defun tts-dtk-exp ()
-  "Return name of dtk-exp server."
+(defun tts-dtk-soft ()
+  "Return name of dtk-soft server."
   (declare (special *emacspeak*))
-  (concatenate 'string *emacspeak* "servers/dtk-exp"))
+  (concatenate 'string *emacspeak* "servers/dtk-soft"))
 
 (defun tts-outloud ()
   "Outloud tcl server"
@@ -70,14 +70,14 @@
 (defvar *tts* nil
   "Handle to tts server connection.")
 
-(defun init (&key (engine "outloud"))
+(defun init (&key (engine "dtk-soft"))
   "Initialize TTS  system."
   (declare (special *tts*))
   (setq *tts*
         (make-tts :engine (tts-location engine)))
   (tts-open))
 
-(proclaim '(inline tts))
+;(proclaim '(inline tts))
 (defun tts ()
   "Return handle to TTS server."
   (declare (special *tts*))
@@ -92,12 +92,10 @@
     (setf(tts-input handle)
          (ext:make-pipe-output-stream (tts-engine handle) :buffered nil))))
 
-;;; Hard-wiring 3d theme for now:
-
 (defun icon-file (icon)
   "Convert auditory icon name to a sound-file name."
   (declare (special *emacspeak*))
-  (format nil "~a/sounds/3d/~a.wav"  *emacspeak* icon))
+  (format nil "~a/sounds/pan-chimes/~a.wav"  *emacspeak* icon))
   
 
 ;;; }
