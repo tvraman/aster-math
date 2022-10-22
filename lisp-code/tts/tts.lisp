@@ -1,5 +1,5 @@
-;;;   -*- Syntax: Common-Lisp; Package: tts ; Mode: LISP -*-    ;;;
-;;; tts.lisp -- Common Lisp interface to Emacspeak speech servers
+;;;   -*- Syntax: Common-Lisp; Mode: LISP -*-    ;;;
+;;; tts.lisp -- Common Lisp interface to Emacspeak speech server
 ;;; $Author: tv.raman.tv $
 ;;; Description: Interface Common Lisp to Emacspeak TTS servers
 ;;; Keywords: AsTeR, Emacspeak, Audio Desktop
@@ -31,25 +31,12 @@
 ;;; Interface Common Lisp to Emacspeak TTS servers
 
 ;;}}}
-;;{{{Package Exports:
-
-(in-package :cl-user)
-
-(defpackage :tts
-  (:export
- #:code #:queue #:speak #:letter #:speak-list #:icon
- #:pause #:stop #:force
- #:init #:shutdown)
-  )
-(in-package :tts)
-
-;;}}}
 ;;{{{ Setup:
 
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
 
-(defvar *emacspeak* "/home/raman/emacs/lisp/emacspeak"
+(defvar *emacspeak* "/home/raman/emacs/lisp/emacspeak/"
   "Root of Emacspeak installation.")
 (defun tts-location (engine)
   "Return location of specified engine."
@@ -69,7 +56,7 @@
 (defvar *tts* nil
   "Handle to tts server connection.")
 
-(defun init (&key (engine "dtk-soft"))
+(defun tts-init (&key (engine "dtk-soft"))
   "Initialize TTS  system."
   (declare (special *tts*))
   (setq *tts*
@@ -90,8 +77,8 @@
   (let ((handle (tts)))
     (setf (tts-process handle)
           (sb-ext:run-program
-           *tts-engine* nil :wait nil :input :stream)
-          (setf (tts-input handle) (sb-ext:process-input (tts-process handle))))
+           (tts-engine handle) nil :wait nil :input :stream))
+    (setf (tts-input handle) (sb-ext:process-input (tts-process handle)))
     (write-line (format nil "tts_set_punctuations all") (tts-input handle))
     (force-output (tts-input handle))))
 
@@ -104,53 +91,53 @@
 ;;}}}
 ;;{{{Exported Functions
 
-(defun shutdown ()
+(defun tts-shutdown ()
   "Shutdown a TTS session."
   (let ((handle (tts)))
     (when (tts-input handle)
       (close (tts-input handle)))
     (setf (tts-input handle) nil)))
 
-(defun code (cmd)
+(defun tts-code (cmd)
   "Queue TTS code  to engine."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
     (format i "c {~a}~%" cmd) 
     (finish-output i)))
 
-(defun icon (icon)
+(defun tts-icon (icon)
   "Queue auditory icon  to play."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
     (format i "a {~a}~%" (icon-file icon))
     (finish-output i)))
 
-(defun queue (text)
+(defun tts-queue (text)
   "Queue text to speak."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
     (format i "q {~a}~%" text) 
     (finish-output i)))
 
-(defun pause (ms)
+(defun tts-pause (ms)
   "Send silence"
 (let ((i (tts-input (tts))))
     (format i "sh {~a}~%" ms) 
     (finish-output i))  )
 
-(defun force ()
+(defun tts-force ()
   "Speak all queued text."
   (let ((i (tts-input (tts))))
     (format i "d~%" )
     (finish-output i)))
 
-(defun stop ()
+(defun tts-stop ()
   "Stop speech."
   (let ((i (tts-input (tts))))
     (format i "s~%")
     (finish-output i)))
 
-(defun speak (text)
+(defun tts-speak (text)
   "Speak text."
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
@@ -158,13 +145,13 @@
     (format i "d~%")
     (finish-output i)))
 
-(defun speak-list (lines)
+(defun tts-speak-list (lines)
   "Speak an arbitrary number of lines."
   (tts)
   (mapc 'tts-queue lines)
   (force))
 
-(defun letter (text)
+(defun tts-letter (text)
   "Speak letter."
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
