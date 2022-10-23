@@ -23,16 +23,6 @@
 ;;; method for the defined object.
 
 ;;; Modified: Wed Apr  7 17:55:42 EDT 1993
-;;; defining fraction here:
-
-  (define-text-object :macro-name "frac" 
-  :number-args 2
-  :processing-function frac-expand 
-  :precedence  nil
-  :children-are-called (list 'numerator 'denominator )
-  :object-name fraction
-  :supers (math-object)
-  )
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Fri Oct  9 14:01:50 1992
@@ -40,24 +30,24 @@
 (defmethod read-aloud ((fraction fraction))
   "Read aloud fraction "
   (afl:new-block
-   (afl:local-set-state
-    (reading-state 'fraction) 
-    )
-   (read-aloud "Fraction with numerator: ")
-   (afl:new-block
     (afl:local-set-state
-     (reading-state 'fraction-numerator))
-    (read-aloud (numerator-of fraction))
+     (reading-state 'fraction) 
+     )
+    (read-aloud "Fraction with numerator: ")
+    (afl:new-block
+      (afl:local-set-state
+       (reading-state 'fraction-numerator))
+      (read-aloud (numerator-of fraction))
+      )
+    (read-aloud "And denominator: ")
+    (afl:new-block
+      (afl:local-set-state
+       (reading-state 'fraction-denominator))
+      (read-aloud
+       (denominator-of fraction))
+      )
+    (read-aloud "end of fraction. ")
     )
-   (read-aloud "And denominator: ")
-   (afl:new-block
-    (afl:local-set-state
-     (reading-state 'fraction-denominator))
-    (read-aloud
-     (denominator-of fraction))
-    )
-   (read-aloud "end of fraction. ")
-   )
   )
 (defmethod  numerator-of ((fraction fraction))
   "Return numerator"
@@ -89,15 +79,15 @@
 (defmethod read-aloud  (( text-box text-box )) 
   "Read aloud method for object text-box "
   (afl:new-block
-   (afl:local-set-state
-    (afl:generalized-afl-operator  afl:*current-speech-state* 
-                                   '(afl:scale-by  afl:average-pitch
-                                     .166 
-                                     :slot afl:step-size)
-                                   '(afl:scale-by afl:head-size .33
-                                     :slot afl:step-size )))
-   (read-aloud (argument text-box 1))
-   )
+    (afl:local-set-state
+     (afl:generalized-afl-operator  afl:*current-speech-state* 
+                                    '(afl:scale-by  afl:average-pitch
+                                      .166 
+                                      :slot afl:step-size)
+                                    '(afl:scale-by afl:head-size .33
+                                      :slot afl:step-size )))
+    (read-aloud (argument text-box 1))
+    )
   )
 
 ;;; }
@@ -115,11 +105,11 @@
 (defmethod read-aloud  (( text-frame-box text-frame-box )) 
   "Read aloud method for object text-frame-box "
   (afl:new-block
-   (afl:local-set-state
-    (afl:get-point-in-speech-space 'afl:paul))
-   (afl:synchronize-and-play *section-cue* :background-flag t)
-   (read-aloud (argument text-frame-box 1))
-   )
+    (afl:local-set-state
+     (afl:get-point-in-speech-space 'afl:paul))
+    (afl:synchronize-and-play *section-cue* :background-flag t)
+    (read-aloud (argument text-frame-box 1))
+    )
   )
 
 
@@ -130,11 +120,11 @@
 
 #|
 (define-text-object     :macro-name "label" 
-  :number-args 1
-  :processing-function label-default-expand 
-  :object-name label
-  :supers (document)
-  )
+:number-args 1
+:processing-function label-default-expand 
+:object-name label
+:supers (document)
+)
 ;;; automatically generated expander for label will not currently
 ;;; work. The class has been separately defined. 
 |#
@@ -503,7 +493,7 @@
   (afl:force-speech)
   (afl:synchronize-and-play *newline-cue*)
   )
-;(activate-rule 'contents-line 'default)
+                                        ;(activate-rule 'contents-line 'default)
 
 
 
@@ -522,9 +512,9 @@
 (defmethod read-aloud  (( number-line number-line )) 
   "Read aloud method for object number-line "
   (read-aloud (argument 1 number-line ))
-(afl:comma-intonation)
+  (afl:comma-intonation)
   )
-;(activate-rule 'number-line 'default )
+                                        ;(activate-rule 'number-line 'default )
 
 
 (define-text-object :macro-name "pagenumbering" 
@@ -540,7 +530,7 @@
                         ;;; object 1)  in                         read-aloud 
 (defmethod read-aloud  (( pagenumbering pagenumbering )) 
   "Read aloud method for object pagenumbering "
-nil
+  nil
   )
 
 
@@ -557,12 +547,12 @@ nil
 (defmethod read-aloud  ((diagonal-dots diagonal-dots))
   "Read aloud method for object diagonal-dots "
   (afl:new-block
-   (loop for i from 1 to 3 do 
-         (afl:send-text "and so on, ")
-         (afl:force-speech)
-         (afl:local-set-state (afl:multi-step-by afl:*current-speech-state*
-                                                 '(afl:left-volume -2.5)
-                                                 '(afl:right-volume -2.5)))))
+    (loop for i from 1 to 3 do 
+      (afl:send-text "and so on, ")
+      (afl:force-speech)
+      (afl:local-set-state (afl:multi-step-by afl:*current-speech-state*
+                                              '(afl:left-volume -2.5)
+                                              '(afl:right-volume -2.5)))))
   )
 
 (define-text-object :macro-name "vdots" 
@@ -578,7 +568,7 @@ nil
 (defmethod read-aloud  (( vertical-dots vertical-dots )) 
   "Read aloud method for object vertical-dots "
   (afl:send-text "dot, dot, dot. ")
-(afl:force-speech)
+  (afl:force-speech)
   )
 
 
@@ -599,7 +589,7 @@ nil
                         ;;; object 2)  in                         read-aloud 
 (defmethod read-aloud  (( setlength setlength )) 
   "Read aloud method for object setlength "
-nil
+  nil
   )
 
 
@@ -617,8 +607,8 @@ nil
                         ;;; object 1)  in                         read-aloud 
 (defmethod read-aloud  (( caption caption )) 
   "Read aloud method for object caption "
-(with-reading-state (reading-state 'annotation-voice )
-  (read-aloud  (argument 1 caption )))
+  (with-reading-state (reading-state 'annotation-voice )
+    (read-aloud  (argument 1 caption )))
   )
 
 
@@ -641,8 +631,8 @@ nil
                         ;;; object 1)  in                         read-aloud 
 (defmethod read-aloud  (( emph emph )) 
   "Read aloud method for object emph "
-(with-reading-state (reading-state 'emphasize )
-  (read-aloud  (argument 1 emph )))
+  (with-reading-state (reading-state 'emphasize )
+    (read-aloud  (argument 1 emph )))
   )
 
 
@@ -661,8 +651,8 @@ nil
                         ;;; object 1)  in                         read-aloud 
 (defmethod read-aloud  (( texttt texttt )) 
   "Read aloud method for object texttt "
-(with-reading-state (reading-state 'verbatim-voice )
-  (read-aloud  (argument 1 texttt )))
+  (with-reading-state (reading-state 'verbatim-voice )
+    (read-aloud  (argument 1 texttt )))
   )
 
 
@@ -687,8 +677,8 @@ nil
                         ;;; object 1)  in                         read-aloud 
 (defmethod read-aloud  (( textsf textsf )) 
   "Read aloud method for object textsf "
-(with-reading-state (reading-state 'sans-seriph )
-  (read-aloud  (argument 1 textsf )))
+  (with-reading-state (reading-state 'sans-seriph )
+    (read-aloud  (argument 1 textsf )))
   )
 
 
@@ -707,8 +697,8 @@ nil
                         ;;; object 1)  in                         read-aloud 
 (defmethod read-aloud  (( textit textit )) 
   "Read aloud method for object textit "
-(with-reading-state (reading-state 'emphasize )
-  (read-aloud  (argument 1 textit )))
+  (with-reading-state (reading-state 'emphasize )
+    (read-aloud  (argument 1 textit )))
   )
 
 (define-text-object :macro-name "textbf" 
@@ -724,8 +714,8 @@ nil
                         ;;; object 1)  in                         read-aloud 
 (defmethod read-aloud  (( textbf textbf )) 
   "Read aloud method for object textbf "
-(with-reading-state (reading-state 'bold )
-  (read-aloud  (argument 1 textbf )))
+  (with-reading-state (reading-state 'bold )
+    (read-aloud  (argument 1 textbf )))
   )
 
 

@@ -779,6 +779,17 @@
 ;;; Created: Fri Oct  9 13:56:00 1992
 
 ;;; class fraction no longer defined by hand.
+;;; defining fraction here:
+
+(define-text-object :macro-name "frac" 
+  :number-args 2
+  :processing-function frac-expand 
+  :precedence  nil
+  :children-are-called (list 'numerator 'denominator )
+  :object-name fraction
+  :supers (math-object)
+  )
+
 ;;; <(Handled by define-text-object )>
 (proclaim '(inline fraction-p))
 
