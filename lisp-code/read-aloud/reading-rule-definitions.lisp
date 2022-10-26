@@ -37,11 +37,12 @@
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
                               (afl:tts-icon "paragraph")
-                              (afl:afl:tts-icon  *paragraph-cue* :background-flag t)
+                              (afl:tts-icon  *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item)
                                     (when  (end-of-sentence? item)
-                                      (afl:await-silence )))))
+                                      ;(afl:tts-force )
+                                      ))))
   )
 
 (defvar *mark-interactively-char* #\m
@@ -54,11 +55,11 @@ In addition, allow the user to mark a position while reading. "
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
                               (afl:tts-icon "paragraph")
-                              (afl:afl:tts-icon  *paragraph-cue* :background-flag t)
+                              (afl:tts-icon  *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item)
                                     (when  (end-of-sentence? item)
-                                      (afl:await-silence )
+                                      ;(afl:tts-force )
                                       (when  (char=
                                               (or (read-char-no-hang)
                                               #\space)
@@ -84,11 +85,11 @@ In addition, allow the user to mark a position while reading. "
     (afl:new-block (afl:local-set-state :text)
                    (with-slots  ((contents contents )) paragraph
                                 (afl:tts-icon "paragraph")
-                                (afl:afl:tts-icon  *paragraph-cue* :background-flag t)
+                                (afl:tts-icon  *paragraph-cue* :background-flag t)
                                 (loop for item in contents do
                                       (read-aloud  item)
                                       (when  (end-of-sentence? item)
-                                        (afl:await-silence)
+                                        (afl:tts-force)
                                         (afl:local-set-state
                                          (afl:step-by
                                           afl:*current-speech-state*
@@ -105,11 +106,11 @@ In addition, allow the user to mark a position while reading. "
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
                               (afl:tts-icon "paragraph")
-                              (afl:afl:tts-icon  *paragraph-cue* :background-flag t)
+                              (afl:tts-icon  *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item)
                                     (when  (end-of-sentence? item)
-                                      (afl:await-silence)
+                                      (afl:tts-force)
                                       (afl:local-set-state
                                        (afl:step-by
                                         afl:*current-speech-state*
@@ -133,7 +134,7 @@ In addition, allow the user to mark a position while reading. "
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
                               (afl:tts-icon "paragraph")
-                              (afl:afl:tts-icon  *paragraph-cue* :background-flag t)
+                              (afl:tts-icon  *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item)
                                     (when  (end-of-sentence? item)
@@ -147,7 +148,7 @@ In addition, allow the user to mark a position while reading. "
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
                               (afl:tts-icon "paragraph")
-                              (afl:afl:tts-icon  *paragraph-cue* :background-flag t)
+                              (afl:tts-icon  *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item ))))
   )
@@ -190,7 +191,7 @@ In addition, allow the user to mark a position while reading. "
     "read first sentence"
   (let ((contents (contents paragraph )))
     (afl:new-block
-     (afl:afl:tts-icon  *paragraph-cue*)
+     (afl:tts-icon  *paragraph-cue*)
      (loop for word in contents
            do
            (read-aloud word)
@@ -244,7 +245,7 @@ In addition, allow the user to mark a position while reading. "
     " inference reading rule for object fraction"
   (read-aloud " from ")
   (read-aloud (numerator-of fraction))
-  (afl:afl:tts-icon  *item-cue* :background-flag t)
+  (afl:tts-icon  *item-cue* :background-flag t)
   (read-aloud  " we infer ")
   (read-aloud (denominator-of fraction))
   )

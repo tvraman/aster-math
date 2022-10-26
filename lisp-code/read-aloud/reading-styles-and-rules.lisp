@@ -170,7 +170,8 @@
 ;;; <(Backed up version that did this)>
 ;;; Modified: Tue Jan 18 15:42:58 EST 1994
 ;;; Using inline function lookup-effective-style
-
+;;; Forward Declaration
+(defvar *read-pointer* )
 (defmethod read-aloud  :around ((document document))
            "Around method"
            (when document 
