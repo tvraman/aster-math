@@ -592,7 +592,7 @@
     (read-aloud args))
     (afl:period-intonation)
     (afl:tts-force)
-    (afl:pause 1)
+    (afl:tts-pause 1)
     (read-aloud doc)
     (afl:tts-force)))
 
@@ -728,7 +728,7 @@ Assumes the title page of a Cornell PhD thesis. "
     (afl:tts-queue "By, "))
   (read-aloud (author *document*))
   (afl:synchronize-and-play *newline-cue*)
-  (afl:pause 1)
+  (afl:tts-pause 1)
   (read-aloud (contents title-page))
   (afl:synchronize-and-play *newline-cue*)
   )
@@ -737,7 +737,7 @@ Assumes the title page of a Cornell PhD thesis. "
     "Render the acknowledgements"
   (read-aloud "Acknowledgements")
   (afl:tts-force)
-  (afl:pause 1)
+  (afl:tts-pause 1)
   (read-aloud (contents acknowledgements )))
 
 
@@ -745,14 +745,14 @@ Assumes the title page of a Cornell PhD thesis. "
 
 (def-reading-rule (copyright-page  simple)
     "Read aloud a  copyright page ."
-  (afl:pause 1)
+  (afl:tts-pause 1)
   (read-aloud "Copyright, 1994, T V Raman. ")
   (read-aloud "All rights reserved. ")
   )
 (def-reading-rule (dedication simple)
     "Render the dedication page. "
   (read-aloud "dedication. ")
-  (afl:pause 5)
+  (afl:tts-pause 5)
   (read-aloud (contents dedication )))
 
   
@@ -760,7 +760,7 @@ Assumes the title page of a Cornell PhD thesis. "
 (def-reading-rule (biographical-sketch simple)
     "Read aloud a  biographical sketch. "
   (read-aloud " Biographical sketch. ")
-  (afl:pause 1)
+  (afl:tts-pause 1)
   (read-aloud (contents biographical-sketch))
   )
 (define-text-object :macro-name "makecopyright" 

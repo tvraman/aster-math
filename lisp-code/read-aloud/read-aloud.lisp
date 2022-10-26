@@ -284,7 +284,7 @@
     (cond
       ((punctuation? contents)
        (afl:tts-queue (format nil "~a" (afl:get-pronunciation contents ))))
-      (t (afl:send-space)
+      (t (afl:tts-queue " ")
          (afl:tts-queue (afl:get-pronunciation contents )))
       ))
   )
@@ -301,7 +301,7 @@
       ((punctuation? string)
        (afl:tts-queue (format nil "[_]~a" pronounce))
        (afl:tts-force))
-      (t (afl:send-space)
+      (t (afl:tts-queue " ")
          (afl:tts-queue pronounce  ))
       )
     )
@@ -344,7 +344,7 @@
   (afl:new-block
     (afl:local-set-state
      (reading-state 'list-environment-voice))
-    (afl:paragraph-begin)
+    (afl:tts-icon "paragraph")
     (read-aloud (list-environment-items list-environment))
     )
   )
@@ -359,7 +359,7 @@
     (with-reading-state (reading-state 'annotation-voice)
       (read-aloud (item-marker item ))))
   (read-aloud (item-contents item))
-  (afl:pause 5)
+  (afl:tts-pause 5)
   (when (label item)
     (read-aloud (label-name (label item ))))
   (relabel-if-necessary (label item ))
@@ -394,7 +394,7 @@
 
 (defmethod read-aloud ((text-number text-number))
   "Read aloud a number "
-  (afl:speak-number-string (first  (contents text-number )))
+  (afl:tts-queue (first  (contents text-number )))
   )
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 20:05:25 1992
@@ -405,7 +405,7 @@
     (read-aloud
      (sectional-unit-name sectional-unit))
     (when (sectional-unit-number sectional-unit)
-      (afl:speak-number-string
+      (afl:tts-queue
        (sectional-unit-number sectional-unit )))
     )
   (with-reading-state (reading-state 'title-voice)
@@ -414,7 +414,7 @@
     (afl:new-block
       (read-aloud  (sectional-unit-body sectional-unit
                                         )))
-    (afl:await-silence))
+    (afl:tts-force))
   (afl:new-block
     (read-aloud (sectional-unit-sectional-units sectional-unit )))
   )
@@ -428,7 +428,7 @@
     (read-aloud
      (sectional-unit-name section))
     (when (sectional-unit-number section)
-      (afl:speak-number-string
+      (afl:tts-queue
        (sectional-unit-number section)))
     )
   (afl:tts-icon *section-cue* )
@@ -437,7 +437,7 @@
   (when (sectional-unit-body section)
     (afl:new-block
       (read-aloud (sectional-unit-body section )))
-    (afl:await-silence ))
+    (afl:tts-force ))
   (afl:new-block
     (read-aloud (sectional-unit-sectional-units section )))
   )
@@ -477,7 +477,7 @@
                               (new-environment-name new-environment )
                               (class-name (class-of new-environment )))
                           (number new-environment ))))
-  (afl:pause 5)
+  (afl:tts-pause 5)
   (read-aloud (new-environment-contents new-environment))
   (relabel-if-necessary (label new-environment ))
   )
@@ -638,12 +638,12 @@ reading full documents. ")
 (defmethod read-aloud ((math-object math-object))
   "read aloud math object"
   (read-aloud (contents math-object))
-  (afl:send-space)
+  (afl:tts-queue " ")
   (when (attributes math-object)
     (mapcar #'read-aloud
             (sorted-attributes  (attributes math-object)))
     )
-  (afl:send-space)
+  (afl:tts-queue " ")
   (with-reading-state (reading-state 'children)
     (read-aloud (children math-object)))
   )
@@ -669,7 +669,7 @@ reading full documents. ")
     (afl:local-set-state
      (reading-state (attribute-name attribute)))
     (read-aloud (attribute-value attribute))
-    (afl:send-space)
+    (afl:tts-queue " ")
     )
   )
 
@@ -767,7 +767,7 @@ reading full documents. ")
 
                                      (defmethod read-aloud ((math-subformula math-subformula))
                                        (read-aloud (contents math-subformula))
-                                       (afl:send-space)
+                                       (afl:tts-queue " ")
                                        (when (attributes math-subformula)
                                          (mapcar #'read-aloud
                                                  (sorted-attributes  (attributes

@@ -25,7 +25,7 @@ summarize a paragraph.
                  (with-slots
                      ((contents contents ))
                    paragraph
-                   ;(afl:paragraph-begin)
+                   ;(afl:tts-icon "paragraph")
                    (cond
                      ((and *paragraph-summary-length*
                            (not (word-p (first contents ))))

@@ -36,7 +36,7 @@
 
 (export
  '(tts-init tts-open tts-shutdown
-   tts-icon tts-speak tts-force tts-queue 
+   tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
    ))
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
@@ -147,6 +147,14 @@
   (unless (tts-input (tts)) (tts-open))
   (let ((i (tts-input (tts))))
     (format i "q {~a}~%" text)
+    (format i "d~%")
+    (finish-output i)))
+
+(defun tts-say (text)
+  "Say text."
+  (unless (tts-input (tts)) (tts-open))
+  (let ((i (tts-input (tts))))
+    (format i "tts_say {~a}~%" text)
     (format i "d~%")
     (finish-output i)))
 

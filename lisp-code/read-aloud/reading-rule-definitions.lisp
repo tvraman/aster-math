@@ -36,7 +36,7 @@
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
-                              (afl:paragraph-begin)
+                              (afl:tts-icon "paragraph")
                               (afl:synchronize-and-play *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item)
@@ -53,7 +53,7 @@ In addition, allow the user to mark a position while reading. "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
-                              (afl:paragraph-begin)
+                              (afl:tts-icon "paragraph")
                               (afl:synchronize-and-play *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item)
@@ -83,7 +83,7 @@ In addition, allow the user to mark a position while reading. "
                  *random-speech-interval* )))))
     (afl:new-block (afl:local-set-state :text)
                    (with-slots  ((contents contents )) paragraph
-                                (afl:paragraph-begin)
+                                (afl:tts-icon "paragraph")
                                 (afl:synchronize-and-play *paragraph-cue* :background-flag t)
                                 (loop for item in contents do
                                       (read-aloud  item)
@@ -104,7 +104,7 @@ In addition, allow the user to mark a position while reading. "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
-                              (afl:paragraph-begin)
+                              (afl:tts-icon "paragraph")
                               (afl:synchronize-and-play *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item)
@@ -132,7 +132,7 @@ In addition, allow the user to mark a position while reading. "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
-                              (afl:paragraph-begin)
+                              (afl:tts-icon "paragraph")
                               (afl:synchronize-and-play *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item)
@@ -145,7 +145,7 @@ In addition, allow the user to mark a position while reading. "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
   (afl:new-block (afl:local-set-state :text)
                  (with-slots  ((contents contents )) paragraph
-                              (afl:paragraph-begin)
+                              (afl:tts-icon "paragraph")
                               (afl:synchronize-and-play *paragraph-cue* :background-flag t)
                               (loop for item in contents do
                                     (read-aloud  item ))))

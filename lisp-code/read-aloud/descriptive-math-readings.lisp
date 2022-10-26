@@ -34,10 +34,10 @@
            (read-aloud (children variable-of-integration))
            (read-aloud " equals" ))
          (read-aloud lower-limit)
-         (afl:pause 1)
+         (afl:tts-pause 1)
          (read-aloud " to ")
          (read-aloud upper-limit)
-         (afl:pause 1))
+         (afl:tts-pause 1))
         (lower-limit
          (when variable-of-integration
            (read-aloud " with respect to ")
@@ -154,7 +154,7 @@
             (exponent-p contents))
        (afl:subclause-boundary)
        (afl:low-intonation)
-       (afl:pause 5 )
+       (afl:tts-pause 5 )
        (read-aloud *exponent-start* )
        (afl:subclause-boundary)
        (if (and
@@ -343,7 +343,7 @@
             do (read-math-child  child ))
       (when subscript
         (afl:subclause-boundary)
-        (afl:pause 1)
+        (afl:tts-pause 1)
         (read-aloud "to the base ")
         (afl:subclause-boundary)
         (read-aloud subscript ))
@@ -373,7 +373,7 @@
     (when  remaining-attributes
       (when subscript
         (afl:subclause-boundary)
-        (afl:pause 1)
+        (afl:tts-pause 1)
         (read-aloud "to the base ")
         (afl:subclause-boundary)
         (read-aloud subscript )))
@@ -392,7 +392,7 @@
          (read-aloud "log")
          (when subscript
                                         ;           (afl:subclause-boundary)
-                                        ;           (afl:pause 1)
+                                        ;           (afl:tts-pause 1)
            (read-aloud " to the base ")
            (afl:low-intonation)
            (afl:subclause-boundary)
@@ -406,7 +406,7 @@
                  do (read-math-child  child ))
            (when subscript
              (afl:subclause-boundary)
-             (afl:pause 1)
+             (afl:tts-pause 1)
              (read-aloud "to the base ")
              (afl:subclause-boundary)
              (read-aloud subscript )))

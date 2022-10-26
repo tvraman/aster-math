@@ -85,12 +85,12 @@
                            (> (length children ) 2)
                            (all-have-same-weight children ))))
      (read-math-child   (first children))
-     (afl:send-space)
+     (afl:tts-queue " ")
      (unless (rest children )
        (read-math-object-and-attributes math-object))
      (loop for child in (rest children) 
            do
-           (when comma-flag (afl:comma-intonation))
+           (when comma-flag (afl:tts-speak "[_,]"))
            (read-math-object-and-attributes math-object)
            (read-math-child  child ))))
   )
@@ -169,7 +169,7 @@
 (defun read-math-object-and-attributes (math-object) 
   "Read the object and its attributes"
   (read-aloud (contents math-object ))
-  (afl:send-space)
+  (afl:tts-queue " ")
   (when (attributes math-object)
     (mapc #'read-aloud 
           (sorted-attributes  (attributes math-object ))))
