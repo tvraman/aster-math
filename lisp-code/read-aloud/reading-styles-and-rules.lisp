@@ -179,7 +179,7 @@
              (setf *read-pointer* document)
              (unless (afl-state document)
                (setf (afl-state document)
-                     afl:*current-total-audio-state* ))
+                     afl:*current-speech-state* ))
              (let* 
                  ((active-rule (active-rule document))
                   (special-pattern (special-pattern document ))
@@ -299,7 +299,7 @@ math object against this threshold. ")
                      (children math-object))
               (< (weight (children math-object))
               *math-step-threshold*)))
-    (afl:force-speech)
+    (afl:tts-force)
     (read-char))
   )
 

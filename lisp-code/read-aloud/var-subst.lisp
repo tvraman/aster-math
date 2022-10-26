@@ -148,17 +148,17 @@ continues if y is not  pressed.")
                                       (afl:audio-prompt "read substitutions? ")
                                       (y-or-n-p
                                        #\n *wait-before-reading-substitutions*))
-                                 (afl:send-text "where, ")
+                                 (afl:tts-queue "where, ")
                                  (read-aloud
                                   (substitutions substituted-expression)))
                                 ((numberp ;timeout 
                                   *wait-before-reading-substitutions*))
                                 (*wait-before-reading-substitutions*
-                                 (afl:send-text "where, ")
+                                 (afl:tts-queue "where, ")
                                  (read-char)
                                  (read-aloud
                                   (substitutions substituted-expression  )))
-                                (t(afl:send-text "where, ")
+                                (t(afl:tts-queue "where, ")
                                   (read-aloud
                                    (substitutions substituted-expression
                                                   ))))))))
@@ -173,7 +173,7 @@ continues if y is not  pressed.")
   "Read aloud a substitution pair"
   (with-reading-state (reading-state  'read-substitution)
     (read-aloud (substitution-variable substitution )))
-  (afl:send-text "denotes, ")
+  (afl:tts-queue "denotes, ")
   (read-aloud (substitution-denotes substitution ))
   (afl:comma-intonation)
   (afl:await-silence)

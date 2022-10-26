@@ -195,7 +195,7 @@ In addition, allow the user to mark a position while reading. "
            (read-aloud word)
            (when (end-of-sentence? word)
              (return nil)
-             (afl:force-speech )))))
+             (afl:tts-force )))))
   )
 
 ;;; }
@@ -291,4 +291,4 @@ In addition, allow the user to mark a position while reading. "
     "Only read the caption of a figure. "
   (read-aloud  "Figure captioned, ")
   (read-aloud (caption  figure ))
-  (afl:force-speech))
+  (afl:tts-force))

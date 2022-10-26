@@ -157,7 +157,7 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( ams-tex ams-tex )) 
   "Read aloud method for object ams-tex "
-(afl:send-text "[ey] m s tech ")
+(afl:tts-queue "[ey] m s tech ")
   )
 
 
@@ -302,7 +302,7 @@
    (afl:local-set-state (afl:switch-on
                          afl:*current-audio-state* ))
    (process-allow-schedule)
-   (afl:send-text "[+]")
+   (afl:tts-queue "[+]")
    (afl:local-set-state 
     (reading-state 'abstract))
    (process-allow-schedule)
@@ -465,15 +465,15 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( aster aster )) 
   "Read aloud method for object aster "
-  (afl:send-text " Aster ")
+  (afl:tts-queue " Aster ")
   (afl:synchronize-and-play(afl:make-audio-filename "bark"))
   (afl:comma-intonation)
-  (afl:force-speech)
+  (afl:tts-force)
   )
 
 
 (def-reading-rule (aster dont-bark)
-    (afl:send-text " aster" )
+    (afl:tts-queue " aster" )
   )
 (define-text-object :macro-name "asterlogo" 
   :number-args 0
@@ -489,9 +489,9 @@
   "Read aloud method for object aster-logo "
 (afl:synchronize-and-play
  (afl:make-audio-filename "bark"))
-(afl:send-text "aster")
+(afl:tts-queue "aster")
 (afl:comma-intonation)
-(afl:force-speech)
+(afl:tts-force)
 (afl:synchronize-and-play (afl:make-audio-filename "bark"))
 )
 (activate-rule 'aster-logo 'default)
@@ -500,8 +500,8 @@
     "Panting aster logo. "
   (afl:synchronize-and-play
    (afl:make-audio-filename "dog-pant"))
-  (afl:send-text "aster")
-  (afl:force-speech)
+  (afl:tts-queue "aster")
+  (afl:tts-force)
                                         ;(afl:synchronize-and-play (afl:make-audio-filename "dog-pant"))
   )
 
@@ -509,9 +509,9 @@
     "Reading rule for aster-logo"
   (afl:synchronize-and-play (afl:make-audio-filename "dog-pant")
                             :background-flag t)
-  (afl:send-text "aster")
+  (afl:tts-queue "aster")
   (afl:comma-intonation)
-  (afl:force-speech)
+  (afl:tts-force)
   ;(afl:synchronize-and-play (afl:make-audio-filename "bark"))
   )
 
@@ -528,14 +528,14 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( talk-title talk-title )) 
   "Read aloud method for object talk-title "
-  (afl:send-text "Recognition, ")
-  (afl:force-speech)
+  (afl:tts-queue "Recognition, ")
+  (afl:tts-force)
   (afl:synchronize-and-play *newline-cue*)
-  (afl:send-text "and audio formatting, ")
-  (afl:force-speech)
+  (afl:tts-queue "and audio formatting, ")
+  (afl:tts-force)
   (afl:synchronize-and-play *newline-cue*)
-  (afl:send-text "of structured information objects. ")
-  (afl:force-speech)
+  (afl:tts-queue "of structured information objects. ")
+  (afl:tts-force)
   )
 
 
@@ -561,8 +561,8 @@
 
 (def-reading-rule (l-verbatim summarize)
     "summarize verbatim object. "
-  (afl:send-text "displayed verbatim text. ")
-  (afl:force-speech))
+  (afl:tts-queue "displayed verbatim text. ")
+  (afl:tts-force))
 
 (def-reading-rule (l-verbatim simple)
     "Simple reading rule for l-verbatim text."
@@ -583,18 +583,18 @@
          (doc (nthcdr 3 contents )))
       (read-aloud type)
       (afl:comma-intonation)
-      (afl:force-speech)
+      (afl:tts-force)
       (with-reading-state (reading-state 'bold)
     (read-aloud name)
     (afl:comma-intonation)
-    (afl:force-speech))
+    (afl:tts-force))
     (with-reading-state (reading-state 'emphasize)
     (read-aloud args))
     (afl:period-intonation)
-    (afl:force-speech)
+    (afl:tts-force)
     (afl:pause 1)
     (read-aloud doc)
-    (afl:force-speech)))
+    (afl:tts-force)))
 
 
 
@@ -725,7 +725,7 @@ Assumes the title page of a Cornell PhD thesis. "
   (afl:speak-file "/home/raman/emacs/lisp/aster/lisp-code/read-aloud/cu-phd-title.txt")
   (afl:synchronize-and-play *newline-cue*)
   (with-reading-state (reading-state 'annotation-voice)
-    (afl:send-text "By, "))
+    (afl:tts-queue "By, "))
   (read-aloud (author *document*))
   (afl:synchronize-and-play *newline-cue*)
   (afl:pause 1)
@@ -736,7 +736,7 @@ Assumes the title page of a Cornell PhD thesis. "
 (def-reading-rule (acknowledgements simple)
     "Render the acknowledgements"
   (read-aloud "Acknowledgements")
-  (afl:force-speech)
+  (afl:tts-force)
   (afl:pause 1)
   (read-aloud (contents acknowledgements )))
 
@@ -845,7 +845,7 @@ Assumes the title page of a Cornell PhD thesis. "
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( tt-backslash tt-backslash )) 
   "Read aloud method for object tt-backslash "
-(afl:send-text "backslash" )
+(afl:tts-queue "backslash" )
   )
 
 
@@ -869,7 +869,7 @@ Assumes the title page of a Cornell PhD thesis. "
 
 (def-reading-rule (afl simple)
     "Simple reading rule for AFL. "
-  (afl:send-text "[ey]  f l "))
+  (afl:tts-queue "[ey]  f l "))
 
 (define-text-object :macro-name "thesistitle" 
   :number-args 0
@@ -883,7 +883,7 @@ Assumes the title page of a Cornell PhD thesis. "
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( thesis-title-macro thesis-title-macro )) 
   "Read aloud method for object thesis-title-macro "
-(afl:send-text "Audio system for Technical Readings. ")
+(afl:tts-queue "Audio system for Technical Readings. ")
   )
 
 

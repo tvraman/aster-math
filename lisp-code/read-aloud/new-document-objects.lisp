@@ -326,7 +326,7 @@
 ;;; Use slots argument-argument-1 in                         read-aloud 
 (defmethod read-aloud  (( h-space h-space )) 
   "Read aloud method for object h-space "
-  (tts:queue "[_<300>]")
+  (afl:tts-queue "[_<300>]")
   )
 
 
@@ -347,7 +347,7 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( tex-logo tex-logo )) 
   "Read aloud method for object tex-logo "
-  (afl:send-text "[t`ehkhx_<10>q]")
+  (afl:tts-queue "[t`ehkhx_<10>q]")
   )
 
 
@@ -500,7 +500,7 @@
   (afl:comma-intonation)
   (read-aloud "page ")
   (read-aloud (argument 3 contents-line ))
-  (afl:force-speech)
+  (afl:tts-force)
   (afl:synchronize-and-play *newline-cue*)
   )
                                         ;(activate-rule 'contents-line 'default)
@@ -558,8 +558,8 @@
   "Read aloud method for object diagonal-dots "
   (afl:new-block
     (loop for i from 1 to 3 do 
-      (afl:send-text "and so on, ")
-      (afl:force-speech)
+      (afl:tts-queue "and so on, ")
+      (afl:tts-force)
       (afl:local-set-state (afl:multi-step-by afl:*current-speech-state*
                                               '(afl:left-volume -2.5)
                                               '(afl:right-volume -2.5)))))
@@ -577,8 +577,8 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( vertical-dots vertical-dots )) 
   "Read aloud method for object vertical-dots "
-  (afl:send-text "dot, dot, dot. ")
-  (afl:force-speech)
+  (afl:tts-queue "dot, dot, dot. ")
+  (afl:tts-force)
   )
 
 

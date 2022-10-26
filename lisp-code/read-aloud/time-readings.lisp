@@ -100,10 +100,10 @@ duration. "
         and name in *time-fields*
         do
         (unless (zerop field )
-          (afl:send-text
+          (afl:tts-queue
            (format nil   "~a ~a, "
                    field name ))))
-  (afl:force-speech)
+  (afl:tts-force)
   )
 
 
@@ -158,7 +158,7 @@ duration. "
                              (* (afl:get-final-scale-factor 'afl:speech-rate)
                                 (afl:current-value 'afl:speech-rate))))
                    )))
-    (afl:send-text "approximately ")
+    (afl:tts-queue "approximately ")
     (speak-decoded-time duration)
     )
   )

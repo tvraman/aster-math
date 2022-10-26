@@ -60,10 +60,10 @@
   "Get label for this object from user.
 Wait for *get-label-wait* seconds before returning. "
   (unless (zerop *get-label-wait*)
-    (tts:icon *prompt-cue*)
-    (when (y-or-n-p   #\n *get-label-wait*
+    (afl:tts-icon *prompt-cue*)
+    (when (y-or-n-p    *get-label-wait*
                                  "Do you want to enter a new label. ")
-      (afl:send-text "enter label. ")
+      (afl:tts-queue "enter label. ")
       (format t "~% enter label.~% ")
       (fix-read-line ))))
 

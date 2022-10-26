@@ -173,7 +173,7 @@
    (read-aloud  (argument 1 inference ))
    (read-aloud " implies ")
    (read-aloud (argument 2 inference ))
-   (afl:force-speech))
+   (afl:tts-force))
   )
 
 

@@ -31,9 +31,9 @@
     "Reading rule for diagonal dots. "
   (afl:new-block
    (loop for i from 1 to 3 do 
-         (afl:send-text "and so on")
+         (afl:tts-queue "and so on")
          (afl:low-intonation)
-         (afl:force-speech)
+         (afl:tts-force)
          (afl:local-set-state (afl:multi-step-by
                                afl:*current-speech-state*
                                '(afl:loudness -1)
@@ -45,7 +45,7 @@
     "Simple reading rule for vertical dots. "
   (afl:new-block
    (loop for i from 1 to 3 do
-         (afl:send-text "dot")
+         (afl:tts-queue "dot")
          (afl:low-intonation)
          (afl:local-set-state
           (afl:multi-step-by
@@ -53,7 +53,7 @@
            '(afl:loudness -1)
            '(afl:left-volume -1.5)
            '(afl:right-volume -1.5)))))
-  (afl:force-speech ))
+  (afl:tts-force ))
 
 (def-reading-rule(phantom  simple) nil)
 (def-reading-rule (v-phantom simple) nil) 
@@ -181,12 +181,12 @@
             (when left-hand-side 
               (with-reading-state (reading-state 'left-hand-side)
                 (read-aloud left-hand-side)
-                (afl:force-speech )))
+                (afl:tts-force )))
             (read-aloud relational)
             (when right-hand-side
               (with-reading-state (reading-state 'right-hand-side)
                 (read-aloud right-hand-side)
-                (afl:force-speech ))))))
+                (afl:tts-force ))))))
   )
 
 
@@ -245,7 +245,7 @@
      (if label-name 
          (read-aloud label-name)
          (read-aloud  (format nil "math equation ~a" number  )))
-     (afl:force-speech )
+     (afl:tts-force )
      (relabel-if-necessary (label math-equation ))
      ))
   )
@@ -370,7 +370,7 @@
                          (afl:new-block
                           (afl:with-surrounding-pause *math-surround*
                             (read-aloud (first headers))
-                            (afl:send-text " at ")
+                            (afl:tts-queue " at ")
                             (read-aloud (first row))
                             (loop for column in (rest row)
                                   and head in (rest headers) do 
@@ -382,7 +382,7 @@
                                   (when column
                                     (afl:new-block ;dummy
                                      (read-aloud  head)
-                                     (afl:send-text " at ")
+                                     (afl:tts-queue " at ")
                                      (read-aloud  column ))
                                     )   ;end when 
                                   )))   ;done reading row

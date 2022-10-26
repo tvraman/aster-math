@@ -29,7 +29,7 @@ summarize a paragraph.
                    (cond
                      ((and *paragraph-summary-length*
                            (not (word-p (first contents ))))
-                      (afl:send-text "contains: ")
+                      (afl:tts-queue "contains: ")
                       (summarize (first contents )))
                      (*paragraph-summary-length* 
                       (loop for word in contents
@@ -45,12 +45,12 @@ summarize a paragraph.
                                   (punctuation? word))
                              (endp contents))  do 
                             (read-aloud  word )))
-                     (t (afl:send-text " paragraph ")
-                        (afl:force-speech)
+                     (t (afl:tts-queue " paragraph ")
+                        (afl:tts-force)
                         (afl:synchronize-and-play 
                     *paragraph-cue* :background-flag t)
                         ))))
-  (afl:force-speech)
+  (afl:tts-force)
   )
 
 (def-reading-rule (slide read-only-display-math)

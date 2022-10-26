@@ -70,7 +70,7 @@
   (let ((counter (footnote-counter )))
     (afl:new-block
      (with-reading-state (reading-state 'footnote-mark)
-       (afl:send-text  (format nil " ~a " counter ))))
+       (afl:tts-queue  (format nil " ~a " counter ))))
     (increment-footnote-counter)
     (delay-until 'paragraph
                  #'(lambda() (without-float (footnote)
