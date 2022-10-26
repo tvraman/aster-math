@@ -37,6 +37,7 @@
 (export
  '(tts-init tts-open tts-shutdown
    tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
+   with-surrounding-pause
    ))
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
@@ -74,6 +75,15 @@
   (declare (special *tts*))
   *tts*)
 
+;;}}}
+;;{{{macros:
+
+(defmacro with-surrounding-pause (pause-amount &body body)
+  "Execute body with surrounding pause specified by pause-amount"
+  `(progn
+     (afl:tts-pause ,pause-amount)
+     ,@body
+     (afl:tts-pause ,pause-amount)))
 ;;}}}
 ;;{{{Internal Functions
 

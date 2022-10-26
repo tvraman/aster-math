@@ -595,7 +595,8 @@ reading full documents. ")
         (read-aloud ( display-math-contents display-math))
         ))
     (afl:tts-force)
-    (afl:should-i-continue?))
+    ;(afl:should-i-continue?)
+    )
   )
 
 ;;; Parameter: *MATH-SURROUND*                               Author: raman
@@ -718,9 +719,9 @@ reading full documents. ")
                   col-index = 1 then (+ 1 col-index) 
                   do
                   (dotimes (i col-index) 
-                    (afl:synchronize-and-play  *column-cue*))
+                    (afl:tts-icon   *column-cue*))
                   (read-aloud  column))
-            (afl:synchronize-and-play  *row-cue*)))))
+            (afl:tts-icon   *row-cue*)))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Nov 19 15:30:15 1992
@@ -802,5 +803,5 @@ reading full documents. ")
                                      (defmethod read-aloud ((factorial factorial ))
                                        "read aloud a factorial object"
                                        (read-aloud (contents factorial))
-                                       (afl:subclause-boundary)
+                                       (afl:tts-queue "[_,]")
                                        (read-aloud "factorial,"))

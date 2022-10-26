@@ -80,21 +80,21 @@
     (unless (equal 'root parent )
       (afl:comma-intonation)
       (read-aloud "fraction ")
-      (afl:subclause-boundary))
+      (afl:queue "[_,]"))
     (afl:with-surrounding-pause pause-amount
       (cond
         ((and (leaf-p (numerator-of fraction))
               (leaf-p (denominator-of fraction )))
          (read-aloud (numerator-of fraction))
          (when (> (weight (numerator-of fraction )) 1)
-           (afl:subclause-boundary))
+           (afl:queue "[_,]"))
          (read-aloud "over" ) 
          (read-aloud
           (denominator-of fraction ))
          (afl:comma-intonation))
         (t (with-reading-state (reading-state 'children)
              (read-aloud (numerator-of fraction )))
-           (afl:subclause-boundary)
+           (afl:queue "[_,]")
            (read-aloud  " divided by,  ")
            (with-reading-state (reading-state 'children)
              (read-aloud (denominator-of fraction )))
@@ -426,14 +426,14 @@
     "Simple reading rule  for object integral-delimiter "
   (read-aloud " d ")
   (read-aloud (argument integral-delimiter 1))
-  (afl:subclause-boundary)
+  (afl:queue "[_,]")
   )
 
 
 (def-reading-rule (factorial simple)
     "Reading rule for factorials"
   (read-aloud (contents factorial))
-  (afl:subclause-boundary)
+  (afl:queue "[_,]")
   (read-aloud "factorial")
   (afl:comma-intonation)
   )

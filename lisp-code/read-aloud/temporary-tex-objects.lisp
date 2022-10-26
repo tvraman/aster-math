@@ -278,7 +278,7 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( aster-wish aster-wish )) 
   "Read aloud method for object aster-wish "
-  (afl:synchronize-and-play
+  (afl:afl:tts-icon 
    (afl:make-audio-filename "bark") )
   )
 
@@ -466,7 +466,7 @@
 (defmethod read-aloud  (( aster aster )) 
   "Read aloud method for object aster "
   (afl:tts-queue " Aster ")
-  (afl:synchronize-and-play(afl:make-audio-filename "bark"))
+  (afl:afl:tts-icon (afl:make-audio-filename "bark"))
   (afl:comma-intonation)
   (afl:tts-force)
   )
@@ -487,32 +487,32 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( aster-logo aster-logo )) 
   "Read aloud method for object aster-logo "
-(afl:synchronize-and-play
+(afl:afl:tts-icon 
  (afl:make-audio-filename "bark"))
 (afl:tts-queue "aster")
 (afl:comma-intonation)
 (afl:tts-force)
-(afl:synchronize-and-play (afl:make-audio-filename "bark"))
+(afl:afl:tts-icon  (afl:make-audio-filename "bark"))
 )
 (activate-rule 'aster-logo 'default)
 
 (def-reading-rule (aster-logo dog-pant)
     "Panting aster logo. "
-  (afl:synchronize-and-play
+  (afl:afl:tts-icon 
    (afl:make-audio-filename "dog-pant"))
   (afl:tts-queue "aster")
   (afl:tts-force)
-                                        ;(afl:synchronize-and-play (afl:make-audio-filename "dog-pant"))
+                                        ;(afl:afl:tts-icon  (afl:make-audio-filename "dog-pant"))
   )
 
 (def-reading-rule (aster-logo  pant-bark)
     "Reading rule for aster-logo"
-  (afl:synchronize-and-play (afl:make-audio-filename "dog-pant")
+  (afl:afl:tts-icon  (afl:make-audio-filename "dog-pant")
                             :background-flag t)
   (afl:tts-queue "aster")
   (afl:comma-intonation)
   (afl:tts-force)
-  ;(afl:synchronize-and-play (afl:make-audio-filename "bark"))
+  ;(afl:afl:tts-icon  (afl:make-audio-filename "bark"))
   )
 
 
@@ -530,10 +530,10 @@
   "Read aloud method for object talk-title "
   (afl:tts-queue "Recognition, ")
   (afl:tts-force)
-  (afl:synchronize-and-play *newline-cue*)
+  (afl:afl:tts-icon  *newline-cue*)
   (afl:tts-queue "and audio formatting, ")
   (afl:tts-force)
-  (afl:synchronize-and-play *newline-cue*)
+  (afl:afl:tts-icon  *newline-cue*)
   (afl:tts-queue "of structured information objects. ")
   (afl:tts-force)
   )
@@ -721,16 +721,16 @@
     "Read aloud a  title page.
 Assumes the title page of a Cornell PhD thesis. "
   (read-aloud (title *document*))
-  (afl:synchronize-and-play *newline-cue*)
+  (afl:afl:tts-icon  *newline-cue*)
   (afl:speak-file "/home/raman/emacs/lisp/aster/lisp-code/read-aloud/cu-phd-title.txt")
-  (afl:synchronize-and-play *newline-cue*)
+  (afl:afl:tts-icon  *newline-cue*)
   (with-reading-state (reading-state 'annotation-voice)
     (afl:tts-queue "By, "))
   (read-aloud (author *document*))
-  (afl:synchronize-and-play *newline-cue*)
+  (afl:afl:tts-icon  *newline-cue*)
   (afl:tts-pause 1)
   (read-aloud (contents title-page))
-  (afl:synchronize-and-play *newline-cue*)
+  (afl:afl:tts-icon  *newline-cue*)
   )
 
 (def-reading-rule (acknowledgements simple)
@@ -825,7 +825,7 @@ Assumes the title page of a Cornell PhD thesis. "
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( aster-picture aster-picture )) 
   "Read aloud method for object aster-picture "
-  (afl:synchronize-and-play
+  (afl:afl:tts-icon 
    (afl:make-audio-filename "dog-pant")
    :background-flag t)
   (afl:speak-file "~/lisp-code/read-aloud/aster-picture.txt")

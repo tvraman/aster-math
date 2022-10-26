@@ -117,7 +117,7 @@
   (afl:new-block
     (afl:local-set-state
      (afl:get-point-in-speech-space 'afl:paul))
-    (afl:synchronize-and-play *section-cue* :background-flag t)
+    (afl:afl:tts-icon  *section-cue* :background-flag t)
     (read-aloud (argument text-frame-box 1))
     )
   )
@@ -501,7 +501,7 @@
   (read-aloud "page ")
   (read-aloud (argument 3 contents-line ))
   (afl:tts-force)
-  (afl:synchronize-and-play *newline-cue*)
+  (afl:afl:tts-icon  *newline-cue*)
   )
                                         ;(activate-rule 'contents-line 'default)
 

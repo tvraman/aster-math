@@ -47,7 +47,7 @@ summarize a paragraph.
                             (read-aloud  word )))
                      (t (afl:tts-queue " paragraph ")
                         (afl:tts-force)
-                        (afl:synchronize-and-play 
+                        (afl:afl:tts-icon  
                     *paragraph-cue* :background-flag t)
                         ))))
   (afl:tts-force)

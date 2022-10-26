@@ -161,7 +161,7 @@ active")
     "Read as one <cardinal-number n>"
   (read-aloud "one")
   (read-aloud (cardinal-number (denominator-of fraction )))
-  (afl:subclause-boundary)
+  (afl:queue "[_,]")
   (when (not (number-1-p (numerator-of fraction )))
     (read-aloud (numerator-of fraction )))
   )
@@ -169,7 +169,7 @@ active")
 
 (def-reading-rule (fraction one-half-of)
     (read-aloud "one half ")
-  (afl:subclause-boundary)
+  (afl:queue "[_,]")
   (read-aloud (numerator-of fraction ))
   )
 

@@ -81,7 +81,7 @@
   ;;; Constant: *TIME-FIELDS*                                  Author: raman
   ;;; Created: Sat Jan  8 12:19:20 1994
 
-(defconstant *time-fields*
+(defparameter *time-fields*
   '( DAYS HOURS MINUTES SECONDS)
   "Order in which time fields returned by duration. ")
 
