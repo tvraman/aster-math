@@ -74,7 +74,6 @@
         (make-tts :engine (tts-location engine)))
   (tts-open))
 
-
 (defun tts ()
   "Return handle to TTS server."
   (declare (special *tts*))
@@ -106,7 +105,7 @@
   "Convert auditory icon name to a sound-file name."
   (declare (special *emacspeak*))
   (format nil "~a/sounds/pan-chimes/~a.wav"  *emacspeak* icon))
-  
+
 
 ;;}}}
 ;;{{{Exported Functions
@@ -122,7 +121,7 @@
   "Queue TTS code  to engine."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
-    (format i "c {~a}~%" cmd) 
+    (format i "c {~a}~%" cmd)
     (finish-output i)))
 
 (defun tts-icon (icon)
@@ -136,13 +135,13 @@
   "Queue text to speak."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
-    (format i "q {~a}~%" text) 
+    (format i "q {~a}~%" text)
     (finish-output i)))
 
 (defun tts-pause (ms)
   "Send silence"
-(let ((i (tts-input (tts))))
-    (format i "sh {~a}~%" ms) 
+  (let ((i (tts-input (tts))))
+    (format i "sh {~a}~%" ms)
     (finish-output i))  )
 
 (defun tts-force ()
@@ -231,16 +230,16 @@
 
 (defun set-period-pause  (ms)
   "Set Period Pause."
-  (tts-queue "[:pp ~a]" ms))
-
+  (tts-queue (format nil "[:pp ~a]" ms)))
 
 (defun set-comma-pause  (ms)
   "Set comma Pause."
-  (tts-queue "[:pc ~a]" ms))
+  (tts-queue (format nil "[:pc ~a]" ms)))
 
 (defun subclause-boundary  ()
   "Send subclause boundary."
-  (tts-queue "[)]" ms))
+  (tts-queue "[)]")
+  )
 ;;}}}
 (provide 'tts)
 
@@ -248,7 +247,7 @@
 
 ;;; local variables:
 ;;; folded-file: t
- 
+
 ;;; end:
 
 ;;}}}
