@@ -22,12 +22,12 @@
   :number-args 0
   :processing-function log-expand 
   :precedence  mathematical-function
-  :object-name log
+  :object-name a-log
   :supers (mathematical-function-name)
   )
 
 ;;; Object has 0 slots 
-(defmethod read-aloud  (( log log )) 
+(defmethod read-aloud  (( a-log a-log )) 
   "Read aloud method for object log "
   (call-next-method)
   )
@@ -37,12 +37,12 @@
   :number-args 0
   :processing-function sin-expand 
   :precedence  mathematical-function 
-  :object-name sin
+  :object-name a-sin
   :supers (mathematical-function-name)
   )
 
 ;;; Object has 0 slots 
-(defmethod read-aloud  (( sin sin )) 
+(defmethod read-aloud  (( a-sin a-sin )) 
   "Read aloud method for object sin "
   (call-next-method)
   )

@@ -101,7 +101,7 @@
   ;;; Created: Sun Dec 20 13:39:54 1992
 
 (defgeneric reading-rule (document rule-name)
-  #+CLOS (:documentation "Named reading rule for objects ")
+  (:documentation "Named reading rule for objects ")
   )
  ;;; When an object that is of type document or a subclass of the
  ;;; document class is read, first the around method is called. The
@@ -130,7 +130,8 @@
   ;; Returns the actual function (effective method) that is run when
   ;; GF is applied to ARGS
   ;; You could use this to avoid dispatch overhead if you like.
-  (CLOS::CHECKING/CACHING-DCODE-LOOKUP gf args))
+  ;(CLOS::CHECKING/CACHING-DCODE-LOOKUP gf args)
+  )
 (defvar *efficient-styles* nil
   "If t, then use the above efficient lookup-effective-method")
 

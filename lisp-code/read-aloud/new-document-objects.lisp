@@ -117,7 +117,7 @@
   (afl:new-block
     (afl:local-set-state
      (afl:get-point-in-speech-space 'afl:paul))
-    (afl:afl:tts-icon  *section-cue* :background-flag t)
+    (afl:tts-icon  *section-cue* :background-flag t)
     (read-aloud (argument text-frame-box 1))
     )
   )
@@ -393,13 +393,13 @@
   :number-args 2
   :processing-function gcd-expand 
   :precedence  nil 
-  :object-name gcd
+  :object-name a-gcd
   :supers (math)
   )
 
 ;;; Use  (argument object)  1 ...( argument
                         ;;; object 2)  in                         read-aloud 
-(defmethod read-aloud  (( gcd gcd )) 
+(defmethod read-aloud  (( a-gcd a-gcd )) 
   "Read aloud method for object gcd "
   (read-aloud  "gcd of, ")
   (read-math-child  (argument 1 gcd))
@@ -497,11 +497,11 @@
   "Read aloud method for object contents-line "
   (read-aloud (argument 1 contents-line))
   (read-aloud (argument 2  contents-line ))
-  (afl:comma-intonation)
+  (afl:tts-queue "[_,]")
   (read-aloud "page ")
   (read-aloud (argument 3 contents-line ))
   (afl:tts-force)
-  (afl:afl:tts-icon  *newline-cue*)
+  (afl:tts-icon  *newline-cue*)
   )
                                         ;(activate-rule 'contents-line 'default)
 
@@ -522,7 +522,7 @@
 (defmethod read-aloud  (( number-line number-line )) 
   "Read aloud method for object number-line "
   (read-aloud (argument 1 number-line ))
-  (afl:comma-intonation)
+  (afl:tts-queue "[_,]")
   )
                                         ;(activate-rule 'number-line 'default )
 
