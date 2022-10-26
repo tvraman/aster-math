@@ -1,4 +1,3 @@
-
 ;;;   -*- Syntax: Common-Lisp;  Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -145,9 +144,8 @@ continues if y is not  pressed.")
                               (cond
                                 ((and (numberp
                                        *wait-before-reading-substitutions* )
-                                      (afl:audio-prompt "read substitutions? ")
                                       (y-or-n-p
-                                       #\n *wait-before-reading-substitutions*))
+                                        *wait-before-reading-substitutions*))
                                  (afl:tts-queue "where, ")
                                  (read-aloud
                                   (substitutions substituted-expression)))
@@ -176,7 +174,7 @@ continues if y is not  pressed.")
   (afl:tts-queue "denotes, ")
   (read-aloud (substitution-denotes substitution ))
   (afl:comma-intonation)
-  (afl:await-silence)
+  (afl:tts-force)
   )
 
 ;;; }

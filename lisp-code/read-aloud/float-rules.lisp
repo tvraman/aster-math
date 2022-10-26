@@ -56,7 +56,7 @@
   ;;; Created: Mon Oct 25 16:50:59 1993
 
 (defvar *footnote-cue*
-  (afl:make-audio-filename "footnote")
+   "footnote"
   "Footnote cue. ")
 
 (define-reading-state 'footnote-mark

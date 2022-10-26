@@ -11,6 +11,7 @@
 (require :parser)
 (require :clos-helper)
 (require :afl)
+(require :pronounce)
 
 (defun aster-setup ()
   "Setup default reading rules and styles."

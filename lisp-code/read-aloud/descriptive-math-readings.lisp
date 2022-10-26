@@ -51,7 +51,7 @@
       (read-aloud   (first children))
       (afl:tts-force)
       (read-aloud variable-of-integration)
-      (afl:queue "[_,]")
+      (afl:tts-queue "[_,]")
       )
     )
   )
@@ -152,11 +152,11 @@
     (cond
       ((and (expression-p parent)
             (exponent-p contents))
-       (afl:queue "[_,]")
+       (afl:tts-queue "[_,]")
        (afl:low-intonation)
        (afl:tts-pause 5 )
        (read-aloud *exponent-start* )
-       (afl:queue "[_,]")
+       (afl:tts-queue "[_,]")
        (if (and
             (not (attribute-p (parent parent )))
            (= 1 (weight contents )))
@@ -272,7 +272,7 @@
            (read-aloud "derivative ")
            (when subscript
              (read-aloud  "with respect  to ")
-             (afl:queue "[_,]")
+             (afl:tts-queue "[_,]")
              (read-aloud subscript )
              (read-aloud "[']of"))
            ))
@@ -305,7 +305,7 @@
              (not (attribute-p (parent parent )))
              (= 1 (weight subscript  )))
        (read-aloud contents )
-       (afl:queue "[_,]"))
+       (afl:tts-queue "[_,]"))
       (t (with-reading-state (reading-state 'subscript )
            (afl:comma-intonation)
            (read-aloud contents )))
@@ -322,7 +322,7 @@
              (= 1 (weight subscript  )))
        (read-aloud "sub ")
        (read-aloud contents )
-       (afl:queue "[_,]"))
+       (afl:tts-queue "[_,]"))
       (t (with-reading-state (reading-state 'subscript )
            (read-aloud "sub ")
            (read-aloud contents )))
@@ -330,7 +330,7 @@
     )
   )
 
-(def-reading-rule (log descriptive)
+(def-reading-rule (a-log descriptive)
     (let* 
         ((subscript (subscript  log ))
          (children (children log )) 
@@ -342,15 +342,15 @@
       (loop for child in children
             do (read-math-child  child ))
       (when subscript
-        (afl:queue "[_,]")
+        (afl:tts-queue "[_,]")
         (afl:tts-pause 1)
         (read-aloud "to the base ")
-        (afl:queue "[_,]")
+        (afl:tts-queue "[_,]")
         (read-aloud subscript ))
       )
   )
 
-(def-reading-rule (log read-base-first)
+(def-reading-rule (a-log read-base-first)
     "Read base first if possible, eg log base a of x"
   (let* 
       ((subscript (subscript  log ))
@@ -364,23 +364,23 @@
        (mapc #'read-aloud  (sorted-attributes remaining-attributes )))
       (t (when subscript
            (read-aloud " base ")
-           (afl:queue "[_,]")
+           (afl:tts-queue "[_,]")
            (read-aloud subscript )
            (read-aloud "of")
-           (afl:queue "[_,]" ))))
+           (afl:tts-queue "[_,]" ))))
     (loop for child in children
           do (read-math-child  child ))
     (when  remaining-attributes
       (when subscript
-        (afl:queue "[_,]")
+        (afl:tts-queue "[_,]")
         (afl:tts-pause 1)
         (read-aloud "to the base ")
-        (afl:queue "[_,]")
+        (afl:tts-queue "[_,]")
         (read-aloud subscript )))
     )
   )
 
-(def-reading-rule (log alternative)
+(def-reading-rule (a-log alternative)
     (let* 
         ((subscript (subscript  log ))
          (children (children log )) 
@@ -391,11 +391,11 @@
         ((null remaining-attributes )
          (read-aloud "log")
          (when subscript
-                                        ;           (afl:queue "[_,]")
+           (afl:tts-queue "[_,]")
                                         ;           (afl:tts-pause 1)
            (read-aloud " to the base ")
            (afl:low-intonation)
-           (afl:queue "[_,]")
+           (afl:tts-queue "[_,]")
            (read-aloud subscript )
            (read-aloud "of")
            (afl:comma-intonation))
@@ -405,16 +405,16 @@
            (loop for child in children
                  do (read-math-child  child ))
            (when subscript
-             (afl:queue "[_,]")
+             (afl:tts-queue "[_,]")
              (afl:tts-pause 1)
              (read-aloud "to the base ")
-             (afl:queue "[_,]")
+             (afl:tts-queue "[_,]")
              (read-aloud subscript )))
         )
       )
   )
 
-(def-reading-rule (sin alternative )
+(def-reading-rule (a-sin alternative )
     "Alternative reading rule for sin says arcsin for sin inverse"
   (let*
       ((attributes (attributes sin))
