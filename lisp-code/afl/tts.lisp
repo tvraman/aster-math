@@ -203,31 +203,31 @@
 
 (defun comma-intonation ()
   "Generate a comma intonation"
-  (tts:queue " "))
+  (tts-queue "[_,] "))
 
 (defun period-intonation ()
   "Generate a period intonation"
-  (tts:queue " "))
+  (tts-queue " "))
 
 (defun exclamation  ()
   "Send an exclamation. "
-  (tts:queue " "))
+  (tts-queue " "))
 
 (defun interrogative  ()
   "Send an interrogative. "
-  (tts:queue " "))
+  (tts-queue " "))
 
 (defun primary-stress  ()
   "Send a  primary-stress. "
-  (tts:queue " "))
+  (tts-queue " "))
 
 (defun secondary-stress  ()
   "Send a  secondary-stress. "
-  (tts:queue " "))
+  (tts-queue " "))
 
 (defun exclamatory-stress  ()
   "Send an   exclamatory-stress. "
-  (tts:queue " "))
+  (tts-queue " "))
 
 (defun set-period-pause  (ms)
   "Set Period Pause."
