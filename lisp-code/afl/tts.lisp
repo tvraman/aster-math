@@ -38,7 +38,12 @@
  '(tts-init tts-open tts-shutdown
    tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
    with-surrounding-pause
-   ))
+   high-intonation low-intonation high-low-intonation
+   comma-intonation period-intonation
+   set-period-pause set-comma-pause
+   interrogative exclamation
+   primary-stress secondary-stress exclamatory-stress
+   subclause-boundary))
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
 
@@ -181,6 +186,61 @@
     (format i "l ~a~%" text)
     (finish-output i)))
 
+;;}}}
+;;{{{Various: Intonation Functions:
+
+(defun high-intonation ()
+  "Generate H*"
+  (tts-queue "[/]" ))
+
+(defun low-intonation ()
+  "Generate L*"
+  (tts-queue "[\]" ))
+
+(defun high-low-intonation ()
+  "Generate Hl*"
+  (tts-queue "[/\]"))
+
+(defun comma-intonation ()
+  "Generate a comma intonation"
+  (tts:queue " "))
+
+(defun period-intonation ()
+  "Generate a period intonation"
+  (tts:queue " "))
+
+(defun exclamation  ()
+  "Send an exclamation. "
+  (tts:queue " "))
+
+(defun interrogative  ()
+  "Send an interrogative. "
+  (tts:queue " "))
+
+(defun primary-stress  ()
+  "Send a  primary-stress. "
+  (tts:queue " "))
+
+(defun secondary-stress  ()
+  "Send a  secondary-stress. "
+  (tts:queue " "))
+
+(defun exclamatory-stress  ()
+  "Send an   exclamatory-stress. "
+  (tts:queue " "))
+
+(defun set-period-pause  (ms)
+  "Set Period Pause."
+  (tts-queue "[:pp ~a]" ms))
+
+
+(defun set-comma-pause  (ms)
+  "Set comma Pause."
+  (tts-queue "[:pc ~a]" ms))
+
+(defun subclause-boundary  ()
+  "Send subclause boundary."
+  (tts-queue "[)]" ms))
 ;;}}}
 (provide 'tts)
 
