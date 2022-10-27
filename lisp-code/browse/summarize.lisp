@@ -31,7 +31,7 @@
 (defmethod summarize ((math-array math-array))
   "Summarize a math array."
   (read-aloud "array. ")
-  (afl:force-speech))
+  (afl:tts-force))
 (defmethod summarize((list list ))
   "Summarize a list of things"
   (let ((first-type (type-of (first list ))))
@@ -39,9 +39,9 @@
       ((every #'(lambda(item)
                   (typep item first-type)) list)
        (read-aloud first-type)
-       (afl:send-text  " list. ")
+       (afl:tts-queue  " list. ")
        )
-      (t  (afl:send-text (format nil "~a list. "
+      (t  (afl:tts-queue (format nil "~a list. "
                                  (class-name
                                   (closest-common-superclass  list  ))))
           )
@@ -54,8 +54,8 @@
   (let ((name (this-argument-is-called thing )))
     (when name
       (read-aloud name )
-      (afl:send-text " is, ")
-      (afl:force-speech )))
+      (afl:tts-queue " is, ")
+      (afl:tts-force )))
   )
 
 (defun say-what-this-attribute-is-called(thing)
@@ -63,44 +63,44 @@
   (let ((name (this-attribute-is-called thing )))
     (when name
       (read-aloud name )
-      (afl:send-text " is, ")
-      (afl:force-speech )))
+      (afl:tts-queue " is, ")
+      (afl:tts-force )))
   )
 
 (defmethod summarize ((math-object math-object ))
   "Summarize math object. "
   (save-pointer-excursion
    (say-what-this-is-called math-object)
-   (afl:send-space) 
+   (afl:tts-queue " ") 
    (if(and  (leaf-p math-object )
             (= 1 (weight math-object)))
       (read-current)
       (read-succinctly  math-object))
-   (afl:force-speech )))
+   (afl:tts-force )))
 
 (defmethod summarize ((paragraph paragraph))
   "Summarize a paragraph"
   (save-pointer-excursion
    (reading-rule paragraph 'summarize)
    (force-if 'paragraph); force floats
-   (afl:force-speech))
+   (afl:tts-force))
   )
 
-(defmethod summarize ((word word ))
+(defmethod summarize ((aword aword ))
   "Summarize a word. "
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3)))
-  (afl:send-text (contents word ))
-  )
+  (afl:tts-queue (contents word )))
+
 (defmethod summarize  ((slide slide ))
   (save-pointer-excursion 
-   (read-aloud
-    (first (contents slide))))
+    (read-aloud
+     (first (contents slide))))
   )
 (defmethod summarize ((math-subformula math-subformula ))
   "Summarize math subformula"
   (save-pointer-excursion
    (say-what-this-is-called math-subformula)
-   (afl:send-space) 
+   (afl:tts-queue " ") 
    (cond
      ((leaf-p math-subformula )
       (read-current))
@@ -112,7 +112,7 @@
                 (read-aloud attr)
                 (afl:comma-intonation )))
         ))
-   (afl:force-speech )))
+   (afl:tts-force )))
 
 (defmethod summarize ((arrow-operator arrow-operator ))
   "Summarize arrow operator "
@@ -120,7 +120,7 @@
    (say-what-this-is-called arrow-operator)
    (afl:with-pronunciation-mode (:mode :math) 
      (read-aloud (contents arrow-operator )))
-   (afl:force-speech)
+   (afl:tts-force)
    )
   )
 
@@ -130,7 +130,7 @@
    (say-what-this-is-called relational-operator)
    (afl:with-pronunciation-mode (:mode :math) 
      (read-aloud (contents relational-operator )))
-   (afl:force-speech)
+   (afl:tts-force)
    )
   )
 
@@ -140,7 +140,7 @@
    (say-what-this-is-called binary-operator)
    (afl:with-pronunciation-mode (:mode :math) 
      (read-aloud (contents binary-operator)))
-   (afl:force-speech)
+   (afl:tts-force)
    )
   )
 
@@ -150,34 +150,34 @@
    (say-what-this-is-called juxtaposition )
    (if (special-pattern juxtaposition )
        (read-aloud (special-pattern juxtaposition )) 
-       (afl:send-text "juxtaposition. "))
+       (afl:tts-queue "juxtaposition. "))
    (when (substitution juxtaposition)
      (read-aloud (substitution juxtaposition )))
-   (afl:force-speech))
+   (afl:tts-force))
   )
 
 (defmethod summarize ((fraction fraction))
   (say-what-this-is-called fraction ) 
   (read-succinctly fraction)
-  (afl:force-speech ))
+  (afl:tts-force ))
 
 
 (defmethod summarize ((mathematical-function-name mathematical-function-name ))
   "Summarize functions. "
   (save-pointer-excursion
    (say-what-this-is-called mathematical-function-name )
-   (afl:send-space) 
+   (afl:tts-queue " ") 
    (if   (leaf-p (children mathematical-function-name ))
          (read-current)
          (read-succinctly     mathematical-function-name  ))
-   (afl:force-speech)
+   (afl:tts-force)
    )
   )
 
 (defmethod summarize ((ordinary t))
   "Summarize by default gives type of object"
   (read-aloud (type-of ordinary ))
-  (afl:force-speech )
+  (afl:tts-force )
   )
 
 
@@ -188,10 +188,10 @@
   "Summarize sectional unit"
   (let ((save-state *read-pointer* ))
     (read-aloud (sectional-unit-name sectional-unit ))
-    (afl:send-space)
-    (afl:speak-number-string (sectional-unit-number sectional-unit ))
+    (afl:tts-queue " ")
+    (afl:tts-queue (format nil "~a"  (sectional-unit-number sectional-unit )))
     (read-aloud (title sectional-unit ))
-    (afl:force-speech)
+    (afl:tts-force)
     (type-of (setf *read-pointer* save-state )))
   )
 
@@ -205,7 +205,7 @@
     ((article-title article)
      (save-pointer-excursion
       (read-aloud (article-title article ))))
-    (t (afl:send-text "article. "))
+    (t (afl:tts-queue "article. "))
     )
   )
 
@@ -216,6 +216,6 @@
    (if (leaf-p (attribute-value attribute ))
        (read-current)
        (read-succinctly  (attribute-value attribute )))
-   (afl:force-speech)
+   (afl:tts-force)
    )
   )

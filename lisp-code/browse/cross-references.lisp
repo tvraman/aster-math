@@ -45,7 +45,7 @@
 If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (unless (zerop *follow-cross-ref-wait*) 
     (afl:tts-icon *cross-ref-cue*)
-    (y-or-n-p   #\n *follow-cross-ref-wait*
+    (y-or-n-p    *follow-cross-ref-wait*
                            "Follow cross ref? ")
     )
   )

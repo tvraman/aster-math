@@ -1,4 +1,4 @@
- ;;;   -*- Syntax-Lisp;  Base: 10; Mode: LISP -*-    ;;;
+;;;   -*- Syntax-Lisp;  Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -76,13 +76,13 @@
         )
     (save-pointer-excursion 
      (afl:new-block
-      (afl:local-set-state afl:*global-total-audio-state*)
+      (afl:local-set-state afl:*global-speech-state*)
       (if  math-flag
            (with-reading-state (reading-state 'math)
              (afl:local-set-state :math) 
              (read-aloud  *read-pointer* ))
            (read-aloud *read-pointer*))
-      (afl:force-speech))
+      (afl:tts-force))
      )
     )
   )
@@ -96,12 +96,12 @@
      (afl:new-block
       (afl:local-set-state (afl-state *read-pointer*))
       (read-aloud *read-pointer* )
-      (afl:force-speech )))
+      (afl:tts-force )))
     (t  (let ((math-flag (and  (typep *read-pointer* 'math )
                                (not (or (display-math-p *read-pointer*)
                                         (inline-math-p *read-pointer* ))))))
           (afl:new-block
-           (afl:local-set-state afl:*global-total-audio-state*)
+           (afl:local-set-state afl:*global-speech-state*)
            (afl:local-set-state)
            (if  math-flag
                (with-reading-state (reading-state 'math)
@@ -109,7 +109,7 @@
                                    (read-aloud  *read-pointer* ))
              (read-aloud *read-pointer*))
            (setf (afl-state *read-pointer*) nil)
-           (afl:force-speech  )))))
+           (afl:tts-force  )))))
    )
   )
 
@@ -133,11 +133,11 @@
            (read-current-relatively)
            (read-current)))
       (t  (setf *read-pointer* save-pointer  )
-          (afl:send-text
+          (afl:tts-queue
            (format nil
                    "First ~a. "
                    (type-of *read-pointer*)))))
-    (afl:force-speech))
+    (afl:tts-force))
   )
 
 ;;; Modified: Thu Feb 25 12:08:24 EST 1993
@@ -160,11 +160,11 @@
            (read-current-relatively)
            (read-current )))
       (t  (setf *read-pointer* save-pointer  )
-          (afl:send-text
+          (afl:tts-queue
            (format nil
                    "Last ~a. "
                    (type-of *read-pointer*)))))
-    (afl:force-speech)
+    (afl:tts-force)
     )
   )
 
@@ -185,7 +185,7 @@
         (read-current)
       (and (setf *read-pointer* save-pointer  )
            (read-aloud "Not that many parent elements. ")))
-    (afl:force-speech)
+    (afl:tts-force)
     )
   )
 
@@ -225,7 +225,7 @@
                                         ;         (move-outside-subformula-if-necessary)
         )
      )
-    (afl:force-speech ))
+    (afl:tts-force ))
   )
 
 (defun move-forward (&optional(n 1))
@@ -240,7 +240,7 @@
                   (setf *read-pointer* (next *read-pointer*  )))))
     (cond
      ((null move-flag)
-      (afl:send-text (format nil
+      (afl:tts-queue (format nil
                              "Last ~a. "
                              (type-of *read-pointer*)) )
       (setf *read-pointer* save-pointer))
@@ -248,7 +248,7 @@
                                         ;         (move-inside-subformula-if-necessary)
         )
      )
-    (afl:force-speech ))
+    (afl:tts-force ))
   )
 
 (defun move-back(&optional(n 1))
@@ -263,7 +263,7 @@
                   (setf *read-pointer* (previous *read-pointer*  )))))
     (cond
       ((null move-flag)
-       (afl:send-text
+       (afl:tts-queue
         (format nil
                 "First ~a. "
                 (type-of *read-pointer*)))
@@ -272,14 +272,14 @@
                                         ;         (move-inside-subformula-if-necessary)
          )
       )
-    (afl:force-speech ))
+    (afl:tts-force ))
   )
 
 
 (defun read-above ()
   "Read above "
   (read-element-above *read-pointer* )
-  (afl:force-speech)
+  (afl:tts-force)
   )
 
 (defmethod  read-element-above ((table-element table-element ))
@@ -298,7 +298,7 @@
   "Read what is below"
 (afl:refresh)
   (read-element-below  *read-pointer* )
-  (afl:force-speech )
+  (afl:tts-force )
   )
 
 (defmethod read-element-below ((table-element table-element ))
@@ -448,7 +448,7 @@
           (setf (children *read-pointer*) nil)
           (read-aloud *read-pointer*))
       (setf (children *read-pointer*) save-children ))
-    (afl:force-speech)))
+    (afl:tts-force)))
   
 (defun move-to-next-in-order()
   "Move to next in reading order"
@@ -457,7 +457,7 @@
    ((next-read  *read-pointer* )
     (setf *read-pointer* (next-read *read-pointer* ))
     (summarize *read-pointer*) )
-   (t (afl:send-text "Reading order undefined. "))
+   (t (afl:tts-queue "Reading order undefined. "))
    )
   (values)
   )
@@ -469,7 +469,7 @@
    ((previous-read  *read-pointer* )
     (setf *read-pointer* (previous-read *read-pointer* ))
     (summarize *read-pointer*) )
-   (t (afl:send-text "Reading order undefined. "))
+   (t (afl:tts-queue "Reading order undefined. "))
    )
   (values)
   )
@@ -481,7 +481,7 @@
    ((next-read  *read-pointer* )
     (setf *read-pointer* (next-read *read-pointer* ))
     (read-current) )
-   (t (afl:send-text "Reading order undefined. "))
+   (t (afl:tts-queue "Reading order undefined. "))
    )
   (values)
   )
@@ -493,7 +493,7 @@
    ((previous-read  *read-pointer* )
     (setf *read-pointer* (previous-read *read-pointer* ))
     (read-current) )
-   (t (afl:send-text "Reading order undefined. "))
+   (t (afl:tts-queue "Reading order undefined. "))
    )
   (values)
   )
@@ -516,7 +516,7 @@
     (setf *read-pointer* (parent ( subscript *read-pointer* )))
                                         ; superscript return the value so need to move up
     (summarize *read-pointer* ))
-   (t (afl:send-text "no subscript. "))
+   (t (afl:tts-queue "no subscript. "))
    )
   )
 
@@ -529,7 +529,7 @@
     (setf *read-pointer* (parent  (superscript *read-pointer* )))
                                         ; superscript returns the value so need to go up
     (summarize *read-pointer* ))
-   (t (afl:send-text "no superscript. "))
+   (t (afl:tts-queue "no superscript. "))
    )
   )
 
@@ -541,7 +541,7 @@
     (setf *read-pointer* (parent  (accent *read-pointer* )))
                                         ; accent returns the value so need to go up
     (summarize *read-pointer* ))
-   (t (afl:send-text "no accent. "))
+   (t (afl:tts-queue "no accent. "))
    )
   )
 
@@ -555,7 +555,7 @@
     (setf *read-pointer* (parent  (underbar *read-pointer* )))
                                         ; underbar returns the value so need to go up
     (summarize *read-pointer* ))
-   (t (afl:send-text "no underbar. "))
+   (t (afl:tts-queue "no underbar. "))
    )
   )
 
@@ -567,7 +567,7 @@
     (setf *read-pointer* (parent  (left-superscript *read-pointer* )))
                                         ; left-superscript returns the value so need to go up
     (summarize *read-pointer* ))
-   (t (afl:send-text "no left-superscript. "))
+   (t (afl:tts-queue "no left-superscript. "))
    )
   )
 (defun move-to-left-subscript ()
@@ -578,7 +578,7 @@
     (setf *read-pointer* (parent  (left-subscript *read-pointer* )))
                                         ; left-subscript returns the value so need to go up
     (summarize *read-pointer* ))
-   (t (afl:send-text "no left-subscript. "))
+   (t (afl:tts-queue "no left-subscript. "))
    )
   )
 
@@ -604,8 +604,8 @@
      (cond
       ((typep *read-pointer* 'cross-ref)
        (follow-cross-reference *read-pointer*))
-      (t (afl:send-text "Not  a cross reference. ")))
-     (afl:force-speech))
+      (t (afl:tts-queue "Not  a cross reference. ")))
+     (afl:tts-force))
    )
   )
 
@@ -618,7 +618,7 @@
       ((parent (parent *read-pointer* )))
     (cond
       ((not (paragraph-p parent))
-       (afl:send-text "Not in a paragraph."))
+       (afl:tts-queue "Not in a paragraph."))
       (t  (let ((counter 0)
                 (old-position *read-pointer*))
             (flet ((read-to-end-of-sentence()
@@ -636,14 +636,14 @@
                                (save-pointer-excursion 
                                 ( read-aloud *read-pointer*))
                                (read-to-end-of-sentence)
-                               (afl:await-silence)
+                               (afl:tts-force)
                                (incf counter))
               (cond
                 ((= counter count))
-                (t (afl:send-text "Not that many sentences. ")
+                (t (afl:tts-queue "Not that many sentences. ")
                    (setf *read-pointer* old-position ))
                 )))))
-    (afl:force-speech)
+    (afl:tts-force)
     (values))
   )
 
@@ -654,7 +654,7 @@
       ((parent (parent *read-pointer* )))
     (cond
       ((not (paragraph-p parent))
-       (afl:send-text "Not in a paragraph."))
+       (afl:tts-queue "Not in a paragraph."))
       (t  (let  ((counter 0)
                  (old-position *read-pointer*)
                  (mover (if (minusp count) #'previous #'next))
@@ -685,9 +685,9 @@
                 ((= counter limit)
                  (when (minusp count)
                    (beginning-of-sentence )))
-                (t (afl:send-text "Not that many sentences. ")
+                (t (afl:tts-queue "Not that many sentences. ")
                    (setf *read-pointer* old-position ))
                 )))))
-    (afl:force-speech)
+    (afl:tts-force)
     (values))
   )
