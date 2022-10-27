@@ -161,7 +161,9 @@
 (defun point-accessor (dimension point) 
   "Return value of slot dimension from point"
   (let
-      ((index (1+  (position dimension  *list-of-speech-dimensions* ))))
+      ((index
+         ;1+
+         (position dimension  *list-of-speech-dimensions* )))
     (elt point index)
     )
   )
