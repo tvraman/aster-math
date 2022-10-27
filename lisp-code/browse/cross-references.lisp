@@ -34,7 +34,7 @@
   ;;; Created: Sat May  1 15:21:47 1993
 
 (defparameter *cross-ref-cue*
-  (afl:make-audio-filename "multi_beep")
+  "multi_beep"
   "Cue cross reference. ")
 
 (proclaim '(inline follow-cross-reference?))
@@ -44,7 +44,7 @@
  Behaviour determined by *follow-cross-ref-wait*. If 0, do not prompt.
 If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (unless (zerop *follow-cross-ref-wait*) 
-    (afl:synchronize-and-play *cross-ref-cue*)
+    (afl:tts-icon *cross-ref-cue*)
     (y-or-n-p   #\n *follow-cross-ref-wait*
                            "Follow cross ref? ")
     )
@@ -85,14 +85,14 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
 
 (defmethod read-cross-reference ((sectional-unit sectional-unit))
   "Read a sectional unit cross reference"
-  (afl:send-space)
+  (afl:tts-queue " ")
   (read-aloud (sectional-unit-name sectional-unit ))
   (when (sectional-unit-number sectional-unit)
-    (afl:speak-number-string (sectional-unit-number sectional-unit )))
+    (afl:tts-queue  (format nil "~a" (sectional-unit-number sectional-unit ))))
   (afl:comma-intonation)
   (read-aloud (title  sectional-unit ))
   (afl:comma-intonation)
-  (afl:force-speech)
+  (afl:tts-force)
   )
 
 
@@ -122,8 +122,8 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (cond
     ((label figure) (read-aloud
                               (label-name (label figure )))
-     (afl:force-speech)
-     (afl:pause 1)
+     (afl:tts-force)
+     (afl:tts-pause 1)
      (read-aloud (caption figure)))
     (t (read-aloud "figure captioned, ")
        (read-aloud (caption  figure )))
@@ -135,8 +135,8 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (cond
     ((label table) (read-aloud
                               (label-name (label table )))
-     (afl:force-speech)
-     (afl:pause 1)
+     (afl:tts-force)
+     (afl:tts-pause 1)
      (read-aloud (caption table)))
     (t (read-aloud "table captioned, ")
        (read-aloud (caption  table )))
