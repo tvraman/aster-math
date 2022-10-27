@@ -12,6 +12,7 @@
 (require :clos-helper)
 (require :afl)
 (require :pronounce)
+(require :read-aloud)
 
 (defun aster-setup ()
   "Setup default reading rules and styles."
