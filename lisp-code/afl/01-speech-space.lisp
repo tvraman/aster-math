@@ -50,6 +50,12 @@
 ;;; { dimension
 
 ;;;  Structure: DIMENSION                                     Author: raman
+;;; Constant: *DEFAULT-VOICE*                                Author: raman
+;;; Created: Sun Aug 30 19:11:20 1992
+;;; external variable: 
+(defvar *default-voice* 'paul  "default voice")
+
+
 
 ;;; note: the dimension voice is in a sense redundant. The other
 ;;; dimensions that occur in the speech space are independent of one
@@ -132,8 +138,11 @@
 
 (defmacro define-point-in-speech-space ()
   "define point in speech space  from dimensions defined so far"
-  `(defstruct (point-in-speech-space :named ) ,@ *list-of-speech-dimensions*))
+  `(defstruct (point-in-speech-space :named (:type list))
+     ,@ *list-of-speech-dimensions*))
+; so the struct gets defined before it is used:
 
+(define-point-in-speech-space)
 ;;; The following function relies on the list representation of the
 ;;; structure point-in-speech-space and will have to be changed if the
 ;;; structure representation for points in speech space is modified. 
@@ -284,10 +293,6 @@ space."
 ;;; its work, we have the default settings as well as a start point.
 
 
-;;; Constant: *DEFAULT-VOICE*                                Author: raman
-;;; Created: Sun Aug 30 19:11:20 1992
-;;; external variable: 
-(defvar *default-voice* 'paul  "default voice")
 
 ;;; Variable: *READER-PERIOD-PAUSE*                          Author: raman
 ;;; Created: Mon Apr 13 10:01:35 1992
