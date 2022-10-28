@@ -93,27 +93,22 @@
 ;;; Created: Mon Apr 13 11:01:28 1992
 
 (defgeneric read-aloud (object)
-  #+CLOS (:documentation "read aloud an abject on the multivoice.")
-  )
+  (:documentation "read aloud an object on the multivoice."))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Sat Apr 11 21:10:50 1992
 
 (defmethod read-aloud ( (token t))
   "default method to read aloud "
-  (when token
-    (afl:tts-queue token))
-  )
+  (when token (afl:tts-queue token)))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Sat Apr 11 20:58:00 1992
 
 (defmethod read-aloud ((document document))
-  "read aloud a document, default method."
-  (read-aloud (format nil   "Do not yet know how to read  ~a"
-                      (type-of document)))
-  (afl:tts-force)
-  )
+  "read aloud a document (fallback)."
+  (afl:tts-queue (format nil   "Do not yet know how to read  ~a" (type-of document)))
+  (afl:tts-force))
 
 ;;; Method: READ-ALOUD                                          Author: raman
 ;;; Created: Sat Apr 11 19:24:02 1992
@@ -121,18 +116,12 @@
 (defmethod read-aloud ((abstract abstract))
   "read out abstract"
   (with-reading-state (reading-state 'annotation-voice)
-    (read-aloud  " Abstract,   ")
-    (afl:tts-force)
-    )
+    (afl:tts-queue   " Abstract,   ")
+    (afl:tts-force))
   (afl:tts-icon *abstract-cue*  )
   (afl:new-block
-    (afl:tts-queue "[+]")
-    (afl:local-set-state
-     (reading-state 'abstract))
-    (read-aloud
-     (abstract-contents abstract))
-    )
-  )
+    (afl:local-set-state (reading-state 'abstract))
+    (read-aloud (abstract-contents abstract))))
 
 ;;; Variable: *PLAY-SIGNATURE-TUNE*                          Author: raman
 ;;; Created: Wed Apr 29 21:45:41 1992
@@ -144,9 +133,7 @@
   "Activate audio player before beginning to read. "
   (afl:initialize-speech-space)
   (reset-footnote-counter)
-  (setf  (internal-time-to-read article)
-         (get-universal-time))
-  )
+  (setf  (internal-time-to-read article) (get-universal-time)))
 
 (defmethod read-aloud :after ((article article ))
   "Deactivate sound audio after reading. "
@@ -154,6 +141,7 @@
   (setf (internal-time-to-read article)
         (- (get-universal-time)
            (internal-time-to-read article ))))
+
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 11:35:06 1992
 
@@ -164,8 +152,7 @@
     (when *play-signature-tune*(afl:tts-icon *article-open-cue*))
     (when (article-title article)
       (with-reading-state (reading-state 'annotation-voice)
-        (read-aloud   "Title. ")
-        )
+        (read-aloud   "Title. "))
       (with-reading-state (reading-state 'title-voice)
         (read-aloud (article-title article ))))
     (when (article-author article)
@@ -214,9 +201,7 @@
 
 (defmethod  punctuation? ((punct string))
   "check if argument is a punctuation character"
-  (find punct *punctuations*
-        :test #'string=)
-  )
+  (find punct *punctuations* :test #'string=))
 
   ;;; Method: PUNCTUATION?                                     Author: raman
   ;;; Created: Thu Dec 31 11:49:15 1992
@@ -249,13 +234,12 @@
         :test #'string=)
   )
 
-  ;;; Method: END-OF-SENTENCE?                                 Author: raman
+;;; Method: END-OF-SENTENCE?                                 Author: raman
   ;;; Created: Thu Dec 31 11:48:20 1992
 
 (defmethod end-of-sentence? ((aword aword))
   "Check for end of sentence"
-  (end-of-sentence? (contents aword))
-  )
+  (end-of-sentence? (contents aword)))
 ;;; }
 
 ;;; Method: READ-ALOUD                                          Author: raman
@@ -271,8 +255,7 @@
 
 (defmethod read-aloud ((list list ))
   "read out contents of a list"
-  (mapc #'read-aloud list )
-  )
+  (mapc #'read-aloud list ))
 
   ;;; Method: READ-ALOUD                                       Author: raman
   ;;; Created: Sat Dec 26 07:21:06 1992
@@ -281,13 +264,7 @@
   "Read aloud a word. "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
   (with-slots  ((contents contents )) aword
-    (cond
-      ((punctuation? contents)
-       (afl:tts-queue (format nil "~a" (afl:get-pronunciation contents ))))
-      (t (afl:tts-queue " ")
-         (afl:tts-queue (afl:get-pronunciation contents )))
-      ))
-  )
+    (afl:tts-queue (format nil " ~a " (afl:get-pronunciation contents )))))
 
 ;;; Method: READ-ALOUD                                          Author: raman
 ;;; Created: Sat Apr 11 20:43:20 1992
@@ -295,23 +272,19 @@
 (defmethod read-aloud ((string string))
   "read out a string"
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
-  (let
-      ((pronounce (afl:get-pronunciation string )))
+  (let ((pronounce (afl:get-pronunciation string )))
     (cond
       ((punctuation? string)
        (afl:tts-queue (format nil "[_]~a" pronounce))
        (afl:tts-force))
       (t (afl:tts-queue " ")
-         (afl:tts-queue pronounce  ))
-      )
-    )
-  )
+         (afl:tts-queue pronounce  )))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 11:41:28 1992
 
 (defmethod read-aloud ((text-block text-block))
-  "read aloud a text block,. "
+  "read aloud a text block. "
   (afl:new-block
     (dolist
         (item (text-block-local-environment text-block) )
@@ -319,8 +292,7 @@
        (funcall (retrieve-font-rule item) afl:*current-speech-state*)))
     (when (eql :math (afl:current-pronunciation-mode))
       (afl:local-set-state :text ))
-    (read-aloud (text-block-contents text-block))
-    ))
+    (read-aloud (text-block-contents text-block))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 17:19:50 1992
@@ -328,9 +300,7 @@
 (defmethod read-aloud ((paragraph paragraph))
   "read aloud a paragraph."
   (afl:tts-icon *paragraph-cue*)
-  (afl:tts-queue "[+] ")
-  (read-aloud (paragraph-contents paragraph))
-  )
+  (read-aloud (paragraph-contents paragraph)))
 
 ;;; The following are read-aloud methods for some parent classes.
 ;;; Done as a quick way of getting the document spoken.
@@ -342,12 +312,9 @@
 (defmethod read-aloud ((list-environment list-environment))
   "read aloud a list environment."
   (afl:new-block
-    (afl:local-set-state
-     (reading-state 'list-environment-voice))
+    (afl:local-set-state (reading-state 'list-environment-voice))
     (afl:tts-icon "paragraph")
-    (read-aloud (list-environment-items list-environment))
-    )
-  )
+    (read-aloud (list-environment-items list-environment))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 19:59:49 1992
@@ -362,8 +329,7 @@
   (afl:tts-pause 5)
   (when (label item)
     (read-aloud (label-name (label item ))))
-  (relabel-if-necessary (label item ))
-  )
+  (relabel-if-necessary (label item )))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Fri May  1 09:40:21 1992
@@ -371,10 +337,8 @@
 (defmethod read-aloud ((centered-text centered-text))
   "read aloud centered text."
   (afl:new-block
-    (afl:local-set-state
-     (reading-state 'center))
-    (read-aloud (centered-text-contents centered-text )))
-  )
+    (afl:local-set-state (reading-state 'center))
+    (read-aloud (centered-text-contents centered-text ))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 20:04:26 1992
@@ -382,31 +346,26 @@
 (defmethod read-aloud ((quoted-text quoted-text))
   "read quoted text"
   (afl:new-block
-    (afl:local-set-state
-     (reading-state 'quotation-voice)
-     )
-    (read-aloud (quoted-text-contents quoted-text))
-    )
-  )
+    (afl:local-set-state (reading-state 'quotation-voice))
+    (read-aloud (quoted-text-contents quoted-text))))
 
   ;;; Method: READ-ALOUD                                       Author: raman
   ;;; Created: Tue Dec 22 14:29:34 1992
 
 (defmethod read-aloud ((text-number text-number))
   "Read aloud a number "
-  (afl:tts-queue (first  (contents text-number )))
-  )
+  (afl:tts-queue   (contents text-number )))
+
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 20:05:25 1992
 
 (defmethod read-aloud ((sectional-unit sectional-unit))
   "read sectional-unit"
   (with-reading-state (reading-state 'annotation-voice)
-    (read-aloud
-     (sectional-unit-name sectional-unit))
+    (read-aloud (sectional-unit-name sectional-unit))
     (when (sectional-unit-number sectional-unit)
-      (afl:tts-queue
-       (sectional-unit-number sectional-unit )))
+      (afl:tts-queue " ")
+      (afl:tts-queue (sectional-unit-number sectional-unit )))
     )
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (sectional-unit-title sectional-unit )))
@@ -416,8 +375,7 @@
                                         )))
     (afl:tts-force))
   (afl:new-block
-    (read-aloud (sectional-unit-sectional-units sectional-unit )))
-  )
+    (read-aloud (sectional-unit-sectional-units sectional-unit ))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Tue Apr 28 17:32:37 1992
@@ -425,12 +383,9 @@
 (defmethod read-aloud ((section section))
   "read aloud a section"
   (with-reading-state (reading-state 'annotation-voice)
-    (read-aloud
-     (sectional-unit-name section))
+    (read-aloud (sectional-unit-name section))
     (when (sectional-unit-number section)
-      (afl:tts-queue
-       (sectional-unit-number section)))
-    )
+      (afl:tts-queue (sectional-unit-number section))))
   (afl:tts-icon *section-cue* )
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (sectional-unit-title section)))
@@ -470,13 +425,13 @@
   "Read aloud a new environment"
   (if (label new-environment)
       (read-aloud (label-name (label new-environment )))
-      (read-aloud (format nil "~a ~a. "
-                          (if (eql 'new-environment
-                                   (class-name (class-of
-                                                new-environment )))
-                              (new-environment-name new-environment )
-                              (class-name (class-of new-environment )))
-                          (number new-environment ))))
+      (read-aloud
+       (format nil "~a ~a. "
+               (if (eql 'new-environment (class-name (class-of new-environment )))
+                   (new-environment-name new-environment )
+                   (class-name (class-of new-environment )))
+                                        " " ;(number new-environment )
+               )))
   (afl:tts-pause 5)
   (read-aloud (new-environment-contents new-environment))
   (relabel-if-necessary (label new-environment ))
@@ -489,9 +444,7 @@
   "read aloud a tex macro"
   (if    (tex-defined-macro-read-as tex-defined-macro)
          (read-aloud (tex-defined-macro-read-as tex-defined-macro))
-         (read-aloud (tex-defined-macro-name tex-defined-macro))
-         )
-  )
+         (read-aloud (tex-defined-macro-name tex-defined-macro))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Wed Apr 29 15:26:32 1992
@@ -524,14 +477,13 @@
 
 (defmethod read-aloud ((newline (eql  'newline)))
   "read aloud new lines"
-  (afl:tts-force)
   (afl:tts-icon *newline-cue* )
-  )
+  (afl:tts-force))
 
 (defmethod read-aloud ((field-separator (eql  'field-separator)))
   "read aloud new lines"
   (afl:tts-icon *field-separator-cue* )
-  )
+  (afl:tts-force))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon May  4 12:34:18 1992
@@ -560,8 +512,7 @@
   "outline of art"
   (setf *read-all-text* nil)
   (read-aloud art)
-  (toggle *read-all-text*)
-  )
+  (toggle *read-all-text*))
 
 ;;; Parameter: *MATH-CUE*                                    Author: raman
 ;;; Created: Mon Sep  7 13:24:46 1992
@@ -726,7 +677,7 @@ reading full documents. ")
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Nov 19 15:30:15 1992
 
-                                     (defmethod read-aloud ((tabular tabular))
+(defmethod read-aloud ((tabular tabular))
                                        "Read aloud a table, not fully implemented"
                                        (let ((contents (if *transpose-table*
                                                            (transpose-table (contents tabular))
@@ -743,7 +694,7 @@ reading full documents. ")
                                                   (afl:tts-icon  *row-cue*)))
                                        )
 
-                                     (defmethod read-aloud ((math-eqnarray math-eqnarray))
+(defmethod read-aloud ((math-eqnarray math-eqnarray))
                                        "Read math array, not fully implemented"
                                        (loop for row in  (contents math-eqnarray)
                                              do
@@ -760,13 +711,13 @@ reading full documents. ")
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Tue Nov  3 12:48:25 1992
 
-                                     (defmethod read-aloud ((integral-d integral-d))
+(defmethod read-aloud ((integral-d integral-d))
                                        "Read aloud integral delimiter"
                                        (read-aloud "d ")
                                        (read-aloud (children integral-d))
                                        )
 
-                                     (defmethod read-aloud ((math-subformula math-subformula))
+(defmethod read-aloud ((math-subformula math-subformula))
                                        (read-aloud (contents math-subformula))
                                        (afl:tts-queue " ")
                                        (when (attributes math-subformula)
@@ -778,7 +729,7 @@ reading full documents. ")
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Tue Dec  1 11:50:14 1992
 
-                                     (defmethod read-aloud ((delimited-expression delimited-expression))
+(defmethod read-aloud ((delimited-expression delimited-expression))
                                        "Read aloud a delimited expression"
                                        (read-aloud(open-delimiter delimited-expression ))
                                        (with-reading-state (reading-state 'children)
@@ -793,14 +744,14 @@ reading full documents. ")
                                                                       delimited-expression ))))
                                        )
 
-                                     (defmethod read-aloud ((table-element table-element ))
+(defmethod read-aloud ((table-element table-element ))
                                        "Just read out its contents"
                                        (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
                                        (read-aloud (contents table-element ))
                                        (afl:tts-force)
                                        )
 
-                                     (defmethod read-aloud ((factorial factorial ))
+(defmethod read-aloud ((factorial factorial ))
                                        "read aloud a factorial object"
                                        (read-aloud (contents factorial))
                                        (afl:tts-queue "[_,]")

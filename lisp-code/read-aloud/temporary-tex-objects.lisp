@@ -302,7 +302,6 @@
    (afl:local-set-state (afl:switch-on
                          afl:*current-audio-state* ))
    (process-allow-schedule)
-   (afl:tts-queue "[+]")
    (afl:local-set-state 
     (reading-state 'abstract))
    (process-allow-schedule)

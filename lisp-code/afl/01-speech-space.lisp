@@ -320,10 +320,10 @@ argument to this function,  the name of a point in speech space"
   (setf *current-speech-state*
         (create-initial-point-in-speech-space))
   (setf *global-speech-state* (create-initial-point-in-speech-space ))
+  (tts-init)
   (set-speech-state *current-speech-state*)
   (set-period-pause *reader-period-pause*)
-  (set-comma-pause *reader-comma-pause*)
-  )
+  (set-comma-pause *reader-comma-pause*))
 
 ;;; Function: SETUP-GLOBALS                                  Author: raman
 ;;; Created: Sat Aug  8 10:15:54 1992
