@@ -332,12 +332,12 @@
 
 (def-reading-rule (a-log descriptive)
     (let* 
-        ((subscript (subscript  log ))
-         (children (children log )) 
-         (attributes (attributes log ))
+        ((subscript (subscript  a-log ))
+         (children (children a-log )) 
+         (attributes (attributes a-log ))
          (remaining-attributes (remove 'subscript  attributes
                                        :key #'attribute-name )))
-      (read-aloud "log ")
+      (afl:tts-queue  "log ")
       (mapc #'read-aloud  (sorted-attributes remaining-attributes ))
       (loop for child in children
             do (read-math-child  child ))
@@ -345,7 +345,7 @@
         (afl:tts-queue "[_,]")
         (afl:tts-pause 1)
         (read-aloud "to the base ")
-        (afl:tts-queue "[_,]")
+        (afl:comma-intonation)
         (read-aloud subscript ))
       )
   )
@@ -353,38 +353,34 @@
 (def-reading-rule (a-log read-base-first)
     "Read base first if possible, eg log base a of x"
   (let* 
-      ((subscript (subscript  log ))
-       (children (children log )) 
-       (attributes (attributes log ))
-       (remaining-attributes (remove 'subscript  attributes
-                                     :key #'attribute-name )))
-    (read-aloud "log ")
+      ((subscript (subscript  a-log ))
+       (children (children a-log )) 
+       (attributes (attributes a-log ))
+       (remaining-attributes (remove 'subscript  attributes :key #'attribute-name )))
+    (afl:tts-queue "log ")
     (cond
       (remaining-attributes
        (mapc #'read-aloud  (sorted-attributes remaining-attributes )))
       (t (when subscript
-           (read-aloud " base ")
-           (afl:tts-queue "[_,]")
+           (afl:tts-queue " base ")
+           (afl:comma-intonation)
            (read-aloud subscript )
-           (read-aloud "of")
-           (afl:tts-queue "[_,]" ))))
-    (loop for child in children
-          do (read-math-child  child ))
+           (afl:tts-queue "of")
+           (afl:comma-intonation ))))
+    (loop for child in children do (read-math-child  child ))
     (when  remaining-attributes
       (when subscript
-        (afl:tts-queue "[_,]")
+        (afl:comma-intonation)
         (afl:tts-pause 1)
-        (read-aloud "to the base ")
-        (afl:tts-queue "[_,]")
-        (read-aloud subscript )))
-    )
-  )
+        (afl:tts-queue "to the base ")
+        (afl:comma-intonation)
+        (read-aloud subscript )))))
 
 (def-reading-rule (a-log alternative)
     (let* 
-        ((subscript (subscript  log ))
-         (children (children log )) 
-         (attributes (attributes log ))
+        ((subscript (subscript  a-log ))
+         (children (children a-log )) 
+         (attributes (attributes a-log ))
          (remaining-attributes (remove 'subscript  attributes
                                        :key #'attribute-name )))
       (cond
@@ -415,11 +411,11 @@
   )
 
 (def-reading-rule (a-sin alternative )
-    "Alternative reading rule for sin says arcsin for sin inverse"
+    "Alternative reading rule for a-sin says arcsin for a-sin inverse"
   (let*
-      ((attributes (attributes sin))
-       (superscript-pattern  (superscript-pattern sin))
-       (children (children sin ))
+      ((attributes (attributes a-sin))
+       (superscript-pattern  (superscript-pattern a-sin))
+       (children (children a-sin ))
        (remaining-attributes (remove 'superscript   attributes
                                      :key #'attribute-name )))
     (cond
@@ -427,7 +423,7 @@
        (read-aloud "arcsine ")
        (mapc #'read-aloud remaining-attributes )
        (mapc #'read-math-child children ))
-      (t (reading-rule sin 'simple ))
+      (t (reading-rule a-sin 'simple ))
       )
     )
   )

@@ -61,3 +61,4 @@
   (read-aloud *document* ))
 
 ;;for above to take effect. 
+(aster-setup)
