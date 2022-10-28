@@ -122,7 +122,7 @@
   ;;; Variable: *ALWAYS-DEHYPHENATE*                           Author: raman
   ;;; Created: Wed May  5 09:34:26 1993
 ;;; external variable: 
-(defvar *always-dehyphenate* t
+(defvar *always-dehyphenate* nil ; need to fix hyphenator
   "Always dehyphenate words. Avoids the dectalk spelling out
 things. ")
 
@@ -130,7 +130,7 @@ things. ")
 (proclaim '(inline dehyphenate-word))
 (defun dehyphenate-word (str) 
   "Remove hyphens and replace by spaces."
-  (concatenate 'string (uiop:split-string str :separator "-")))
+  (apply 'concatenate 'string (uiop:split-string str :separator "-")))
 
 ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
 ;;; Created: Wed Apr  7 12:03:12 1993
@@ -140,8 +140,7 @@ things. ")
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
   (let ((lower-case-string (string-downcase string )))
     (or                                 ; first disjunct:
-     (gethash (if *pronounce-ignore-case-in-text* lower-case-string
-                  string)
+     (gethash (if *pronounce-ignore-case-in-text* lower-case-string string)
               *text-mode-pronunciations*)
      (if *always-dehyphenate*
          (dehyphenate-word string)
