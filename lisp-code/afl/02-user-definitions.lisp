@@ -29,10 +29,7 @@ is at front"
   (if (find 'voice *list-of-speech-dimensions*)
       (setf *list-of-speech-dimensions*
             (cons 'voice
-                  (remove 'voice *list-of-speech-dimensions*))
-            )
-      )
-  )
+                  (remove 'voice *list-of-speech-dimensions*)))))
 
 ;;; First initialize by setting list of dimensions to nil
 

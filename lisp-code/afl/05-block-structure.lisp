@@ -217,7 +217,7 @@ scaling"
         )
       (when (and *await-silence-when-using-stereo* 
                  (directional-audio-change-p modified-dimensions) )
-        (await-silence))
+        (tts-force))
       #+lucid (user::with-interruptions-inhibited
                (setf *speech-hardware-state* new-state )
                (format dectalk:*stream* command-string))
@@ -302,13 +302,12 @@ unsets *lazy-set-state*"
 ;;; for specific spaces. The following method is for the speech space.
 ;;;
 
-(defmethod     local-set-state  (( new-state list ))
+(defmethod     local-set-state  ( new-state )
   "Set current speech state of afl to new-state"
   (assert (point-in-speech-space-p new-state ) nil
           "~a is not a point in speech space"
           new-state )
   (setf *current-speech-state*   new-state)
-  ;(setf (total-audio-state-speech *current-total-audio-state*) new-state)
   (set-speech-state   *current-speech-state* ))
 
 
@@ -320,7 +319,7 @@ unsets *lazy-set-state*"
 ;;; Modified: Wed Feb 10 15:33:48 EST 1993
 ;;; uses set-speech-state now.
 ;;; Has been changed to a method. was an ordinary function before
-(defmethod  global-set-state ((new-state list )) 
+(defmethod  global-set-state (new-state ) 
   "set global speech state of afl"
   (assert (point-in-speech-space-p new-state) nil
           "~a is not a point in speech space"

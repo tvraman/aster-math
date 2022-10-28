@@ -169,7 +169,7 @@ If called with :slot 'step-size, modifies the step size instead."
 ;;; Function: MOVE-TO                                        Author: raman
 ;;; Created: Sun Aug  9 17:53:36 1992
 
-(defmethod  move-to ((point list) dimension value
+(defmethod  move-to (point dimension value
                      &key(slot 'value)) 
   "Return point reached by setting value along dimension dimension to
 value. Default is to change the value assigned along this dimension. 
