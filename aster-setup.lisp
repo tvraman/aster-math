@@ -30,8 +30,7 @@
   (activate-rule 'footnote 'float)
   (activate-style  'use-special-pattern)
   (setf *follow-cross-ref-wait* 0
-        *get-label-wait* 0)
-  )
+        *get-label-wait* 0))
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
