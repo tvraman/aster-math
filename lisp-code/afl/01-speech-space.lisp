@@ -168,7 +168,7 @@
       ((index
          ;1+
          (position dimension  *list-of-speech-dimensions* )))
-    (elt point index)
+    (elt point (1+ index))
     )
   )
 ;;; Modified: Tue Aug 11 09:52:58 EDT 1992

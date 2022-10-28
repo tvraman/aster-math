@@ -123,10 +123,18 @@
   ;;; Created: Wed May  5 09:34:26 1993
 ;;; external variable: 
 (defvar *always-dehyphenate* t
-  "Always dehyphenate words. Avoids the dectalk spelling out things. ")
-  ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
-  ;;; Created: Wed Apr  7 12:03:12 1993
-(proclaim '(inline get-pronounce-internal))
+  "Always dehyphenate words. Avoids the dectalk spelling out
+things. ")
+
+
+(proclaim '(inline dehyphenate-word))
+(defun dehyphenate-word (str) 
+  "Remove hyphens and replace by spaces."
+  (concatenate 'string (uiop:split-string str :separator "-")))
+
+;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
+;;; Created: Wed Apr  7 12:03:12 1993
+
 (defmethod get-pronounce-internal ((string string) (mode (eql :text )))
   "Internal method for getting pronunciation in text mode"
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
@@ -277,9 +285,7 @@
     (if (hyphenated-lisp-word-p string )
         (dehyphenate-lisp-word string )
         (or (gethash lower-case-string *lisp-mode-pronunciations*)
-            (gethash  lower-case-string *text-mode-pronunciations* )))
-    )
-  )
+            (gethash  lower-case-string *text-mode-pronunciations* )))))
 
 ;;; }
 
@@ -318,48 +324,9 @@
   ;;; Function: DEHYPHENATE-LISP-WORD                          Author: raman
   ;;; Created: Tue Feb 23 20:16:25 1993
 (proclaim '(inline dehyphenate-lisp-word))
-#+lucid 
-(defun dehyphenate-lisp-word (string) 
-  "Remove hyphens and replace by spaces for the present."
-  (let ((output-stream (make-string-output-stream )))
-    (loop for char being the array-element of string do
-          (if (char= #\- char)
-              (format output-stream " " )
-              (format output-stream "~a" char)))
-    (get-output-stream-string output-stream))
-  )
-#+clisp
-(defun dehyphenate-lisp-word (string) 
-  "Remove hyphens and replace by spaces for the present."
-  (let ((output-stream (make-string-output-stream )))
-    (loop for char across  string do
-          (if (char= #\- char)
-              (format output-stream " " )
-              (format output-stream "~a" char)))
-    (get-output-stream-string output-stream))
-  )
-
-(proclaim '(inline dehyphenate-word))
-#+lucid 
-(defun dehyphenate-word (string) 
-  "Remove hyphens and replace by spaces for the present."
-  (let ((output-stream (make-string-output-stream )))
-    (loop for char being the array-element of string do
-          (if (char= #\- char)
-              (format output-stream " " )
-              (format output-stream "~a" char)))
-    (get-output-stream-string output-stream))
-  )
-#+clisp
-(defun dehyphenate-word (string) 
-  "Remove hyphens and replace by spaces for the present."
-  (let ((output-stream (make-string-output-stream )))
-    (loop for char across  string do
-          (if (char= #\- char)
-              (format output-stream " " )
-              (format output-stream "~a" char)))
-    (get-output-stream-string output-stream))
-  )
+(defun dehyphenate-lisp-word (str) 
+  "Remove hyphens and replace by spaces."
+  (concatenate 'string (uiop:split-string str :separator "-" )))
 
   ;;; Macro: WITH-PRONUNCIATION-MODE                           Author: raman
   ;;; Created: Sun Dec 13 09:40:20 1992
