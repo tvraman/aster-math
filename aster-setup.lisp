@@ -14,8 +14,8 @@
 (require :pronounce)
 (require :read-aloud)
 (require :browse)
-(setq s (parse-article "short.tex"))
-(setq d (parse-article "test.tex"))
+(setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
+(setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex"))
 (defun aster-setup ()
   "Setup default reading rules and styles."
   (pushnew :express   *features*)
