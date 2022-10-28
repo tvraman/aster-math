@@ -135,11 +135,6 @@
   (reset-footnote-counter)
   (setf  (internal-time-to-read article) (get-universal-time)))
 
-
-(defmethod read-aloud :after ((string string))
-  (afl:tts-force))
-
-
 (defmethod read-aloud :after ((article article ))
   "Deactivate sound audio after reading. "
   (force-all-floats)
