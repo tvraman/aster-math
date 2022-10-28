@@ -15,7 +15,7 @@
 (require :pronounce)
 (require :read-aloud)
 (require :browse)
-(setq d (parse-article "test.tex"))
+(setq d (parse-article "short.tex"))
 (defun aster-setup ()
   "Setup default reading rules and styles."
   (pushnew :express   *features*)
