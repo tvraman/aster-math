@@ -11,7 +11,6 @@
 (require :parser)
 (require :clos-helper)
 (require :afl)
-(afl:tts-init)
 (require :pronounce)
 (require :read-aloud)
 (require :browse)
