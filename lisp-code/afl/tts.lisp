@@ -68,11 +68,16 @@
   "Handle to tts server connection.")
 
 (defun tts-init (&key (engine "dtk-soft"))
-  "Initialize TTS  system."
+  "Initialize TTS  system if needed."
   (declare (special *tts*))
-  (setq *tts*
-        (make-tts :engine (tts-location engine)))
-  (tts-open))
+  (when
+      (or
+       (null *tts*)
+       (null (tts-process *tts*))
+       (not (eq :running (sb-ext:process-status (tts-process *tts*)))))
+    (setq *tts*
+          (make-tts :engine (tts-location engine)))
+    (tts-open)))
 
 (defun tts ()
   "Return handle to TTS server."
