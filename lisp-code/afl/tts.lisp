@@ -82,12 +82,18 @@
 ;;}}}
 ;;{{{macros:
 
+(defun tts-pause (ms)
+  "Send silence"
+  (let ((i (tts-input (tts))))
+    (format i "sh {~a}~%" ms)
+    (finish-output i))  )
+
 (defmacro with-surrounding-pause (pause-amount &body body)
   "Execute body with surrounding pause specified by pause-amount"
   `(progn
-     (afl:tts-pause ,pause-amount)
+     (tts-pause ,pause-amount)
      ,@body
-     (afl:tts-pause ,pause-amount)))
+     (tts-pause ,pause-amount)))
 ;;}}}
 ;;{{{Internal Functions
 
@@ -138,11 +144,7 @@
     (format i "q {~a}~%" text)
     (finish-output i)))
 
-(defun tts-pause (ms)
-  "Send silence"
-  (let ((i (tts-input (tts))))
-    (format i "sh {~a}~%" ms)
-    (finish-output i))  )
+
 
 (defun tts-force ()
   "Speak all queued text."
@@ -174,9 +176,8 @@
 
 (defun tts-speak-list (lines)
   "Speak an arbitrary number of lines."
-  (tts)
   (mapc 'tts-queue lines)
-  (force))
+  (tts-force))
 
 (defun tts-letter (text)
   "Speak letter."
