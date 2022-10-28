@@ -227,7 +227,7 @@
 
 ;;; Function: PROCESS-UNARY-MINUS                            Author: raman
 ;;; Created: Wed Nov  4 09:55:35 1992
-(proclaim '(inline process-unary-minus))
+
 (defun process-unary-minus (infix-expression operators operands) 
   "Process unary minus"
   (process-term (rest infix-expression)
@@ -392,22 +392,14 @@
                                   operands )))
   )
 
-
-;;; Following helping functions are declared inline. They are
-;;; functions  only to make the top level functions readable.
-
-(proclaim '(inline return-quasi-prefix-form)) 
 (defun return-quasi-prefix-form  (operands) 
   "Return final quasi prefix form off operand stack"
   (if (= 1 (length operands))
       (first operands)
       (make-instance  'juxtaposition
                       :contents "juxtaposition" 
-                      :children (reverse operands )))
-  )
+                      :children (reverse operands ))))
 
-
-(proclaim '(inline introduce-juxtaposition-and-continue))
 (defun introduce-juxtaposition-and-continue (infix-expression operators operands) 
   "Introduce juxtaposition and continue"
   (process-operator (cons             ;introduce juxtaposition
@@ -420,7 +412,7 @@
 
 
 
-(proclaim '(inline push-operator-and-continue))
+
 (defun push-operator-and-continue (infix-expression operators operands) 
   "Push operator and continue"
   (process-term (rest infix-expression)
@@ -436,8 +428,7 @@
   (setf (children math-object)
         children )
   math-object)
-
-(proclaim '(inline  pop-operator-and-continue)) 
+ 
 (defun pop-operator-and-continue  (infix-expression operators operands) 
   "Pop operator and continue"
   (let*                               ;operator not pushed

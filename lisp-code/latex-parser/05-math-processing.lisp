@@ -25,10 +25,8 @@
 ;;; plus cons instead of nconc.
 ;;; <(refer to old version which is backed up)>
 ;;; <(use push instead of cons, backed up old version )>
-(defun process-math(math-buffer
-                    &optional (termination-condition? #'end-of-buffer?)) 
+(defun process-math(math-buffer &optional (termination-condition? #'end-of-buffer?)) 
   "process math stream"
-  (declare (optimize (compilation-speed 0) (safety 1) (speed 3 )))
   (let
       ((processed-math nil))
     (loop for token = (lookat-current-entry math-buffer)
