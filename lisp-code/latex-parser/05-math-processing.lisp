@@ -42,10 +42,10 @@
                                         ;((is-a 'field-separator token) (advance-pointer math-buffer))
             ((open-delimiter? token)
              (push   (process-delimited-expression
-                      math-buffer :do-not-test t)
+                      math-buffer)
                      processed-math ))
             (t (push   (mathify (funcall (get-parser token :math-flag t)
-                                         math-buffer :do-not-test t))
+                                         math-buffer ))
                        processed-math )))
           finally (return
                     (inf-to-pre (collapse (nreverse processed-math ))))
@@ -107,7 +107,7 @@
 ;;; Introducing function create-delimited-expression
 ;;; Each type of matched delimited expression now has its own subclass
 
-(defun process-delimited-expression (math-buffer &key(do-not-test nil)) 
+(defun process-delimited-expression (math-buffer) 
   "process expression delimited by delimiter at front of buffer"
   (let*
       ((token (lookat-current-entry math-buffer ))
@@ -115,12 +115,6 @@
        (close-delimiter  nil)
        (processed-expression nil)
        )
-    (or do-not-test
-	(assert
-	 delimiter nil
-	 "Assert: Process-delimiter: token at front of buffer is not valid: 
-but is an unrecognised ~a delimiter"
-	 token))
     (setf  close-delimiter
 	   (math-delimiter-close delimiter))
     (setf processed-expression
@@ -252,14 +246,8 @@ matched ~a "
 ;;; Created: Thu Feb 13 14:25:41 1992
 
 
-(defun process-math-cs (math-buffer &key(do-not-test nil)) 
+(defun process-math-cs (math-buffer) 
   "process a tex control sequence in math mode"
-  (or do-not-test
-      (assert  (is-a 'math-cs
-		     (lookat-current-entry math-buffer )) nil
-		     "Assert: Argument to process-cs: ~a
-at front of buffer  is not a cs"
-		     (lookat-current-entry math-buffer)))
   (let
       ((macro-name (math-cs-name 
 		    (lookat-current-entry math-buffer ))))
@@ -273,7 +261,7 @@ at front of buffer  is not a cs"
             (lookup-math-classification macro-name))
        (funcall
 	(get-parser macro-name :math-flag t)
-	math-buffer :do-not-test t))
+	math-buffer))
       (t (let ((result (expand-tex-macro math-buffer)))
            (if   (math-object-subtype-p result)  
                  result
@@ -287,12 +275,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-SUBFORMULA                             Author: raman
 ;;; Created: Thu Feb 13 14:30:43 1992
 
-(defun process-subformula (math-buffer &key(do-not-test nil))
+(defun process-subformula (math-buffer)
   "Process a subformula "
-  (or do-not-test
-      (assert  (is-a '    subformula   (lookat-current-entry math-buffer)) nil
-	       "Assert: argument to process-subformula, ~a, is not valid:"
-	       (lookat-current-entry math-buffer )))
   (let ((contents nil)
         (buffer-contents (rest
                           (pop-current-entry math-buffer ))))
@@ -351,17 +335,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-MATH-STRING                               Author: raman
 ;;; Created: Thu Feb 27 22:01:53 1992
 
-(defun process-math-string (math-buffer &key(do-not-test nil)) 
+(defun process-math-string (math-buffer) 
   "Process an math-string math symbol"
-  (or  do-not-test
-       (assert  (eq 'math-string
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-math-string
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (make-instance 'math-object
                  :type 'math-string
                  :contents (get-math-object! math-buffer))
@@ -370,17 +345,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-ORDINARY                               Author: raman
 ;;; Created: Thu Feb 27 22:01:53 1992
 
-(defun process-ordinary (math-buffer &key(do-not-test nil)) 
+(defun process-ordinary (math-buffer) 
   "Process an ordinary math symbol"
-  (or  do-not-test
-       (assert  (eq 'ordinary
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-ordinary
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (make-instance 'ordinary
                                         ;                 :type 'ordinary
                  :contents (get-math-object! math-buffer))
@@ -389,17 +355,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-QUANTIFIER                               Author: raman
 ;;; Created: Thu Feb 27 22:01:53 1992
 
-(defun process-quantifier (math-buffer &key(do-not-test nil)) 
+(defun process-quantifier (math-buffer ) 
   "Process an quantifier math symbol"
-  (or  do-not-test
-       (assert  (eq 'quantifier
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-quantifier
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (make-instance 'quantifier
                                         ;                 :type 'quantifier
                  :contents (get-math-object! math-buffer))
@@ -413,17 +370,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-BIG-OPERATOR                         Author: raman
 ;;; Created: Thu Feb 27 22:06:23 1992
 
-(defun process-big-operator (math-buffer &key(do-not-test nil)) 
+(defun process-big-operator (math-buffer) 
   "Process a large operator"
-  (or  do-not-test
-       (assert  (eq 'large-operator
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-big-operator
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (create-big-operator
    :contents (get-math-object! math-buffer))
   )
@@ -432,17 +380,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-BINARY-OPERATOR                         Author: raman
 ;;; Created: Thu Feb 27 22:06:23 1992
 
-(defun process-binary-operator (math-buffer &key(do-not-test nil)) 
+(defun process-binary-operator (math-buffer) 
   "Process a binary operator"
-  (or  do-not-test
-       (assert  (eq 'binary-operator
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-binary-operator
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (make-instance 'binary-operator
                                         ;                 :type 'binary-operator
                  :contents (get-math-object! math-buffer))
@@ -451,17 +390,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-RELATIONAL-OPERATOR                         Author: raman
 ;;; Created: Thu Feb 27 22:06:23 1992
 
-(defun process-relational-operator (math-buffer &key(do-not-test nil)) 
+(defun process-relational-operator (math-buffer) 
   "Process a relational operator"
-  (or  do-not-test
-       (assert  (eq 'relational-operator
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-relational-operator
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (make-instance 'relational-operator
                                         ;                 :type 'relational-operator
                  :contents (get-math-object! math-buffer))
@@ -470,17 +400,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-NEGATION-OPERATOR                         Author: raman
 ;;; Created: Thu Feb 27 22:06:23 1992
 
-(defun process-negation-operator (math-buffer &key(do-not-test nil)) 
+(defun process-negation-operator (math-buffer) 
   "Process a negation operator"
-  (or  do-not-test
-       (assert  (eq 'negation-operator
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-negation-operator
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (make-instance 'negation-operator
                                         ;                 :type 'negation-operator
                  :contents (get-math-object! math-buffer))
@@ -489,17 +410,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-ARROW-OPERATOR                         Author: raman
 ;;; Created: Thu Feb 27 22:06:23 1992
 
-(defun process-arrow-operator (math-buffer &key(do-not-test nil)) 
+(defun process-arrow-operator (math-buffer) 
   "Process a arrow operator"
-  (or  do-not-test
-       (assert  (eq 'arrow-operator
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-arrow-operator
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (make-instance 'arrow-operator
                                         ;                 :type 'arrow-operator
                  :contents (get-math-object! math-buffer))
@@ -509,17 +421,8 @@ at front of buffer  is not a cs"
 ;;; Created: Thu Feb 27 22:06:23 1992
 
 
-(defun process-mathematical-function-name (math-buffer &key(do-not-test nil)) 
+(defun process-mathematical-function-name (math-buffer) 
   "Process a mathematical function name  "
-  (or  do-not-test
-       (assert  (eq 'mathematical-function-name
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-mathematical-function-name
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (make-instance 'mathematical-function-name
                                         ;                 :type 'mathematical-function-name
                  :contents (get-math-object! math-buffer))
@@ -533,17 +436,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-ACCENT Author: raman
 ;;; Created: Wed Sep 16 09:54:20 1992
 
-(defun process-accent (math-buffer &key(do-not-test nil)) 
+(defun process-accent (math-buffer) 
   "Process a math accent" 
-  (or  do-not-test
-       (assert  (eq 'accent
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-accent
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (let ((accent (get-math-object! math-buffer))
         (object-to-be-accented  nil))
     (setf object-to-be-accented 
@@ -563,17 +457,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-UNDERBAR Author: raman
 ;;; Created: Wed Sep 16 09:54:20 1992
 
-(defun process-underbar (math-buffer &key(do-not-test nil)) 
+(defun process-underbar (math-buffer) 
   "Process a math underbar" 
-  (or  do-not-test
-       (assert  (eq 'underbar
-		    (lookup-math-classification
-		     (lookat-current-entry math-buffer)))
-		nil
-		"Assert: Argument to process-underbar
-~a does not match classification"
-		(lookat-current-entry math-buffer))
-       )
   (let ((underbar (get-math-object! math-buffer))
         (object-to-be-underbarred  nil))
     (setf object-to-be-underbarred 
@@ -596,15 +481,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-NUMBER                         Author: raman
 ;;; Created: Thu Feb 27 22:06:23 1992
 
-(defun process-number (math-buffer &key(do-not-test nil)) 
+(defun process-number (math-buffer) 
   "Process a number"
-  (or  do-not-test
-       (assert   (number-string? (lookat-current-entry math-buffer))
-		 nil
-		 "Assert: Argument to process-number
-~a does not match classification"
-		 (lookat-current-entry math-buffer))
-       )
   (make-instance 'math-number 
                                         ;                 :type 'number
                  :contents (pop-current-entry math-buffer))
@@ -615,16 +493,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-SUPERSCRIPT                            Author: raman
 ;;; Created: Fri Mar  6 09:25:49 1992
 
-(defun process-superscript (math-buffer &key (do-not-test nil)) 
+(defun process-superscript (math-buffer) 
   "Process superscript operator"
-  (or  do-not-test
-       (assert (eq 'superscript     (lookup-math-classification
-				     (lookat-current-entry math-buffer)))
-	       nil
-	       "Assert: Argument to process-superscript
-~a does not match classification"
-	       (lookat-current-entry math-buffer))
-       )
   (advance-pointer math-buffer) ; move on to the superscript
   (make-instance 'math-object
                  :type 'superscript
@@ -637,15 +507,8 @@ at front of buffer  is not a cs"
 ;;; Function: PROCESS-SUBSCRIPT                            Author: raman
 ;;; Created: Fri Mar  6 09:25:49 1992
 
-(defun process-subscript (math-buffer &key (do-not-test nil)) 
+(defun process-subscript (math-buffer) 
   "Process subscript operator"
-  (or  do-not-test
-       (assert (eq 'subscript     (lookup-math-classification
-                                   (lookat-current-entry math-buffer)))
-	       nil
-	       "Assert: Argument to process-subscript
-~a does not match classification"
-	       (lookat-current-entry math-buffer )))
   (advance-pointer math-buffer) ;move on to the subscript
   (make-instance 'math-object
                  :type 'subscript

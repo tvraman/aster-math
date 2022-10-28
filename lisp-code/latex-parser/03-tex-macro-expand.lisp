@@ -516,12 +516,8 @@ bulletins violate this. ")
   ;;; Function: TEX-MATRIX-EXPAND                              Author: raman
   ;;; Created: Wed Sep 22 14:06:38 1993
 
-(defun tex-matrix-expand (matrix-contents &optional(do-not-test nil)) 
+(defun tex-matrix-expand (matrix-contents) 
   "Process a TeX matrix "
-  (or do-not-test
-      (assert  (is-a 'subformula matrix-contents) nil
-	       "Assert: argument  ~a, is not valid:"
-	       matrix-contents))
                                         ; Construct a doubly nested list and hand it off to process-array.
   (let ((input-matrix (rest matrix-contents ))
         (row-list nil)

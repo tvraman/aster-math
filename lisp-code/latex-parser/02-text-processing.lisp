@@ -123,7 +123,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 					;paragraphs. At present only paragraphs
 					; delimited by parbreak will be caught.
            (t (push (funcall (get-parser token)
-                             text-buffer :do-not-test t )
+                             text-buffer)
                     current-paragraph )))
           finally
           (return
@@ -155,17 +155,11 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; made inline.
 (proclaim '(inline process-word))
 
-(defun process-word (text-buffer &key(do-not-test nil))
+(defun process-word (text-buffer )
   "Process a word "
-  (or do-not-test
-      (assert  (is-a-word (lookat-current-entry text-buffer))
-	       nil
-	       "Error: Argument to process-word, ~a, is not a word"
-	       (lookat-current-entry text-buffer)))
   (if *link-words*
       (make-instance 'aword :contents (pop-current-entry text-buffer))
-    (pop-current-entry text-buffer))
-  )
+    (pop-current-entry text-buffer)))
 
 
 ;;; Function: PROCESS-COMMENT                                Author: raman
@@ -174,12 +168,8 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Just return nil for comments, no point in keeping it in the high
 ;;; level structure for the present.
 
-(defun process-comment (text-buffer &key (do-not-test nil)) 
+(defun process-comment (text-buffer) 
   "Process a comment"
-  (or do-not-test
-      (assert  (is-a 'comment  (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-comment, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (advance-pointer text-buffer )
   nil
   )
@@ -187,20 +177,12 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Function: PROCESS-NEWLINE                                Author: raman
 ;;; Created: Thu Feb 27 20:55:28 1992
 
-(defun process-newline (text-buffer &key (do-not-test nil)) 
+(defun process-newline (text-buffer) 
   "process newlines "
-  (or do-not-test
-      (assert  (is-a 'newline (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-newline, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (pop-current-entry text-buffer)
   )
-(defun process-field-separator (text-buffer &key (do-not-test nil)) 
+(defun process-field-separator (text-buffer) 
   "process field-separators "
-  (or do-not-test
-      (assert  (is-a 'field-separator (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-field-separator, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (pop-current-entry text-buffer)
   )
 
@@ -211,13 +193,9 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Function: PROCESS-ABSTRACT                               Author: raman
 ;;; Created: Sun Jan 26 15:42:20 1992
 
-(defun process-abstract (text-buffer &key(do-not-test nil))
+(defun process-abstract (text-buffer )
   "Process abstract "
   (declare (special *new-article* ))
-  (or do-not-test
-      (assert  (is-a 'abstract (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-abstract, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (let
       ((new-abstract (make-abstract )))
     (setf (abstract-contents new-abstract)
@@ -233,12 +211,8 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Function: PROCESS-CENTER                                 Author: raman
 ;;; Created: Sun Jan 26 15:42:23 1992
 
-(defun process-center (text-buffer &key(do-not-test nil))
+(defun process-center (text-buffer )
   "process center"
-  (or do-not-test
-      (assert  (is-a 'center (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-center, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (let
       ((new-centered-text (make-centered-text )))
     (setf (centered-text-contents new-centered-text)(process-text
@@ -259,14 +233,8 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; set local environment in the buffer structure
 ;;; and stop using special variables. 
 
-(defun process-text-block (text-buffer &key(do-not-test nil))
+(defun process-text-block (text-buffer )
   "a first implementation"
-  (or
-   do-not-test
-   (assert (is-a 'block (lookat-current-entry text-buffer)) nil
-	   "Assert: buffer passed to process-text-block does not have a block
-in front, but has ~a instead"
-	   (lookat-current-entry text-buffer)))
   (let*
       (
        (contents nil)
@@ -288,12 +256,8 @@ in front, but has ~a instead"
 ;;; Function: PROCESS-INLINE-QUOTE                           Author: raman
 ;;; Created: Thu Feb 13 20:03:11 1992
 
-(defun process-inline-quote (text-buffer &key(do-not-test nil)) 
+(defun process-inline-quote (text-buffer ) 
   "process inline quotation"
-  (or do-not-test
-      (assert  (is-a '  inline-quote (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-inline-quote, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (let
       ((inline-quote-buffer(make-buffer :contents
 					(rest
@@ -359,12 +323,8 @@ in front, but has ~a instead"
 ;;; Function: PROCESS-QUOTE                                  Author: raman
 ;;; Created: Sun Jan 26 15:42:29 1992
 
-(defun process-quote (text-buffer &key(do-not-test nil))
+(defun process-quote (text-buffer )
   "process   quote"
-  (or do-not-test
-      (assert  (is-a '  quote (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-quote, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (create-quoted-text 
    (process-text
     (make-buffer :contents
@@ -377,34 +337,22 @@ in front, but has ~a instead"
   ;;; Function: PROCESS-TEXT-NUMBER                            Author: raman
   ;;; Created: Tue Dec 22 14:19:58 1992
 
-(defun process-text-number (text-buffer &key (do-not-test nil))
+(defun process-text-number (text-buffer)
   "Process a number string in text"
-  (or do-not-test
-      (assert  (is-a 'text-number (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-quote, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (make-instance 'text-number
                  :contents (list  (second (pop-current-entry text-buffer ))))
   )
 
-(defun process-math-number (math-buffer &key (do-not-test nil))
+(defun process-math-number (math-buffer)
   "Process a number string in math"
-  (or do-not-test
-      (assert  (is-a 'math-number (lookat-current-entry math-buffer)) nil
-	       "Assert: argument to process-quote, ~a, is not valid:"
-	       (lookat-current-entry math-buffer)))
   (make-instance 'math-number
                  :contents (second (pop-current-entry math-buffer )))
   )
 ;;; Function: PROCESS-QUOTATION                              Author: raman
 ;;; Created: Sun Jan 26 15:42:33 1992
 
-(defun process-quotation (text-buffer &key(do-not-test nil))
+(defun process-quotation (text-buffer )
   "process   quotation"
-  (or do-not-test
-      (assert  (is-a '    quotation (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-quotation, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (create-quoted-text
    (process-text
     (make-buffer :contents
@@ -417,14 +365,8 @@ in front, but has ~a instead"
 ;;; Function: PROCESS-NEW-ENVIRONMENT                        Author: raman
 ;;; Created: Sat Feb 15 12:40:11 1992
 
-(defun process-new-environment (text-buffer &key(do-not-test nil)) 
+(defun process-new-environment (text-buffer ) 
   "process an unknown latex environment"
-  (or do-not-test
-      (assert
-       (is-a '    new-environment  (lookat-current-entry text-buffer))
-       nil
-       "Assert: argument to process-new-environment , ~a, is not valid:"
-       (lookat-current-entry text-buffer)))
   (let* (
          (environment-contents(rest  (pop-current-entry text-buffer)))
          (environment-name  (first  environment-contents))
@@ -453,12 +395,8 @@ in front, but has ~a instead"
 ;;; Created: Wed Nov  6 16:11:44 1991
 ;;; No change made here from jan-24-version.
 
-(defun process-inline-math (text-buffer &key(do-not-test nil))
+(defun process-inline-math (text-buffer )
   "Process in line math"
-  (or do-not-test
-      (assert  (is-a '    inline-math  (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-inline-math, ~a, is not valid:"
-	       (lookat-current-entry text-buffer )))
   (make-instance 'inline-math 
                  :contents (list ( process-math
                                    (make-buffer :contents
@@ -470,12 +408,8 @@ in front, but has ~a instead"
 ;;; Created: Wed Nov  6 16:12:35 1991
 ;;; No change made here from jan-24-version.
 
-(defun process-display-math (text-buffer &key(do-not-test nil))
+(defun process-display-math (text-buffer )
   "Process display math"
-  (or do-not-test
-      (assert  (is-a '    display-math  (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-quotation, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (make-instance  'display-math 
                   :contents (list  (process-math
                                     (make-buffer :contents
@@ -492,14 +426,8 @@ in front, but has ~a instead"
 ;;; for handling font changing by passing parse state
 ;;; along with the text buffer. 
 (proclaim '(inline process-cs))
-(defun process-cs (text-buffer &key(do-not-test nil))
+(defun process-cs (text-buffer )
   "Process cs found in  current position in buffer"
-  (or do-not-test
-      (assert  (is-a 'cs
-		     (lookat-current-entry text-buffer )) nil
-		     "Assert: Argument to process-cs: ~a
-at front of buffer  is not a cs"
-		     (lookat-current-entry text-buffer)))
   (expand-tex-macro text-buffer)
   )
 
@@ -566,14 +494,8 @@ at front of buffer  is not a cs"
 ;;; Do not try to create a lisp array.
 ;;; Modified: Tue Jan 12 15:06:05 EST 1993
 ;;; process-array links array  elements 
-(defun process-array (text-buffer &key(do-not-test nil))
+(defun process-array (text-buffer )
   "Process an array "
-  (or do-not-test
-      (assert 
-       (is-a 'array  (lookat-current-entry text-buffer)) nil
-       "assert: front of buffer does not contain an array:
-process-array: front of buffer contains ~a instead. "
-       (lookat-current-entry text-buffer)))
   (let
       (
        ( array-contents (rest (pop-current-entry text-buffer)))
@@ -591,14 +513,8 @@ process-array: front of buffer contains ~a instead. "
 ;;; Do not construct lisp arrays.
 
 
-(defun process-tabular (text-buffer &key(do-not-test nil))
+(defun process-tabular (text-buffer )
   "Process a table "
-  (or do-not-test
-      (assert 
-       (is-a 'tabular  (lookat-current-entry text-buffer)) nil
-       "assert: buffer argument to process-tabular does not contain a
-table in front but has ~a instead"
-       (lookat-current-entry text-buffer)))
   (let
       (
        (table-contents (rest (pop-current-entry text-buffer)))
@@ -613,14 +529,8 @@ table in front but has ~a instead"
 ;;; case environment handled like tabular.
 ;;; Modified: Sat Oct  3 19:32:24 EDT 1992
 
-(defun process-cases (text-buffer &key(do-not-test nil))
+(defun process-cases (text-buffer )
   "Process a cases environment  "
-  (or do-not-test
-      (assert 
-       (is-a 'cases  (lookat-current-entry text-buffer)) nil
-       "assert: buffer argument to process-cases does not contain a
-table in front but has ~a instead"
-       (lookat-current-entry text-buffer)))
   (let
       (
        (table-contents (rest (pop-current-entry text-buffer)))
@@ -779,12 +689,8 @@ default is enumerated list."
 ;;; Function: PROCESS-ENUMERATE                              Author: raman
 ;;; Created: Sun Jan 26 15:26:48 1992
 
-(defun process-enumerate (text-buffer &key(do-not-test nil))
+(defun process-enumerate (text-buffer )
   "Process enumerated list of items "
-  (or do-not-test
-      (assert  (is-a 'enumerate (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-enumerate, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (create-list-environment 
    (process-text
     (make-buffer :contents
@@ -796,12 +702,8 @@ default is enumerated list."
 ;;; Function: PROCESS-DESCRIPTION                            Author: raman
 ;;; Created: Sun Jan 26 15:26:51 1992
 
-(defun process-description (text-buffer &key(do-not-test nil))
+(defun process-description (text-buffer )
   "process a latex description environment "
-  (or do-not-test
-      (assert  (is-a 'description (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-description, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (create-list-environment
    (process-text
     (make-buffer :contents
@@ -813,12 +715,8 @@ default is enumerated list."
 ;;; Function: PROCESS-ITEMIZE                                Author: raman
 ;;; Created: Sun Jan 26 15:26:54 1992
 
-(defun process-itemize (text-buffer &key(do-not-test nil))
+(defun process-itemize (text-buffer )
   "process a latex   itemize environment "
-  (or do-not-test
-      (assert  (is-a '  itemize (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-itemize, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (create-list-environment
    (process-text
     (make-buffer :contents
@@ -830,12 +728,8 @@ default is enumerated list."
 ;;; Function: PROCESS-ITEM                                   Author: raman
 ;;; Created: Sun Jan 26 15:26:57 1992
 
-(defun process-item (text-buffer &key(do-not-test nil))
+(defun process-item (text-buffer )
   "process a latex   item environment "
-  (or do-not-test
-      (assert  (is-a '    item (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-item, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (let
       ((new-item (make-item )))
     (when (can-this-be-cross-referenced? 'item)
@@ -857,12 +751,8 @@ default is enumerated list."
 ;;; Switching to using enclosing referends for handling labels.
 ;;;  old version which was buggy when a label occured at the end of
 ;;;  the equation  <(has been backed up. )>
-(defun process-equation (text-buffer &key(do-not-test nil))
+(defun process-equation (text-buffer )
   "process a latex   equation environment "
-  (or do-not-test
-      (assert  (is-a '      equation (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-equation, ~a, is not valid:"
-	       (lookat-current-entry text-buffer )))
   (let*
       ((contents (rest  (pop-current-entry text-buffer  )))
        (math-equation (make-instance 'math-equation ))
@@ -885,12 +775,8 @@ default is enumerated list."
 ;;; Created: Sun Jan 26 15:27:03 1992
 
 
-(defun process-eqnarray (text-buffer &key(do-not-test nil))
+(defun process-eqnarray (text-buffer )
   "process a latex   eqnarray environment "
-  (or do-not-test
-      (assert  (is-a '        eqnarray (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-eqnarray, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (let
       (( eqnarray-contents (rest (pop-current-entry text-buffer)))
        (self (make-instance 'math-eqnarray ))
@@ -913,12 +799,8 @@ default is enumerated list."
 ;;; Function: PROCESS-EQALIGN                                Author: raman
 ;;; Created: Sat Oct  3 17:14:44 1992
 
-(defun process-eqalign (text-buffer &key (do-not-test nil)) 
+(defun process-eqalign (text-buffer) 
   "Process eqalign. "
-  (or do-not-test
-      (assert  (is-a '        eqalign (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-eqalign, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (let
       (
        ( eqalign-contents (rest (pop-current-entry text-buffer)))
@@ -933,12 +815,8 @@ default is enumerated list."
 ;;; Function: PROCESS-SLIDE                                  Author: raman
 ;;; Created: Mon May  4 12:26:00 1992
 
-(defun process-slide (text-buffer &key (do-not-test nil))
+(defun process-slide (text-buffer)
   "process a slide"
-  (or do-not-test
-      (assert  (is-a '        slide (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-slide, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (make-slide :contents 
               (process-text
                (make-buffer :contents
@@ -949,12 +827,8 @@ default is enumerated list."
 ;;; Function: PROCESS-VERBATIM                               Author: raman
 ;;; Created: Fri Aug 28 14:32:14 1992
 
-(defun process-verbatim (text-buffer &key (do-not-test nil))
+(defun process-verbatim (text-buffer)
   "Process a latex verbatim environment"
-  (or do-not-test
-      (assert  (is-a '        verbatim (lookat-current-entry text-buffer)) nil
-	       "Assert: argument to process-verbatim, ~a, is not valid:"
-	       (lookat-current-entry text-buffer)))
   (make-verbatim :contents 
 		 (process-text
 		  (make-buffer :contents
@@ -1026,9 +900,8 @@ default is enumerated list."
 ;;; Function: PROCESS-UNKNOWN-CONSTRUCT                      Author: raman
 ;;; Created: Sat Feb 29 13:17:49 1992
 
-(defun process-unknown-construct (text-buffer &key (do-not-test t)) 
+(defun process-unknown-construct (text-buffer) 
   "Process an unknown construct, ie just stick it in"
-  (declare (ignore do-not-test))
   (cons 'unknown-construct
 	(pop-current-entry text-buffer))
   )
