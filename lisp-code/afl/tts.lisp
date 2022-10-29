@@ -36,7 +36,7 @@
 
 (export
  '(tts-init tts-open tts-shutdown *tts-log*
-   tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
+   htts-code tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
    with-surrounding-pause
    high-intonation low-intonation high-low-intonation
    comma-intonation period-intonation
@@ -114,7 +114,6 @@
   (declare (special *emacspeak*))
   (format nil "~a/sounds/pan-chimes/~a.wav"  *emacspeak* icon))
 
-
 ;;}}}
 ;;{{{Exported Functions
 
@@ -145,8 +144,6 @@
     (unless i (setq i (tts-open)))
     (format i "q {~a}~%" text)
     (finish-output i)))
-
-
 
 (defun tts-force ()
   "Speak all queued text."
