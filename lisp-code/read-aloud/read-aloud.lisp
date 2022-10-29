@@ -362,15 +362,14 @@
 (defmethod read-aloud ((sectional-unit sectional-unit))
   "read sectional-unit"
   (with-reading-state (reading-state 'annotation-voice)
-    (tts-queue
+    (tts-force)
+    (tts-speak
      (format
       nil  "~a ~a "
       (if (sectional-unit-name sectional-unit)
           (string-downcase (sectional-unit-name sectional-unit))
           "")
-      (or (sectional-unit-number sectional-unit) "")))
-    
-    )
+      (or (sectional-unit-number sectional-unit) ""))))
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (sectional-unit-title sectional-unit )))
   (when (sectional-unit-body sectional-unit)
@@ -387,9 +386,14 @@
 (defmethod read-aloud ((section section))
   "read aloud a section"
   (with-reading-state (reading-state 'annotation-voice)
-    (read-aloud (sectional-unit-name section))
-    (when (sectional-unit-number section)
-      (afl:tts-queue (sectional-unit-number section))))
+    (tts-force)
+    (tts-speak
+     (format
+      nil  "~a ~a "
+      (if (sectional-unit-name section)
+          (string-downcase (sectional-unit-name section))
+          "")
+      (or (sectional-unit-number section) ""))))
   (afl:tts-icon *section-cue* )
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (sectional-unit-title section)))
@@ -398,8 +402,7 @@
       (read-aloud (sectional-unit-body section )))
     (afl:tts-force ))
   (afl:new-block
-    (read-aloud (sectional-unit-sectional-units section )))
-  )
+    (read-aloud (sectional-unit-sectional-units section ))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Apr 16 19:14:59 1992
@@ -607,7 +610,7 @@ reading full documents. ")
 ;;; Function: SORTED-ATTRIBUTES                              Author: raman
 ;;; Created: Mon Oct 26 15:31:17 1992
 
-(proclaim '(inline sorted-attributes))
+
 (defun sorted-attributes (attributes)
   "Return attributes sorted in order to be read"
   (loop for attribute in *attributes-reading-order*

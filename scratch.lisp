@@ -1,5 +1,8 @@
 (read-aloud s)
+(afl:tts-init)
 (setq sec (first (children d)))
 (read-aloud d)
 (afl:tts-stop)
 (read-aloud sec)
+(afl:tts-shutdown)
+(setq afl:*tts-log* t)
