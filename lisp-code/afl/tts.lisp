@@ -51,23 +51,14 @@
   "Root of Emacspeak installation.")
 (defun tts-location (engine)
   "Return location of specified engine."
-  (declare (special *emacspeak*))
-  (concatenate 'string *emacspeak* "servers/" engine))
-(defvar *tts-log* nil
-  "Global flag to turn on TTS logging.")
-
-(defun tts-dtk ()
-  "Return name of dtk-soft server."
   (declare (special *emacspeak* *tts-log*))
   (concatenate
    'string
-   *emacspeak*
-   (if *tts-log* "servers/log-dtk-soft"   "servers/dtk-soft")))
-
-(defun tts-outloud ()
-  "Outloud tcl server"
-  (declare (special *emacspeak*))
-  (concatenate 'string *emacspeak* "servers/outloud"))
+   *emacspeak* "servers/"
+   (if *tts-log* "log-"   "")
+   engine))
+(defvar *tts-log* nil
+  "Global flag to turn on TTS logging.")
 
 (defvar *tts* nil
   "Handle to tts server connection.")
