@@ -36,7 +36,7 @@
 
 (export
  '(tts-init tts-open tts-shutdown *tts-log*
-   htts-code tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
+   tts-stop tts-code tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
    with-surrounding-pause
    high-intonation low-intonation high-low-intonation
    comma-intonation period-intonation
