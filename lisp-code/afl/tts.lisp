@@ -35,7 +35,7 @@
 (in-package :afl)
 
 (export
- '(tts-init tts-open tts-shutdown
+ '(tts-init tts-open tts-shutdown *tts-log*
    tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
    with-surrounding-pause
    high-intonation low-intonation high-low-intonation
@@ -53,11 +53,16 @@
   "Return location of specified engine."
   (declare (special *emacspeak*))
   (concatenate 'string *emacspeak* "servers/" engine))
+(defvar *tts-log* nil
+  "Global flag to turn on TTS logging.")
 
 (defun tts-dtk ()
   "Return name of dtk-soft server."
-  (declare (special *emacspeak*))
-  (concatenate 'string *emacspeak* "servers/dtk-soft"))
+  (declare (special *emacspeak* *tts-log*))
+  (concatenate
+   'string
+   *emacspeak*
+   (if *tts-log* "servers/log-dtk-soft"   "servers/dtk-soft")))
 
 (defun tts-outloud ()
   "Outloud tcl server"
