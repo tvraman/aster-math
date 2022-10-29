@@ -363,9 +363,12 @@
   "read sectional-unit"
   (with-reading-state (reading-state 'annotation-voice)
     (tts-queue
-     (format nil "~a ~a"
-             (or (sectional-unit-name sectional-unit) "")
-             (or (sectional-unit-number sectional-unit) "")))
+     (format
+      nil  "~a ~a "
+      (if (sectional-unit-name sectional-unit)
+          (string-downcase (sectional-unit-name sectional-unit))
+          "")
+      (or (sectional-unit-number sectional-unit) "")))
     
     )
   (with-reading-state (reading-state 'title-voice)
