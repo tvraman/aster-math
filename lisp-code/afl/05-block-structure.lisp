@@ -184,15 +184,15 @@ scaling"
     (when modified-dimensions
       (dolist
           (dim-name (remove-duplicates modified-dimensions))
-        (let
-            ((dimension (point-accessor dim-name new-state )))
-          (setf command-string
-                (concatenate 'string
-                             command-string
-                             (generate-synthesizer-command
-                              (dimension-name dimension)
-                              (reference-value
-                               (dimension-value dimension )))))))
+        (let ((dimension (point-accessor dim-name new-state )))
+          (setf
+           command-string
+           (concatenate
+            'string
+            command-string
+            (generate-synthesizer-command
+             (dimension-name dimension)
+             (reference-value (dimension-value dimension )))))))
       (setf *speech-hardware-state* new-state )
       (tts-code (format nil * command-string)))
     (when *afl-set-state-debug*
@@ -219,9 +219,7 @@ scaling"
              (push dim-name modified-dimensions  )))
          (if (find 'voice modified-dimensions )
              *list-of-speech-dimensions*
-             modified-dimensions)))
-    )
-  )
+             modified-dimensions)))))
 
   ;;; Function: SAME-DIMENSION-VALUE                           Author: raman
   ;;; Created: Wed Feb 10 11:56:58 1993
