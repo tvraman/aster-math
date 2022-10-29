@@ -1,4 +1,4 @@
-;;;   -*- Syntax: Common-Lisp;  Base: 10; Mode: LISP -*-    ;;;
+"" ;;;   -*- Syntax: Common-Lisp;  Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -130,7 +130,7 @@
   "If t play a tune before and after reading document.")
 
 (defmethod read-aloud  :before ((article article ))
-  "Activate audio player before beginning to read. "
+  "Prepare system for reading."
   (afl:initialize-speech-space)
   (reset-footnote-counter)
   (setf  (internal-time-to-read article) (get-universal-time)))
@@ -165,11 +165,12 @@
         (read-aloud "  Date, "))
       (with-reading-state (reading-state 'title-voice)
         (read-aloud (article-date article ))))
-    (read-aloud (article-abstract article))
+    (when (article-abstract article)
+      (read-aloud (article-abstract article)))
     (read-aloud (article-initial-body article))
     (read-aloud  (article-sectional-units article))
     (when *play-signature-tune*(afl:tts-icon *article-close-cue*))
-    (afl:tts-force) )
+    (afl:tts-force))
   )
 
 ;;{{{ punctuations
@@ -437,7 +438,7 @@
                (if (eql 'new-environment (class-name (class-of new-environment )))
                    (new-environment-name new-environment )
                    (class-name (class-of new-environment )))
-                                        " " ;(number new-environment )
+               " " ;(number new-environment )
                )))
   (afl:tts-pause 5)
   (read-aloud (new-environment-contents new-environment))
@@ -553,7 +554,7 @@ reading full documents. ")
         (read-aloud ( display-math-contents display-math))
         ))
     (afl:tts-force)
-    ;(afl:should-i-continue?)
+                                        ;(afl:should-i-continue?)
     )
   )
 
@@ -672,94 +673,94 @@ reading full documents. ")
                         (contents math-array ))))
       (loop for row in   contents 
             do
-            (loop for column in row
-                  and
-                  col-index = 1 then (+ 1 col-index) 
-                  do
-                  (dotimes (i col-index) 
-                    (afl:tts-icon   *column-cue*))
-                  (read-aloud  column))
-            (afl:tts-icon   *row-cue*)))))
+               (loop for column in row
+                     and
+                       col-index = 1 then (+ 1 col-index) 
+                     do
+                        (dotimes (i col-index) 
+                          (afl:tts-icon   *column-cue*))
+                        (read-aloud  column))
+               (afl:tts-icon   *row-cue*)))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Nov 19 15:30:15 1992
 
 (defmethod read-aloud ((tabular tabular))
-                                       "Read aloud a table, not fully implemented"
-                                       (let ((contents (if *transpose-table*
-                                                           (transpose-table (contents tabular))
-                                                           (contents tabular ))))
-                                         (loop for row in  contents
-                                               do
-                                                  (loop for column in row
-                                                        and
-                                                          col-index = 1 then (+ 1 col-index)
-                                                        do
-                                                           (dotimes (i col-index)
-                                                             (afl:tts-icon  *column-cue*))
-                                                           (read-aloud  column))
-                                                  (afl:tts-icon  *row-cue*)))
-                                       )
+  "Read aloud a table, not fully implemented"
+  (let ((contents (if *transpose-table*
+                      (transpose-table (contents tabular))
+                      (contents tabular ))))
+    (loop for row in  contents
+          do
+             (loop for column in row
+                   and
+                     col-index = 1 then (+ 1 col-index)
+                   do
+                      (dotimes (i col-index)
+                        (afl:tts-icon  *column-cue*))
+                      (read-aloud  column))
+             (afl:tts-icon  *row-cue*)))
+  )
 
 (defmethod read-aloud ((math-eqnarray math-eqnarray))
-                                       "Read math array, not fully implemented"
-                                       (loop for row in  (contents math-eqnarray)
-                                             do
-                                                (loop for column in row
-                                                      and
-                                                        col-index = 1 then (+ 1 col-index)
-                                                      do
-                                                         (dotimes (i col-index)
-                                                           (afl:tts-icon  *column-cue*))
-                                                         (read-aloud  column))
-                                                (afl:tts-icon  *row-cue*))
-                                       )
+  "Read math array, not fully implemented"
+  (loop for row in  (contents math-eqnarray)
+        do
+           (loop for column in row
+                 and
+                   col-index = 1 then (+ 1 col-index)
+                 do
+                    (dotimes (i col-index)
+                      (afl:tts-icon  *column-cue*))
+                    (read-aloud  column))
+           (afl:tts-icon  *row-cue*))
+  )
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Tue Nov  3 12:48:25 1992
 
 (defmethod read-aloud ((integral-d integral-d))
-                                       "Read aloud integral delimiter"
-                                       (read-aloud "d ")
-                                       (read-aloud (children integral-d))
-                                       )
+  "Read aloud integral delimiter"
+  (read-aloud "d ")
+  (read-aloud (children integral-d))
+  )
 
 (defmethod read-aloud ((math-subformula math-subformula))
-                                       (read-aloud (contents math-subformula))
-                                       (afl:tts-queue " ")
-                                       (when (attributes math-subformula)
-                                         (mapcar #'read-aloud
-                                                 (sorted-attributes  (attributes
-                                                                      math-subformula ))))
-                                       )
+  (read-aloud (contents math-subformula))
+  (afl:tts-queue " ")
+  (when (attributes math-subformula)
+    (mapcar #'read-aloud
+            (sorted-attributes  (attributes
+                                 math-subformula ))))
+  )
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Tue Dec  1 11:50:14 1992
 
 (defmethod read-aloud ((delimited-expression delimited-expression))
-                                       "Read aloud a delimited expression"
-                                       (read-aloud(open-delimiter delimited-expression ))
-                                       (with-reading-state (reading-state 'children)
-                                         (loop for child in (children delimited-expression)
-                                               do           (read-aloud child  )))
-                                       (when (or  (attributes delimited-expression)
-                                                  (eql 'mismatched-delimiters (delimited-expression-type delimited-expression)))
-                                         (read-aloud (close-delimiter delimited-expression)))
-                                       (when (attributes delimited-expression)
-                                         (mapcar #'read-aloud
-                                                 (sorted-attributes  (attributes
-                                                                      delimited-expression ))))
-                                       )
+  "Read aloud a delimited expression"
+  (read-aloud(open-delimiter delimited-expression ))
+  (with-reading-state (reading-state 'children)
+    (loop for child in (children delimited-expression)
+          do           (read-aloud child  )))
+  (when (or  (attributes delimited-expression)
+             (eql 'mismatched-delimiters (delimited-expression-type delimited-expression)))
+    (read-aloud (close-delimiter delimited-expression)))
+  (when (attributes delimited-expression)
+    (mapcar #'read-aloud
+            (sorted-attributes  (attributes
+                                 delimited-expression ))))
+  )
 
 (defmethod read-aloud ((table-element table-element ))
-                                       "Just read out its contents"
-                                       (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
-                                       (read-aloud (contents table-element ))
-                                       (afl:tts-force)
-                                       )
+  "Just read out its contents"
+  (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
+  (read-aloud (contents table-element ))
+  (afl:tts-force)
+  )
 
 (defmethod read-aloud ((factorial factorial ))
-                                       "read aloud a factorial object"
-                                       (read-aloud (contents factorial))
-                                       (afl:tts-queue "[_,]")
-                                       (read-aloud "factorial,"))
+  "read aloud a factorial object"
+  (read-aloud (contents factorial))
+  (afl:tts-queue "[_,]")
+  (read-aloud "factorial,"))
