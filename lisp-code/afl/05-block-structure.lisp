@@ -9,9 +9,9 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (export '(
           *current-speech-state* *global-speech-state*
-          *await-silence-when-using-stereo*
+          ;*await-silence-when-using-stereo*
           local-set-state global-set-state
-          named-block exit-block
+          new-block exit-block
           *lazy-set-state* with-lazy-set-state))
 ;;;  Contains definition of new-block as a macro.
 ;;; and associated assignment operators.
