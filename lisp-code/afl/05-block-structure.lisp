@@ -194,7 +194,7 @@ scaling"
              (dimension-name dimension)
              (reference-value (dimension-value dimension )))))))
       (setf *speech-hardware-state* new-state )
-      (tts-code (format nil * command-string)))
+      (tts-code  command-string))
     (when *afl-set-state-debug*
       (format nil  "Sending: ~% ~a  "command-string))))
 
