@@ -86,9 +86,10 @@
 
 (defun tts-pause (ms)
   "Send silence"
-  (let ((i (tts-input (tts))))
-    (format i "sh {~a}~%" ms)
-    (finish-output i))  )
+  (when (> ms 0)
+    (let ((i (tts-input (tts))))
+      (format i "sh {~a}~%" ms)
+      (finish-output i))))
 
 (defmacro with-surrounding-pause (pause-amount &body body)
   "Execute body with surrounding pause specified by pause-amount"
