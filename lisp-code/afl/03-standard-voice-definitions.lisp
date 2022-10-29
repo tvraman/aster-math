@@ -2,14 +2,11 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :afl)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
-
-
 
 ;;; rearrange dimensions for dectalk:
 
@@ -24,7 +21,7 @@
 ;;; This file defines the standard voices as points in the speech
 ;;; space using the function define-standard-voice
 
-;;; set up standard voices. 
+;;; set up standard voices.
 
 (define-standard-voice 'paul
     '(head-size(:value 100 :step-size 5))
@@ -115,4 +112,3 @@
   '(pitch-range (:value 210 :step-size 10))
   #+multivoice  '(loudness (:value 73 :step-size 5))
   )
-
