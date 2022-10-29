@@ -415,7 +415,7 @@
 
   ;;; Function: RELABEL-IF-NECESSARY                           Author: raman
   ;;; Created: Sat May  1 13:51:37 1993
-(proclaim '(inline relabel-if-necessary))
+
 (defun relabel-if-necessary (label)
   "Relabel this label object prompting user. "
   (when (typep label 'label)
