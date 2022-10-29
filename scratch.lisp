@@ -1,1 +1,5 @@
 (read-aloud s)
+(setq sec (first (children d)))
+(read-aloud d)
+(afl:tts-stop)
+(read-aloud sec)
