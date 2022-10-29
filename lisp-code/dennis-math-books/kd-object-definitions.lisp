@@ -56,7 +56,7 @@ nil
   "Read aloud method for object pno "
 (read-aloud "end of page ")
 (read-aloud (argument 1 pno))
-(read-aloud "[_].")
+(tts-queue  "[_.]")
 (afl:synchronize-and-play *newline-cue*)
   )
 (define-text-object :macro-name "seject" 
@@ -84,7 +84,7 @@ nil
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( kd-h kd-h )) 
   "Read aloud method for object kd-h "
-(read-aloud "[_]")
+(afl:tts-queue "[_.]")
   )
 
 

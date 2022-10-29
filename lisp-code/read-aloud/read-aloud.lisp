@@ -275,7 +275,7 @@
   (let ((pronounce (afl:get-pronunciation string )))
     (cond
       ((punctuation? string)
-       (afl:tts-queue (format nil "[_]~a" pronounce))
+       (afl:tts-queue (format nil "~a" pronounce))
        (afl:tts-force))
       (t (afl:tts-queue " ")
          (afl:tts-queue pronounce  )))))
@@ -458,7 +458,7 @@
 
 (defmethod read-aloud ((citation citation))
   "read out citation."
-  (afl:tts-queue "[_]" )
+  t ;fixme
   )
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -476,7 +476,7 @@
 
 (defmethod read-aloud ((index-term index-term))
   "Read aloud method for index terms. "
-  (afl:tts-queue  "[_]")
+  (afl:tts-queue  "")
   )
 
 ;;; Method: READ-ALOUD                                       Author: raman

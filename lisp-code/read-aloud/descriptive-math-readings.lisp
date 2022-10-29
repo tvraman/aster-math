@@ -114,10 +114,10 @@
       (read-aloud (children variable-of-integration)))
     (cond
       ((and lower-limit upper-limit) 
-       (read-aloud "[_], [/]with lower limit, ")
+       (afl:tts-queue "[_,] [/]with lower limit, ")
        (with-reading-state (reading-state 'subscript) 
-         (read-aloud lower-limit))
-       (read-aloud " [_], and upper limit, ")
+         (afl:tts-queue lower-limit))
+       (afl:tts-queue " [_,] and upper limit [_,] ")
        (with-reading-state (reading-state 'superscript) 
          (read-aloud upper-limit)))
       (lower-limit
