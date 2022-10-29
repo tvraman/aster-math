@@ -140,7 +140,7 @@ processing function")
     )
   )
 
-;;; { labelled text objects:
+;;{{{ labelled text objects:
 ;;;
 ;;; Tue May  4 11:21:57 EDT 1993
  ;;;
@@ -251,7 +251,7 @@ passed to automatically generated processing function")
     )
   )
 
-;;; }
+;;}}}
 
 
 ;;; default name-of-child methods:

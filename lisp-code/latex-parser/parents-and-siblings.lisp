@@ -271,7 +271,7 @@
           list)
   )
 
-;;; { default parent and sibling methods catch all: 
+;;{{{ default parent and sibling methods catch all: 
 
   ;;; Method: PARENT                                           Author: raman
   ;;; Created: Wed Dec 23 09:04:08 1992
@@ -295,4 +295,4 @@
 (defmethod next ((object  t))
   'undefined )
 
-;;; }
+;;}}}

@@ -21,7 +21,7 @@
 ;;; unity.  They can be changed by the user to result in the entire
 ;;; reading being scaled. Will work with interruptions.
 
-;;; { *table-of-final-scale-factors*
+;;{{{ *table-of-final-scale-factors*
 
 ;;; Variable: *DEFAULT-FINAL-SCALE-FACTOR*                   Author: raman
 ;;; Created: Fri Aug 14 11:44:50 1992
@@ -82,7 +82,7 @@ state as recorded by afl"
   (set-speech-state *current-speech-state*))
   )
 
-;;; }
+;;}}}
 
 ;;; Relies on the list representation of point-in-speech-space 
 ;;; Function: SCALE-POINT-IN-SPEECH-SPACE                    Author: raman

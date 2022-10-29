@@ -245,7 +245,7 @@
 
 
 
-;;; { Stepping through math readings:
+;;{{{ Stepping through math readings:
 
 ;;; Switch to determine if we step through a math reading:
 
@@ -305,7 +305,7 @@ math object against this threshold. ")
     (read-char))
   )
 
-;;; }
+;;}}}
 
 
 

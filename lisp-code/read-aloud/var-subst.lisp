@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (in-package :cl-user)
-;;; { Introduction:
+;;{{{ Introduction:
 
 ;;; Sun May 23 10:27:59 EDT 1993
  ;;;
@@ -53,8 +53,8 @@
 ;;; Setting this to 0 will cause big trouble:-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; }
-;;; { Class definitions:
+;;}}}
+;;{{{ Class definitions:
 
   ;;; Class: SUBSTITUTED-EXPRESSION                            Author: raman
   ;;; Created: Sun May 23 10:34:01 1993
@@ -91,8 +91,8 @@
 (defun substitution-p (self)
   (typep  self 'substitution ))
 
-;;; }
-;;; { Reading rules
+;;}}}
+;;{{{ Reading rules
 
 (def-reading-rule (math-object read-substitution)
     "Read the substitution if any for math object."
@@ -128,7 +128,7 @@ continues if y is not  pressed.")
 ;;; Trying out clean version again:
 ;;; Clean version works after a complete clean recompile
 
-;;; {Clean reading rule:
+;;{{{Clean reading rule:
 
 (def-reading-rule (math-object variable-substitution )
     "Read math object after applying variable substitution. "
@@ -162,10 +162,10 @@ continues if y is not  pressed.")
                                                   ))))))))
   )
 
-;;; }
+;;}}}
 
-;;; }
-;;; { read-aloud methods
+;;}}}
+;;{{{ read-aloud methods
 
 (defmethod read-aloud ((substitution substitution ))
   "Read aloud a substitution pair"
@@ -177,8 +177,8 @@ continues if y is not  pressed.")
   (afl:tts-force)
   )
 
-;;; }
-;;; {variable-substitution
+;;}}}
+;;{{{variable-substitution
 
 (defmethod variable-substitution ((math-object math-object))
   "Transform by applying variable substitution. "
@@ -326,8 +326,8 @@ object or its children are set whenever a substitution is made. "
     )
   )
 
-;;; }
-;;; { reading state
+;;}}}
+;;{{{ reading state
 
 (define-reading-state   'read-substitution-voice 
     #'(lambda(state)
@@ -382,6 +382,6 @@ object or its children are set whenever a substitution is made. "
   (setf *subst-id-table* (make-hash-table :test #'equal ))
   )
 
-;;; }
+;;}}}
 
 

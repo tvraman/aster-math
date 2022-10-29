@@ -11,7 +11,7 @@
 ;;; Created: Fri Sep 25 11:58:49 EDT 1992
 ;;; Pronunciations for dectalk.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; {text mode
+;;{{{text mode
 
 ;;; text mode:
 (define-pronunciation "[" "left-bracket" :text)
@@ -74,8 +74,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; }
-;;; {Math mode
+;;}}}
+;;{{{Math mode
 
 ;;; Math mode:
 ;;; Capital letters.  
@@ -400,10 +400,10 @@
 (define-pronunciation "atop" " and [']below that, " :math)
 (define-pronunciation "paren" "paran" :math)
 
-;;; }
-;;; { lisp mode
+;;}}}
+;;{{{ lisp mode
 
 (define-pronunciation "(" " open paranth, " :lisp)
 (define-pronunciation ")"  " close paranth, " :lisp)
 
-;;; }
+;;}}}

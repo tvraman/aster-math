@@ -91,7 +91,7 @@
                                         ;(activate-rule 'stackrel 'default )
 
 
-;;; { standard tex objects like set counter.
+;;{{{ standard tex objects like set counter.
 ;;; should go in a separate file later
 
 (define-text-object :macro-name "chapterx" 
@@ -131,7 +131,7 @@
 
 
 
-;;; }
+;;}}}
 
 
 

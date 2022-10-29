@@ -34,7 +34,7 @@
 ;;; Contains all defvars etc used by afl.
 ;;; Also contains accessor and modifiers for these defvars.
 
-;;; { *list-of-speech-dimensions*
+;;{{{ *list-of-speech-dimensions*
 
 ;;; Variable: *LIST-OF-SPEECH-DIMENSIONS*                           Author: raman
 ;;; Created: Sat Aug  8 15:35:18 1992
@@ -68,8 +68,8 @@
   "Return current list of dimensions"
   *list-of-speech-dimensions*
   )
-;;; }
-;;; { *global-values*
+;;}}}
+;;{{{ *global-values*
 
 ;;;  comments on global settings implementation
 
@@ -124,8 +124,8 @@
         value)
   )
 
-;;; }
-;;; { *table-of-units*
+;;}}}
+;;{{{ *table-of-units*
 
 ;;; implements tables for holding  information about speech space and
 ;;; how to manipulate it.
@@ -166,8 +166,8 @@
   (gethash dimension *table-of-units*)
   )
 
-;;; }
-;;; {*table-of-synthesizer-codes*
+;;}}}
+;;{{{*table-of-synthesizer-codes*
 
 ;;; Variable: *TABLE-OF-SYNTHESIZER-CODES* Author: raman
 ;;; Created: Fri Aug  7 17:49:29 1992
@@ -193,8 +193,8 @@
   (gethash dimension *table-of-synthesizer-codes*)
   )
 
-;;; }
-;;; { *table-of-step-sizes*
+;;}}}
+;;{{{ *table-of-step-sizes*
 
 ;;; Variable: *TABLE-OF-STEP-SIZES* Author: raman
 ;;; Created: Fri Aug  7 17:49:29 1992
@@ -241,11 +241,11 @@
 
 
 
-;;; }
+;;}}}
 
-;;; { Maximum and minimum values
+;;{{{ Maximum and minimum values
 
-;;; { *table-of-minimum-values*
+;;{{{ *table-of-minimum-values*
   ;;; Variable: *TABLE-OF-MINIMUM-VALUES*                      Author: raman
   ;;; Created: Mon Dec 14 10:38:37 1992
 
@@ -271,8 +271,8 @@
   (gethash dimension *table-of-minimum-values*) 
   )
 
-;;; }
-;;; {*table-of-maximum-values*
+;;}}}
+;;{{{*table-of-maximum-values*
 
   ;;; Variable: *TABLE-OF-MAXIMUM-VALUES*                      Author: raman
   ;;; Created: Mon Dec 14 10:38:37 1992
@@ -299,9 +299,9 @@
   (gethash dimension *table-of-maximum-values*) 
   )
 
-;;; }
+;;}}}
 
-;;; { range of a dimension
+;;{{{ range of a dimension
 
   ;;; Function: DIMENSION-RANGE                                Author: raman
   ;;; Created: Mon Dec 14 11:16:39 1992
@@ -343,11 +343,11 @@ number-of-end-points -1 subintervals"
       ))
   )
 
-;;; }
+;;}}}
 
-;;; }
+;;}}}
 
-;;; { *standard-voices*
+;;{{{ *standard-voices*
 
 ;;; standard voices stored in a table.
 ;;; this is a hash table which for each name holds the point in speech
@@ -427,5 +427,5 @@ assign a value to it"
    *list-of-speech-dimensions*)
   )
 
-;;; }
+;;}}}
 

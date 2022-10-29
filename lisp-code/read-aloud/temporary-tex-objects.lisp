@@ -16,7 +16,7 @@
 
 
 
-;;; { for demos:
+;;{{{ for demos:
 (define-text-object     :macro-name "descriptive" 
   :number-args 0
   :processing-function descr-expand 
@@ -83,7 +83,7 @@
 
 
 
-;;; }
+;;}}}
 
 
 (define-text-object :macro-name "uselongsummation" 
@@ -631,7 +631,7 @@
     (read-aloud (argument 1 lisp-name ))))
 
 
-;;; { Thesis add ons:
+;;{{{ Thesis add ons:
 (define-text-object :macro-name "makeabstitle" 
   :number-args 0
   :processing-function make-abs-title-expand 
@@ -914,4 +914,4 @@ nil
 
 
 
-;;; }
+;;}}}

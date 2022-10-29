@@ -22,7 +22,7 @@
 ;;;  Contains definition of new-block as a macro.
 ;;; and associated assignment operators.
 
-;;; { *current-speech-state*
+;;{{{ *current-speech-state*
 
 
 ;;; Variable: *GLOBAL-SPEECH-STATE*                                 Author: raman
@@ -35,9 +35,9 @@
 (defvar *current-speech-state* nil "Records current state of the audio formatter ")
 
 ;;; <(*modified-dimensions* no longer used. )>
-;;; }
+;;}}}
 
-;;; { new-block
+;;{{{ new-block
 ;;; Modified: Wed Feb 10 15:40:09 EST 1993
 ;;; No longer using *modified-dimensions* this taken care of by
 ;;; set-speech-state. 
@@ -112,8 +112,8 @@
   (when *current-exit*
     (funcall *current-exit*))
   )
-;;; }
-;;; { assignments
+;;}}}
+;;{{{ assignments
 
 ;;; Variable: *LAZY-SET-STATE*                               Author: raman
 ;;; Created: Mon Aug 24 08:24:11 1992
@@ -357,4 +357,4 @@ unsets *lazy-set-state*"
                                         ; actually send the commands.  
   )
 
-;;; }
+;;}}}

@@ -172,7 +172,7 @@
     (afl:tts-force) )
   )
 
-;;; { punctuations
+;;{{{ punctuations
 
 ;;; Variable: *READ-ALL-TEXT*                                Author: raman
 ;;; Created: Wed Apr 29 08:40:46 1992
@@ -240,7 +240,7 @@
 (defmethod end-of-sentence? ((aword aword))
   "Check for end of sentence"
   (end-of-sentence? (contents aword)))
-;;; }
+;;}}}
 
 ;;; Method: READ-ALOUD                                          Author: raman
 ;;; Created: Sat Apr 11 20:38:53 1992

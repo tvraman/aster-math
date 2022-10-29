@@ -17,7 +17,7 @@
           ))
 
 ;;; Each fold contains functions associated with the fold marker
-;;; { Introduction:
+;;{{{ Introduction:
 
 ;;; This file contains definitions of points in the speech space.
 ;;; Points in the speech space are currently implemented as
@@ -46,8 +46,8 @@
 ;;; generated from this list by a macro. 
 ;;;
 
-;;; }
-;;; { dimension
+;;}}}
+;;{{{ dimension
 
 ;;;  Structure: DIMENSION                                     Author: raman
 ;;; Constant: *DEFAULT-VOICE*                                Author: raman
@@ -128,8 +128,8 @@
     ,dimension ,new-value)
   )
 
-;;; }
-;;; { point-in-speech-space 
+;;}}}
+;;{{{ point-in-speech-space 
 
 ;;; point-in-speech-space a structure: 
 ;;; this is  generated automatically from the list of
@@ -275,8 +275,8 @@ space."
 
 
 
-;;; }
-;;; { initialize-speech-space 
+;;}}}
+;;{{{ initialize-speech-space 
 
 ;;; comments on initializing speech space:
 ;;; initializing speech space will include the following steps:
@@ -359,8 +359,8 @@ argument which is an object of type dimension. "
     )
   )
 
-;;; }
-;;; { rearrange-dimensions-for-dectalk
+;;}}}
+;;{{{ rearrange-dimensions-for-dectalk
 
 ;;; This function resets *list-of-speech-dimensions* after rearranging the
 ;;; dimensions in the right order for dectalk.  The only thing that
@@ -368,4 +368,4 @@ argument which is an object of type dimension. "
 ;;; list.
 
 
-;;; }
+;;}}}

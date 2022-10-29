@@ -26,7 +26,7 @@
 
 
 
-;;; {paragraph: interactive
+;;{{{paragraph: interactive
 (def-reading-rule (paragraph quiet)
     "do not read paragraph content. "
   )
@@ -200,9 +200,9 @@ In addition, allow the user to mark a position while reading. "
              (afl:tts-force )))))
   )
 
-;;; }
+;;}}}
 
-;;; {verbatim: quiet verbose
+;;{{{verbatim: quiet verbose
 (def-reading-rule (verbatim quiet)
     " quiet reading rule for object verbatim"
   )
@@ -216,9 +216,9 @@ In addition, allow the user to mark a position while reading. "
     (read-aloud(verbatim-contents verbatim )))
   )
 
-;;; }
+;;}}}
 
-;;; { fraction: fraction inference
+;;{{{ fraction: fraction inference
 (def-reading-rule (fraction fraction)
     " fraction reading rule for object fraction"
   (afl:new-block
@@ -252,26 +252,26 @@ In addition, allow the user to mark a position while reading. "
 
 
 
-;;; }
+;;}}}
 
-;;; {itemize: quiet default
+;;{{{itemize: quiet default
 (def-reading-rule (itemized-list quiet)
     " quiet reading rule for object itemized-list"
   nil)
 
 (def-reading-rule (itemized-list default) 
     (call-next-method))
-;;; }
+;;}}}
 
-;;; {overbrace
+;;{{{overbrace
 
 (def-reading-rule (overbrace quiet)
     (read-attributes overbrace)
   )
 
-;;; }
+;;}}}
 
-;;; { slide
+;;{{{ slide
 ;;; read title only
 (def-reading-rule (slide read-only-title)
     "only read titles of slides. "
@@ -286,7 +286,7 @@ In addition, allow the user to mark a position while reading. "
         ((title(mapcar #'extract-slide-title (contents slide ))))
       (read-aloud title )))
   )
-;;; }
+;;}}}
 
 
 (def-reading-rule (figure read-caption-only)

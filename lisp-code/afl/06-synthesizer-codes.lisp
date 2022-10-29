@@ -13,7 +13,7 @@
 ;;; Initially assumes dectalk, but to be flexible enough to allow any
 ;;; synthesizer.
 
-;;; { Start and end markers 
+;;{{{ Start and end markers 
 
 ;;; Variable: *BEGIN-COMMAND*                                Author: raman
 ;;; Created: Tue Aug 11 13:40:16 1992
@@ -25,8 +25,8 @@
 ;;; external variable: 
 (defvar *end-command* "]" "string that ends a synthesizer command")
 
-;;; }
-;;; { generate-synthesizer-command
+;;}}}
+;;{{{ generate-synthesizer-command
 ;;; Modified: Thu Aug 20 10:40:53 EDT 1992
 ;;; Modified to return string rather than call format each time.
 ;;; Function: GENERATE-SYNTHESIZER-COMMAND                   Author: raman
@@ -60,9 +60,9 @@
                  *end-command*))
   )
 
-;;; }
+;;}}}
 
-;;; { *voice-codes-table*
+;;{{{ *voice-codes-table*
 
 ;;; Variable: *VOICE-CODES-TABLE*                            Author: raman
 ;;; Created: Tue Aug 11 14:56:19 1992
@@ -117,5 +117,5 @@
     )
   )
 
-;;; }
+;;}}}
 

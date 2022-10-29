@@ -85,7 +85,7 @@
          mode)
   )
 
-;;; { text mode
+;;{{{ text mode
 
 ;;; Variable: *TEXT-MODE-PRONUNCIATIONS*                     Author: raman
 ;;; Created: Fri Sep 25 11:40:46 1992
@@ -148,8 +148,8 @@ things. ")
     )
   )
 
-;;; }
-;;; { math mode
+;;}}}
+;;{{{ math mode
 
 ;;; Variable: *MATH-MODE-PRONUNCIATIONS*                     Author: raman
 ;;; Created: Fri Sep 25 11:40:46 1992
@@ -197,8 +197,8 @@ things. ")
     )
   )
 
-;;; }
-;;; { french mode
+;;}}}
+;;{{{ french mode
 
 ;;; Variable: *FRENCH-MODE-PRONUNCIATIONS*                     Author: raman
 ;;; Created: Fri Sep 25 11:40:46 1992
@@ -246,8 +246,8 @@ things. ")
     )
   )
 
-;;; }
-;;; { lisp mode 
+;;}}}
+;;{{{ lisp mode 
 
   ;;; Variable: *LISP-MODE-PRONUNCIATIONS*                     Author: raman
   ;;; Created: Tue Feb 23 20:01:46 1993
@@ -286,7 +286,7 @@ things. ")
         (or (gethash lower-case-string *lisp-mode-pronunciations*)
             (gethash  lower-case-string *text-mode-pronunciations* )))))
 
-;;; }
+;;}}}
 
 
 

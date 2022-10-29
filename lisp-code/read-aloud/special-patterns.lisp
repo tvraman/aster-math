@@ -181,7 +181,7 @@ active")
 ;;; we neet not bother about saying how the object is to be read if
 ;;; the pattern does not match.
 
-;;; { special pattern matching methods
+;;{{{ special pattern matching methods
 
 (defmethod math-number-p  ((math-subformula math-subformula ))
   "Some math subformulas are plain math numbers"
@@ -320,8 +320,8 @@ active")
   "Things in general are not periods. "
   nil)
 
-;;; }
-;;; { recognizing unary minus
+;;}}}
+;;{{{ recognizing unary minus
 
   ;;; Method: SPECIAL-PATTERN                                  Author: raman
   ;;; Created: Thu Dec 31 10:11:14 1992
@@ -376,7 +376,7 @@ active")
     (negated-object (contents math-subformula )))
   )
 
-;;; }
+;;}}}
 ;;; Moving pattern matching for superscript here from descriptive
 ;;; reading rules. the descriptive reading rule might go away
 ;;; depending on which method proves more convenient.

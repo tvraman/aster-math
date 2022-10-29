@@ -71,7 +71,7 @@
 
 
 
-;;; { mbox
+;;{{{ mbox
 
 ;;; mbox should be handled differently from ordinary text blocks.
 ;;; This is because they way tex works, new blocks inherit from the
@@ -100,8 +100,8 @@
     )
   )
 
-;;; }
-;;; {fbox
+;;}}}
+;;{{{fbox
 ;;; For the present treating fbox like mbox, will change reading rule
 ;;; later to add some bells and whistles.
 
@@ -125,8 +125,8 @@
 
 
 
-;;; }
-;;; {label
+;;}}}
+;;{{{label
 
 #|
 (define-text-object     :macro-name "label" 
@@ -145,8 +145,8 @@
   (read-aloud (contents label ))
   )
 
-;;; }
-;;; {sqrt Not handle optional latex argument
+;;}}}
+;;{{{sqrt Not handle optional latex argument
 (define-text-object     :macro-name "sqrt" 
   :number-args 1
   :processing-function sqrt-expand
@@ -176,8 +176,8 @@
 
 
 
-;;; }
-;;; { integral delimiter as a macro
+;;}}}
+;;{{{ integral delimiter as a macro
 
 (define-text-object     :macro-name "varint" 
   :number-args 1
@@ -197,8 +197,8 @@
 
 
 
-;;; }
-;;; {\ie
+;;}}}
+;;{{{\ie
 (define-text-object     :macro-name "ie" 
   :number-args 0
   :processing-function ie-expand 
@@ -214,10 +214,10 @@
 
 
 
-;;; }
-;;; { overbrace, underbrace etc. 
+;;}}}
+;;{{{ overbrace, underbrace etc. 
 
-;;; {overbrace 
+;;{{{overbrace 
 
 (define-text-object     :macro-name "overbrace" 
   :number-args 1
@@ -243,8 +243,8 @@
 
 
 
-;;; }
-;;; {overline
+;;}}}
+;;{{{overline
 
 (define-text-object     :macro-name "overline" 
   :number-args 1
@@ -272,8 +272,8 @@
   )
 
 
-;;; }
-;;; {underbrace
+;;}}}
+;;{{{underbrace
 
 (define-text-object     :macro-name "underbrace" 
   :number-args 1
@@ -292,8 +292,8 @@
   (read-attributes underbrace)
   )
 
-;;; }
-;;; {underline
+;;}}}
+;;{{{underline
 
 (define-text-object     :macro-name "underline" 
   :number-args 1
@@ -312,10 +312,10 @@
   (read-attributes underline)
   )
 
-;;; }
+;;}}}
 
-;;; }
-;;; {hspace
+;;}}}
+;;{{{hspace
 (define-text-object     :macro-name "hspace" 
   :number-args 1
   :processing-function hspace-expand 
@@ -332,7 +332,7 @@
 
 
 
-;;; }
+;;}}}
 
 
 
@@ -627,7 +627,7 @@
 
 
 
-;;; {latex2e objects 
+;;{{{latex2e objects 
 (define-text-object :macro-name "emph" 
   :number-args 1
   :processing-function emph-expand 
@@ -736,4 +736,4 @@
 
 
 
- ;;; }
+ ;;}}}

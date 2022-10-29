@@ -1,7 +1,7 @@
 ;;;   -*- Syntax: Common-Lisp;  Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; { Introduction
+;;{{{ Introduction
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -40,9 +40,9 @@
 ;;; Refer to: <(notes on audio formatting)>
 ;;; The operators return points in speech space. There are four move operators.
 
-;;; }
+;;}}}
 ;;; Each fold contains  an operator
-;;; { move-by
+;;{{{ move-by
 
 ;;; Modified: Wed Mar 24 08:57:17 EST 1993
 ;;; turned into method. 
@@ -90,8 +90,8 @@ If called with :slot 'step-size, modifies the step size instead."
     ))
 
 
-;;; }
-;;; { step-by 
+;;}}}
+;;{{{ step-by 
 
 ;;; Modified: Wed Aug 19 09:23:37 EDT 1992
 
@@ -146,8 +146,8 @@ If called with :slot 'step-size, modifies the step size instead."
     )
   )
 
-;;; }
-;;; {move-to 
+;;}}}
+;;{{{move-to 
 
   ;;; Generic: MOVE-TO                                         Author: raman
   ;;; Created: Wed Mar 24 09:45:44 1993
@@ -196,8 +196,8 @@ If called with :slot 'step-size, modifies the step size instead. "
     )
   )
 
-;;; }
-;;; {scale-by
+;;}}}
+;;{{{scale-by
 
 ;;; Modified: Sat Oct 17 12:10:45 EDT 1992
 ;;; If :slot specified as step-size then changed-dimensions returned
@@ -231,8 +231,8 @@ If called with :slot 'step-size, modifies the step size instead."
     )
   )
 
-;;; }
-;;; { multi-move-by
+;;}}}
+;;{{{ multi-move-by
 
 ;;; Modified: Thu Aug 20 11:14:50 EDT 1992
 ;;; return multiple values new point and name of changed dimension
@@ -268,8 +268,8 @@ dimension value pairs"
     )
   )
 
-;;; }
-;;; { multi-move-to
+;;}}}
+;;{{{ multi-move-to
 
 ;;; Modified: Thu Aug 20 11:39:36 EDT 1992
 ;;; return multiple values: new point and list of changed dimensions
@@ -304,8 +304,8 @@ dimension value pairs"
     )
   )
 
-;;; }
-;;; { multi-scale-by
+;;}}}
+;;{{{ multi-scale-by
 
 ;;; Modified: Thu Aug 20 11:40:47 EDT 1992
 ;;; return multiple values new point and list of changed dimensions
@@ -340,8 +340,8 @@ dimension value pairs"
     )
   )
 
-;;; }
-;;; { multi-step-by
+;;}}}
+;;{{{ multi-step-by
 
 ;;; Modified: Thu Aug 20 11:41:10 EDT 1992
 ;;; return multiple values new point and list of changed dimensions
@@ -376,9 +376,9 @@ dimension value pairs"
     )
   )
 
-;;; }
+;;}}}
 
-;;; { Generalized operator. 
+;;{{{ Generalized operator. 
 
 ;;; Variable: *VALID-MOVES*                                  Author: raman
 ;;; Created: Mon Sep  7 19:32:13 1992
@@ -425,6 +425,6 @@ dimension value pairs"
   (find operator *valid-moves*)
   )
 
-;;; }
+;;}}}
 
  

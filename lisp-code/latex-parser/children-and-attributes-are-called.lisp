@@ -17,39 +17,39 @@
 ;;; Organize this file as follows:
 ;;; A fold for each object
 ;;;
-;;; {summation
+;;{{{summation
 
 (call-its-children summation (summand))
 (call-its-attributes summation ((subscript "lower constraint ")
                                 (superscript "upper constraint ")))
 
-;;; }
-;;; {Integral
+;;}}}
+;;{{{Integral
 
 (call-its-children integral ( " integrant " ))
 (call-its-attributes integral ((subscript lower-limit)
                                (superscript upper-limit)))
 
-;;; }
-;;; {Juxtaposition
+;;}}}
+;;{{{Juxtaposition
 
 (call-its-children juxtaposition term) 
 
 
 
-;;; }
-;;; {Parenthesis
+;;}}}
+;;{{{Parenthesis
 
 (call-its-children parenthesis ( " parenthesized expression " ))
 
-;;; }
-;;; {relational operator
+;;}}}
+;;{{{relational operator
 
 (call-its-children relational-operator (" left hand side "  " right hand side "))
-;;; }
-;;; {arrow operator
+;;}}}
+;;{{{arrow operator
 
 (call-its-children arrow-operator (" left hand side " " right hand side " ))
 
-;;; }
+;;}}}
 

@@ -13,12 +13,12 @@
 ;;; slot value is returned.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; { Structure: REFERENCE                                     Author: raman
+;;{{{ Structure: REFERENCE                                     Author: raman
 ;;; Created: Fri Aug  7 11:27:54 1992
 ;;; A mutable object that implements reference variables
 (defstruct reference val)
-;;; }
-;;; { method reference-value
+;;}}}
+;;{{{ method reference-value
 (defgeneric reference-value (ref))
 
 ;;; Overloading reference-value. If argument is not a reference
@@ -35,12 +35,12 @@
   "return value of ref"
   (reference-val reference))
 
-;;; }
+;;}}}
 
-;;; {Symbol:
+;;{{{Symbol:
 ;;; Hack!
 (defun afl-symbol (&rest args)
   "Concatenate symbols or strings to form an interned symbol"
   (intern (format nil "~{~a~}" args)))
-;;; }
+;;}}}
 
