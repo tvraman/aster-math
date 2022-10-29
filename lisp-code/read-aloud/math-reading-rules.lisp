@@ -80,21 +80,21 @@
     (unless (equal 'root parent )
       (afl:comma-intonation)
       (read-aloud "fraction ")
-      (afl:tts-queue "[_,]"))
+      (afl:comma-intonation))
     (afl:with-surrounding-pause pause-amount
       (cond
         ((and (leaf-p (numerator-of fraction))
               (leaf-p (denominator-of fraction )))
          (read-aloud (numerator-of fraction))
          (when (> (weight (numerator-of fraction )) 1)
-           (afl:tts-queue "[_,]"))
+           (afl:comma-intonation))
          (read-aloud "over" ) 
          (read-aloud
           (denominator-of fraction ))
          (afl:comma-intonation))
         (t (with-reading-state (reading-state 'children)
              (read-aloud (numerator-of fraction )))
-           (afl:tts-queue "[_,]")
+           (afl:comma-intonation)
            (read-aloud  " divided by,  ")
            (with-reading-state (reading-state 'children)
              (read-aloud (denominator-of fraction )))
@@ -234,7 +234,7 @@
 (def-reading-rule (math-equation simple)
     "Simple reading rule for equations. Uses directional audio"
   (let ((equation (contents math-equation ))
-        (number (number math-equation ))
+        (number (anumber math-equation ))
         (label-name  (when (label math-equation)
                        (label-name (label math-equation  )))))
     (afl:new-block
@@ -426,14 +426,14 @@
     "Simple reading rule  for object integral-delimiter "
   (read-aloud " d ")
   (read-aloud (argument integral-delimiter 1))
-  (afl:tts-queue "[_,]")
+  (afl:comma-intonation)
   )
 
 
 (def-reading-rule (factorial simple)
     "Reading rule for factorials"
   (read-aloud (contents factorial))
-  (afl:tts-queue "[_,]")
+  (afl:comma-intonation)
   (read-aloud "factorial")
   (afl:comma-intonation)
   )

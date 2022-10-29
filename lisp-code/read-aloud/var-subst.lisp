@@ -184,18 +184,10 @@ continues if y is not  pressed.")
   "Transform by applying variable substitution. "
   (reset-substitution-id)
   (let
-      ((substitutions (when
-                          (> (weight math-object)
-                             *absolute-complexity-threshold*)
-                        (collect-substitutions
-                         math-object
-                         (complexity-threshold math-object )
-                         :original-weight (weight math-object )))))
+      ((substitutions (complexity-threshold math-object )))
     (make-instance
      'substituted-expression :expression math-object
-     :substitutions substitutions )
-    )
-  )
+                             :substitutions substitutions )))
 
 
   ;;; Method: ERASE-SUBSTITUTIONS                            Author: raman
@@ -233,8 +225,8 @@ continues if y is not  pressed.")
   ;;; Function: COLLECT-SUBSTITUTIONS                          Author: raman
   ;;; Created: Tue May 25 12:31:24 1993
 
-(defun collect-substitutions (math-object &optional (threshold 1)
-                                          &key (original-weight 0)) 
+(defun collect-substitutions (math-object &key (threshold 1)
+                                           (original-weight 0)) 
   "Collect substitutions applied to this object. Returns a list of
 substitutions. Side effects object: the substitution slot in the
 object or its children are set whenever a substitution is made. "
@@ -257,24 +249,28 @@ object or its children are set whenever a substitution is made. "
                               :variable  variable 
                               :denotes math-object) substitutions )))
       ((not (listp (children math-object )))
-       (collect-substitutions (children math-object) threshold))
+       (collect-substitutions
+        (children math-object) :threshold threshold))
       (t                                ; substitute  child or  attribute
-       (push(delete nil
-                    (loop for attribute   in (attributes math-object) 
-                          when (> (weight attribute)
-                                  (* *attr-weight-factor*  threshold))
-                          collect
-                          (collect-substitutions
-                           (contents attribute)
-                           (* *attr-weight-factor*
-                              threshold ))))
+       (push
+        (delete nil
+                (loop
+                  for attribute   in (attributes math-object) 
+                  when (> (weight attribute)
+                          (* *attr-weight-factor*  threshold))
+                    collect
+                    (collect-substitutions
+                     (contents attribute)
+                    :threshold  (* *attr-weight-factor* threshold ))))
             substitutions)
-       (push (delete nil 
-                     (loop for child in (children math-object) 
-                           when (> (weight child) threshold) collect
-                           (collect-substitutions
-                            child
-                            threshold )))
+       (push
+        (delete nil 
+                (loop
+                  for child in (children math-object) 
+                  when (> (weight child) threshold)
+                    collect
+                    (collect-substitutions
+                     child :threshold threshold )))
              substitutions )
        (nreverse (delete nil substitutions)))
       ))

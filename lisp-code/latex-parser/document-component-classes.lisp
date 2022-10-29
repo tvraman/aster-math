@@ -944,8 +944,7 @@ enumerated and itemized lists."))
 
 (defclass math-equation (display-math numbered-class labelled-class )
   ((contents :initform nil :initarg :contents :accessor contents)
-                                        ;   (label :initform nil :initarg :label :accessor label)
-   )
+   (label :initform nil :initarg :label :accessor label))
   (:documentation "A math equation"))
 
 (defun make-math-equation ()
