@@ -117,7 +117,7 @@
   (afl:new-block
     (afl:local-set-state
      (afl:get-point-in-speech-space 'afl:paul))
-    (afl:tts-icon  *section-cue* :background-flag t)
+    (afl:tts-icon  *section-cue*)
     (read-aloud (argument text-frame-box 1))
     )
   )
