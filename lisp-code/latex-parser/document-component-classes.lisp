@@ -466,8 +466,7 @@ enumerated and itemized lists."))
 (defclass item (document labelled-class numbered-class)
   ((marker :initform nil :initarg :marker :accessor item-marker)
    (label :initform nil :initarg :label :accessor label)
-   (contents :initform nil :initarg :contents :accessor item-contents
-             :accessor contents ))
+   (contents :initform nil :initarg :contents :accessor item-contents :accessor contents ))
   (:documentation "An item of text "))
 
 (defun make-item ()

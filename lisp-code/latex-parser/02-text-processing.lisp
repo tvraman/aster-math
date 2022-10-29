@@ -103,7 +103,6 @@
                      &optional (termination-condition? #'end-of-buffer?)) 
   "Takes a buffer  containing text, and  processes it until
 termination-condition is satisfied.  Upon exit, buffer-pointer points to after processed text"
-  (declare (optimize (compilation-speed 0) (safety 1) (speed 3 )))
   (let ((processed-text nil)
         (current-paragraph nil))
     (loop for token = (lookat-current-entry text-buffer )
@@ -153,7 +152,6 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 (defvar *link-words* nil "If t words linked so make up a word object")
 ;;; made inline.
-(proclaim '(inline process-word))
 
 (defun process-word (text-buffer )
   "Process a word "
@@ -381,9 +379,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
                                       (class-name (class-of new-environment )) )))
     (setf (contents new-environment) (process-text
                                       (make-buffer
-                                       :contents (rest
-                                                  environment-contents
-                                                  ))))
+                                       :contents (rest environment-contents))))
     (when (can-this-be-cross-referenced? 'new-environment )
       (pop-enclosing-referend  ))
     new-environment 
