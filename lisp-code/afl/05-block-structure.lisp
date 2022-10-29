@@ -2,28 +2,21 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :afl)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (export '(
-          *current-speech-state*
-          *global-speech-state*
+          *current-speech-state* *global-speech-state*
           *await-silence-when-using-stereo*
-          new-block
-          local-set-state
-          global-set-state
-          named-block
-          exit-block
-          *lazy-set-state*
-          with-lazy-set-state
-          ))
+          local-set-state global-set-state
+          named-block exit-block
+          *lazy-set-state* with-lazy-set-state))
 ;;;  Contains definition of new-block as a macro.
 ;;; and associated assignment operators.
 
 ;;{{{ *current-speech-state*
-
 
 ;;; Variable: *GLOBAL-SPEECH-STATE*                                 Author: raman
 ;;; Created: Mon Sep  7 09:02:07 1992
@@ -35,19 +28,20 @@
 (defvar *current-speech-state* nil "Records current state of the audio formatter ")
 
 ;;; <(*modified-dimensions* no longer used. )>
-;;}}}
 
+;;}}}
 ;;{{{ new-block
+
 ;;; Modified: Wed Feb 10 15:40:09 EST 1993
 ;;; No longer using *modified-dimensions* this taken care of by
-;;; set-speech-state. 
+;;; set-speech-state.
 ;;; <(backed up old version with comments. )>
 ;;; relies on set-speech-state.
 ;;; Uses dynamic variable *current-speech-state* which records the speech
 ;;; state.
 ;;; Modified: Tue Mar 23 10:42:11 EST 1993
 ;;; Phasing out named-block. new-block now allows exits.
-;;; eventually should be renamed to afl-block. 
+;;; eventually should be renamed to afl-block.
 
 ;;; Variable: *CURRENT-EXIT*                                 Author: raman
 ;;; Created: Fri Aug 28 08:55:08 1992
@@ -69,10 +63,7 @@
 
 (defun afl-block-name()
   "Generate a afl block name"
-  (afl-symbol 'block- (incf *afl-block-id*))
-  )
-
-
+  (afl-symbol 'block- (incf *afl-block-id*)))
 
 ;;; Modified: Tue Mar 23 13:11:56 EST 1993
 ;;; new block now handles speech and sound components
@@ -85,45 +76,36 @@
 (defmacro new-block (   &body body)
   "sets up a new block in afl"
   (let ((name (afl-block-name )))
-    `(block ,name 
+    `(block ,name
        (let* ((previous-speech-state *current-speech-state*)
               (*current-speech-state* (copy-point-in-speech-space *current-speech-state* ))
-              (previous-pronunciation-mode *pronunciation-mode*) 
-                                        ;simple variable   need not be copied
-              ;(*current-total-audio-state*
-                ;(make-total-audio-state
-                 ;:speech *current-speech-state*
-                 ;:pronounce *pronunciation-mode*))
+              (previous-pronunciation-mode *pronunciation-mode*)
               (*current-exit* #'(lambda() (return-from   ,name nil))))
          (unwind-protect
-              (progn
-                ,@body)
+              (progn ,@body)
 ;;; reset state
            (progn
              (set-speech-state previous-speech-state )
              (set-pronunciation-mode previous-pronunciation-mode)))))))
 
-
 ;;; Function: EXIT-BLOCK                                     Author: raman
 ;;; Created: Fri Aug 28 08:55:43 1992
 
-(defun exit-block () 
+(defun exit-block ()
   "exit current block"
-  (when *current-exit*
-    (funcall *current-exit*))
-  )
+  (when *current-exit* (funcall *current-exit*)))
+
 ;;}}}
 ;;{{{ assignments
 
 ;;; Variable: *LAZY-SET-STATE*                               Author: raman
 ;;; Created: Mon Aug 24 08:24:11 1992
-;;; external variable: 
+;;; external variable:
 (defvar *lazy-set-state*
   nil
   "If t set-speech-state sets all the dimensions, without checking if some
-dimension has actually ben modified. Setting this to t will slow down
+dimension has actually been modified. Setting this to t will slow down
 the dectalk.")
-
 
 ;;; Variable: *LAZY-SET-STATE-DEFAULT*                       Author: raman
 ;;; Created: Tue Aug 25 14:33:03 1992
@@ -138,7 +120,6 @@ the dectalk.")
 ;;; Modified: Mon Aug 24 08:21:06 EDT 1992
 ;;; If *lazy-set-state* is t, do not bother checking for changed
 ;;; dimensions, just set everything.
-
 
 ;;; Variable: *AFL-SET-STATE-DEBUG*                          Author: raman
 ;;; Created: Thu Oct  1 09:55:50 1992
@@ -161,7 +142,7 @@ the dectalk.")
 ;;; has stopped speaking before setting the device. If set-speech-state made
 ;;; to await silence before doing all settings, this screws up the
 ;;; intonation and causes unnecessary pauses. Hence using predicate
-;;; directional-audio-change-p below. 
+;;; directional-audio-change-p below.
 ;;; Function: SET-speech-STATE                                      Author: raman
 ;;; Created: Mon Aug 10 13:43:53 1992
 
@@ -184,26 +165,24 @@ hardware")
   ;;; Variable: *AWAIT-SILENCE-WHEN-USING-STEREO*              Author: raman
   ;;; Created: Sun Jan  9 12:20:50 1994
 
-(defvar *await-silence-when-using-stereo*  nil 
+(defvar *await-silence-when-using-stereo*  nil
   "If T, then await silence before changing parameters that affect
 directional speech. ")
-
 
 (defun set-speech-state (state )
   "sets state of audio  formatter to state   after applying final
 scaling"
   (assert (point-in-speech-space-p state) nil
-          "~a is not a point in speech space"
-          state)
-  (let* 
+          "~a is not a point in speech space" state)
+  (let*
       ((new-state (scale-point-in-speech-space state ))
        (modified-dimensions(if *lazy-set-state*
-                               *list-of-speech-dimensions* 
-                             (compute-modified-dimensions
-                              *speech-hardware-state* new-state  )))
+                               *list-of-speech-dimensions*
+                               (compute-modified-dimensions
+                                *speech-hardware-state* new-state  )))
        (command-string nil))
     (when modified-dimensions
-      (dolist 
+      (dolist
           (dim-name (remove-duplicates modified-dimensions))
         (let
             ((dimension (point-accessor dim-name new-state )))
@@ -213,34 +192,23 @@ scaling"
                              (generate-synthesizer-command
                               (dimension-name dimension)
                               (reference-value
-                               (dimension-value dimension ))))))
-        )
-      (when (and *await-silence-when-using-stereo* 
-                 (directional-audio-change-p modified-dimensions) )
-        (tts-force))
-      #+lucid (user::with-interruptions-inhibited
-               (setf *speech-hardware-state* new-state )
-               (format dectalk:*stream* command-string))
-      #+clisp (progn                    ; does not have with-interruptions-inhibited
-                (setf *speech-hardware-state* new-state )
-                (tts:queue  command-string))
-      (when *afl-set-state-debug* 
-        (format t "~% ~a  "command-string))
-      ))
-  )
-
+                               (dimension-value dimension )))))))
+      (setf *speech-hardware-state* new-state )
+      (tts-code (format nil * command-string)))
+    (when *afl-set-state-debug*
+      (format nil  "Sending: ~% ~a  "command-string))))
 
   ;;; Function: COMPUTE-MODIFIED-DIMENSIONS                    Author: raman
   ;;; Created: Wed Feb 10 11:47:34 1993
 ;;; Relies on representation of point-in-speech-space
 
-(defun compute-modified-dimensions (old-point new-point ) 
+(defun compute-modified-dimensions (old-point new-point )
   "Return names of dimensions that are changed in new-point"
   (cond
     ((null old-point ) *list-of-speech-dimensions*)
     (t (assert  (and
                  (point-in-speech-space-p  old-point)
-                 (point-in-speech-space-p new-point )) nil 
+                 (point-in-speech-space-p new-point )) nil
                  "Arguments are not valid points in speech space. ")
        (let ((modified-dimensions nil ))
          (dolist
@@ -250,16 +218,15 @@ scaling"
                     (point-accessor dim-name new-point ))
              (push dim-name modified-dimensions  )))
          (if (find 'voice modified-dimensions )
-             *list-of-speech-dimensions* 
+             *list-of-speech-dimensions*
              modified-dimensions)))
     )
   )
 
-
   ;;; Function: SAME-DIMENSION-VALUE                           Author: raman
   ;;; Created: Wed Feb 10 11:56:58 1993
 
-(defun same-dimension-value (dimension-1 dimension-2) 
+(defun same-dimension-value (dimension-1 dimension-2)
   "Do these have the same value?"
   (equal
    (reference-value (dimension-value dimension-1 ))
@@ -269,7 +236,7 @@ scaling"
   ;;; Function: DIRECTIONAL-AUDIO-CHANGE-P                     Author: raman
   ;;; Created: Thu Dec 17 11:41:23 1992
 
-(defun directional-audio-change-p (dimension-list) 
+(defun directional-audio-change-p (dimension-list)
   "Check if either of the left or right channels is in the
 dimension-list"
   (or
@@ -280,17 +247,17 @@ dimension-list"
 ;;; Macro: WITH-LAZY-SET-STATE                               Author: raman
 ;;; Created: Tue Aug 25 14:49:17 1992
 
-(defmacro with-lazy-set-state (&body body) 
+(defmacro with-lazy-set-state (&body body)
   "Locally sets *lazy-set-state* to t and executes body and then
 unsets *lazy-set-state*"
   `(let ((save-value afl::*lazy-set-state*))
-    (unwind-protect
-         (progn 
-           (setf *lazy-set-state* t)
-           ,@body)
-      (setf afl::*lazy-set-state* save-value)
-      )
-    )
+     (unwind-protect
+          (progn
+            (setf *lazy-set-state* t)
+            ,@body)
+       (setf afl::*lazy-set-state* save-value)
+       )
+     )
   )
 
 ;;; <(old versions and comments backed up)>
@@ -310,8 +277,6 @@ unsets *lazy-set-state*"
   (setf *current-speech-state*   new-state)
   (set-speech-state   *current-speech-state* ))
 
-
-
 ;;; <(global-set! no longer used. )>
 
 ;;; METHOD: GLOBAL-SET-STATE                               Author: raman
@@ -319,7 +284,7 @@ unsets *lazy-set-state*"
 ;;; Modified: Wed Feb 10 15:33:48 EST 1993
 ;;; uses set-speech-state now.
 ;;; Has been changed to a method. was an ordinary function before
-(defmethod  global-set-state (new-state ) 
+(defmethod  global-set-state (new-state )
   "set global speech state of afl"
   (assert (point-in-speech-space-p new-state) nil
           "~a is not a point in speech space"
@@ -332,18 +297,18 @@ unsets *lazy-set-state*"
                    (current-step-size dimension new-state))
     )
   (with-lazy-set-state
-   (set-speech-state  *current-speech-state*)
-   )
+    (set-speech-state  *current-speech-state*)
+    )
   )
 
 ;;; use this for setting single global value
 ;;; Modified: Sat Oct 17 12:29:19 EDT 1992
-;;; no longer needed or used, throw away. 
+;;; no longer needed or used, throw away.
 
 ;;; Function: GLOBAL-SET-VALUE                               Author: raman
 ;;; Created: Sat Sep  5 10:11:51 1992
 
-(defun global-set-value (dimension value) 
+(defun global-set-value (dimension value)
   "set value globally along dimension"
   (assert (find dimension *list-of-speech-dimensions*) nil
           "~a is not a valid dimension"
@@ -352,9 +317,9 @@ unsets *lazy-set-state*"
    (reference-val (gethash dimension *global-values*) )
    value)
   (with-lazy-set-state
-      (set-speech-state  *current-speech-state* )
+    (set-speech-state  *current-speech-state* )
     )
-                                        ; actually send the commands.  
+                                        ; actually send the commands.
   )
 
 ;;}}}
