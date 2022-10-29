@@ -127,14 +127,14 @@
 things. ")
 
 
-(proclaim '(inline dehyphenate-word))
+
 (defun dehyphenate-word (str) 
   "Remove hyphens and replace by spaces."
   (let ((result " "))
     (loop for w in 
                 (uiop:split-string str :separator "-")
           do
-          (setq result (concatenate 'string result w " ")))
+             (setq result (concatenate 'string result w " ")))
     result))
 
 ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
@@ -143,15 +143,12 @@ things. ")
 (defmethod get-pronounce-internal ((string string) (mode (eql :text )))
   "Internal method for getting pronunciation in text mode"
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
-  (let ((lower-case-string (string-downcase string )))
-    (or                                 ; first disjunct:
-     (gethash (if *pronounce-ignore-case-in-text* lower-case-string string)
+  (let ((lcs (string-downcase string )))
+    (or
+     (gethash
+      (if *pronounce-ignore-case-in-text* lcs string)
               *text-mode-pronunciations*)
-     (if *always-dehyphenate*
-         (dehyphenate-word string)
-         string)  )                          ; second disjunct: default  is string 
-    )
-  )
+     (if *always-dehyphenate* (dehyphenate-word string) string))))
 
 ;;}}}
 ;;{{{ math mode
@@ -281,7 +278,7 @@ things. ")
 
   ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
   ;;; Created: Wed Apr  7 12:03:12 1993
-(proclaim '(inline get-pronounce-internal))
+
 (defmethod get-pronounce-internal ((string string) (mode (eql :lisp )))
   "Internal method for getting pronunciation in lisp mode"
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
@@ -302,7 +299,7 @@ things. ")
 ;;; Modified: Thu Dec 10 11:01:23 EST 1992
 ;;; Need to fix it to handle ignore-case, feeling too lazy to do it.
 ;;; To get the right thing, separate out clauses in the conditional
-(proclaim '(inline get-pronunciation))
+
 (defun   get-pronunciation (string &optional (mode *pronunciation-mode*))
   "Get pronunciation for string in current pronunciation mode "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
