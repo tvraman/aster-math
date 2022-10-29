@@ -362,10 +362,11 @@
 (defmethod read-aloud ((sectional-unit sectional-unit))
   "read sectional-unit"
   (with-reading-state (reading-state 'annotation-voice)
-    (read-aloud (sectional-unit-name sectional-unit))
-    (when (sectional-unit-number sectional-unit)
-      (afl:tts-queue " ")
-      (afl:tts-queue (sectional-unit-number sectional-unit )))
+    (tts-queue
+     (format nil "~a ~a"
+             (or (sectional-unit-name sectional-unit) "")
+             (or (sectional-unit-number sectional-unit) "")))
+    
     )
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (sectional-unit-title sectional-unit )))
