@@ -79,7 +79,7 @@
         (parent (parent fraction)))
     (unless (equal 'root parent )
       (afl:comma-intonation)
-      (read-aloud "fraction ")
+      (afl:tts-queue  "fraction ")
       (afl:comma-intonation))
     (afl:with-surrounding-pause pause-amount
       (cond
@@ -88,17 +88,15 @@
          (read-aloud (numerator-of fraction))
          (when (> (weight (numerator-of fraction )) 1)
            (afl:comma-intonation))
-         (read-aloud "over" ) 
-         (read-aloud
-          (denominator-of fraction ))
+         (afl:tts-queue "over" ) 
+         (read-aloud (denominator-of fraction ))
          (afl:comma-intonation))
         (t (with-reading-state (reading-state 'children)
              (read-aloud (numerator-of fraction )))
            (afl:comma-intonation)
-           (read-aloud  " divided by,  ")
+           (afl:tts-queue  " divided by,  ")
            (with-reading-state (reading-state 'children)
-             (read-aloud (denominator-of fraction )))
-           ))
+             (read-aloud (denominator-of fraction )))))
       ))
   )
 
