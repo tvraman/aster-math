@@ -3,7 +3,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Modified: Sat Apr 11 18:12:09 EDT 1992
-;;; All the process environment functions now work with classes. 
+;;; All the process environment functions now work with classes.
 ;;; Modified: Sun Jan 26 10:20:44 EST 1992
 ;;; An older version which relied on a very simple lexer is in jan-24-version.
 ;;; The lexer has now been made powerful so that the tokens
@@ -11,8 +11,7 @@
 ;;; At the same time the functions here are being made table driven.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 
@@ -54,7 +53,7 @@
 ;;; This handles nestings well,  and allows for
 ;;; nesting enumerate inside itemize, and then nest the whole thing
 ;;; inside a description.
-;;; Similarly,  arrays and tables can also be nested. 
+;;; Similarly,  arrays and tables can also be nested.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Sun Jan 26 10:22:05 EST 1992
@@ -67,26 +66,24 @@
 ;;; special variables  from the older version.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (provide '02-text-processing)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;; Function: PEEL-OFF-LISTS                                 Author: raman
 ;;; Created: Fri Nov 27 10:49:25 1992
 
-(defun peel-off-lists (nested-list) 
+(defun peel-off-lists (nested-list)
   "Peel off unnecessary parens "
-  (cond 
-   ((null nested-list) nested-list)
-   ((not (listp nested-list))  nested-list)
-   ((and (listp nested-list)
-         (> (length nested-list)  1)) nested-list)
-   ((and (listp nested-list)
-         (not (listp (first nested-list )))) nested-list)
-   (t (peel-off-lists (first nested-list)))
-   )
+  (cond
+    ((null nested-list) nested-list)
+    ((not (listp nested-list))  nested-list)
+    ((and (listp nested-list)
+          (> (length nested-list)  1)) nested-list)
+    ((and (listp nested-list)
+          (not (listp (first nested-list )))) nested-list)
+    (t (peel-off-lists (first nested-list)))
+    )
   )
 
 ;;; Function: PROCESS-TEXT                                   Author: raman
@@ -100,42 +97,42 @@
 ;;; <(version using do backed up. )>
 ;;; <(using cons instead of push backed up old version)>
 (defun process-text (text-buffer
-                     &optional (termination-condition? #'end-of-buffer?)) 
+                     &optional (termination-condition? #'end-of-buffer?))
   "Takes a buffer  containing text, and  processes it until
 termination-condition is satisfied.  Upon exit, buffer-pointer points to after processed text"
   (let ((processed-text nil)
         (current-paragraph nil))
     (loop for token = (lookat-current-entry text-buffer )
-          until 
+          until
           (funcall termination-condition?  text-buffer)
           do
-          (cond
-           ((end-of-buffer? text-buffer)
-            (error " Processing text  end reached before close delimiter"))
-           ((eq 'parbreak token) (advance-pointer  text-buffer)
-            (push (make-paragraph
-                   :contents (delete nil  (nreverse
-                                           current-paragraph )))
-                  processed-text)
-            (setf current-paragraph nil))
-					;Above  is a crude way of handling
-					;paragraphs. At present only paragraphs
-					; delimited by parbreak will be caught.
-           (t (push (funcall (get-parser token)
-                             text-buffer)
-                    current-paragraph )))
+             (cond
+               ((end-of-buffer? text-buffer)
+                (error " Processing text  end reached before close delimiter"))
+               ((eq 'parbreak token) (advance-pointer  text-buffer)
+                (push (make-paragraph
+                       :contents (delete nil  (nreverse
+                                               current-paragraph )))
+                      processed-text)
+                (setf current-paragraph nil))
+                                        ;Above  is a crude way of handling
+                                        ;paragraphs. At present only paragraphs
+                                        ; delimited by parbreak will be caught.
+               (t (push (funcall (get-parser token)
+                                 text-buffer)
+                        current-paragraph )))
           finally
-          (return
-           (peel-off-lists
-            (nreverse
-             (delete nil
-                     (push  (if processed-text 
-                                (make-paragraph
-                                 :contents
-                                 (nreverse
-                                  (delete nil current-paragraph )))
-                              (nreverse (delete nil current-paragraph )))
-                            processed-text )))))
+             (return
+               (peel-off-lists
+                (nreverse
+                 (delete nil
+                         (push  (if processed-text
+                                    (make-paragraph
+                                     :contents
+                                     (nreverse
+                                      (delete nil current-paragraph )))
+                                    (nreverse (delete nil current-paragraph )))
+                                processed-text )))))
                                         ; Above to avoid degenerate case
                                         ; of text being made into
                                         ; paragraphs where none exists.
@@ -157,8 +154,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   "Process a word "
   (if *link-words*
       (make-instance 'aword :contents (pop-current-entry text-buffer))
-    (pop-current-entry text-buffer)))
-
+      (pop-current-entry text-buffer)))
 
 ;;; Function: PROCESS-COMMENT                                Author: raman
 ;;; Created: Fri Feb 28 10:52:02 1992
@@ -166,7 +162,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Just return nil for comments, no point in keeping it in the high
 ;;; level structure for the present.
 
-(defun process-comment (text-buffer) 
+(defun process-comment (text-buffer)
   "Process a comment"
   (advance-pointer text-buffer )
   nil
@@ -175,16 +171,14 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Function: PROCESS-NEWLINE                                Author: raman
 ;;; Created: Thu Feb 27 20:55:28 1992
 
-(defun process-newline (text-buffer) 
+(defun process-newline (text-buffer)
   "process newlines "
   (pop-current-entry text-buffer)
   )
-(defun process-field-separator (text-buffer) 
+(defun process-field-separator (text-buffer)
   "process field-separators "
   (pop-current-entry text-buffer)
   )
-
-
 
 (defvar *new-article* nil )
 
@@ -197,11 +191,11 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   (let
       ((new-abstract (make-abstract )))
     (setf (abstract-contents new-abstract)
-	  (process-text
-	   (make-buffer :contents
-			(rest
-			 (pop-current-entry text-buffer )))))
-					; using special variable *new-article* declared in create-article.
+          (process-text
+           (make-buffer :contents
+                        (rest
+                         (pop-current-entry text-buffer )))))
+                                        ; using special variable *new-article* declared in create-article.
     (setf (article-abstract *new-article*) new-abstract)
     nil)
   )
@@ -214,11 +208,11 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   (let
       ((new-centered-text (make-centered-text )))
     (setf (centered-text-contents new-centered-text)(process-text
-						     (make-buffer
-						      :contents
-						      (rest
-						       (pop-current-entry
-							text-buffer )))))
+                                                     (make-buffer
+                                                      :contents
+                                                      (rest
+                                                       (pop-current-entry
+                                                        text-buffer )))))
     new-centered-text)
   )
 
@@ -229,7 +223,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Created: Wed Nov 13 21:31:01 1991
 ;;; Modified: Wed Jan 29 10:46:22 EST 1992
 ;;; set local environment in the buffer structure
-;;; and stop using special variables. 
+;;; and stop using special variables.
 
 (defun process-text-block (text-buffer )
   "a first implementation"
@@ -238,49 +232,47 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
        (contents nil)
        (current-block (pop-current-entry text-buffer))
        (current-block-buffer (make-buffer :contents
-					  (rest current-block)))
+                                          (rest current-block)))
        )
     (setf contents
-	  (delete nil
-		  (process-text
-		   current-block-buffer)))
+          (delete nil
+                  (process-text
+                   current-block-buffer)))
     (make-text-block
      :contents contents
      :local-environment (buffer-local-environment current-block-buffer))
     )
   )
 
-
 ;;; Function: PROCESS-INLINE-QUOTE                           Author: raman
 ;;; Created: Thu Feb 13 20:03:11 1992
 
-(defun process-inline-quote (text-buffer ) 
+(defun process-inline-quote (text-buffer )
   "process inline quotation"
   (let
       ((inline-quote-buffer(make-buffer :contents
-					(rest
-					 (pop-current-entry text-buffer ))))
+                                        (rest
+                                         (pop-current-entry text-buffer ))))
        (inline-quote nil)
        )
-    (setf inline-quote 
-	  (process-text
-	   inline-quote-buffer
-	   #'(lambda(x)
-	       (or
-		(equal "''" (lookat-current-entry x))
-		(end-of-buffer? x))
-	       )
-	   ))
+    (setf inline-quote
+          (process-text
+           inline-quote-buffer
+           #'(lambda(x)
+               (or
+                (equal "''" (lookat-current-entry x))
+                (end-of-buffer? x))
+               )
+           ))
     (if
      (end-of-buffer? inline-quote-buffer)
      (cons ' mismatched-quote
-	     inline-quote)
-     (create-QUOTED-TEXT 
+             inline-quote)
+     (create-QUOTED-TEXT
       inline-quote
       :QUOTED-TEXT-TYPE 'inline-quote))
     )
   )
-
 
 ;;; Variable: *VALID-QUOTED-TEXT-TYPES*                      Author: raman
 ;;; Created: Mon Apr 13 19:26:19 1992
@@ -294,15 +286,13 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
        'inline-quote
        ))
 
-
 ;;; Function: VALIDATE-QUOTED-TEXT-TYPE                      Author: raman
 ;;; Created: Mon Apr 13 19:27:21 1992
 
-(defun validate-quoted-text-type (quoted-text-type) 
+(defun validate-quoted-text-type (quoted-text-type)
   "validate quoted-text-type"
   (find quoted-text-type *valid-quoted-text-types*)
   )
-
 
 ;;; Function: CREATE-QUOTED-TEXT                             Author: raman
 ;;; Created: Mon Apr 13 19:32:44 1992
@@ -311,10 +301,10 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   "Create a quoted text object"
   (let
       ((new-quoted-text (make-quoted-text
-			 :quoted-text-type
-			 quoted-text-type )))
+                         :quoted-text-type
+                         quoted-text-type )))
     (setf (quoted-text-contents new-quoted-text)
-	  quote)
+          quote)
     new-quoted-text)
   )
 
@@ -323,14 +313,13 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 (defun process-quote (text-buffer )
   "process   quote"
-  (create-quoted-text 
+  (create-quoted-text
    (process-text
     (make-buffer :contents
-		 (rest
-		  (pop-current-entry text-buffer ))))
+                 (rest
+                  (pop-current-entry text-buffer ))))
    :quoted-text-type 'quote-environment)
   )
-
 
   ;;; Function: PROCESS-TEXT-NUMBER                            Author: raman
   ;;; Created: Tue Dec 22 14:19:58 1992
@@ -354,38 +343,36 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   (create-quoted-text
    (process-text
     (make-buffer :contents
-		 (rest
-		  (pop-current-entry text-buffer ))))
+                 (rest
+                  (pop-current-entry text-buffer ))))
    :quoted-text-type 'quotation-environment )
   )
-
 
 ;;; Function: PROCESS-NEW-ENVIRONMENT                        Author: raman
 ;;; Created: Sat Feb 15 12:40:11 1992
 
-(defun process-new-environment (text-buffer ) 
+(defun process-new-environment (text-buffer )
   "process an unknown latex environment"
   (let* (
          (environment-contents(rest  (pop-current-entry text-buffer)))
          (environment-name  (first  environment-contents))
-         (new-environment (create-new-environment 
-                           :env-name   	     environment-name )))
+         (new-environment (create-new-environment
+                           :env-name         environment-name )))
     (when (can-this-be-cross-referenced? 'new-environment )
       (add-enclosing-referend new-environment ))
     (when (numbered-class-p new-environment)
       (increment-counter-value
        (class-name (class-of new-environment )))
       (setf (numbered-class-number new-environment) (next-counter-value
-                                      (class-name (class-of new-environment )) )))
+                                                     (class-name (class-of new-environment )) )))
     (setf (contents new-environment) (process-text
                                       (make-buffer
                                        :contents (rest environment-contents))))
     (when (can-this-be-cross-referenced? 'new-environment )
       (pop-enclosing-referend  ))
-    new-environment 
+    new-environment
     )
   )
-
 
 ;;; Function: PROCESS-INLINE-MATH                            Author: raman
 ;;; Created: Wed Nov  6 16:11:44 1991
@@ -393,7 +380,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 (defun process-inline-math (text-buffer )
   "Process in line math"
-  (make-instance 'inline-math 
+  (make-instance 'inline-math
                  :contents (list ( process-math
                                    (make-buffer :contents
                                                 (rest
@@ -406,7 +393,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 (defun process-display-math (text-buffer )
   "Process display math"
-  (make-instance  'display-math 
+  (make-instance  'display-math
                   :contents (list  (process-math
                                     (make-buffer :contents
                                                  (rest
@@ -420,18 +407,17 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; This function will also become  table driven.
 ;;; Eventually do away with the use of special variable
 ;;; for handling font changing by passing parse state
-;;; along with the text buffer. 
+;;; along with the text buffer.
 (proclaim '(inline process-cs))
 (defun process-cs (text-buffer )
   "Process cs found in  current position in buffer"
   (expand-tex-macro text-buffer)
   )
 
-
   ;;; Function: DEFINED-TEX-MACRO-P                            Author: raman
   ;;; Created: Wed Dec 16 12:17:34 1992
 
-(defun defined-tex-macro-p (macro-name) 
+(defun defined-tex-macro-p (macro-name)
   "See if this has been defined as a tex macro"
   (let
       ((macro-table-entry (get-tex-macro macro-name )))
@@ -452,36 +438,36 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
       (
        (token (pop-current-entry text-buffer ))
        (macro-name(or  (cs-name token )
-		       (math-cs-name token )))
+                       (math-cs-name token )))
        (macro-table-entry (get-tex-macro macro-name ))
        (n-args (tex-macro-number-of-args macro-table-entry))
        )
     (cond
       (( eq  (tex-macro-name macro-table-entry) 'default)
-       (make-tex-defined-macro 
+       (make-tex-defined-macro
         :tex-defined-macro-name macro-name))
       ((equal "label" (tex-macro-name macro-table-entry ))
        (apply
-	(tex-macro-expand macro-table-entry)
-	(pop-next-n-entries
-	 text-buffer
-	 n-args))
+        (tex-macro-expand macro-table-entry)
+        (pop-next-n-entries
+         text-buffer
+         n-args))
        (values)) ;do not return processed label
                                         ; processing label only causes a side-effect
       ((= 0 n-args )
        (funcall (tex-macro-expand macro-table-entry)
-		text-buffer))
+                text-buffer))
       ((>  n-args 0)
        (apply
-	(tex-macro-expand macro-table-entry)
-	(pop-next-n-entries
-	 text-buffer
-	 n-args)))
+        (tex-macro-expand macro-table-entry)
+        (pop-next-n-entries
+         text-buffer
+         n-args)))
       (t (error "macro ~a expects ~a arguments,a negative number of arguments!"
-		macro-name
-		n-args))
+                macro-name
+                n-args))
       )
-    )  
+    )
   )
 
 ;;; Function: PROCESS-ARRAY                                  Author: raman
@@ -489,14 +475,14 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Modified: Mon Mar  2 12:34:38 EST 1992
 ;;; Do not try to create a lisp array.
 ;;; Modified: Tue Jan 12 15:06:05 EST 1993
-;;; process-array links array  elements 
+;;; process-array links array  elements
 (defun process-array (text-buffer )
   "Process an array "
   (let
       (
        ( array-contents (rest (pop-current-entry text-buffer)))
        )
-    (make-instance 'math-array 
+    (make-instance 'math-array
                    :contents   (map2-nested-list
                                 #'process-array-element
                                 array-contents ))
@@ -508,7 +494,6 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Modified: Mon Mar  2 12:41:01 EST 1992
 ;;; Do not construct lisp arrays.
 
-
 (defun process-tabular (text-buffer )
   "Process a table "
   (let
@@ -517,7 +502,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
        )
     (make-instance 'tabular
                    :contents  (map2-nested-list
-                               #'process-table-element 
+                               #'process-table-element
                                table-contents))
     )
   )
@@ -532,15 +517,10 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
        (table-contents (rest (pop-current-entry text-buffer)))
        )
     (cons 'cases  (map2-nested-list
-                   #'process-table-element 
+                   #'process-table-element
                    table-contents))
     )
   )
-
-
-
-
-
 
 ;;; Variable: *VALID-LIST-ENVIRONMENT-TYPES*                 Author: raman
 ;;; Created: Sat Apr 11 17:47:34 1992
@@ -554,27 +534,24 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
        'description-list)
       )
 
-
 ;;; Function: VALIDATE-LIST-ENVIRONMENT-TYPE                 Author: raman
 ;;; Created: Sat Apr 11 17:48:47 1992
 
-(defun validate-list-environment-type (list-environment-type) 
+(defun validate-list-environment-type (list-environment-type)
   "validate list environment type"
   (or
    (find list-environment-type
-	 *valid-list-environment-types*)
+         *valid-list-environment-types*)
    (error "~a is not a valid list environment type"
-	  list-environment-type))
+          list-environment-type))
   )
 
 ;;; numbering items:
 
-
-
 ;;; Function: GENERATE-ITEM-MARKER                           Author: raman
 ;;; Created: Thu Sep  3 18:40:01 1992
 
-(defun generate-item-marker (parent child) 
+(defun generate-item-marker (parent child)
   "generate item marker"
   (if (null parent)
       (format nil  "~a" child)
@@ -582,11 +559,11 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
       )
   )
 
-;;; numbering items works by side-effecting argument. 
+;;; numbering items works by side-effecting argument.
 ;;; Function: NUMBER-LIST-OF-ITEMS                           Author: raman
 ;;; Created: Thu Sep  3 18:33:07 1992
 
-(defun number-list-of-items (list-of-items &key(parent nil)) 
+(defun number-list-of-items (list-of-items &key(parent nil))
   "Number list of items"
   (let ((number 1))
     (dolist
@@ -601,17 +578,16 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
       (incf number)
       )
     list-of-items
-    )  
+    )
   )
-
 
 ;;; Function: NUMBER-SUB-ITEMS-IF-NECESSARY                  Author: raman
 ;;; Created: Thu Sep  3 18:47:38 1992
 
-(defun number-sub-items-if-necessary (list-of-text &key(parent nil)) 
+(defun number-sub-items-if-necessary (list-of-text &key(parent nil))
   "Number any sub-lists in text"
   (if  (listp  list-of-text)
-       (let ; first disjunct 
+       (let ; first disjunct
            ((to-be-numbered  (remove-if-not
                               #'list-environment-p
                               list-of-text)))
@@ -635,31 +611,30 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Modified: Sun Nov 29 11:33:36 EST 1992
 ;;; replaced (rest (first ...) by (rest ...)
 ;;; since process-text now peels off unnecessary lists before
-;;; returning. 
+;;; returning.
 (defun create-list-environment (list-of-items
-				&key (list-environment-type 'enumerated-list)) 
+                                &key (list-environment-type 'enumerated-list))
   "Create a list environment of specified type,
 default is enumerated list."
   (let
       ((new-list-environment
-	(make-list-environment
-	 :list-environment-type list-environment-type )))
+         (make-list-environment
+          :list-environment-type list-environment-type )))
     (setf (list-environment-items new-list-environment)
           (remove-null-items list-of-items ))
-					; Delete dummy item at front.
+                                        ; Delete dummy item at front.
                                         ; since unnecessary lists now
                                         ; peeled,
                                         ;call to first removed in
-                                        ; above form. cleanup and stabilize 
+                                        ; above form. cleanup and stabilize
     (number-list-environment new-list-environment) ; side-effect:items numbered
     new-list-environment)
   )
 
-
   ;;; Function: REMOVE-NULL-ITEM                               Author: raman
   ;;; Created: Sat Jan 30 15:33:46 1993
 
-(defun remove-null-items (list-of-items) 
+(defun remove-null-items (list-of-items)
   "Remove null item from list"
   (cond
     ((listp  list-of-items )(remove-if
@@ -687,11 +662,11 @@ default is enumerated list."
 
 (defun process-enumerate (text-buffer )
   "Process enumerated list of items "
-  (create-list-environment 
+  (create-list-environment
    (process-text
     (make-buffer :contents
-		 (rest
-		  (pop-current-entry text-buffer ))))
+                 (rest
+                  (pop-current-entry text-buffer ))))
    :list-environment-type 'enumerated-list)
   )
 
@@ -703,8 +678,8 @@ default is enumerated list."
   (create-list-environment
    (process-text
     (make-buffer :contents
-		 (rest
-		  (pop-current-entry text-buffer ))))
+                 (rest
+                  (pop-current-entry text-buffer ))))
    :list-environment-type 'description-list)
   )
 
@@ -716,8 +691,8 @@ default is enumerated list."
   (create-list-environment
    (process-text
     (make-buffer :contents
-		 (rest
-		  (pop-current-entry text-buffer ))))
+                 (rest
+                  (pop-current-entry text-buffer ))))
    :list-environment-type 'itemized-list)
   )
 
@@ -730,11 +705,11 @@ default is enumerated list."
       ((new-item (make-item )))
     (when (can-this-be-cross-referenced? 'item)
       (add-enclosing-referend new-item))
-    (setf (item-contents  new-item) 
-	  (process-text
-	   (make-buffer :contents
-			(rest
-			 (pop-current-entry text-buffer )))))
+    (setf (item-contents  new-item)
+          (process-text
+           (make-buffer :contents
+                        (rest
+                         (pop-current-entry text-buffer )))))
     (when (can-this-be-cross-referenced? 'item)
       (increment-counter-value 'item)
       (pop-enclosing-referend))
@@ -759,17 +734,16 @@ default is enumerated list."
     (when (numbered-class-p math-equation )
       (increment-counter-value 'math-equation)
       (setf (numbered-class-number math-equation )  (next-counter-value "MATH-EQUATION"  )))
-    (setf  (contents math-equation ) 
+    (setf  (contents math-equation )
            (list  (process-math
                    equation-buffer )))
-    (when (can-this-be-cross-referenced? 'math-equation) 
+    (when (can-this-be-cross-referenced? 'math-equation)
       (pop-enclosing-referend ))
     math-equation)
   )
 
 ;;; Function: PROCESS-EQNARRAY                               Author: raman
 ;;; Created: Sun Jan 26 15:27:03 1992
-
 
 (defun process-eqnarray (text-buffer )
   "process a latex   eqnarray environment "
@@ -780,7 +754,7 @@ default is enumerated list."
     (when (can-this-be-cross-referenced? 'math-eqnarray)
       (add-enclosing-referend self)
       (increment-counter-value 'math-eqnarray))
-    (setf (contents self) 
+    (setf (contents self)
           (map2-nested-list
            #'process-array-element
            eqnarray-contents))
@@ -791,17 +765,16 @@ default is enumerated list."
 
 ;;; process-eqnarray and process-eqalign should be made smarter.
 
-
 ;;; Function: PROCESS-EQALIGN                                Author: raman
 ;;; Created: Sat Oct  3 17:14:44 1992
 
-(defun process-eqalign (text-buffer) 
+(defun process-eqalign (text-buffer)
   "Process eqalign. "
   (let
       (
        ( eqalign-contents (rest (pop-current-entry text-buffer)))
        )
-    (make-instance 'math-eqnarray 
+    (make-instance 'math-eqnarray
                    :contents    (map2-nested-list
                                  #'process-array-element
                                  eqalign-contents))
@@ -813,7 +786,7 @@ default is enumerated list."
 
 (defun process-slide (text-buffer)
   "process a slide"
-  (make-slide :contents 
+  (make-slide :contents
               (process-text
                (make-buffer :contents
                             (rest
@@ -825,34 +798,32 @@ default is enumerated list."
 
 (defun process-verbatim (text-buffer)
   "Process a latex verbatim environment"
-  (make-verbatim :contents 
-		 (process-text
-		  (make-buffer :contents
-			       (rest
-				(pop-current-entry text-buffer )))))
+  (make-verbatim :contents
+                 (process-text
+                  (make-buffer :contents
+                               (rest
+                                (pop-current-entry text-buffer )))))
   )
-
-
 
 ;;; Function: BLOCK-CONTENTS                                    Author: raman
 ;;; Created: Thu Nov  7 16:24:15 1991
 
-(defun block-contents (item) 
+(defun block-contents (item)
   "returns  all but first element of item which is assumed to be a block marked as such by its first element."
-  (when (is-a 'block item) 
+  (when (is-a 'block item)
     (rest item))
   )
 ;;; Modified: Tue Oct  6 17:03:01 EDT 1992
 ;;; Directly pass array element to process-math.
-;;; Lexer modified accordingly. 
+;;; Lexer modified accordingly.
 ;;; Function: PROCESS-ARRAY-ELEMENT                            Author: raman
 ;;; Created: Tue Jan 28 15:20:14 1992
 ;;; Modified: Tue Jan 12 14:58:59 EST 1993
-;;; Now returns a table element 
-(defun process-array-element (element) 
+;;; Now returns a table element
+(defun process-array-element (element)
   "process element by passing to process-math"
   (make-instance 'table-element
-                 :contents (when element 
+                 :contents (when element
                              (process-math
                               (make-buffer :contents
                                            element ))))
@@ -862,18 +833,17 @@ default is enumerated list."
 ;;; Created: Tue Jan 28 15:43:54 1992
 ;;; Modified: Tue Jan 12 13:55:33 EST 1993
 ;;; now returns a table-element instead of a List
-(defun process-table-element (element) 
+(defun process-table-element (element)
   "process a table element"
   (make-instance 'table-element
-                 :contents (process-text 
+                 :contents (process-text
                             (make-buffer :contents
                                          element ))))
-
 
   ;;; Function: VOID-LIST-P                                    Author: raman
   ;;; Created: Wed Sep 15 21:15:18 1993
 (proclaim '(inline void-list-p ))
-(defun void-list-p (list-l) 
+(defun void-list-p (list-l)
   "Is this a void list, ie (nil)?"
   (and(listp list-l)
       (= 1 (length list-l))
@@ -884,7 +854,7 @@ default is enumerated list."
 ;;; Function: MAP2-NESTED-LIST                               Author: raman
 ;;; Created: Tue Jan 28 14:17:42 1992
 
-(defun MAP2-NESTED-LIST(modifier nested-list) 
+(defun MAP2-NESTED-LIST(modifier nested-list)
   "map down a nested list"
   (mapcar #'(lambda(simple-list)
               (mapcar modifier
@@ -892,14 +862,13 @@ default is enumerated list."
           (remove-if #'void-list-p nested-list))
   )
 
-
 ;;; Function: PROCESS-UNKNOWN-CONSTRUCT                      Author: raman
 ;;; Created: Sat Feb 29 13:17:49 1992
 
-(defun process-unknown-construct (text-buffer) 
+(defun process-unknown-construct (text-buffer)
   "Process an unknown construct, ie just stick it in"
   (cons 'unknown-construct
-	(pop-current-entry text-buffer))
+        (pop-current-entry text-buffer))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -910,9 +879,7 @@ default is enumerated list."
 ;;; Modified: Mon Apr 20 17:25:37 EDT 1992
 ;;; Made inline.
 
-(proclaim '(inline is-a))
-
-(defun is-a (doc-unit lispified-text) 
+(defun is-a (doc-unit lispified-text)
   "Checks if lispified-text is a doc-unit."
   (cond
     ((atom lispified-text)nil)
@@ -925,7 +892,7 @@ default is enumerated list."
 ;;; Made inline.
 (proclaim '(inline is-a-word))
 
-(defun is-a-word  (lispified-text) 
+(defun is-a-word  (lispified-text)
   "Tests if argument is a word. For the present words are atoms."
   (stringp lispified-text)
   )
@@ -934,7 +901,6 @@ default is enumerated list."
 ;;; Created: Mon Nov  4 09:21:55 1991
 ;;; Modified: Mon Apr 20 17:41:28 EDT 1992
 ;;; made inline.
-(proclaim '(inline cs-name))
 
 (defun  cs-name (token)
   "Return name of cs where cs is a list of two elements, the marker 'cs and the name of the cs."
@@ -942,18 +908,15 @@ default is enumerated list."
     (second token))
   )
 
-
 ;;; Function: MATH-CS-NAME                                   Author: raman
 ;;; Created: Tue Mar  3 22:03:26 1992
 
-(defun math-cs-name (token) 
+(defun math-cs-name (token)
   "return name of math cs"
   (when (is-a 'math-cs token)
     (second token))
   )
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; end of file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-

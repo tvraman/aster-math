@@ -97,7 +97,6 @@ local-environment: ~a
 ;;; Created: Thu Oct 31 13:44:16 1991
 ;;; Modified: Mon Apr 20 17:43:46 EDT 1992
 ;;; Made inline.
-(proclaim '(inline pop-current-entry))
 
 (defun pop-current-entry (buff) 
   "pops current entry off buffer modifyin gpointer"
@@ -182,7 +181,6 @@ local-environment: ~a
 ;;; Created: Tue Nov  5 15:51:47 1991
 ;;; Modified: Mon Apr 20 17:48:34 EDT 1992
 ;;; made inline.
-(proclaim '(inline end-of-buffer?))
 
 (defun end-of-buffer? (buff) 
   "Checks if pointer is at the end of buff"

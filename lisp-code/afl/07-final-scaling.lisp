@@ -77,7 +77,7 @@ if scale factor already defined "
 (defun refresh () 
   "Call this function if the hardware gets out of synch with the current
 state as recorded by afl"
-#+express (send-text "[:punc some]")
+  (tts-queue "[:punc some]")
 (with-lazy-set-state
   (set-speech-state *current-speech-state*))
   )

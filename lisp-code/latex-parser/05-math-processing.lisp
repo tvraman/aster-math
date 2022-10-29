@@ -80,7 +80,7 @@
 ;;; Function: COLLAPSE                                       Author: raman
 ;;; Created: Wed Sep 16 15:06:01 1992
 
-(proclaim '(inline collapse))
+
 (defun collapse (processed-math) 
   "collapse  math objects"
   (if (>  (length processed-math) 1)
