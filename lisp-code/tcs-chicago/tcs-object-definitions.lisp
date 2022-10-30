@@ -39,19 +39,7 @@
   t )
 
 
-(defmethod read-aloud  (( end-of-sentence end-of-sentence )) 
-  "Read aloud method for object end-of-sentence "
-  (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
-  (let ((contents (argument 1 end-of-sentence )))
-    (when (listp contents)
-      (setf contents (first contents )))
-    (when (word-p contents )
-      (setf contents (contents contents )))
-    (tts:queue
-     (format nil "~a"
-            (afl:get-pronunciation
-             contents  ))))
-  )
+
 
 ;;}}}
 ;;{{{ absolute sectional units:
@@ -228,7 +216,7 @@
   (when (sectional-unit-body asectional-unit) 
     (afl:new-block
      (read-aloud  (sectional-unit-body asectional-unit)))
-    (afl:await-silence))
+    (afl:tts-force))
   (afl:new-block
    (read-aloud (sectional-unit-sectional-units asectional-unit ))))
 
