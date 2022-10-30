@@ -14,7 +14,7 @@
 ;;{{{text mode
 
 ;;; text mode:
-(define-pronunciation "[" "left-bracket" :text)
+(define-pronunciation "[" "left bracket" :text)
 (define-pronunciation "'" " quote " :text)
 (define-pronunciation ":" "[_:]" :text)
 (define-pronunciation "--" " " :text)
@@ -26,7 +26,7 @@
 (define-pronunciation ";" "[_;]" :text)
 (define-pronunciation "(" "[_,]" :text) ;kluge
 (define-pronunciation ")" "[_,] " :text) 
-(define-pronunciation "u-turn" " yu-turn " :text)
+(define-pronunciation "u-turn" " yu turn " :text)
 (define-pronunciation "Wed." "Wednesday, " :text)
 (define-pronunciation "i."   " eye " :text)
 (define-pronunciation "a-lot" "[ey] lot" :text)
@@ -35,14 +35,12 @@
 (define-pronunciation "b-lot" "b lot" :text)
 (define-pronunciation "knuth" "konooth" :text)
 (define-pronunciation "knuth's" "konooth's" :text)
-(define-pronunciation "reuse" "re-use" :text)
+(define-pronunciation "reuse" "re use" :text)
 (define-pronunciation "Phd." "Phd" :text)
 (define-pronunciation "PhD." "PhD" :text)
 (define-pronunciation "phd." "phd" :text)
 (define-pronunciation "cdrom" "cd rom" :text)
 (define-pronunciation "intelligibly" "intellijibly" :text)
-(define-pronunciation "subspace" "sub-space" :text)
-(define-pronunciation "subspaces" "sub-spaces" :text)
 ;;; Thesis addons:
 
 (define-pronunciation  "rpi" "ar pee i " :text)
@@ -55,14 +53,13 @@
 (define-pronunciation "intonational" "intonaytional" :text)
 (define-pronunciation "visually" "visual[iy]" :text)
 (define-pronunciation "globally" "global[iy]" :text)
-(define-pronunciation "subprocess" "sub-process" :text)
-(define-pronunciation "acknowledgements" "acknowledge-ments" :text)
+(define-pronunciation "subprocess" "sub process" :text)
 (define-pronunciation "rubik" "roobik" :text)
 (define-pronunciation "rubik's"  "roobiks" :text)
 (define-pronunciation "html" " htm l " :text)
 (define-pronunciation "pune" "POOna" :text)
 (define-pronunciation "csrvl" "csr vl" :text)
-(define-pronunciation "cobegin" "co-begin" :text)
+(define-pronunciation "cobegin" "co begin" :text)
 (define-pronunciation "mph" "miles per  hour " :text)
 (define-pronunciation "screenreader" "screen reader " :text)
 (define-pronunciation "shakespeare" "shake spear " :text)
@@ -163,7 +160,7 @@
 
 (define-pronunciation  "-"  "minus" :math)
 (define-pronunciation  "*"   "star" :math)
-(define-pronunciation  "/"   "divided-by" :math)
+(define-pronunciation  "/"   "divided by" :math)
 (define-pronunciation  "pm"   "plus or minus" :math)
 (define-pronunciation  "cap"   "intersection" :math)
 (define-pronunciation  "vee"   "union" :math)
