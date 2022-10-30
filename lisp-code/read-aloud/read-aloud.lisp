@@ -387,8 +387,8 @@
 (defmethod read-aloud ((section section))
   "read aloud a section"
   (with-reading-state (reading-state 'annotation-voice)
-    (tts-force)
-    (tts-speak
+    (afl:tts-force)
+    (afl:tts-speak
      (format
       nil  "~a ~a "
       (if (sectional-unit-name section)
