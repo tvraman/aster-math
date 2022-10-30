@@ -158,7 +158,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; binary operators:
 
-(define-pronunciation  "-"  "minus" :math)
+(define-pronunciation  "-"  "minus " :math)
 (define-pronunciation  "*"   "star" :math)
 (define-pronunciation  "/"   "divided by" :math)
 (define-pronunciation  "pm"   "plus or minus" :math)

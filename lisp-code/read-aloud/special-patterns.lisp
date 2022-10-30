@@ -329,9 +329,7 @@ active")
 (defmethod special-pattern ((math-object math-object))
   "Check for balanced trees"
   (cond
-    ((balanced-tree-p math-object) 'balanced-tree)
-    )
-  )
+    ((balanced-tree-p math-object) 'balanced-tree)))
 
 
 ;;; Detect inverse of functions:
@@ -373,8 +371,7 @@ active")
 (defmethod negated-object ((math-subformula math-subformula))
   "Return object negated "
   (when (unary-minus? math-subformula )
-    (negated-object (contents math-subformula )))
-  )
+    (negated-object (contents math-subformula ))))
 
 ;;}}}
 ;;; Moving pattern matching for superscript here from descriptive
