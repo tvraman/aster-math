@@ -364,7 +364,7 @@
   "read sectional-unit"
   (with-reading-state (reading-state 'annotation-voice)
     (tts-force)
-    (tts-speak
+    (afl:tts-speak
      (format
       nil  "~a ~a "
       (if (sectional-unit-name sectional-unit)
