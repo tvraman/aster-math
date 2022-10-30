@@ -231,11 +231,11 @@
 
 (defun set-period-pause  (ms)
   "Set Period Pause."
-  (tts-queue (format nil "[:pp ~a]" ms)))
+  (tts-code (format nil "[:pp ~a]" ms)))
 
 (defun set-comma-pause  (ms)
   "Set comma Pause."
-  (tts-queue (format nil "[:cp ~a]" ms)))
+  (tts-code (format nil "[:cp ~a]" ms)))
 
 (defun subclause-boundary  ()
   "Send subclause boundary."
