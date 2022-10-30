@@ -546,7 +546,6 @@ reading full documents. ")
 (defmethod read-aloud ((display-math display-math))
   "default method for reading display-math: "
   (afl:with-pronunciation-mode (:mode :math)
-    (afl:tts-force)
     (afl:with-surrounding-pause (* 3 *math-surround*)
       (afl:new-block
         (afl:local-set-state
