@@ -16,7 +16,6 @@
 ;;; text mode:
 (define-pronunciation "[" "left-bracket" :text)
 (define-pronunciation "'" " quote " :text)
-(define-pronunciation "-" "[_<5>]" :text)
 (define-pronunciation ":" "[_:]" :text)
 (define-pronunciation "--" " " :text)
 (define-pronunciation "---" "[_,]  " :text)
