@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 
@@ -17,8 +17,7 @@
 ;;; Class: ATTRIBUTE                                     Author: raman
 ;;; Created: Fri Sep 18 08:33:54 1992
 ;;; <(Modified:)> Sat Dec 19 14:07:36 EST 1992
-;;; Converting to a class so subscript etc can be made subclasses. 
-
+;;; Converting to a class so subscript etc can be made subclasses.
 
   ;;; Class: ATTRIBUTE                                         Author: raman
   ;;; Created: Sat Dec 19 14:10:53 1992
@@ -46,13 +45,11 @@
 (defun attribute-p (self)
   (typep self 'attribute))
 
-
-
-(defclass subscript (attribute) () ) 
-(defclass superscript  (attribute) () ) 
-(defclass accent (attribute) () ) 
-(defclass underbar (attribute) () ) 
-(defclass left-subscript (attribute) () ) 
+(defclass subscript (attribute) () )
+(defclass superscript  (attribute) () )
+(defclass accent (attribute) () )
+(defclass underbar (attribute) () )
+(defclass left-subscript (attribute) () )
 (defclass left-superscript  (attribute) () )
 ;;; Variable: *ALL-ATTRIBUTES*                               Author: raman
 ;;; Created: Sat Oct 31 13:46:52 1992
@@ -62,12 +59,10 @@
     UNDERBAR LEFT-SUBSCRIPT LEFT-SUPERSCRIPT )
   "Currently known  list of attributes")
 
-
-
   ;;; Function: VALID-ATTRIBUTE?                               Author: raman
   ;;; Created: Sat Dec 19 14:27:12 1992
 
-(defun valid-attribute? (attribute-name) 
+(defun valid-attribute? (attribute-name)
   "Check if this attribute name is valid"
   (declare (special *all-attributes* ))
   (find attribute-name *all-attributes*)
@@ -75,7 +70,7 @@
 ;;; Function: APPEND-ATTRIBUTE-VALUE                         Author: raman
 ;;; Created: Fri Sep 18 09:47:38 1992
 
-(defun append-attribute-value ( existing-attribute additional-value) 
+(defun append-attribute-value ( existing-attribute additional-value)
   "append attribute value to an existing attribute"
   (setf (attribute-value existing-attribute)
         (cons   (attribute-value existing-attribute)
@@ -104,9 +99,9 @@
             :accessor internal-weight)
    (substitution :initform nil :initarg :substitution
                  :accessor substitution )
-   (type 
-    :initform nil 
-    :initarg  :type 
+   (type
+    :initform nil
+    :initarg  :type
     :accessor math-object-type)
    (attributes :initform nil
                :initarg :attributes
@@ -115,7 +110,6 @@
    )
   (:documentation "A math object  with its visual annotations"))
 
-
 (defun make-math-object ()
   (let ((self (make-instance 'math-object)))
     self))
@@ -123,14 +117,13 @@
 (defun math-object-p (self)
   (typep self  'math-object))
 
-
 ;;; Function: MATH-OBJECT-SUBTYPE-P                          Author: raman
 ;;; Created: Wed Oct 14 16:08:23 1992
 
 (proclaim '(inline math-object-subtype-p))
-(defun math-object-subtype-p (self) 
+(defun math-object-subtype-p (self)
   "Check if arg is  a subtype of math-object"
-  (typep self 'math-object) 
+  (typep self 'math-object)
   )
 ;;; Default method:
 
@@ -141,8 +134,6 @@
   "Only math objects have substitutions. "
   nil)
 
-
-
 ;;; Method: ADD-ATTRIBUTE                                    Author: raman
 ;;; Created: Fri Sep 18 08:44:18 1992
 ;;; Modified: Mon Dec 21 12:23:22 EST 1992
@@ -151,9 +142,8 @@
 ;;; function.
 ;;; Parent slot set only when a new attribute is being added.
 
-
 (defmethod add-attribute (attribute-name attribute-value
-                                         (math-object math-object))
+                          (math-object math-object))
   "add attribute to math object"
   (let* ((attribute-list (attributes  math-object ))
          (existing-attribute  (find
@@ -171,12 +161,12 @@
        (setf (attributes math-object)
              attribute-list)
        )
-      (t ; new attribute 
+      (t ; new attribute
        (setf (attributes  math-object)
              (append   (attributes  math-object )
                        (list (make-attribute
                               :name attribute-name
-                              :parent math-object 
+                              :parent math-object
                               :value attribute-value )))))
       )
     math-object
@@ -190,9 +180,9 @@
 
 (defclass delimited-expression (math-object)
   (
-   (type 
-    :initform nil 
-    :initarg  :type 
+   (type
+    :initform nil
+    :initarg  :type
     :accessor delimited-expression-type)
    (open-delimiter :initform nil :initarg :open-delimiter
                    :accessor open-delimiter)
@@ -294,7 +284,6 @@
     )
   )
 
-
 (defmethod subscript-pattern ((math-object math-object))
   "Return  pattern for subscript if any "
   (let ((subscript (find 'subscript (attributes math-object )
@@ -303,7 +292,6 @@
       (special-pattern  subscript))
     )
   )
-
 
 (defmethod underbar-pattern ((math-object math-object))
   "Return  pattern for underbar if any "
@@ -341,7 +329,6 @@
     )
   )
 
-
 ;;}}}
 
 ;;{{{ classes for types from math classification:
@@ -362,9 +349,6 @@
 (defun ordinary-p (self)
   (typep self 'ordinary ))
 
-
-
-
   ;;; Class: FACTORIAL                                         Author: raman
   ;;; Created: Sun Feb  7 10:02:37 1993
 
@@ -380,7 +364,6 @@
 (defun factorial-p (self)
   (typep  self 'factorial))
 
-
 ;;; Class: UNARY-MINUS                                       Author: raman
 ;;; Created: Wed Nov  4 09:56:38 1992
 
@@ -392,12 +375,9 @@
   (let ((self (make-instance 'unary-minus)))
     self))
 
-
-
 (proclaim '(inline unary-minus-p))
 (defun  unary-minus-p (self)
   (typep self 'unary-minus))
-
 
 ;;; Class: BINARY-OPERATOR                                   Author: raman
 ;;; Created: Thu Oct 29 12:50:38 1992
@@ -414,7 +394,6 @@
 
 (defun binary-operator-p (self)
   (typep self  'binary-operator))
-
 
 ;;; Method: INCREMENT-N-ARGS                                 Author: raman
 ;;; Created: Sat Oct 31 14:25:55 1992
@@ -440,7 +419,6 @@
 (defun relational-operator-p (self)
   (typep self  'relational-operator))
 
-
 ;;; Method: INCREMENT-N-ARGS                                 Author: raman
 ;;; Created: Sat Oct 31 14:28:13 1992
 
@@ -458,8 +436,6 @@
 (defun make-math-number ()
   (let ((self (make-instance 'math-number)))
     self))
-
-
 
 (defmethod math-number-p ((self math-number ))
   t)
@@ -481,7 +457,6 @@
 
 (defun arrow-operator-p (self)
   (typep self  'arrow-operator))
-
 
 ;;; Method: INCREMENT-N-ARGS                                 Author: raman
 ;;; Created: Sat Oct 31 14:27:06 1992
@@ -505,7 +480,6 @@
 
 (defun big-operator-p (self)
   (typep  self 'big-operator))
-
 
 ;;; Method: INCREMENT-N-ARGS                                 Author: raman
 ;;; Created: Tue Nov  3 15:14:51 1992
@@ -551,7 +525,6 @@
 (defun quantifier-p (self)
   (typep self 'quantifier))
 
-
 ;;; Class: NEGATION-OPERATOR                                 Author: raman
 ;;; Created: Thu Oct 29 13:22:14 1992
 
@@ -578,7 +551,6 @@
 ;;; interpreted as a set of equations, ie a=b=c is a = b and  b = c.
 ;;; The following method returns a list of equations defined by a
 ;;; relational
-
 
   ;;; Method: EQUATIONS                                        Author: raman
   ;;; Created: Tue Dec 15 13:42:45 1992
@@ -612,26 +584,25 @@
 ;;{{{ big-operator subclasses
 
 ;;; Generated by evaluating <(setup-operators-class-table)>
-(DEFCLASS BIG-WEDGE (BIG-OPERATOR) NIL) 
-(DEFCLASS BIG-VEE (BIG-OPERATOR) NIL) 
-(DEFCLASS BIG-O-DOT (BIG-OPERATOR) NIL) 
-(DEFCLASS BIG-CAP (BIG-OPERATOR) NIL) 
-(DEFCLASS BIG-CUP (BIG-OPERATOR) NIL) 
-(DEFCLASS INTEGRAL (BIG-OPERATOR) NIL) 
-(DEFCLASS BIG-O-PLUS (BIG-OPERATOR) NIL) 
-(DEFCLASS SUMMATION (BIG-OPERATOR) NIL) 
-(DEFCLASS CO-PRODUCT (BIG-OPERATOR) NIL) 
-(DEFCLASS O-INTEGRAL (BIG-OPERATOR) NIL) 
-(DEFCLASS BIG-SQUARE-CUP (BIG-OPERATOR) NIL) 
-(DEFCLASS BIG-U-PLUS (BIG-OPERATOR) NIL) 
-(DEFCLASS PRODUCT (BIG-OPERATOR) NIL) 
-(DEFCLASS BIG-O-TIMES (BIG-OPERATOR) NIL) 
-
+(DEFCLASS BIG-WEDGE (BIG-OPERATOR) NIL)
+(DEFCLASS BIG-VEE (BIG-OPERATOR) NIL)
+(DEFCLASS BIG-O-DOT (BIG-OPERATOR) NIL)
+(DEFCLASS BIG-CAP (BIG-OPERATOR) NIL)
+(DEFCLASS BIG-CUP (BIG-OPERATOR) NIL)
+(DEFCLASS INTEGRAL (BIG-OPERATOR) NIL)
+(DEFCLASS BIG-O-PLUS (BIG-OPERATOR) NIL)
+(DEFCLASS SUMMATION (BIG-OPERATOR) NIL)
+(DEFCLASS CO-PRODUCT (BIG-OPERATOR) NIL)
+(DEFCLASS O-INTEGRAL (BIG-OPERATOR) NIL)
+(DEFCLASS BIG-SQUARE-CUP (BIG-OPERATOR) NIL)
+(DEFCLASS BIG-U-PLUS (BIG-OPERATOR) NIL)
+(DEFCLASS PRODUCT (BIG-OPERATOR) NIL)
+(DEFCLASS BIG-O-TIMES (BIG-OPERATOR) NIL)
 
 ;;; Function: CREATE-BIG-OPERATOR                            Author: raman
 ;;; Created: Wed Dec  9 13:37:54 1992
 
-(defun create-big-operator (&key contents children) 
+(defun create-big-operator (&key contents children)
   "Create big operator"
   (let
       ((name (get-operator-class-name contents )))
@@ -642,7 +613,7 @@
   )
 
 ;;}}}
-;;{{{ integrals 
+;;{{{ integrals
 
 ;;; Class: INTEGRAL-D                                        Author: raman
 ;;; Created: Tue Nov  3 12:27:00 1992
@@ -660,13 +631,12 @@
 (defun integral-d-p (self)
   (typep self  'integral-d))
 
-
 ;;; Function: INTEGRAL-D-SUBTYPE-P                           Author: raman
 ;;; Created: Tue Nov  3 13:00:47 1992
 
-(defun integral-d-subtype-p (self) 
+(defun integral-d-subtype-p (self)
   "Check if arg is an integral d or a subtype"
-  (typep self 'integral-d) 
+  (typep self 'integral-d)
   )
 
 ;;}}}
@@ -677,7 +647,7 @@
 
 (defmethod integrand ((integral integral))
   "Return integrand"
-  (let ((children (children integral ))) 
+  (let ((children (children integral )))
     (cond
       ((= 2 (length  children))
        (first children))
@@ -685,20 +655,18 @@
     )
   )
 
-
   ;;; Method: VARIABLE-OF-INTEGRATION                          Author: raman
   ;;; Created: Mon Dec 14 20:15:11 1992
 
 (defmethod variable-of-integration ((integral integral))
   "Return variable of integration if specified. "
-  (let ((children (children integral ))) 
+  (let ((children (children integral )))
     (when (and (listp children)
                (typep (second children ) 'integral-d))
       (second  children )))
   )
 
 ;;}}}
-
 
 ;;{{{ delimiter subclasses
 
@@ -709,7 +677,6 @@
 (defclass                        brackets (delimited-expression) () )
 (defclass angle-brackets (delimited-expression) ())
 (defclass       parenthesis (delimited-expression) () )
-
 
 (defun ceiling-brackets-p (self)
   (typep self 'ceiling-brackets))
@@ -729,12 +696,11 @@
 (defun parenthesis-p (self)
   (typep self 'parenthesis))
 
-
 ;;; Function: CREATE-DELIMITED-EXPRESSION                    Author: raman
 ;;; Created: Wed Dec  9 14:28:21 1992
 
 (defun create-delimited-expression (&key contents children type
-                                         open-delimiter close-delimiter) 
+                                      open-delimiter close-delimiter)
   "Create a delimited expression. "
   (let ((name (get-operator-class-name contents )))
     (make-instance name
@@ -749,9 +715,7 @@
                                         (math-cs-name close-delimiter )))
     ))
 
-
 ;;}}}
-
 
 ;;{{{ math subformula
 

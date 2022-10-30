@@ -69,7 +69,7 @@
   (let ((self (make-instance 'substituted-expression )))
     self))
 
-(proclaim '(inline substituted-expression -p))
+
 (defun substituted-expression-p (self)
   (typep  self 'substituted-expression ))
 
@@ -87,7 +87,7 @@
   (let ((self (make-instance 'substitution )))
     self))
 
-(proclaim '(inline substitution -p))
+
 (defun substitution-p (self)
   (typep  self 'substitution ))
 
