@@ -438,7 +438,7 @@
                (if (eql 'new-environment (class-name (class-of new-environment )))
                    (new-environment-name new-environment )
                    (class-name (class-of new-environment )))
-               " " ;(number new-environment )
+                (anumber new-environment )
                )))
   (afl:tts-pause 5)
   (read-aloud (new-environment-contents new-environment))

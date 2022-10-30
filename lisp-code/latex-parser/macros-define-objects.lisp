@@ -215,7 +215,7 @@ passed to automatically generated processing function")
                                         ; number it
          (when (numbered-class-p self )
            (increment-counter-value  (class-name (class-of self )))
-           (setf (number self )  (next-counter-value (class-name (class-of self )))))
+           (setf (anumber self )  (next-counter-value (class-name (class-of self )))))
                                         ; Now process the label,
                                         ;it will automatically point to the referend
          (if ,label-first

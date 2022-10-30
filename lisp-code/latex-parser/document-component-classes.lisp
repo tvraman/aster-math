@@ -158,8 +158,7 @@
           :accessor  title )
    (time-to-read :initform nil :initarg :time-to-read
                  :accessor internal-time-to-read )
-   (number  :initform nil :initarg :number :accessor
-            sectional-unit-number)
+   (number  :initform nil :initarg :number :accessor sectional-unit-number)
    (body :initform nil :initarg :body :accessor sectional-unit-body
          :accessor  body  :accessor contents )
    (sectional-units :initform nil :initarg :sectional-units
@@ -427,7 +426,7 @@ enumerated and itemized lists."))
   ;;; Created: Mon May  3 18:33:33 1993
 
 (defclass numbered-class ()
-  ((anumber :initform nil :initarg :anumber :accessor numbered-class-number
+  ((anumber :initform nil :initarg :anumber ;:accessor numbered-class-number
            :accessor anumber ))
   (:documentation "Mixin class, makes things numbered. "))
 
@@ -588,7 +587,7 @@ enumerated and itemized lists."))
 (defclass new-environment (document labelled-class numbered-class)
   ((name :initform nil :initarg :name :accessor new-environment-name
          :accessor name )
-                                        ;   (label :initform nil :initarg :label :accessor label)
+   (label :initform nil :initarg :label :accessor label)
    (contents :initform nil :initarg :contents :accessor
              new-environment-contents
              :accessor contents ))
