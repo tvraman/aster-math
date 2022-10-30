@@ -2,23 +2,21 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :cl-user)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-
-
 ;;; This file contains reading rule definitions using the new
 ;;; defmethod reading-rule.
 ;;; Will eventually replace the reading rules in math-reading-rules.lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(def-reading-rule (math-object simple) 
-    "Simple reading rule for math objects "  
-  (let* 
+(def-reading-rule (math-object simple)
+  "Simple reading rule for math objects "
+  (let*
       ((pause-duration  (compute-pause math-object )))
-    (afl:with-surrounding-pause pause-duration 
+    (afl:with-surrounding-pause pause-duration
       (cond
         ((leaf-p math-object) (read-math-object-and-attributes math-object))
         ( (read-as-infix?  math-object) (read-as-infix math-object))
@@ -27,54 +25,41 @@
         )))
   )
 
-(def-reading-rule (diagonal-dots simple) 
-    "Reading rule for diagonal dots. "
+(def-reading-rule (diagonal-dots simple)
+  "Reading rule for diagonal dots. "
   (afl:new-block
-   (loop for i from 1 to 3 do 
-         (afl:tts-queue "and so on")
-         (afl:low-intonation)
-         (afl:tts-force)
-         (afl:local-set-state (afl:multi-step-by
-                               afl:*current-speech-state*
-                               '(afl:loudness -1)
-                               '(afl:left-volume -1.25)
-                               '(afl:right-volume -.75)))))
-  )
+    (loop for
+          i from 1 to 3 do
+            (afl:tts-queue "and so on")
+            (afl:low-intonation)
+            (afl:tts-force))))
 
 (def-reading-rule (vertical-dots simple)
-    "Simple reading rule for vertical dots. "
+  "Simple reading rule for vertical dots. "
   (afl:new-block
-   (loop for i from 1 to 3 do
-         (afl:tts-queue "dot")
-         (afl:low-intonation)
-         (afl:local-set-state
-          (afl:multi-step-by
-           afl:*current-speech-state*
-           '(afl:loudness -1)
-           '(afl:left-volume -1.5)
-           '(afl:right-volume -1.5)))))
+    (loop
+      for i from 1 to 3 do
+        (afl:tts-queue "dot")
+        (afl:low-intonation)))
   (afl:tts-force ))
 
 (def-reading-rule(phantom  simple) nil)
-(def-reading-rule (v-phantom simple) nil) 
+(def-reading-rule (v-phantom simple) nil)
 
 (def-reading-rule (generalized-root simple)
-    "a simple reading rule for radicals"
+  "a simple reading rule for radicals"
   (let*
       ((children (children generalized-root ))
        (nth-root-of (first children ))
        (radical-arg (second children  )))
     (read-aloud  (cardinal-number nth-root-of ))
     (read-aloud " root of ")
-    (with-reading-state (reading-state 'children ) 
+    (with-reading-state (reading-state 'children )
       (read-aloud radical-arg  )))
   )
 
-
-
-
-(def-reading-rule (fraction simple) 
-    "simple reading rule for fractions "
+(def-reading-rule (fraction simple)
+  "simple reading rule for fractions "
   (let ((pause-amount  (compute-pause fraction ))
         (parent (parent fraction)))
     (unless (equal 'root parent )
@@ -88,7 +73,7 @@
          (read-aloud (numerator-of fraction))
          (when (> (weight (numerator-of fraction )) 1)
            (afl:comma-intonation))
-         (afl:tts-queue "over" ) 
+         (afl:tts-queue "over" )
          (read-aloud (denominator-of fraction ))
          (afl:comma-intonation))
         (t (with-reading-state (reading-state 'children)
@@ -101,7 +86,7 @@
   )
 
 (def-reading-rule (delimited-expression simple)
-    " Simple reading rule for delimited expressions " 
+  " Simple reading rule for delimited expressions "
   (afl:with-surrounding-pause (* *pause-around-child*
                                  (weight  delimited-expression))
     (read-aloud(open-delimiter delimited-expression ))
@@ -113,12 +98,12 @@
                      (delimited-expression-type delimited-expression)))
       (read-aloud (close-delimiter delimited-expression)))
     (when (attributes delimited-expression)
-      (mapc #'read-aloud 
+      (mapc #'read-aloud
             (sorted-attributes  (attributes
                                  delimited-expression )))))
   )
 (def-reading-rule (parenthesis simple)
-    " Simple reading rule for delimited expressions " 
+  " Simple reading rule for delimited expressions "
   (afl:with-surrounding-pause (* *pause-around-child*
                                  (weight  parenthesis))
     (read-aloud "quantity")
@@ -126,26 +111,20 @@
       (loop for child in (children parenthesis)
             do           (read-aloud child  )))
     (when  (attributes parenthesis)
-      
+
       (read-aloud "close quantity "))
     (when (attributes parenthesis )
-      (mapc #'read-aloud 
+      (mapc #'read-aloud
             (sorted-attributes  (attributes
                                  parenthesis )))))
   )
 
 (def-reading-rule (math-subformula simple)   "Simple reading rule for math subformula"
-  (read-math-object-and-attributes math-subformula) 
+  (read-math-object-and-attributes math-subformula)
   )
 
-
-
-
-
-
-
 (def-reading-rule (juxtaposition simple)
-    "Simple reading rule for juxtaposition"
+  "Simple reading rule for juxtaposition"
   (let
       ((pause-amount (compute-pause juxtaposition )))
     (afl:with-surrounding-pause pause-amount
@@ -153,58 +132,41 @@
     )
   )
 
-
 (def-reading-rule (juxtaposition times)
-    "Read juxtaposition as times"
+  "Read juxtaposition as times"
   (let ((pause-amount (compute-pause juxtaposition ))
         (children (children juxtaposition )))
     (afl:with-surrounding-pause pause-amount
-      (read-aloud (first  children)) 
+      (read-aloud (first  children))
       (loop for child in  (rest children)
             do
-            (read-aloud  "times" )
-            (read-math-child   child))
+               (read-aloud  "times" )
+               (read-math-child   child))
       ))
   )
 
 (def-reading-rule  (math-eqnarray simple)
-    "Simple reading rule for eqnarray: uses directional audio"
-  (afl:with-pronunciation-mode (:mode :math) 
+  "Simple reading rule for eqnarray: uses directional audio"
+  (afl:with-pronunciation-mode (:mode :math)
     (loop for equation  in  (contents math-eqnarray)
           do
-          (let 
-              ((left-hand-side   (first equation))
-               (relational (second equation))
-               (right-hand-side (third equation )))
-            (when left-hand-side 
-              (with-reading-state (reading-state 'left-hand-side)
-                (read-aloud left-hand-side)
-                (afl:tts-force )))
-            (read-aloud relational)
-            (when right-hand-side
-              (with-reading-state (reading-state 'right-hand-side)
-                (read-aloud right-hand-side)
-                (afl:tts-force ))))))
-  )
-
-
-
-(define-reading-state 'left-hand-side
-    #'(lambda(state)
-        (afl:multi-move-to  state 
-                            '(afl:left-volume 100)
-                            '(afl:right-volume 0 )))
-  )
-
-(define-reading-state 'right-hand-side
-    #'(lambda(state)
-        (afl:multi-move-to state
-                           '(afl:left-volume 0 )
-                           '(afl:right-volume 100 )))
+             (let
+                 ((left-hand-side   (first equation))
+                  (relational (second equation))
+                  (right-hand-side (third equation )))
+               (when left-hand-side
+                 (with-reading-state (reading-state 'left-hand-side)
+                   (read-aloud left-hand-side)
+                   (afl:tts-force )))
+               (read-aloud relational)
+               (when right-hand-side
+                 (with-reading-state (reading-state 'right-hand-side)
+                   (read-aloud right-hand-side)
+                   (afl:tts-force ))))))
   )
 
 (def-reading-rule (relational-operator directional)
-    "Read relational operators using directional audio"
+  "Read relational operators using directional audio"
   (let
       ((relational (contents relational-operator))
        (children (children relational-operator )))
@@ -227,27 +189,24 @@
       ))
   )
 
-
-
 (def-reading-rule (math-equation simple)
-    "Simple reading rule for equations. Uses directional audio"
+  "Simple reading rule for equations. Uses directional audio"
   (let ((equation (contents math-equation ))
         (number (anumber math-equation ))
         (label-name  (when (label math-equation)
                        (label-name (label math-equation  )))))
     (afl:new-block
-     (afl:local-set-state :math) 
-     (afl:local-set-state (reading-state 'math ) )
-     (read-aloud equation )
-     (afl:tts-pause 5)
-     (if label-name 
-         (read-aloud label-name)
-         (read-aloud  (format nil "math equation ~a" number  )))
-     (afl:tts-force )
-     (relabel-if-necessary (label math-equation ))
-     ))
+      (afl:local-set-state :math)
+      (afl:local-set-state (reading-state 'math ) )
+      (read-aloud equation )
+      (afl:tts-pause 5)
+      (if label-name
+          (read-aloud label-name)
+          (read-aloud  (format nil "math equation ~a" number  )))
+      (afl:tts-force )
+      (relabel-if-necessary (label math-equation ))
+      ))
   )
-
 
 ;;; Reimplementing following reading rules using move-by rather than
 ;;; modifying step size.  <(Compare this to the old version)>
@@ -262,134 +221,66 @@
 ;;; read first element of each row and then loop, this will avoid
 ;;; having to check for the last element when stepping to the right.
 ;;; Make cleaner by using named reading states.
-(define-reading-state 'array-start
-    #'(lambda(state)
-        (afl:multi-move-to state
-                           '(afl:left-volume 100)
-                           '(afl:right-volume 0)))
-  )
 
 (def-reading-rule (math-array simple)
-    "Simple reading rule for arrays, uses directional audio"
+  "Simple reading rule for arrays. "
   (afl:new-block
-   (afl:local-set-state :math)
-   (afl:local-set-state (reading-state 'array-start))
-   (let
-       ((contents  (if *transpose-table*
-                       (transpose-table (contents
-                                         math-array))
-                       (contents math-array )))
-        (left-offset nil)
-        (right-offset nil))
-     (loop for row in   contents do
-           (afl:new-block
-            (setf left-offset(* -1  (afl:length-of-subinterval
-                                     'afl:left-volume (length row ))))
-            (setf right-offset  (afl:length-of-subinterval
-                                 'afl:right-volume (length row )))
+    (afl:local-set-state :math)
+    (let
+        ((contents
+           (if *transpose-table*
+               (transpose-table (contents math-array))
+               (contents math-array ))))
+      (loop
+        for row in   contents do
+          (afl:new-block
             (afl:new-block
-             (afl:with-surrounding-pause *math-surround* 
-               (read-aloud (first row ))))
-            (loop for column in (rest row) do 
-                  (afl:local-set-state
-                   (afl:multi-move-by
-                    afl:*current-speech-state*
-                    `(afl:left-volume ,left-offset )
-                    `(afl:right-volume ,right-offset )))
-                  (when column
-                    (afl:new-block      ;dummy
-                     (read-aloud  column ))
-                    )                   ;end when 
-                  )))                   ;done reading row
-     )                                  ;Done reading all rows. 
-   )
-  )
+              (afl:with-surrounding-pause *math-surround*
+                (read-aloud (first row ))))
+            (loop
+              for column in (rest row) do
+                (when column
+                  (afl:new-block        ;dummy
+                    (read-aloud  column ))
+                  )                     ;end when
+              )))                   ;done reading row
+      )                                  ;Done reading all rows.
+    ))
 
-;;; Making the same changes as to the reading rule for arrays. 
+;;; Making the same changes as to the reading rule for arrays.
 
 (def-reading-rule (tabular simple)
-    "Simple reading rule for arrays, uses directional audio"
+  "Simple reading rule for arrays. "
   (afl:new-block
-   (afl:local-set-state :text)
-   (afl:local-set-state (reading-state 'array-start))
-   (let
-       ((contents  (if *transpose-table*
-                       (transpose-table (contents
-                                         tabular))
-                       (contents tabular )))
-        (left-offset nil)
-        (right-offset nil))
-     (loop for row in   contents do
-           (setf left-offset(* -1  (afl:length-of-subinterval
-                                    'afl:left-volume (length row ))))
-           (setf right-offset  (afl:length-of-subinterval
-                                'afl:right-volume (length row )))
-           (afl:new-block
-            (afl:with-surrounding-pause *math-surround* 
+    (afl:local-set-state :text)
+    (let
+        ((contents
+           (if *transpose-table*
+               (transpose-table (contents
+                                 tabular))
+               (contents tabular ))))
+      (loop
+        for row in   contents do
+          (afl:new-block
+            (afl:with-surrounding-pause *math-surround*
               (read-aloud (first row))
-              (loop for column in (rest row) do 
-                    (afl:local-set-state
-                     (afl:multi-move-by
-                      afl:*current-speech-state*
-                      `(afl:left-volume ,left-offset )
-                      `(afl:right-volume ,right-offset )))
-                    (when column
-                      (afl:new-block    ;dummy
-                       (read-aloud  column ))
-                      )                 ;end when 
-                    )))                 ;done reading row
-           )                            ;Done reading all rows. 
-     ))
-  )
+              (loop
+                for column in (rest row) do
+                  (when column
+                    (afl:new-block      ;dummy
+                      (read-aloud  column ))
+                    )                   ;end when
+                )))                 ;done reading row
+        )                            ;Done reading all rows.
+      )))
 
 (def-reading-rule (tabular quiet) nil)
 
-
-
 ;;; Modified: Sun Apr 11 13:36:17 EDT 1993
 ;;; <(Fixed the bug that caused relative readings to fail. )>
-(def-reading-rule (tabular bus-schedule) 
-    "Simple reading rule for arrays, uses directional audio"
-  (afl:new-block (afl:local-set-state :text)
-                 (afl:local-set-state (reading-state 'array-start))
-                 (let* 
-                     ((contents  (if *transpose-table*
-                                     (transpose-table (contents
-                                                       tabular))
-                                     (contents tabular )))
-                      (left-offset nil)
-                      (right-offset nil)
-                      (headers (first contents )))
-                   (loop for row in   (rest contents)  do
-                         (setf left-offset(* -1  (afl:length-of-subinterval
-                                                  'afl:left-volume (length row ))))
-                         (setf right-offset  (afl:length-of-subinterval
-                                              'afl:right-volume (length row )))
-                         (afl:new-block
-                          (afl:with-surrounding-pause *math-surround*
-                            (read-aloud (first headers))
-                            (afl:tts-queue " at ")
-                            (read-aloud (first row))
-                            (loop for column in (rest row)
-                                  and head in (rest headers) do 
-                                  (afl:local-set-state
-                                   (afl:multi-move-by
-                                    afl:*current-speech-state*
-                                    `(afl:left-volume ,left-offset )
-                                    `(afl:right-volume ,right-offset )))
-                                  (when column
-                                    (afl:new-block ;dummy
-                                     (read-aloud  head)
-                                     (afl:tts-queue " at ")
-                                     (read-aloud  column ))
-                                    )   ;end when 
-                                  )))   ;done reading row
-                         )              ;Done reading all rows. 
-                   ))
-  )
 
 (def-reading-rule (square-root simple)
-    "Simple reading rule for square-root "
+  "Simple reading rule for square-root "
   (read-aloud " square root ")
   (cond
     ((and (math-object-subtype-p (argument square-root 1))
@@ -397,39 +288,38 @@
           (null (attributes  (argument square-root 1 ))))
      (read-aloud (argument square-root 1 )))
     (t(read-aloud " of ")
-      (with-reading-state (reading-state 'children) 
+      (with-reading-state (reading-state 'children)
         (read-aloud (argument square-root 1 ))))
     )
   )
 
 (def-reading-rule (overbrace simple)
-    (with-reading-state (reading-state 'overbrace)
-      (read-aloud (argument overbrace 1 )))
-  (read-attributes overbrace) 
+  (with-reading-state (reading-state 'overbrace)
+    (read-aloud (argument overbrace 1 )))
+  (read-attributes overbrace)
   )
 (define-reading-state 'overbrace
     #'(lambda(state)
         (afl:multi-move-to state
-                           '(afl:left-volume 0)
-                           '(afl:right-volume 75 )))
+                                        ;'(afl:left-volume 0)
+                           ;'(afl:right-volume 75 )
+                           ))
   )
 
-
 (def-reading-rule (overline simple)
-    (with-reading-state (reading-state 'overline)
-      (read-aloud (argument overline 1 )))
+  (with-reading-state (reading-state 'overline)
+    (read-aloud (argument overline 1 )))
   )
 
 (def-reading-rule   ( integral-delimiter  simple)
-    "Simple reading rule  for object integral-delimiter "
+  "Simple reading rule  for object integral-delimiter "
   (read-aloud " d ")
   (read-aloud (argument integral-delimiter 1))
   (afl:comma-intonation)
   )
 
-
 (def-reading-rule (factorial simple)
-    "Reading rule for factorials"
+  "Reading rule for factorials"
   (read-aloud (contents factorial))
   (afl:comma-intonation)
   (read-aloud "factorial")
