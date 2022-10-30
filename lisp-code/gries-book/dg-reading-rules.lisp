@@ -12,8 +12,8 @@
        (read-aloud (label-name (label boxed-equation )))
        (read-aloud (format nil "~a  ~a. "
                            (contents boxed-equation)
-                           (number boxed-equation ))))
-   (afl:pause 5) 
+                           (anumber boxed-equation ))))
+   (afl:tts-pause 5) 
    (read-aloud (argument 1 boxed-equation))
    )
   )

@@ -172,83 +172,82 @@ processing function")
 ;;;
 
 
-(defmacro define-text-object-with-label ( &key
-                                         macro-name  processing-function
-                                         (label-first t)
-                                         ;(label-is-a-label t)
-                                         precedence object-name supers) 
+(defmacro define-text-object-with-label
+    (&key
+     macro-name  processing-function
+     (label-first t)
+     precedence object-name supers) 
   "define new object in text"
   `(progn
-    ;;; First define the class:
-    (defclass ,object-name   ,(append supers
-                               (list  'labelled-class 'numbered-class ))
-      ((arguments :initform nil :initarg :arguments
-                  :accessor arguments :accessor children)
-       (contents :initform nil :initarg  :contents 
-                 :accessor contents ))
-      (:documentation ,(format nil
-                               "Class ~a corresponding to
+;;; First define the class:
+     (defclass ,object-name   ,(append supers
+                                (list  'labelled-class 'numbered-class))
+       ((arguments :initform nil :initarg :arguments :accessor arguments :accessor children)
+        (contents :initform nil :initarg  :contents :accessor contents ))
+       (:documentation
+        ,(format nil
+                 "Class ~a corresponding to
                                    document macro with label  ~a"
-                               object-name macro-name))
-      )
+                 object-name macro-name)))
+     
 ;;; Modified:
-    ;;; process label,
-    ;;; then process referend
-    ;;; finally install the label 
-    ;;; Now define the processing function:
-    ;;; Modified to match class definition
-    (defun ,processing-function (&rest arguments)
-      "Automatically generated processing function"
-      (assert (= (length arguments )  2) nil
-              "Wrong number of arguments
+;;; process label,
+;;; then process referend
+;;; finally install the label 
+;;; Now define the processing function:
+;;; Modified to match class definition
+     (defun ,processing-function (&rest arguments)
+       "Automatically generated processing function"
+       (assert (= (length arguments )  2) nil
+               "Wrong number of arguments
 passed to automatically generated processing function")
-      (let*
-          ((self (make-instance ',object-name
-                                :contents  ,macro-name ))
-           (processor (if (math-p self)
-                          #'process-argument-as-math
-                          #'process-argument )))
-        ;;; First process the object: 
-        (setf (arguments self)
-              (if ,label-first
-                  (funcall processor (second arguments ))
-                  (funcall processor (first arguments ))))
+       (let*
+           ((self (make-instance ',object-name
+                                 :contents  ,macro-name ))
+            (processor (if (math-p self)
+                           #'process-argument-as-math
+                           #'process-argument )))
+;;; First process the object: 
+         (setf (arguments self)
+               (if ,label-first
+                   (funcall processor (second arguments ))
+                   (funcall processor (first arguments ))))
                                         ; Now make it the referend 
-        (add-enclosing-referend self)
+         (add-enclosing-referend self)
                                         ; number it
-        (when (numbered-class-p self )
-          (increment-counter-value  (class-name (class-of self )))
-          (setf (number self )  (next-counter-value (class-name (class-of self )))))
+         (when (numbered-class-p self )
+           (increment-counter-value  (class-name (class-of self )))
+           (setf (number self )  (next-counter-value (class-name (class-of self )))))
                                         ; Now process the label,
                                         ;it will automatically point to the referend 
-        (if ,label-first
-            (funcall processor (first arguments ))
-            (funcall processor (second arguments )))
-        (pop-enclosing-referend)
-        self)
-      )
+         (if ,label-first
+             (funcall processor (first arguments ))
+             (funcall processor (second arguments )))
+         (pop-enclosing-referend)
+         self)
+       )
 ;;; define argument accessor method
-    (defmethod argument ((,object-name ,object-name) (n integer))
-      "Automatically generated argument accessor"
-      (assert  (<= n (length (arguments  ,object-name ))) nil
-       "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
-       n  ,object-name (length (arguments ,object-name )))
-      (elt  (arguments ,object-name)  (- n 1 ))
-      )
+     (defmethod argument ((,object-name ,object-name) (n integer))
+       "Automatically generated argument accessor"
+       (assert  (<= n (length (arguments  ,object-name ))) nil
+                "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
+                n  ,object-name (length (arguments ,object-name )))
+       (elt  (arguments ,object-name)  (- n 1 ))
+       )
                                         ; define  arguments in  reverse order
-    (defmethod argument ((n integer) (,object-name ,object-name))
-      "Automatically generated argument accessor"
-      (assert  (<= n (length (arguments  ,object-name ))) nil
-       "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
-       n  ,object-name (length (arguments ,object-name )))
-      (elt  (arguments ,object-name)  (- n 1 ))
-      )
-    ;;; define precedence
-    (when ',precedence
-      (define-precedence ,macro-name :same-as ',precedence))
-   ;;; Install processing function 
-    (define-tex-macro ,macro-name 2 ',processing-function)
-    )
+     (defmethod argument ((n integer) (,object-name ,object-name))
+       "Automatically generated argument accessor"
+       (assert  (<= n (length (arguments  ,object-name ))) nil
+                "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
+                n  ,object-name (length (arguments ,object-name )))
+       (elt  (arguments ,object-name)  (- n 1 ))
+       )
+;;; define precedence
+     (when ',precedence
+       (define-precedence ,macro-name :same-as ',precedence))
+;;; Install processing function 
+     (define-tex-macro ,macro-name 2 ',processing-function)
+     )
   )
 
 ;;}}}

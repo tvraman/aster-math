@@ -55,8 +55,7 @@ nil
   :processing-function norvig-idx-expand 
   :precedence  nil 
   :object-name norvig-idx
-  :supers (document)
-  )
+  :supers (document))
 
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( norvig-idx norvig-idx )) 

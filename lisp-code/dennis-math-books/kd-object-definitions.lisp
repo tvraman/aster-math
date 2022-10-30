@@ -57,7 +57,7 @@ nil
 (read-aloud "end of page ")
 (read-aloud (argument 1 pno))
 (tts-queue  "[_.]")
-(afl:synchronize-and-play *newline-cue*)
+(afl:tts-icon *newline-cue*)
   )
 (define-text-object :macro-name "seject" 
   :number-args 0

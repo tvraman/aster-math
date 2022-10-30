@@ -16,15 +16,12 @@
   :number-args 3
   :processing-function subst-expand
   :precedence mathematical-function
-  :object-name subst
-  :supers (math-object)
-  )
-
+  :object-name a-subst
+  :supers (math-object))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Oct 15 14:40:31 1992
-#|
-(defmethod read-aloud ((subst subst))
+(defmethod read-aloud ((subst a-subst))
   "read aloud a subst object"
   (afl:new-block
                    (afl:local-set-state 
@@ -34,47 +31,10 @@
                    (read-aloud " with ")
                    (read-aloud (argument subst 3))
                    (read-aloud "replaced by ") 
-                   (read-aloud (argument subst 2))
-                   )
-  )
-|#
-
-#|
-(defmethod read-aloud ((subst subst))
-  "read aloud a subst object"
-  (afl:new-block 
-                   (afl:local-set-state 
-                    (afl:multi-step-by afl:*current-speech-state*
-                                       '(afl:average-pitch 1)))
-                   (read-aloud (argument subst 1))
-                   (read-aloud " with ")
-                   (read-aloud (argument subst 2))
-                   (read-aloud " for  ") 
-                   (read-aloud (argument subst 3))
-                   )
-  )
-|#
+                   (read-aloud (argument subst 2))))
 
 
-(defmethod read-aloud ((subst subst))
-  "Read like a tree "
-  (read-aloud "substitution ")
-  (with-reading-state (reading-state 'children)
-    (read-aloud (argument subst 1))
-    (read-aloud (argument subst 2 ))
-    (read-aloud (argument subst 3)))
-  )
 
-#|
-(defmethod read-aloud ((subst subst))
-  " quick read subst"
-  (read-aloud  (argument subst 1))
-  (with-reading-state (reading-state 'superscript)
-    (read-aloud  (argument subst 2))
-    (read-aloud " slash " )
-    (read-aloud (argument subst 3)))
-  )
-|#
 ;;; }
 ;;; { abstraction
 

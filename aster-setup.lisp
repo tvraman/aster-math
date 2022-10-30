@@ -46,10 +46,10 @@
         '(
           "vavasis-book"
           "vanloan-book"
-          "tcs-chicago"
+          ;"tcs-chicago"
           "rz-book"
           "norvig-book"
-          "gries-book"
+          ;"gries-book"
           "dennis-math-books"
           "cs611-notes"))
   (aster-setup))
