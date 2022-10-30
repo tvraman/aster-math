@@ -426,7 +426,7 @@ enumerated and itemized lists."))
   ;;; Created: Mon May  3 18:33:33 1993
 
 (defclass numbered-class ()
-  ((anumber :initform nil :initarg :anumber ;:accessor numbered-class-number
+  ((anumber :initform nil :initarg :anumber :accessor numbered-class-number
            :accessor anumber ))
   (:documentation "Mixin class, makes things numbered. "))
 

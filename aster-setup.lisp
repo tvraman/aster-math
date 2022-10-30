@@ -8,14 +8,6 @@
   (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
 
-(require :parser)
-(require :clos-helper)
-(require :afl)
-(require :pronounce)
-(require :read-aloud)
-(require :browse)
-(setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
-(setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex"))
 (defun aster-setup ()
   "Setup default reading rules and styles."
   (pushnew :express   *features*)
@@ -60,5 +52,8 @@
   (setf *document* (parse-article filename))
   (read-aloud *document* ))
 
-;;for above to take effect.
+
+(aster)
 (aster-setup)
+(setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
+(setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex"))
