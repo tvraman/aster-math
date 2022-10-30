@@ -32,7 +32,6 @@
   (asdf:load-system :clos-helper)
   (asdf:load-system :afl)
   (asdf:load-system :pronounce)
-  (asdf:load-system :total-space)
   (asdf:load-system :read-aloud)
   (asdf:load-system :browse)
   (mapc #'asdf:load-system
