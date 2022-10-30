@@ -49,7 +49,7 @@
           "tcs-chicago"
           "rz-book"
           "norvig-book"
-          ;"gries-book"
+          "gries-book"
           "dennis-math-books"
           "cs611-notes"))
   (aster-setup))
@@ -60,5 +60,5 @@
   (setf *document* (parse-article filename))
   (read-aloud *document* ))
 
-;;for above to take effect. 
+;;for above to take effect.
 (aster-setup)
