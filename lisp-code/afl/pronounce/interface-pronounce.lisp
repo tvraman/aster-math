@@ -24,9 +24,7 @@
 
 (defmethod local-set-state ((mode symbol))
   "Set pronunciation mode. "
-  (set-pronunciation-mode mode)
-  ;(setf (total-audio-state-pronounce *current-total-audio-state*) mode)
-  )
+  (set-pronunciation-mode mode))
 
 (defmethod global-set-state((mode symbol ))
   "Set global pronunciation mode. "
