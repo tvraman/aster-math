@@ -5,7 +5,7 @@
 (asdf:clear-source-registry)
 
 (defvar *lisp-code-directory*
-  (pathname-directory #. (or *compile-file-truename* *load-truename*))
+  (merge-pathnames "emacs/lisp/aster-math/lisp-code/" (user-homedir-pathname))
   "directory under which lisp code is organized")
 
 (defun aster-setup ()
@@ -57,5 +57,3 @@
 (aster-setup)
 (setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
 (setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex"))
-
-
