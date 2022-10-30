@@ -131,7 +131,6 @@
         (afl:multi-step-by state
                            '(afl:smoothness 2)
                            '(afl:richness -1)
-                           ;'(afl:loudness 2)
                            '(afl:quickness 1)
                            '(afl:hat-rise 2)
                            '(afl:stress-rise 2)
