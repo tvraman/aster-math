@@ -237,7 +237,6 @@ recognize")
   "Initialize cross reference table"
   (setf *cross-references* (make-hash-table :test #'equal ))
   )
-(proclaim '(inline cross-reference-table ))
 (defun cross-reference-table () *cross-references*)
 
   ;;; Method: INSTALL-LABEL                                    Author: raman
@@ -317,7 +316,6 @@ recognize")
 ;;; Since objects that can be labelled have a label slot now, use
 ;;; this.
 
-(proclaim '(inline labelled-p))
 (defun labelled-p (object) 
   "Has this object been labelled?"
   (cond

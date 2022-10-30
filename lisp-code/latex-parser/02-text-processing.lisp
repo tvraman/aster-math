@@ -408,7 +408,6 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Eventually do away with the use of special variable
 ;;; for handling font changing by passing parse state
 ;;; along with the text buffer.
-(proclaim '(inline process-cs))
 (defun process-cs (text-buffer )
   "Process cs found in  current position in buffer"
   (expand-tex-macro text-buffer)
@@ -842,7 +841,6 @@ default is enumerated list."
 
   ;;; Function: VOID-LIST-P                                    Author: raman
   ;;; Created: Wed Sep 15 21:15:18 1993
-(proclaim '(inline void-list-p ))
 (defun void-list-p (list-l)
   "Is this a void list, ie (nil)?"
   (and(listp list-l)
@@ -890,7 +888,6 @@ default is enumerated list."
 ;;; Created: Mon Oct  7 09:43:05 1991
 ;;; Modified: Mon Apr 20 17:25:57 EDT 1992
 ;;; Made inline.
-(proclaim '(inline is-a-word))
 
 (defun is-a-word  (lispified-text)
   "Tests if argument is a word. For the present words are atoms."

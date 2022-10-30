@@ -40,7 +40,6 @@
                              :value value )))
     self))
 
-(proclaim '(inline attribute-p))
 
 (defun attribute-p (self)
   (typep self 'attribute))
@@ -120,7 +119,6 @@
 ;;; Function: MATH-OBJECT-SUBTYPE-P                          Author: raman
 ;;; Created: Wed Oct 14 16:08:23 1992
 
-(proclaim '(inline math-object-subtype-p))
 (defun math-object-subtype-p (self)
   "Check if arg is  a subtype of math-object"
   (typep self 'math-object)
@@ -194,7 +192,6 @@
   (let ((self (make-instance 'delimited-expression)))
     self))
 
-(proclaim '(inline delimited-expression-p))
 
 (defun delimited-expression-p (self)
   (typep self 'delimited-expression))
@@ -344,7 +341,6 @@
   (let ((self (make-instance 'ordinary)))
     self))
 
-(proclaim '(inline ordinary-p))
 
 (defun ordinary-p (self)
   (typep self 'ordinary ))
@@ -360,7 +356,6 @@
   (let ((self (make-instance 'factorial)))
     self))
 
-(proclaim '(inline factorial-p))
 (defun factorial-p (self)
   (typep  self 'factorial))
 
@@ -375,7 +370,6 @@
   (let ((self (make-instance 'unary-minus)))
     self))
 
-(proclaim '(inline unary-minus-p))
 (defun  unary-minus-p (self)
   (typep self 'unary-minus))
 
@@ -390,7 +384,6 @@
   (let ((self (make-instance 'binary-operator)))
     self))
 
-(proclaim '(inline binary-operator-p))
 
 (defun binary-operator-p (self)
   (typep self  'binary-operator))
@@ -414,7 +407,6 @@
   (let ((self (make-instance 'relational-operator)))
     self))
 
-(proclaim '(inline relational-operator-p))
 
 (defun relational-operator-p (self)
   (typep self  'relational-operator))
@@ -453,7 +445,6 @@
   (let ((self (make-instance 'arrow-operator)))
     self))
 
-(proclaim '(inline arrow-operator-p))
 
 (defun arrow-operator-p (self)
   (typep self  'arrow-operator))
@@ -476,7 +467,6 @@
   (let ((self (make-instance 'big-operator)))
     self))
 
-(proclaim '(inline big-operator-p))
 
 (defun big-operator-p (self)
   (typep  self 'big-operator))
@@ -500,12 +490,10 @@
   (let ((self (make-instance 'mathematical-function-name)))
     self))
 
-(proclaim '(inline mathematical-function-name-p))
 
 (defun mathematical-function-name-p (self)
   (typep self 'mathematical-function-name))
 
-(proclaim '(inline mathematical-function-name-subtype-p))
 (defun mathematical-function-name-subtype-p (self)
   (typep  self 'mathematical-function-name)
   )
@@ -520,7 +508,6 @@
   (let ((self (make-instance 'quantifier)))
     self))
 
-(proclaim '(inline quantifier-p))
 
 (defun quantifier-p (self)
   (typep self 'quantifier))
@@ -536,7 +523,6 @@
   (let ((self (make-instance 'negation-operator)))
     self))
 
-(proclaim '(inline negation-operator-p))
 
 (defun negation-operator-p (self)
   (typep self  'negation-operator))
@@ -626,7 +612,6 @@
   (let ((self (make-instance 'integral-d)))
     self))
 
-(proclaim '(inline integral-d-p))
 
 (defun integral-d-p (self)
   (typep self  'integral-d))
@@ -731,7 +716,6 @@
   (let ((self (make-instance 'math-subformula)))
     self))
 
-(proclaim '(inline math-subformula-p))
 
 (defun math-subformula-p (self)
   (typep self  'math-subformula))
@@ -745,7 +729,6 @@
 ;;; class fraction no longer defined by hand.
 
 ;;; <(Handled by define-text-object )>
-(proclaim '(inline fraction-p))
 
 (defun fraction-p (self)
   (typep self  'fraction))
@@ -764,7 +747,6 @@
   (let ((self (make-instance 'generalized-root)))
     self))
 
-(proclaim '(inline generalized-root-p))
 
 (defun generalized-root-p (self)
   (eq (class-name (class-of self)) 'generalized-root))

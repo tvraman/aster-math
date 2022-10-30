@@ -21,7 +21,6 @@
 
 ;;; Modified: Wed Sep 16 08:50:11 EDT 1992
 ;;; made inline:
-(proclaim '(inline lookup-math-classification))
 ;;; Function: LOOKUP-MATH-CLASSIFICATION                     Author: raman
 ;;; Created: Tue Feb 25 14:53:02 1992
 
@@ -33,7 +32,6 @@
 
 ;;; Function: DEFINE-MATH-SYMBOL-CLASSIFICATION                      Author: raman
 ;;; Created: Tue Feb 25 14:55:33 1992
-(proclaim '(inline define-math-symbol-classification))
 (defun  define-math-symbol-classification (symbol classification) 
   "Classify symbol as of type classification for math mode"
   (setf (gethash symbol *math-classification-table*)

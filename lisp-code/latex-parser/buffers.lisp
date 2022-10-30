@@ -107,7 +107,6 @@ local-environment: ~a
 ;;; Created: Thu Oct 31 13:15:56 1991
 ;;; Modified: Mon Apr 20 17:42:41 EDT 1992
 ;;; made inline
-(proclaim '(inline lookat-current-entry))
 
 (defun lookat-current-entry (buff )
   "Looks at current entry  in buff. Does not modify pointer"
@@ -143,7 +142,6 @@ local-environment: ~a
 ;;; REturn buffer after advancing pointer.
 ;;; Modified: Mon Apr 20 17:47:04 EDT 1992
 ;;; made inline.
-(proclaim '(inline advance-pointer))
 
 (defun  advance-pointer (buff) 
   "return buffer after advancing pointer. "
@@ -156,7 +154,6 @@ local-environment: ~a
 ;;; Modified: Thu Mar 18 13:32:02 EST 1993
 ;;; using loop instead more readable probably more efficient
 ;;; <(backed up version using do)>
-(proclaim '(inline pop-while-true ))
 (defun pop-while-true (text-buffer predicate) 
   "Pops off entries reseting pointer while predicate is satisfied."
   (loop while

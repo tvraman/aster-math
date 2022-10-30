@@ -191,7 +191,6 @@
   (let ((self (make-instance 'part)))
     self))
 
-(proclaim '(inline part-p))
 
 (defun part-p (self)
   (typep  self 'part))
@@ -210,7 +209,6 @@
   (let ((self (make-instance 'chapter)))
     self))
 
-(proclaim '(inline chapter-p))
 
 (defun chapter-p (self)
   (eq (class-name (class-of self)) 'chapter))
@@ -434,7 +432,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'numbered-class)))
     self))
 
-(proclaim '(inline numbered-class-p))
 
 (defun numbered-class-p (self)
   (typep self 'numbered-class))
@@ -454,7 +451,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'labelled-class)))
     self))
 
-(proclaim '(inline labelled-class-p))
 (defun labelled-class-p (self)
   (typep  self 'labelled-class))
 
@@ -730,7 +726,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'index-term)))
     self))
 
-(proclaim '(inline index-term-p))
 
 (defun index-term-p (self)
   (eq (class-name (class-of self)) 'index-term))
@@ -785,7 +780,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'text-number)))
     self))
 
-(proclaim '(inline text-number-p))
 
 (defun text-number-p (self)
   (eq (class-name (class-of self)) 'text-number))
@@ -826,7 +820,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'display-math)))
     self))
 
-(proclaim '(inline display-math-p))
 
 (defun display-math-p (self)
   (typep self 'display-math))
@@ -848,7 +841,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'inline-math)))
     self))
 
-(proclaim '(inline inline-math-p))
 
 (defun inline-math-p (self)
   (typep self 'inline-math))
@@ -866,7 +858,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'table-mix-in )))
     self))
 
-(proclaim '(inline table-mix-in-p))
 (defun table-mix-in-p (self)
   (typep  self 'table-mix-in ))
 
@@ -886,7 +877,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'tabular)))
     self))
 
-(proclaim '(inline tabular-p))
 
 (defun tabular-p (self)
   (eq (class-name (class-of self)) 'tabular))
@@ -911,7 +901,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'table-element)))
     self))
 
-(proclaim '(inline table-element-p))
 (defun table-element-p (self)
   (typep  self 'table-element))
 
@@ -930,7 +919,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'math-array)))
     self))
 
-(proclaim '(inline math-array-p))
 
 (defun math-array-p (self)
   (eq (class-name (class-of self)) 'math-array))
@@ -948,7 +936,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'math-equation)))
     self))
 
-(proclaim '(inline math-equation-p))
 
 (defun math-equation-p (self)
   (eq (class-name (class-of self)) 'math-equation))
@@ -968,7 +955,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'math-eqnarray)))
     self))
 
-(proclaim '(inline math-eqnarray-p))
 
 (defun math-eqnarray-p (self)
   (eq (class-name (class-of self)) 'math-eqnarray))
@@ -990,7 +976,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'aword)))
     self))
 
-(proclaim '(inline word-p))
 
 (defun word-p (self)
   (typep self 'aword))
@@ -1015,7 +1000,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'label)))
     self))
 
-(proclaim '(inline label-p))
 
 (defun label-p (self)
   (typep  self 'label))
@@ -1033,7 +1017,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'cross-ref)))
     self))
 
-(proclaim '(inline cross-ref-p))
 
 (defun cross-ref-p (self)
   (typep  self 'cross-ref))
@@ -1051,7 +1034,6 @@ enumerated and itemized lists."))
   (let ((self (make-instance 'defined-text-object-with-label)))
     self))
 
-(proclaim '(inline defined-text-object-with-label-p))
 
 (defun defined-text-object-with-label-p (self)
   (typep  self 'defined-text-object-with-label))

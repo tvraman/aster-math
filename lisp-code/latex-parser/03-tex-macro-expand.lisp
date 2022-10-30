@@ -379,7 +379,6 @@ bulletins violate this. ")
 
 ;;; Function: PROCESS-ARGUMENT-AS-MATH                       Author: raman
 ;;; Created: Sun Oct  4 13:36:04 1992
-(proclaim '(inline process-argument-as-math))
 (defun process-argument-as-math (argument)
   "Process argument as math. "
   (process-math
