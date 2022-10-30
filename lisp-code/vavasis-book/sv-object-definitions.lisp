@@ -12,8 +12,7 @@
   :number-args 0
   :processing-function xis-expand 
   :object-name xis
-  :supers (math)
-  )
+  :supers (math))
 
 (defmethod read-aloud  (( xis xis )) 
   "Read aloud method for object xis "
@@ -48,8 +47,6 @@
   
   (defmethod read-aloud  (( nph nph )) 
     "Read aloud method for object nph "
-    (afl:synchronize-and-play  "/home/raman/sounds/cues/bark.au"
-                                   :background-flag t)
     (read-aloud " np hard ")
     )
   
@@ -249,7 +246,6 @@
 (read-aloud "refer to the book, ")
 (read-aloud (argument 1 b-ref ))
 (afl:comma-intonation)
-(afl:force-speech)
-  )
+(afl:tts-force))
 
 

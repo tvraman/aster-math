@@ -117,7 +117,7 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( quad quad )) 
   "Read aloud method for object quad "
-(afl:pause 10)
+(afl:tts-pause 10)
   )
 
 (define-text-object     :macro-name "qquad" 
@@ -131,7 +131,7 @@
 ;;; Object has 0 slots 
 (defmethod read-aloud  (( qquad qquad )) 
   "Read aloud method for object qquad "
-(afl:pause 10)
+(afl:tts-pause 10)
   )
 
 

@@ -10,7 +10,7 @@
 ;;; Modified: Tue Jul  5 13:58:56 EDT 1994
 ;;; Adding definitions for objects defined by tcs chicago journal:
 ;;; 
-;;; { end of sentence marker: 
+;;{{{ end of sentence marker: 
 
 (define-text-object :macro-name "@" 
   :number-args 1
@@ -53,8 +53,8 @@
              contents  ))))
   )
 
-;;; }
-;;; { absolute sectional units:
+;;}}}
+;;{{{ absolute sectional units:
 
 (defclass asectional-unit(sectional-unit)
   ((absolute-number  :initform nil 
@@ -232,14 +232,14 @@
   (afl:new-block
    (read-aloud (sectional-unit-sectional-units asectional-unit ))))
 
-;;; }
+;;}}}
 
-;;; { New environments:
+;;{{{ New environments:
 
 (define-new-environment  :env-name "articleinfo" :class-name article-info)
 (define-new-environment :env-name "articletext" :class-name article-text)
 
-;;; }
+;;}}}
 
 
 
