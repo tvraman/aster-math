@@ -363,7 +363,7 @@
 (defmethod read-aloud ((sectional-unit sectional-unit))
   "read sectional-unit"
   (with-reading-state (reading-state 'annotation-voice)
-    (tts-force)
+    (afl:tts-force)
     (afl:tts-speak
      (format
       nil  "~a ~a "

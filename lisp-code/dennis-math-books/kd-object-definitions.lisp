@@ -56,7 +56,7 @@ nil
   "Read aloud method for object pno "
 (read-aloud "end of page ")
 (read-aloud (argument 1 pno))
-(tts-queue  "[_.]")
+(afl:tts-queue  "[_.]")
 (afl:tts-icon *newline-cue*)
   )
 (define-text-object :macro-name "seject" 
