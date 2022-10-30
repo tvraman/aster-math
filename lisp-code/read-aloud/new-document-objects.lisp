@@ -266,8 +266,9 @@
 (define-reading-state 'overline
     #'(lambda(state)
         (afl:multi-move-to state
-                           '(afl:left-volume 50)
-                           '(afl:right-volume 0))
+                                        ;'(afl:left-volume 50)
+                           ;'(afl:right-volume 0)
+                           )
         )
   )
 
@@ -561,8 +562,9 @@
       (afl:tts-queue "and so on, ")
       (afl:tts-force)
       (afl:local-set-state (afl:multi-step-by afl:*current-speech-state*
-                                              '(afl:left-volume -2.5)
-                                              '(afl:right-volume -2.5)))))
+                                        ;'(afl:left-volume -2.5)
+                                              ;'(afl:right-volume -2.5)
+                                              ))))
   )
 
 (define-text-object :macro-name "vdots" 

@@ -18,8 +18,8 @@
     ((:file "rule-and-style-macros")
      (:file "read-aloud"
       :depends-on ("rule-and-style-macros"))
-     (:file "time-readings"
-      :depends-on  ("read-aloud")))
+     ;(:file "time-readings" :depends-on  ("read-aloud"))
+     )
     :depends-on ( "font-definitions" "user-input" "reading-state"))
    (:module  "font-definitions"
     :pathname ""
@@ -52,7 +52,6 @@
     :components
     ((:file "new-document-objects")
      (:file "standard-math-objects")
-     (:file "literature")
      (:file "new-environment-definitions")))
    (:module "complexity"
     :pathname ""

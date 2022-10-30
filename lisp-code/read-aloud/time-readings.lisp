@@ -121,15 +121,17 @@ duration. "
         (afl:local-set-state
          (afl:multi-move-to
           afl:*current-speech-state*
-          '(afl:left-volume 100 )
-          '(afl:right-volume 0)))
+                                        ;'(afl:left-volume 100 )
+                                        ;'(afl:right-volume 0)
+          ))
         (summarize sectional-unit))
        (afl:new-block
         (afl:local-set-state
          (afl:multi-move-to
           afl:*current-speech-state*
-          '(afl:left-volume 0 )
-          '(afl:right-volume 100)))
+                                        ;'(afl:left-volume 0 )
+          ;'(afl:right-volume 100)
+          ))
         (time-to-read sectional-unit))
        (loop for unit in (sectional-units sectional-unit ) do  
              (table-of-contents unit )))))

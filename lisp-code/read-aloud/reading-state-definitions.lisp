@@ -194,8 +194,8 @@
 (define-reading-state 'footnote
     #'(lambda(state)
         (afl:generalized-afl-operator state 
-                                      '(afl:move-to afl:left-volume  0)
-                                      '(afl:move-to  afl:right-volume 100)
+                                      ;'(afl:move-to afl:left-volume  0)
+                                      ;'(afl:move-to  afl:right-volume 100)
                                       '(afl:scale-by afl:speech-rate 1.5)
                                       )
         )
