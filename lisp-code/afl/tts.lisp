@@ -143,6 +143,8 @@
   "Queue text to speak."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
+    (unless (stringp text)
+      (setq text (string-downcase  (format nil " ~a " text))))
     (format i "q {~a}~%" text)
     (finish-output i)))
 
