@@ -37,26 +37,20 @@
   (flet (
          (bound-in-interval(dim-name   value)
            "fix value inside permitted interval"
-                                        ;           (format t "~& dim-name = ~a
-                                        ;~& value = ~a"
-                                        ;                   dim-name value)
            (min
-            (max (minimum-value dim-name)
-                 value)
+            (max (minimum-value dim-name) value)
             (maximum-value dim-name ))))
     (when (equal dimension 'voice)
       (setf value (get-voice-code value)))
     (concatenate
      'string
      *begin-command*
-     " "
      (get-synthesizer-code dimension)
      (if (stringp value)
          value
          (prin1-to-string
           (bound-in-interval dimension
                              (round value))))
-     " "
      *end-command*)))
 
 ;;}}}
