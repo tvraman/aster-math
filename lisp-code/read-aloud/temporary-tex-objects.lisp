@@ -316,8 +316,7 @@
   :processing-function voicemail-expand 
   :precedence  nil 
   :object-name voice-mail
-  :supers (document)
-  )
+  :supers (document))
 
 ;;; Use  (argument object)  1 ...( argument
                         ;;; object 1)  in                         read-aloud 
@@ -325,8 +324,7 @@
   "Read aloud method for object document "
   (with-reading-state (reading-state 'annotation-voice)
     (read-aloud "Voice mail: "))
-  (read-aloud (argument 1 voice-mail ))
-  )
+  (read-aloud (argument 1 voice-mail )))
 
 (define-text-object :macro-name "email" 
   :number-args 1
