@@ -46,7 +46,7 @@
         '(
           "vavasis-book"
           "vanloan-book"
-          ;"tcs-chicago"
+          "tcs-chicago"
           "rz-book"
           "norvig-book"
           ;"gries-book"
