@@ -117,14 +117,10 @@
 
 (define-reading-state 'math
     #'(lambda(state)
-        (afl:multi-scale-by state
-                            '(afl:average-pitch 6
-                              :slot afl:step-size)
-                            '(afl:head-size  2
-                              :slot afl:step-size)
-                            ))
-  )
-
+        (afl:multi-scale-by
+         state
+         '(afl:average-pitch 6 :slot afl:step-size)
+         '(afl:head-size  2 :slot afl:step-size))))
 
 (define-reading-state 'children
     #'(lambda(state)
