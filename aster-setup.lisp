@@ -27,6 +27,7 @@
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
+  (pushnew :express   *features*)
   (asdf:load-system :parser)
   (asdf:load-system :clos-helper)
   (asdf:load-system :afl)
