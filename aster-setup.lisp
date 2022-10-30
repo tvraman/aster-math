@@ -57,3 +57,8 @@
 (aster-setup)
 (setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
 (setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex"))
+(setq where
+      (let 
+          ((where
+             #. (or *compile-file-truename* *load-truename*)))
+                         where))
