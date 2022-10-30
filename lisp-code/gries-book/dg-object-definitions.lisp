@@ -8,7 +8,7 @@
  ;;; Objects from gries book:
 
 
-;;; { constraint delimiters:
+;;{{{ constraint delimiters:
 
 (define-math-delimiter '(math-cs "cc")   '(math-cs "rb" )
   "constraint-brackets")
@@ -21,7 +21,7 @@
   )
 (activate-rule 'constraint-brackets 'default)
 
-;;; }
+;;}}}
 
 (define-text-object :macro-name "smallsum" 
   :number-args 0

@@ -9,7 +9,7 @@
 ;;; Contains objects from math books from Keith Dennis
 
 
-;;; { Kaplansky:
+;;{{{ Kaplansky:
 
 (define-text-object :macro-name "e" 
   :number-args 0
@@ -96,9 +96,9 @@ nil
 
 
 
-;;; }
+;;}}}
 
-;;; { galois
+;;{{{ galois
 ;;; a font macro
 (define-text-object :macro-name "fontbi" 
   :number-args 0
@@ -132,4 +132,4 @@ nil
 
 
 
-;;; }
+;;}}}

@@ -13,9 +13,9 @@
 ;;; objects.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; { van loan's book on fourier transforms
+;;{{{ van loan's book on fourier transforms
 
-;;; { Kroniker product
+;;{{{ Kroniker product
 (define-text-object     :macro-name "kronecker"
   :number-args 0
   :processing-function kronecker-expand 
@@ -56,8 +56,8 @@
   )
 
 
-;;; }
-;;; { Vectors and matrices
+;;}}}
+;;{{{ Vectors and matrices
 
 (define-text-object     :macro-name "Cinv" 
   :number-args 2
@@ -103,8 +103,8 @@
 
 ;(activate-rule 'c-matrix 'default)
 
-;;; }
-;;; {Misc
+;;}}}
+;;{{{Misc
 
 (define-text-object     :macro-name "quad" 
   :number-args 0
@@ -136,8 +136,8 @@
 
 
 
-;;; }
-;;; {matrix computations book:
+;;}}}
+;;{{{matrix computations book:
 (define-text-object     :macro-name "twon" 
   :number-args 4
   :processing-function twon-expand 
@@ -204,8 +204,8 @@
   )
 (activate-rule 'r-matrix 'default)
 
-;;; }
+;;}}}
 
-;;; }
+;;}}}
 
  

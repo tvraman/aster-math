@@ -13,7 +13,7 @@
 
  
 
-;;; {zippel book.
+;;{{{zippel book.
 (define-text-object     :macro-name "keyi" 
   :number-args 1
   :processing-function keyi-expand 
@@ -27,9 +27,9 @@
 (read-aloud  (argument keyi 1))
   )
 
-;;; }
+;;}}}
 
-;;; { addsymbol:
+;;{{{ addsymbol:
 
 (define-text-object :macro-name "addsymbol" 
   :number-args 2
@@ -51,5 +51,5 @@
 
 
 
-;;; }
+;;}}}
 

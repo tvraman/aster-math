@@ -6,7 +6,7 @@
 
 
 
-;;; { xis from vavasis book
+;;{{{ xis from vavasis book
 
 (define-text-object     :macro-name "xis" 
   :number-args 0
@@ -35,8 +35,8 @@
   
   
   
-;;; }
-;;; { nph 
+;;}}}
+;;{{{ nph 
   
   (define-text-object       :macro-name "nph" 
     :number-args 0
@@ -114,11 +114,11 @@
 
 
 
-;;; }
+;;}}}
 
 
 
-;;; {cross references
+;;{{{cross references
 
 (define-text-object     :macro-name "sref" 
   :number-args 1
@@ -210,7 +210,7 @@
 
 
 
-;;; }
+;;}}}
 
 (define-text-object :macro-name "bmu" 
   :number-args 0
