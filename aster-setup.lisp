@@ -15,7 +15,6 @@
 (defun aster ()
   "Load AsTeR modules and initialize system."
   (asdf:load-system :parser)
-  ;(asdf:load-system :clos-helper)
   (asdf:load-system :afl)
   (asdf:load-system :pronounce)
   (asdf:load-system :read-aloud)
