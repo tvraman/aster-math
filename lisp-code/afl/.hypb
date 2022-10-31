@@ -1,11 +1,0 @@
-
-"05-block-structure.lisp"
-("old_function_set-state_backed_up." nil nil link-to-file ("./scratch/block-constructs-backup.lisp" 7581) "raman@cs.cornell.edu" "19930210:20:49:37" nil nil)
-("Modifying_to_stop_using_*modified-dimensions*" nil nil link-to-file ("./scratch/block-constructs-backup.lisp" 6954) "raman@cs.cornell.edu" "19930210:20:45:33" nil nil)
-("backed_up_old_version_with_comments." nil nil link-to-file ("./scratch/block-constructs-backup.lisp" 6002) "raman@cs.cornell.edu" "19930210:20:43:03" nil nil)
-("*modified-dimensions*_no_longer_used." nil nil link-to-file ("./scratch/block-constructs-backup.lisp" 5768) "raman@cs.cornell.edu" "19930210:20:39:52" nil nil)
-("global-set!_no_longer_used." nil nil link-to-file ("./scratch/block-constructs-backup.lisp" 3907) "raman@cs.cornell.edu" "19930210:20:33:28" nil nil)
-("old_versions_and_comments_backed_up" nil nil link-to-file ("./scratch/block-constructs-backup.lisp" 567) "raman@cs.cornell.edu" "19930210:20:28:02" nil nil)
-
-"04-moving-in-speech-space.lisp"
-("notes_on_audio_formatting" nil nil link-to-file ("/usr/u/raman/text/notes/16-primitives-for-audio-formatting.tex") "raman@cs.cornell.edu" "19920809:19:55:12" nil nil)
