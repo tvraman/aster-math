@@ -89,7 +89,7 @@
 (defmethod summarize ((aword aword ))
   "Summarize a word. "
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3)))
-  (afl:tts-queue (contents word )))
+  (afl:tts-queue (contents aword )))
 
 (defmethod summarize  ((slide slide ))
   (save-pointer-excursion 
