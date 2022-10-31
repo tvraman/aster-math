@@ -160,7 +160,7 @@
 (define-pronunciation  "-"  "minus " :math)
 (define-pronunciation  "*"   "star" :math)
 (define-pronunciation  "/"   "divided by" :math)
-(define-pronunciation  "pm"   "plus or minus [_,]" :math)
+(define-pronunciation  "pm"   "[_,] plus or minus [_,]" :math)
 (define-pronunciation  "cap"   "intersection" :math)
 (define-pronunciation  "vee"   "union" :math)
 (define-pronunciation  "mp"   "minus or plus" :math)
