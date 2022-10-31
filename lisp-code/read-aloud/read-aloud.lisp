@@ -129,11 +129,10 @@
 (defvar *play-signature-tune* nil
   "If t play a tune before and after reading document.")
 
-(defmethod read-aloud  :before ((article article ))
+(defmethod read-aloud  :before ((document document ))
   "Prepare system for reading."
-  (afl:initialize-speech-space)
-  (reset-footnote-counter)
-  (setf  (internal-time-to-read article) (get-universal-time)))
+  (unless *current-speech-state* (afl:initialize-speech-space))
+  (reset-footnote-counter))
 
 (defmethod read-aloud :after ((article article ))
   "Deactivate sound audio after reading. "
@@ -148,7 +147,6 @@
 (defmethod read-aloud ((article article))
   "read aloud an article"
   (afl:new-block
-    (afl:initialize-speech-space)
     (when *play-signature-tune*(afl:tts-icon *article-open-cue*))
     (when (article-title article)
       (with-reading-state (reading-state 'annotation-voice)
