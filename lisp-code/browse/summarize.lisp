@@ -32,22 +32,22 @@
   "Summarize a math array."
   (read-aloud "array. ")
   (afl:tts-force))
-(defmethod summarize((list list ))
-  "Summarize a list of things"
-  (let ((first-type (type-of (first list ))))
-    (cond
-      ((every #'(lambda(item)
-                  (typep item first-type)) list)
-       (read-aloud first-type)
-       (afl:tts-queue  " list. ")
-       )
-      (t  (afl:tts-queue (format nil "~a list. "
-                                 (class-name
-                                  (closest-common-superclass  list  ))))
-          )
-      )
-    )
-  )
+;; (defmethod summarize((list list ))
+;;   "Summarize a list of things"
+;;   (let ((first-type (type-of (first list ))))
+;;     (cond
+;;       ((every #'(lambda(item)
+;;                   (typep item first-type)) list)
+;;        (read-aloud first-type)
+;;        (afl:tts-queue  " list. ")
+;;        )
+;;       (t  (afl:tts-queue (format nil "~a list. "
+;;                                  (class-name
+;;                                   (closest-common-superclass  list  ))))
+;;           )
+;;       )
+;;     )
+;;   )
 
 (defun say-what-this-is-called(thing)
   "Say this thing is "
