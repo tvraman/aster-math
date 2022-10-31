@@ -17,7 +17,7 @@
 
 (defun parse-article (filename) 
   "Parses a Latex article "
-  (format t "Performing lexical analysis on ~a" filename)
+  (format t "Lex: ~a~%" filename)
   (with-open-file (in-stream filename)
     (let ((process
             (run-program
