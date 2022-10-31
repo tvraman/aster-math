@@ -58,7 +58,7 @@
 ;;; Function: SET-PRONUNCIATION-MODE                         Author: raman
 ;;; Created: Fri Sep 25 11:38:07 1992
 
-(proclaim '(inline set-pronunciation-mode))
+
 (defun set-pronunciation-mode (mode) 
   "Set pronunciation mode "
   (assert (valid-pronunciation-mode? mode) nil
