@@ -1,5 +1,5 @@
 (require "asdf")
-;; Place 10-aster.conf in  ~/.config/common-lisp/source-registry.conf.d/aster.conf
+;; Place 10-aster.conf in  ~/.config/common-lisp/source-registry.conf.
 ;; for registering and finding packages
 
 (asdf:clear-source-registry)
@@ -9,15 +9,11 @@
           ((where
              (namestring  #. (or *compile-file-truename* *load-truename*)))
            (index (search "/"where :from-end t )))
-        (concatenate
-         'string 
-         (subseq where 0 index)
-         "/lisp-code/"))
+        (concatenate 'string (subseq where 0 index) "/lisp-code/"))
   "directory under which lisp code is organized")
 
 (defun aster-setup ()
   "Setup default reading rules and styles."
-  (pushnew :express   *features*)
   (activate-rule 'stackrel 'default)
   (activate-rule 'overbrace 'default)
   (activate-rule 'underbrace 'default)
@@ -34,7 +30,6 @@
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
-  (pushnew :express   *features*)
   (asdf:load-system :parser)
   (asdf:load-system :clos-helper)
   (asdf:load-system :afl)
@@ -50,8 +45,9 @@
           "norvig-book"
           "gries-book"
           "dennis-math-books"
-          "cs611-notes"))
-  (aster-setup))
+          "cs611-notes")))
+
+(aster-setup)
 
 (defun read-aloud-file (filename)
   "Read aloud this file by first parsing it. "
@@ -64,5 +60,3 @@
 (aster-setup)
 (setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
 (setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex"))
-
-
