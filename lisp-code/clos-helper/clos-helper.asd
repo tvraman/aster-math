@@ -6,8 +6,4 @@
   :author "T. V. Raman <tv.raman.tv@gmail.com>"
   :licence "GPL V2"
   :components
-  (
-   ;(:file "clos-helper-functions" )
-  ;(:file "copy-class-objects" )
-   (:file "closest-common-ancestor"))
-    )
+  ((:file "closest-common-ancestor")))
