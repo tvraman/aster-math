@@ -178,7 +178,7 @@
              (setf *read-pointer* document)
              (unless (afl-state document)
                (setf (afl-state document)
-                     afl:*current-speech-state* ))
+                     (afl:initialize-speech-space)))
              (let* 
                  ((active-rule (active-rule document))
                   (special-pattern (special-pattern document ))
