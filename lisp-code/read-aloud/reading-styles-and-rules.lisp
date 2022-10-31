@@ -176,9 +176,6 @@
              (when *read-pointer*
                (setf *previous-read-pointer* *read-pointer* ))
              (setf *read-pointer* document)
-             (unless (afl-state document)
-               (setf (afl-state document)
-                     (afl:initialize-speech-space)))
              (let* 
                  ((active-rule (active-rule document))
                   (special-pattern (special-pattern document ))

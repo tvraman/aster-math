@@ -30,7 +30,7 @@
 ;;; Created: Sun Jan 26 11:17:17 1992
 
 (defvar *processing-function-table*
-  (make-hash-table :test #'equal) 
+  (make-hash-table :test #'eq) 
   "Holds the table of node types and their associated processing functions.")
 
 

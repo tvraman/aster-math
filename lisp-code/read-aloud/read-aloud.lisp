@@ -131,15 +131,13 @@
 
 (defmethod read-aloud  :before ((document document ))
   "Prepare system for reading."
-  (unless *current-speech-state* (afl:initialize-speech-space))
+  (unless afl:*current-speech-state*
+    (afl:initialize-speech-space)
+   
+    (setf (afl-state document) afl:*current-speech-state*))
   (reset-footnote-counter))
 
-(defmethod read-aloud :after ((article article ))
-  "Deactivate sound audio after reading. "
-  (force-all-floats)
-  (setf (internal-time-to-read article)
-        (- (get-universal-time)
-           (internal-time-to-read article ))))
+
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 11:35:06 1992
