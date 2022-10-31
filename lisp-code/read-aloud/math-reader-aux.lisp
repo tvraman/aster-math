@@ -165,7 +165,6 @@
 
  ;;; Function: READ-MATH-OBJECT-AND-ATTRIBUTES                Author: raman
  ;;; Created: Tue Nov 24 14:36:26 1992
-(proclaim '(inline read-math-object-and-attributes))
 (defun read-math-object-and-attributes (math-object) 
   "Read the object and its attributes"
   (read-aloud (contents math-object ))

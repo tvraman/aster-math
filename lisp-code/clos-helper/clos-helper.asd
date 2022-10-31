@@ -7,7 +7,7 @@
   :licence "GPL V2"
   :components
   (
-   (:file "clos-helper-functions" )
+   ;(:file "clos-helper-functions" )
   ;(:file "copy-class-objects" )
    (:file "closest-common-ancestor"))
     )

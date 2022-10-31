@@ -37,7 +37,6 @@
   "multi_beep"
   "Cue cross reference. ")
 
-(proclaim '(inline follow-cross-reference?))
 (defun follow-cross-reference?()
   "Prompt user for following cross reference. If yes, caller reads  cross
   referenced object and continue.

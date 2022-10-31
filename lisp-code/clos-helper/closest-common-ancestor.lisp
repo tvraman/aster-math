@@ -11,20 +11,25 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun closest-common-superclass (list-o-instances)
-  (loop with candidates = (reduce #'intersection
-                                  (mapcar #'(lambda (i)
-                                              (class-precedence-list
-                                               (class-of i)))
-                                          list-o-instances))
-        ;; Too bad INTERSECTION doesn't maintain order
-        with best-candidate = (find-class 'T)
-        for (current-candidate . remaining-candidates) on candidates
-        when (and (subtypep current-candidate best-candidate)
-                  (every #'(lambda (other-candidate)
-                             (subtypep current-candidate other-candidate))
-                         remaining-candidates))
-          do (setf best-candidate current-candidate)
-        finally (return best-candidate )))
+  (loop
+    with
+    candidates
+      =
+      (reduce
+       #'intersection
+       (mapcar
+        #'(lambda (i) (class-precedence-list (class-of i)))
+        list-o-instances))
+      ;; Too bad INTERSECTION doesn't maintain order
+    with best-candidate = (find-class 'T)
+    for (current-candidate . remaining-candidates) on candidates
+    when
+    (and (subtypep current-candidate best-candidate)
+         (every
+          #'(lambda (other-candidate)
+              (subtypep current-candidate other-candidate)) remaining-candidates))
+      do (setf best-candidate current-candidate)
+    finally (return best-candidate )))
 
 ;Examples of use:
 ;

@@ -2,12 +2,11 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :cl-user)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
 
 ;;; Sun Jan 10 15:47:28 EST 1993
 ;;; initial attempt at browsing.
@@ -17,11 +16,9 @@
 
 (defvar *read-pointer* nil "Current object being read. ")
 
-
   ;;; Function: READ-POINTER                                   Author: raman
   ;;; Created: Fri Oct 22 09:25:19 1993
-(proclaim '(inline read-pointer ))
-(defun read-pointer () 
+(defun read-pointer ()
   "Return current read-pointer position. "
   *read-pointer*
   )
@@ -41,23 +38,20 @@
   ;;; Created: Sun May 16 14:18:28 1993
 
 (defvar *previous-read-pointer* nil "Previous object, ie object just read. ")
-(proclaim '(inline previous-read-pointer))
 (defun previous-read-pointer() *previous-read-pointer*)
 (defmethod read-aloud :before ((document document ))
-           "Record this object"
-           (setf  *read-pointer*   document)
-           )
+  "Record this object"
+  (setf  *read-pointer*   document)
+  )
 
-(proclaim '(inline move-inside-subformula-if-necessary))
-(defun move-inside-subformula-if-necessary() 
+(defun move-inside-subformula-if-necessary()
   "Given that read-pointer is a  subformula with no attributes move
   inside it"
   (when (and (typep *read-pointer* 'math-subformula )
              (null (attributes *read-pointer* )))
     (setf *read-pointer* (contents *read-pointer* )))
   )
-(proclaim '(inline move-outside-subformula-if-necessary))
-(defun move-outside-subformula-if-necessary() 
+(defun move-outside-subformula-if-necessary()
   "Given that read-pointer is a  subformula with no attributes move
   outside  it"
   (when (and (typep *read-pointer* 'math-subformula )
@@ -65,25 +59,23 @@
     (setf *read-pointer* (parent  *read-pointer* )))
   )
 
-
-
 (defun read-current()
-"Read the current selection as specified by the read pointer."
-(afl:refresh)
+  "Read the current selection as specified by the read pointer."
+  (afl:refresh)
   (let ((math-flag (and  (typep *read-pointer* 'math )
                          (not (or (display-math-p *read-pointer*)
                                   (inline-math-p *read-pointer* )))))
         )
-    (save-pointer-excursion 
-     (afl:new-block
-      (afl:local-set-state afl:*global-speech-state*)
-      (if  math-flag
-           (with-reading-state (reading-state 'math)
-             (afl:local-set-state :math) 
-             (read-aloud  *read-pointer* ))
-           (read-aloud *read-pointer*))
-      (afl:tts-force))
-     )
+    (save-pointer-excursion
+      (afl:new-block
+        (afl:local-set-state afl:*global-speech-state*)
+        (if  math-flag
+             (with-reading-state (reading-state 'math)
+               (afl:local-set-state :math)
+               (read-aloud  *read-pointer* ))
+             (read-aloud *read-pointer*))
+        (afl:tts-force))
+      )
     )
   )
 
@@ -91,26 +83,26 @@
   "read current relatively"
   (afl:refresh)
   (save-pointer-excursion
-   (cond
-    ((afl-state *read-pointer*)
-     (afl:new-block
-      (afl:local-set-state (afl-state *read-pointer*))
-      (read-aloud *read-pointer* )
-      (afl:tts-force )))
-    (t  (let ((math-flag (and  (typep *read-pointer* 'math )
-                               (not (or (display-math-p *read-pointer*)
-                                        (inline-math-p *read-pointer* ))))))
-          (afl:new-block
-           (afl:local-set-state afl:*global-speech-state*)
-           (afl:local-set-state)
-           (if  math-flag
-               (with-reading-state (reading-state 'math)
-                                   (afl:local-set-state :math) 
-                                   (read-aloud  *read-pointer* ))
-             (read-aloud *read-pointer*))
-           (setf (afl-state *read-pointer*) nil)
-           (afl:tts-force  )))))
-   )
+    (cond
+      ((afl-state *read-pointer*)
+       (afl:new-block
+         (afl:local-set-state (afl-state *read-pointer*))
+         (read-aloud *read-pointer* )
+         (afl:tts-force )))
+      (t  (let ((math-flag (and  (typep *read-pointer* 'math )
+                                 (not (or (display-math-p *read-pointer*)
+                                          (inline-math-p *read-pointer* ))))))
+            (afl:new-block
+              (afl:local-set-state afl:*global-speech-state*)
+              (afl:local-set-state)
+              (if  math-flag
+                   (with-reading-state (reading-state 'math)
+                     (afl:local-set-state :math)
+                     (read-aloud  *read-pointer* ))
+                   (read-aloud *read-pointer*))
+              (setf (afl-state *read-pointer*) nil)
+              (afl:tts-force  )))))
+    )
   )
 
 ;;; Modified: Thu Feb 25 12:06:08 EST 1993
@@ -124,9 +116,9 @@
         (move-flag nil ))
     (setf move-flag
           (loop for i from 1 to n always
-                (unless (or  (equal 'undefined (previous *read-pointer* ))
-                             (null (previous *read-pointer*  )))
-                  (setf *read-pointer* (previous *read-pointer*  )))))
+                                  (unless (or  (equal 'undefined (previous *read-pointer* ))
+                                               (null (previous *read-pointer*  )))
+                                    (setf *read-pointer* (previous *read-pointer*  )))))
     (cond
       (move-flag
        (if (table-element-p *read-pointer* )
@@ -145,18 +137,18 @@
 ;;; <( Backed up old version:2)>
 
 (defun read-next (&optional (n 1 ))
-"Speak the next sibling."
-(afl:refresh)
+  "Speak the next sibling."
+  (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
           (loop for i from 1 to n always
-                (unless (or  (equal 'undefined (next *read-pointer* ))
-                             (null (next *read-pointer*  )))
-                  (setf *read-pointer* (next *read-pointer*  )))))
+                                  (unless (or  (equal 'undefined (next *read-pointer* ))
+                                               (null (next *read-pointer*  )))
+                                    (setf *read-pointer* (next *read-pointer*  )))))
     (cond
       (move-flag
-       (if (table-element-p *read-pointer*) 
+       (if (table-element-p *read-pointer*)
            (read-current-relatively)
            (read-current )))
       (t  (setf *read-pointer* save-pointer  )
@@ -178,17 +170,16 @@
         (move-flag nil ))
     (setf move-flag
           (loop for i from 1 to n always
-                (unless (or  (equal 'undefined (parent *read-pointer* ))
-                             (null (parent *read-pointer*  )))
-                  (setf *read-pointer* (parent *read-pointer*  )))))
+                                  (unless (or  (equal 'undefined (parent *read-pointer* ))
+                                               (null (parent *read-pointer*  )))
+                                    (setf *read-pointer* (parent *read-pointer*  )))))
     (if move-flag
         (read-current)
-      (and (setf *read-pointer* save-pointer  )
-           (read-aloud "Not that many parent elements. ")))
+        (and (setf *read-pointer* save-pointer  )
+             (read-aloud "Not that many parent elements. ")))
     (afl:tts-force)
     )
   )
-
 
   ;;; Function: READ-REST                                      Author: raman
   ;;; Created: Wed Sep  8 11:06:09 1993
@@ -215,16 +206,16 @@
         (move-flag nil ))
     (setf move-flag
           (loop for i from 1 to n always
-                (unless (or  (equal 'undefined (parent *read-pointer* ))
-                             (null (parent *read-pointer*  )))
-                  (setf *read-pointer* (parent *read-pointer*  )))))
+                                  (unless (or  (equal 'undefined (parent *read-pointer* ))
+                                               (null (parent *read-pointer*  )))
+                                    (setf *read-pointer* (parent *read-pointer*  )))))
     (cond
-     ((null move-flag) (read-aloud "No parent defined. ")
-      (setf *read-pointer* save-pointer))
-     (t (summarize *read-pointer*)
+      ((null move-flag) (read-aloud "No parent defined. ")
+       (setf *read-pointer* save-pointer))
+      (t (summarize *read-pointer*)
                                         ;         (move-outside-subformula-if-necessary)
-        )
-     )
+         )
+      )
     (afl:tts-force ))
   )
 
@@ -235,32 +226,32 @@
         (move-flag nil ))
     (setf move-flag
           (loop for i from 1 to n always
-                (unless (or  (equal 'undefined (next *read-pointer* ))
-                             (null (next *read-pointer*  )))
-                  (setf *read-pointer* (next *read-pointer*  )))))
+                                  (unless (or  (equal 'undefined (next *read-pointer* ))
+                                               (null (next *read-pointer*  )))
+                                    (setf *read-pointer* (next *read-pointer*  )))))
     (cond
-     ((null move-flag)
-      (afl:tts-queue (format nil
-                             "Last ~a. "
-                             (type-of *read-pointer*)) )
-      (setf *read-pointer* save-pointer))
-     (t (summarize *read-pointer*)
+      ((null move-flag)
+       (afl:tts-queue (format nil
+                              "Last ~a. "
+                              (type-of *read-pointer*)) )
+       (setf *read-pointer* save-pointer))
+      (t (summarize *read-pointer*)
                                         ;         (move-inside-subformula-if-necessary)
-        )
-     )
+         )
+      )
     (afl:tts-force ))
   )
 
 (defun move-back(&optional(n 1))
-"Move to previous sibling."
-(afl:refresh)
+  "Move to previous sibling."
+  (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
           (loop for i from 1 to n always
-                (unless (or  (equal 'undefined (previous *read-pointer* ))
-                             (null (previous *read-pointer*  )))
-                  (setf *read-pointer* (previous *read-pointer*  )))))
+                                  (unless (or  (equal 'undefined (previous *read-pointer* ))
+                                               (null (previous *read-pointer*  )))
+                                    (setf *read-pointer* (previous *read-pointer*  )))))
     (cond
       ((null move-flag)
        (afl:tts-queue
@@ -275,7 +266,6 @@
     (afl:tts-force ))
   )
 
-
 (defun read-above ()
   "Read above "
   (read-element-above *read-pointer* )
@@ -284,7 +274,7 @@
 
 (defmethod  read-element-above ((table-element table-element ))
   "Read element above if present "
-(afl:refresh)
+  (afl:refresh)
   (cond
     ((table-element-above table-element )
      (setf *read-pointer*  (table-element-above table-element  ))
@@ -293,17 +283,16 @@
     )
   )
 
-
 (defun read-below ()
   "Read what is below"
-(afl:refresh)
+  (afl:refresh)
   (read-element-below  *read-pointer* )
   (afl:tts-force )
   )
 
 (defmethod read-element-below ((table-element table-element ))
   "Read element below if present "
-(afl:refresh)
+  (afl:refresh)
   (cond
     ((table-element-below table-element )
      (setf *read-pointer*  (table-element-below table-element  ))
@@ -318,7 +307,7 @@
 
 (defmethod read-element-below ((ordinary t ))
   "Not a table element "
-(afl:refresh)
+  (afl:refresh)
   (read-aloud "not a table element. ")
   )
 
@@ -359,68 +348,64 @@
 ")
   )
 
-
-
-
 (defun read-children ()
   "Read children"
   (afl:refresh)
   (cond
-   ((or  (equal 'undefined (children *read-pointer* ))
-         (null (children *read-pointer*  )))
-    (read-aloud "no children defined. ")
+    ((or  (equal 'undefined (children *read-pointer* ))
+          (null (children *read-pointer*  )))
+     (read-aloud "no children defined. ")
+     )
+    (t (setf  *read-pointer* (children *read-pointer* ))
+       (read-current))
     )
-   (t (setf  *read-pointer* (children *read-pointer* ))
-      (read-current))
-   )
   )
-
 
 (defun move-to-attributes()
   "Move to attributes"
   (afl:refresh)
   (cond
-   ((and (typep *read-pointer* 'math-object)
-         (attributes *read-pointer*))
-    (setf *read-pointer* (attributes *read-pointer*))
-    (summarize *read-pointer*))
-   (t (read-aloud "No attributes defined. "))
-   )
+    ((and (typep *read-pointer* 'math-object)
+          (attributes *read-pointer*))
+     (setf *read-pointer* (attributes *read-pointer*))
+     (summarize *read-pointer*))
+    (t (read-aloud "No attributes defined. "))
+    )
   )
 
 (defun move-to-children ()
   "Move to children "
   (afl:refresh)
   (cond
-   ((or  (equal 'undefined (children *read-pointer* ))
-         (null (children *read-pointer*  )))
-    (read-aloud "no children defined.  "))
-   ((listp (children *read-pointer*))
-    (setf *read-pointer* (first (children *read-pointer* )))
-    (summarize *read-pointer* )
+    ((or  (equal 'undefined (children *read-pointer* ))
+          (null (children *read-pointer*  )))
+     (read-aloud "no children defined.  "))
+    ((listp (children *read-pointer*))
+     (setf *read-pointer* (first (children *read-pointer* )))
+     (summarize *read-pointer* )
                                         ;     (move-inside-subformula-if-necessary)
-    )
-   (t  (setf *read-pointer* (children *read-pointer*)
-             )
-       (summarize *read-pointer* )
+     )
+    (t  (setf *read-pointer* (children *read-pointer*)
+              )
+        (summarize *read-pointer* )
                                         ;        (move-inside-subformula-if-necessary)
-       )
-   ))
+        )
+    ))
 
 (defun move-to-contents()
   "Move read pointer to contents"
   (afl:refresh)
   (cond
-   ((listp (contents  *read-pointer*))
-    (setf *read-pointer* (first (contents  *read-pointer* )))
-    (summarize *read-pointer* ))
-   ((and (contents *read-pointer*)
-         (not (eql 'undefined (contents *read-pointer* ))))
-    (setf *read-pointer* (contents
-                          *read-pointer* ))
-    (summarize *read-pointer*))
-   (t (read-aloud "No contents. "))
-   )
+    ((listp (contents  *read-pointer*))
+     (setf *read-pointer* (first (contents  *read-pointer* )))
+     (summarize *read-pointer* ))
+    ((and (contents *read-pointer*)
+          (not (eql 'undefined (contents *read-pointer* ))))
+     (setf *read-pointer* (contents
+                           *read-pointer* ))
+     (summarize *read-pointer*))
+    (t (read-aloud "No contents. "))
+    )
   )
 
   ;;; Method: READ-NODE                                        Author: raman
@@ -428,8 +413,8 @@
 
 (defmethod read-node ((math-object math-object))
   "Read this node"
-  (save-pointer-excursion 
-   (read-math-object-and-attributes *read-pointer*))
+  (save-pointer-excursion
+    (read-math-object-and-attributes *read-pointer*))
   )
 
 (defmethod read-node((object t))
@@ -438,39 +423,38 @@
     (save-pointer-excursion (read-aloud (contents *read-pointer* ))))
   )
 
-
 (defun read-just-the-node()
   "Just read this node"
   (afl:refresh)
   (let ((save-children (children *read-pointer*)))
     (unwind-protect
-        (save-pointer-excursion
-          (setf (children *read-pointer*) nil)
-          (read-aloud *read-pointer*))
+         (save-pointer-excursion
+           (setf (children *read-pointer*) nil)
+           (read-aloud *read-pointer*))
       (setf (children *read-pointer*) save-children ))
     (afl:tts-force)))
-  
+
 (defun move-to-next-in-order()
   "Move to next in reading order"
   (afl:refresh)
   (cond
-   ((next-read  *read-pointer* )
-    (setf *read-pointer* (next-read *read-pointer* ))
-    (summarize *read-pointer*) )
-   (t (afl:tts-queue "Reading order undefined. "))
-   )
+    ((next-read  *read-pointer* )
+     (setf *read-pointer* (next-read *read-pointer* ))
+     (summarize *read-pointer*) )
+    (t (afl:tts-queue "Reading order undefined. "))
+    )
   (values)
   )
 
 (defun move-to-previous-in-order()
-    "Move to previous in reading order"
+  "Move to previous in reading order"
   (afl:refresh)
   (cond
-   ((previous-read  *read-pointer* )
-    (setf *read-pointer* (previous-read *read-pointer* ))
-    (summarize *read-pointer*) )
-   (t (afl:tts-queue "Reading order undefined. "))
-   )
+    ((previous-read  *read-pointer* )
+     (setf *read-pointer* (previous-read *read-pointer* ))
+     (summarize *read-pointer*) )
+    (t (afl:tts-queue "Reading order undefined. "))
+    )
   (values)
   )
 
@@ -478,11 +462,11 @@
   "Read next in reading order"
   (afl:refresh)
   (cond
-   ((next-read  *read-pointer* )
-    (setf *read-pointer* (next-read *read-pointer* ))
-    (read-current) )
-   (t (afl:tts-queue "Reading order undefined. "))
-   )
+    ((next-read  *read-pointer* )
+     (setf *read-pointer* (next-read *read-pointer* ))
+     (read-current) )
+    (t (afl:tts-queue "Reading order undefined. "))
+    )
   (values)
   )
 
@@ -490,130 +474,124 @@
   "Read previous  in reading order"
   (afl:refresh)
   (cond
-   ((previous-read  *read-pointer* )
-    (setf *read-pointer* (previous-read *read-pointer* ))
-    (read-current) )
-   (t (afl:tts-queue "Reading order undefined. "))
-   )
+    ((previous-read  *read-pointer* )
+     (setf *read-pointer* (previous-read *read-pointer* ))
+     (read-current) )
+    (t (afl:tts-queue "Reading order undefined. "))
+    )
   (values)
   )
-
 
 (defun move-to-top-of-math()
   "Move to top of math"
   (afl:refresh)
-  (loop while (typep (parent  *read-pointer*) 'math) do 
-        (setf *read-pointer* (parent *read-pointer* )))
+  (loop while (typep (parent  *read-pointer*) 'math) do
+    (setf *read-pointer* (parent *read-pointer* )))
   (summarize *read-pointer*)
   )
-
 
 (defun move-to-subscript ()
   "move to subscript. "
   (afl:refresh)
   (cond
-   ((subscript *read-pointer* )
-    (setf *read-pointer* (parent ( subscript *read-pointer* )))
+    ((subscript *read-pointer* )
+     (setf *read-pointer* (parent ( subscript *read-pointer* )))
                                         ; superscript return the value so need to move up
-    (summarize *read-pointer* ))
-   (t (afl:tts-queue "no subscript. "))
-   )
+     (summarize *read-pointer* ))
+    (t (afl:tts-queue "no subscript. "))
+    )
   )
-
 
 (defun move-to-superscript ()
   "move to superscript. "
   (afl:refresh)
   (cond
-   ((superscript *read-pointer* )
-    (setf *read-pointer* (parent  (superscript *read-pointer* )))
+    ((superscript *read-pointer* )
+     (setf *read-pointer* (parent  (superscript *read-pointer* )))
                                         ; superscript returns the value so need to go up
-    (summarize *read-pointer* ))
-   (t (afl:tts-queue "no superscript. "))
-   )
+     (summarize *read-pointer* ))
+    (t (afl:tts-queue "no superscript. "))
+    )
   )
 
 (defun move-to-accent ()
   "move to accent. "
   (afl:refresh)
   (cond
-   ((accent *read-pointer* )
-    (setf *read-pointer* (parent  (accent *read-pointer* )))
+    ((accent *read-pointer* )
+     (setf *read-pointer* (parent  (accent *read-pointer* )))
                                         ; accent returns the value so need to go up
-    (summarize *read-pointer* ))
-   (t (afl:tts-queue "no accent. "))
-   )
+     (summarize *read-pointer* ))
+    (t (afl:tts-queue "no accent. "))
+    )
   )
-
-
 
 (defun move-to-underbar ()
   "move to underbar. "
   (afl:refresh)
   (cond
-   ((underbar *read-pointer* )
-    (setf *read-pointer* (parent  (underbar *read-pointer* )))
+    ((underbar *read-pointer* )
+     (setf *read-pointer* (parent  (underbar *read-pointer* )))
                                         ; underbar returns the value so need to go up
-    (summarize *read-pointer* ))
-   (t (afl:tts-queue "no underbar. "))
-   )
+     (summarize *read-pointer* ))
+    (t (afl:tts-queue "no underbar. "))
+    )
   )
 
 (defun move-to-left-superscript ()
   "move to left-superscript. "
   (afl:refresh)
   (cond
-   ((left-superscript *read-pointer* )
-    (setf *read-pointer* (parent  (left-superscript *read-pointer* )))
+    ((left-superscript *read-pointer* )
+     (setf *read-pointer* (parent  (left-superscript *read-pointer* )))
                                         ; left-superscript returns the value so need to go up
-    (summarize *read-pointer* ))
-   (t (afl:tts-queue "no left-superscript. "))
-   )
+     (summarize *read-pointer* ))
+    (t (afl:tts-queue "no left-superscript. "))
+    )
   )
 (defun move-to-left-subscript ()
   "move to left-subscript. "
   (afl:refresh)
   (cond
-   ((left-subscript *read-pointer* )
-    (setf *read-pointer* (parent  (left-subscript *read-pointer* )))
+    ((left-subscript *read-pointer* )
+     (setf *read-pointer* (parent  (left-subscript *read-pointer* )))
                                         ; left-subscript returns the value so need to go up
-    (summarize *read-pointer* ))
-   (t (afl:tts-queue "no left-subscript. "))
-   )
+     (summarize *read-pointer* ))
+    (t (afl:tts-queue "no left-subscript. "))
+    )
   )
-
 
 (defun move-to-abstract ()
   "Move to the abstract. "
   (cond
-   ((and (typep *read-pointer* 'article)
-         (article-abstract *read-pointer*))
-    (setf *read-pointer*
-          (article-abstract *read-pointer* )))
-   (t (read-aloud "No abstract. "))))
+    ((and (typep *read-pointer* 'article)
+          (article-abstract *read-pointer*))
+     (setf *read-pointer*
+           (article-abstract *read-pointer* )))
+    (t (read-aloud "No abstract. "))))
 
 (defun read-follow-cross-ref(direction-flag)
   "Follow and read the closest cross reference. "
   (afl:refresh)
   (save-pointer-excursion
-   (let
-       ((successor (if direction-flag  #'previous #'next  )))
-     (loop while (and  (funcall successor *read-pointer*)
-                       (not (typep *read-pointer* 'cross-ref )))
-           do (setf *read-pointer* (funcall successor *read-pointer* )))
-     (cond
-      ((typep *read-pointer* 'cross-ref)
-       (follow-cross-reference *read-pointer*))
-      (t (afl:tts-queue "Not  a cross reference. ")))
-     (afl:tts-force))
-   )
+    (let
+        ((successor (if direction-flag  #'previous #'next  )))
+      (loop while (and  (funcall successor *read-pointer*)
+                        (not (typep *read-pointer* 'cross-ref )))
+            do (setf *read-pointer* (funcall successor *read-pointer* )))
+      (cond
+        ((typep *read-pointer* 'cross-ref)
+         (follow-cross-reference *read-pointer*))
+        (t (afl:tts-queue "Not  a cross reference. ")))
+      (afl:tts-force))
+    )
   )
 
   ;;; Function: FORWARD-SENTENCE                               Author: raman
   ;;; Created: Thu May 20 17:05:08 1993
 
-(defun read-sentence (&optional (count 1)) 
-  "Read  count sentences." 
+(defun read-sentence (&optional (count 1))
+  "Read  count sentences."
   (let
       ((parent (parent *read-pointer* )))
     (cond
@@ -627,17 +605,17 @@
                              (and   (not (end-of-sentence? *read-pointer* ))
                                     next)
                              do (save-pointer-excursion
-                                 (read-aloud next))
-                             (setf *read-pointer* next) 
-                             (setf  next (next next )))
+                                  (read-aloud next))
+                                (setf *read-pointer* next)
+                                (setf  next (next next )))
                        (when next (setf *read-pointer* next )))))
               (loop while (and (next *read-pointer* )
                                (< counter count)) do
-                               (save-pointer-excursion 
-                                ( read-aloud *read-pointer*))
-                               (read-to-end-of-sentence)
-                               (afl:tts-force)
-                               (incf counter))
+                                 (save-pointer-excursion
+                                   ( read-aloud *read-pointer*))
+                                 (read-to-end-of-sentence)
+                                 (afl:tts-force)
+                                 (incf counter))
               (cond
                 ((= counter count))
                 (t (afl:tts-queue "Not that many sentences. ")
@@ -647,8 +625,7 @@
     (values))
   )
 
-
-(defun forward-sentence (&optional (count 1)) 
+(defun forward-sentence (&optional (count 1))
   "Move forward count sentences. "
   (let
       ((parent (parent *read-pointer* )))
@@ -659,28 +636,28 @@
                  (old-position *read-pointer*)
                  (mover (if (minusp count) #'previous #'next))
                  (limit (abs count )))
-            (flet ((move-to-end-of-sentence(mover) 
+            (flet ((move-to-end-of-sentence(mover)
                      (let ((next (funcall mover  *read-pointer* )))
                        (loop while
                              (and   (not (end-of-sentence? *read-pointer* ))
                                     next)
-                             do (setf *read-pointer* next) 
-                             (setf  next (funcall mover  next )))
+                             do (setf *read-pointer* next)
+                                (setf  next (funcall mover  next )))
                        (when next (setf *read-pointer* next ))))
                    (beginning-of-sentence()
                      (let ((previous  (previous   *read-pointer* )))
                        (loop while
                              (and   (not (end-of-sentence? *read-pointer* ))
                                     previous)
-                             do (setf *read-pointer* previous) 
-                             (setf  previous  (previous   previous )))
+                             do (setf *read-pointer* previous)
+                                (setf  previous  (previous   previous )))
                        (when previous  (setf *read-pointer*
                                              (next *read-pointer* )))))
                    );end flet functions
               (loop while (and (funcall mover  *read-pointer* )
                                (< counter limit)) do
-                               (move-to-end-of-sentence mover)
-                               (incf counter))
+                                 (move-to-end-of-sentence mover)
+                                 (incf counter))
               (cond
                 ((= counter limit)
                  (when (minusp count)

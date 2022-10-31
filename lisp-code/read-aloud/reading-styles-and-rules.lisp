@@ -125,7 +125,6 @@
 ;;; Compute-applicable-methods is too inefficient at run time.
 ;;; The following function was contributed by
 ;;; <(refer to net article)>
-(proclaim '(inline lookup-effective-method))
 (defun lookup-effective-method (gf args)
   ;; Returns the actual function (effective method) that is run when
   ;; GF is applied to ARGS
@@ -138,7 +137,6 @@
 
   ;;; Function: LOOKUP-EFFECTIVE-STYLE                         Author: raman
   ;;; Created: Tue Jan 18 15:38:00 1994
-(proclaim '(inline lookup-effective-style))
 (defun lookup-effective-style (document) 
   "Lookup effective style for this document object."
   (find-if
@@ -152,7 +150,6 @@
 
   ;;; Function: COMPUTE-EFFECTIVE-STYLE                         Author: raman
   ;;; Created: Tue Jan 18 15:38:00 1994
-(proclaim '(inline compute-effective-style))
 (defun compute-effective-style (document) 
   "Compute effective style for this document object."
   (find-if

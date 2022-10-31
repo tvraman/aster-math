@@ -29,7 +29,6 @@
 
   ;;; Function: FIX-READ-LINE                                  Author: raman
   ;;; Created: Sun May 16 14:54:17 1993
-(proclaim '(inline fix-read-line))
 (defun fix-read-line (&rest args)
   "Fix read line to work under ilisp:"
   (when *buggy-ilisp-read-line* (clear-input)

@@ -27,7 +27,6 @@ document object's type is listed in this variable. ")
 
   ;;; Function: READ-ALOUD-DELAYED-FLOATS                      Author: raman
   ;;; Created: Mon Oct 25 13:34:52 1993
-(proclaim '(inline read-aloud-delayed-floats ))
 (defun read-aloud-delayed-floats (document) 
   "Read all the floating objects whose reading has been delayed. "
   (when (find (class-name (class-of document ))

@@ -30,7 +30,6 @@
   :class-name lisp-documentation)
 (define-new-environment :env-name "thesisfigure" :class-name
                         thesis-figure :supers  (figure))
-(proclaim '(inline caption-p))
 (defun caption-p (self)
   (typep  self 'caption))
 

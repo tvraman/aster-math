@@ -5,7 +5,6 @@
 (in-package :afl)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-
 (export '( get-pronunciation define-pronunciation
           with-pronunciation-mode current-pronunciation-mode
           *pronunciation-mode* *global-pronunciation-mode*
@@ -17,19 +16,16 @@
 ;;; Separate tables for text and math mode.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;; Variable: *PRONUNCIATION-MODE*                           Author: raman
 ;;; Created: Fri Sep 25 11:37:16 1992
 
 (defvar *pronunciation-mode*  :text " Current pronunciation mode")
-
 
   ;;; Variable: *GLOBAL-PRONUNCIATION-MODE*                    Author: raman
   ;;; Created: Thu Mar 25 09:14:35 1993
 
 (defvar *global-pronunciation-mode*  *pronunciation-mode*
   "Global state  for pronunciation")
-
 
   ;;; Variable: *VALID-PRONUNCIATION-MODES*                    Author: raman
   ;;; Created: Tue Feb 23 19:58:30 1993
@@ -38,11 +34,9 @@
   (list :text :math :lisp :french)
   "Valid pronunciation modes")
 
-
   ;;; Function: VALID-PRONUNCIATION-MODE?                      Author: raman
   ;;; Created: Tue Feb 23 19:59:11 1993
-(proclaim '(inline valid-pronunciation-mode? ))
-(defun valid-pronunciation-mode? (mode) 
+(defun valid-pronunciation-mode? (mode)
   "Is this a valid pronunciation mode?"
   (find mode *valid-pronunciation-modes*)
   )
@@ -50,7 +44,7 @@
 ;;; Function: CURRENT-PRONUNCIATION-MODE                     Author: raman
 ;;; Created: Mon Oct  5 16:37:15 1992
 
-(defun current-pronunciation-mode () 
+(defun current-pronunciation-mode ()
   "Return current pronunciation mode"
   *pronunciation-mode*
   )
@@ -58,21 +52,13 @@
 ;;; Function: SET-PRONUNCIATION-MODE                         Author: raman
 ;;; Created: Fri Sep 25 11:38:07 1992
 
-
-(defun set-pronunciation-mode (mode) 
+(defun set-pronunciation-mode (mode)
   "Set pronunciation mode "
   (assert (valid-pronunciation-mode? mode) nil
           "Unknown pronunciation mode ~a "
           mode)
-  (setf *pronunciation-mode* mode) 
+  (setf *pronunciation-mode* mode)
   )
-
-
-
-
-
-
-
 
 ;;; Modified: Wed Apr  7 11:46:10 EDT 1993
 ;;;; define-pronunciation, remove-pronunciation and get-pronunciation
@@ -113,25 +99,21 @@
 
 ;;; Variable: *PRONOUNCE-IGNORE-CASE-IN-TEXT*                Author: raman
 ;;; Created: Tue Nov 10 15:28:51 1992
-;;; external variable: 
+;;; external variable:
 (defvar *pronounce-ignore-case-in-text* t
   "If t case ignore in text mode when choosing pronunciation")
 
-
-
   ;;; Variable: *ALWAYS-DEHYPHENATE*                           Author: raman
   ;;; Created: Wed May  5 09:34:26 1993
-;;; external variable: 
+;;; external variable:
 (defvar *always-dehyphenate* t
   "Always dehyphenate words. Avoids the dectalk spelling out
 things. ")
 
-
-
-(defun dehyphenate-word (str) 
+(defun dehyphenate-word (str)
   "Remove hyphens and replace by spaces."
   (let ((result " "))
-    (loop for w in 
+    (loop for w in
                 (uiop:split-string str :separator "-")
           do
              (setq result (concatenate 'string result w " ")))
@@ -147,7 +129,7 @@ things. ")
     (or
      (gethash
       (if *pronounce-ignore-case-in-text* lcs string)
-              *text-mode-pronunciations*)
+      *text-mode-pronunciations*)
      (if *always-dehyphenate* (dehyphenate-word string) string))))
 
 ;;}}}
@@ -165,7 +147,6 @@ things. ")
 
 (defvar *pronounce-ignore-case-in-math* nil
   "If t ignore case when deciding pronunciation")
-
 
 ;;; Method: DEFINE-PRONUNCIATION                           Author: raman
 ;;; Created: Fri Sep 25 11:42:42 1992
@@ -186,7 +167,6 @@ things. ")
 
   ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
   ;;; Created: Wed Apr  7 12:03:12 1993
-(proclaim '(inline get-pronounce-internal))
 (defmethod get-pronounce-internal ((string string) (mode (eql :math )))
   "Internal method for getting pronunciation in math mode"
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
@@ -195,7 +175,7 @@ things. ")
      (gethash (if *pronounce-ignore-case-in-math* lower-case-string
                   string)
               *math-mode-pronunciations*)
-     string  )                          ; second disjunct: default  is string 
+     string  )                          ; second disjunct: default  is string
     )
   )
 
@@ -232,10 +212,8 @@ things. ")
 (defvar *pronounce-ignore-case-in-french* t
   "If t case ignore in french mode when choosing pronunciation")
 
-
   ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
   ;;; Created: Wed Apr  7 12:03:12 1993
-(proclaim '(inline get-pronounce-internal))
 (defmethod get-pronounce-internal ((string string) (mode (eql :french )))
   "Internal method for getting pronunciation in french mode"
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
@@ -244,12 +222,12 @@ things. ")
      (gethash (if *pronounce-ignore-case-in-french* lower-case-string
                   string)
               *french-mode-pronunciations*)
-     string  )                          ; second disjunct: default  is string 
+     string  )                          ; second disjunct: default  is string
     )
   )
 
 ;;}}}
-;;{{{ lisp mode 
+;;{{{ lisp mode
 
   ;;; Variable: *LISP-MODE-PRONUNCIATIONS*                     Author: raman
   ;;; Created: Tue Feb 23 20:01:46 1993
@@ -257,7 +235,6 @@ things. ")
 (defvar *lisp-mode-pronunciations*
   (make-hash-table :test #'equal)
   "Lisp mode pronunciations")
-
 
 ;;; Method: DEFINE-PRONUNCIATION                           Author: raman
 ;;; Created: Fri Sep 25 11:42:42 1992
@@ -290,10 +267,6 @@ things. ")
 
 ;;}}}
 
-
-
-
-
 ;;; Function: get-PRONUNCIATION                              Author: raman
 ;;; Created: Fri Sep 25 11:48:28 1992
 ;;; Modified: Thu Dec 10 11:01:23 EST 1992
@@ -306,7 +279,6 @@ things. ")
   (get-pronounce-internal    string mode)
   )
 
-
 ;;; Modified: Wed Apr  7 12:01:45 EDT 1993
 ;;; since get-pronunciation has been written to use an optional
 ;;; argument,  defining an internal method get-pronunciation-internal
@@ -315,17 +287,14 @@ things. ")
 
   ;;; Function: HYPHENATED-LISP-WORD-P                         Author: raman
   ;;; Created: Tue Feb 23 20:14:14 1993
-(proclaim '(inline hyphenated-lisp-word-p))
-(defun hyphenated-lisp-word-p (string) 
+(defun hyphenated-lisp-word-p (string)
   "Is this a hyphenated lisp word, ie more than one hyphen?"
   (> (count #\- string :test #'char=) 0)
   )
 
-
   ;;; Function: DEHYPHENATE-LISP-WORD                          Author: raman
   ;;; Created: Tue Feb 23 20:16:25 1993
-(proclaim '(inline dehyphenate-lisp-word))
-(defun dehyphenate-lisp-word (str) 
+(defun dehyphenate-lisp-word (str)
   "Remove hyphens and replace by spaces."
   (concatenate 'string (uiop:split-string str :separator "-" )))
 
@@ -335,22 +304,20 @@ things. ")
 ;;; Modified: Thu Mar 25 09:39:59 EST 1993
 ;;; Use afl blocks.
 
-
-(defmacro with-pronunciation-mode  ((&key mode ) &body body) 
+(defmacro with-pronunciation-mode  ((&key mode ) &body body)
   "Execute body in this pronunciation mode. "
   `(new-block
-    (local-set-state ,mode)
-    ,@body)
+     (local-set-state ,mode)
+     ,@body)
   )
 
-(defmacro old-with-pronunciation-mode  ((&key mode ) &body body) 
+(defmacro old-with-pronunciation-mode  ((&key mode ) &body body)
   "Execute body in this pronunciation mode. "
   `(let  ((saved-mode *pronunciation-mode*))
-    (unwind-protect
-         (progn
-           (set-pronunciation-mode  ,mode)
-           ,@body)
-      (set-pronunciation-mode saved-mode))
-    )
+     (unwind-protect
+          (progn
+            (set-pronunciation-mode  ,mode)
+            ,@body)
+       (set-pronunciation-mode saved-mode))
+     )
   )
-
