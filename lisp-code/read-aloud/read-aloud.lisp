@@ -144,21 +144,24 @@
 
 (defmethod read-aloud ((article article))
   "read aloud an article"
+  (afl:tts-init)
+  (unless afl:*current-speech-state*
+    (afl:initialize-speech-space))
   (afl:new-block
     (when *play-signature-tune*(afl:tts-icon *article-open-cue*))
     (when (article-title article)
       (with-reading-state (reading-state 'annotation-voice)
-        (read-aloud   "Title. "))
+        (afl:tts-queue    "Title[_.] "))
       (with-reading-state (reading-state 'title-voice)
         (read-aloud (article-title article ))))
     (when (article-author article)
       (with-reading-state (reading-state 'annotation-voice)
-        (read-aloud  " By, "))
+        (afl:tts-queue   " By[_,] "))
       (with-reading-state (reading-state 'title-voice)
         (read-aloud (article-author article ))))
     (when (article-date article)
       (with-reading-state (reading-state 'annotation-voice)
-        (read-aloud "  Date, "))
+        (afl:tts-queue "  Date, "))
       (with-reading-state (reading-state 'title-voice)
         (read-aloud (article-date article ))))
     (when (article-abstract article)
