@@ -19,7 +19,6 @@
   (asdf:load-system :pronounce)
   (asdf:load-system :read-aloud)
   (asdf:load-system :browse)
-  (afl:initialize-speech-space)
   (mapc #'asdf:load-system
         '(
           "vavasis-book"
