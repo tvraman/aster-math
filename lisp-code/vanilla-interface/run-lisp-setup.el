@@ -1,4 +1,4 @@
-
+;;; This file is obsolete and is here for historical reasons.
 ;;; load this to use run-lisp  with clisp 
 
 (require 'cl)

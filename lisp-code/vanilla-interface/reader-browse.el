@@ -5,24 +5,23 @@
 ;;; Use C-b as a prefix key.
 ;;; send command to lisp and move point to the end of the buffer in
 ;;; each command.
-(defvar reader-browse-keymap nil 
-"Keymap used by the browser for AsTeR. ")
+(defvar reader-browse-keymap nil
+  "Keymap used by the browser for AsTeR. ")
 
-                                        (setq reader-browse-keymap (copy-keymap global-map ))
+(setq reader-browse-keymap (copy-keymap global-map ))
 (defvar reader-browser-prefix "\C-b"
   "prefix key to use for browser ")
 
 (global-set-key reader-browser-prefix reader-browse-keymap)
 
-
 (define-key reader-browse-keymap "a" 'reader-read-above)
 (define-key reader-browse-keymap "d" 'reader-read-below)
 (define-key reader-browse-keymap "f"
-  'reader-follow-bookmark)
+            'reader-follow-bookmark)
 (define-key reader-browse-keymap "m"
-  'reader-mark-read-pointer)
+            'reader-mark-read-pointer)
 (define-key reader-browse-keymap "p"
-  'reader-read-previous)
+            'reader-read-previous)
 (define-key reader-browse-keymap "n" 'reader-read-next)
 (define-key reader-browse-keymap "P" 'reader-read-parent )
 (define-key reader-browse-keymap "c" 'reader-read-rest)
@@ -32,7 +31,7 @@
 (define-key reader-browse-keymap "j" 'reader-move-to-children )
 (define-key reader-browse-keymap "\C-a" 'reader-move-to-abstract)
 (define-key reader-browse-keymap "h"
-  'reader-move-back) 
+            'reader-move-back)
 (define-key reader-browse-keymap "l" 'reader-move-forward)
 (define-key reader-browse-keymap '[left] 'reader-move-back)
 (define-key reader-browse-keymap '[right] 'reader-move-forward)
@@ -48,7 +47,7 @@
 (define-key reader-browse-keymap "s" 'reader-stop-reading)
 (define-key reader-browse-keymap "g" 'reader-read-follow-cross-ref)
 (define-key reader-browse-keymap   reader-browser-prefix
-  'switch-to-browse-keymap)
+            'switch-to-browse-keymap)
 (define-key reader-browse-keymap "\C-d" 'read-aloud-region)
 ;;; now for the functions:
 (defun move-to-end-of-lisp-buffer()
@@ -58,8 +57,8 @@
     (goto-char (point-max ))))
 
 (defun reader-move-back (arg)
-  "Move the selection   to the previous sibling. 
-Numeric prefix arg specifies how much to move, 
+  "Move the selection   to the previous sibling.
+Numeric prefix arg specifies how much to move,
 default is to move by 1. "
   (interactive "p")
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
@@ -68,9 +67,9 @@ default is to move by 1. "
   (move-to-end-of-lisp-buffer))
 
 (defun reader-move-forward (arg)
-"Move the selection   to the next  sibling. 
-Numeric prefix arg specifies how much to move, 
-default is to move by 1. "  
+  "Move the selection   to the next  sibling.
+Numeric prefix arg specifies how much to move,
+default is to move by 1. "
   (interactive "p")
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
                         (format "(move-forward %s )\n"
@@ -78,8 +77,8 @@ default is to move by 1. "
   (move-to-end-of-lisp-buffer))
 
 (defun reader-move-up (arg)
-  "Move the selection   to the parent. 
-Numeric prefix arg specifies how much to move, 
+  "Move the selection   to the parent.
+Numeric prefix arg specifies how much to move,
 default is to move by 1. "
   (interactive "p")
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
@@ -155,7 +154,7 @@ With prefix arg look back. "
   )
 
 (defun reader-read-next (arg)
-  "Move selection to the next sibling, and read it. 
+  "Move selection to the next sibling, and read it.
 Prefix numeric arg specifies how much to move, default is 1."
   (interactive "p")
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
@@ -165,7 +164,7 @@ Prefix numeric arg specifies how much to move, default is 1."
   )
 
 (defun reader-read-previous (arg)
-  "Move selection to the previous sibling, and read it. 
+  "Move selection to the previous sibling, and read it.
 Prefix numeric arg specifies how much to move, default is 1."
   (interactive "p")
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
@@ -175,7 +174,7 @@ Prefix numeric arg specifies how much to move, default is 1."
   )
 
 (defun reader-read-parent (arg)
-  "Move selection to the parent , and read it. 
+  "Move selection to the parent , and read it.
 Prefix numeric arg specifies how much to move, default is 1."
   (interactive "p")
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
@@ -185,7 +184,7 @@ Prefix numeric arg specifies how much to move, default is 1."
   )
 
 (defun reader-read-above ()
-  "If in a matrix or other tabular structure, move the current selection to the element above it, 
+  "If in a matrix or other tabular structure, move the current selection to the element above it,
 and read it. "
   (interactive)
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
@@ -194,7 +193,7 @@ and read it. "
   )
 
 (defun reader-read-below ()
-  "If in a matrix or other tabular structure, 
+  "If in a matrix or other tabular structure,
  move the current selection to the element below it, and read it."
   (interactive)
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
@@ -217,16 +216,16 @@ With prefix arg, move the current selection as well."
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
                         (format " %s \n"
                                 (if arg "(goto-bookmark )"
-                                    "(follow-bookmark )" )))
+                                  "(follow-bookmark )" )))
   (move-to-end-of-lisp-buffer)
   )
 
 (defun reader-mark-read-pointer()
-  "Mark current selection" 
+  "Mark current selection"
   (interactive)
   (process-send-string
-  (get-buffer-process inferior-lisp-buffer)
- (format " (mark-read-pointer) \n" ))
+   (get-buffer-process inferior-lisp-buffer)
+   (format " (mark-read-pointer) \n" ))
   (move-to-end-of-lisp-buffer)
   )
 
@@ -266,8 +265,6 @@ With prefix arg, move the current selection as well."
   (move-to-end-of-lisp-buffer)
   )
 
-
-
 (defun reader-read-just-this-node ()
   "Just speak the node that is the current selection, rather than the entire subtree rooted at this node.
 Useful when traversing complex math expressions. "
@@ -284,25 +281,25 @@ Useful when traversing complex math expressions. "
   (process-send-string  (get-buffer-process inferior-lisp-buffer)
                         (if arg
                             (format "(read-current-relatively) \n")
-                            (format "(read-current )\n")
-                            ))
+                          (format "(read-current )\n")
+                          ))
   (move-to-end-of-lisp-buffer)
   )
 
-(defun reader-to-top(arg) 
+(defun reader-to-top(arg)
   "Move the selection  to root of document
-with prefix arg move to top of math. " 
+with prefix arg move to top of math. "
   (interactive "P")
   (process-send-string (get-buffer-process inferior-lisp-buffer)
                        (if arg
                            (format "(move-to-top-of-math )\n")
-                           (format "(progn 
+                         (format "(progn
 (afl:refresh)
 (type-of (setf *read-pointer* *document*)) \n
 (summarize *read-pointer*) \n
 (afl:force-speech)\n )\n")
-  )
-))
+                         )
+                       ))
 
 (defvar aster-browse-minor-mode nil "if t browse keymap is on")
 (make-variable-buffer-local 'aster-browse-minor-mode)
@@ -319,18 +316,18 @@ with prefix arg move to top of math. "
 (defun switch-to-browse-keymap()
   (interactive)
   "Toggle between inferior   lisp  local keymap and browse keymap"
-(declare (special aster-browse-minor-mode))
+  (declare (special aster-browse-minor-mode))
   (switch-to-buffer inferior-lisp-buffer)
   (cond
-    (aster-browse-minor-mode
-     (setq aster-browse-minor-mode nil)
-     (use-local-map inferior-lisp-buffer-keymap)
-     (message "Exitting Aster's browsing mode. Use %s to re-enter this mode. "
-              (key-description (substitute-command-keys "\\[switch-to-browse-keymap]"))))
-    (t (setq aster-browse-minor-mode t)
-       (use-local-map reader-browse-keymap )
-       (message "Entering Aster's browse mode. Use  %s to return to normal. "
-                (key-description (substitute-command-keys "\\[switch-to-browse-keymap]")))))
+   (aster-browse-minor-mode
+    (setq aster-browse-minor-mode nil)
+    (use-local-map inferior-lisp-buffer-keymap)
+    (message "Exitting Aster's browsing mode. Use %s to re-enter this mode. "
+             (key-description (substitute-command-keys "\\[switch-to-browse-keymap]"))))
+   (t (setq aster-browse-minor-mode t)
+      (use-local-map reader-browse-keymap )
+      (message "Entering Aster's browse mode. Use  %s to return to normal. "
+               (key-description (substitute-command-keys "\\[switch-to-browse-keymap]")))))
   )
 
 (defun reader-quit-reading()
@@ -345,13 +342,12 @@ with prefix arg move to top of math. "
     ))
 
 (defun reader-stop-reading()
-  "Stop reading. 
+  "Stop reading.
 The current selection is left on the last object that was spoken."
   (interactive)
   (set-buffer inferior-lisp-buffer)
   (comint-interrupt-subjob)
   (message "Stopped reading" )
   )
-
 
 (provide 'reader-browse)
