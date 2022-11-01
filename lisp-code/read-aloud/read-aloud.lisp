@@ -161,7 +161,7 @@
         (read-aloud (article-author article ))))
     (when (article-date article)
       (with-reading-state (reading-state 'annotation-voice)
-        (afl:tts-queue "  Date, "))
+        (afl:tts-queue "  Date[_,] "))
       (with-reading-state (reading-state 'title-voice)
         (read-aloud (article-date article ))))
     (when (article-abstract article)
