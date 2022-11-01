@@ -18,7 +18,6 @@
     ((:file "rule-and-style-macros")
      (:file "read-aloud"
       :depends-on ("rule-and-style-macros"))
-     ;(:file "time-readings" :depends-on  ("read-aloud"))
      )
     :depends-on ( "font-definitions" "user-input" "reading-state"))
    (:module  "font-definitions"
