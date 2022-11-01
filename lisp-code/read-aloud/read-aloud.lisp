@@ -133,7 +133,6 @@
   "Prepare system for reading."
   (unless afl:*current-speech-state*
     (afl:initialize-speech-space)
-   
     (setf (afl-state document) afl:*current-speech-state*))
   (reset-footnote-counter))
 
