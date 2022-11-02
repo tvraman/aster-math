@@ -62,21 +62,23 @@
 
 ;;}}}
 ;;{{{Interactive Functions:
+(defun aster-post-startup ()
+  "Announce AsTeR is ready by starting TTS."
+  (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
+        (afl-init "(afl:tts-init)"))
+    (slime-eval-save afl-init)
+    (slime-eval-save welcome)))
+
 (defun aster ()
   "Load and configure AsTeR."
   (interactive)
-  (cl-declare (special aster-setup
-                       slime-default-connection))
-  (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
-        (afl-init "(afl:tts-init)"))
-    (while (not slime-default-connection)
-        (slime)
-        (sit-for 1))
-      (accept-process-output)
-    (slime-load-file aster-setup)
-    (accept-process-output)
-    (slime-eval-save afl-init)
-    (slime-eval-save welcome)))
+  (cl-declare (special aster-setup slime-default-connection))
+  (while (not slime-default-connection)
+    (slime)
+    (sit-for 1))
+  (slime-load-file aster-setup)
+  (sit-for 1)
+  (accept-process-output))
 
 (defun aster-cmd (string)
   "Read Aster sexp from minibuffer and run it."
