@@ -6,10 +6,10 @@
 (require "asdf")
 (asdf:clear-source-registry)
 
-(defvar *lisp-code-directory*
+(defvar *lisp-dir*
   (let* ((where (namestring  #.   *load-truename*))
            (index (search "/"where :from-end t )))
-        (concatenate 'string (subseq where 0 index) "/lisp-code/"))
+        (concatenate 'string (subseq where 0 index) "/lisp/"))
   "directory under which lisp code is organized")
 
 (defun aster ()
