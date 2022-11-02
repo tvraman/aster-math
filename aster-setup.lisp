@@ -8,8 +8,8 @@
 
 (defvar *lisp-dir*
   (let* ((where (namestring  #.   *load-truename*))
-           (index (search "/"where :from-end t )))
-        (concatenate 'string (subseq where 0 index) "/lisp/"))
+         (index (search "/"where :from-end t )))
+    (concatenate 'string (subseq where 0 index) "/lisp/"))
   "directory under which lisp code is organized")
 
 (defun aster ()
@@ -50,14 +50,7 @@
 
 (aster-setup)
 
-(defun read-aloud-file (filename)
-  "Read aloud this file by first parsing it. "
-  (declare (special *document*))
-  (setf *document* (parse-article filename))
-  (read-aloud *document* ))
-
 (defun aster-test ()
   "Test Aster by loading test documents."
   (setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
   (setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex")))
-
