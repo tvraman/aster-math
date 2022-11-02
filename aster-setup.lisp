@@ -56,5 +56,8 @@
   (setf *document* (parse-article filename))
   (read-aloud *document* ))
 
-;(setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
-;(setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex"))
+(defun aster-test ()
+  "Test Aster by loading test documents."
+  (setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
+  (setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex")))
+
