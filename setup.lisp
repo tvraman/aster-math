@@ -5,10 +5,13 @@
 
 (require "asdf")
 (asdf:clear-source-registry)
+(defvar *aster-root* nil
+  "Project root.")
 
 (defvar *lisp-dir*
   (let* ((where (namestring  #.   *load-truename*))
          (index (search "/"where :from-end t )))
+    (setq *aster-root* (subseq where 0 index))
     (concatenate 'string (subseq where 0 index) "/lisp/"))
   "directory under which lisp code is organized")
 
@@ -52,5 +55,5 @@
 
 (defun aster-test ()
   "Test Aster by loading test documents."
-  (setq s (parse-article "/home/raman/emacs/lisp/aster-math/etc/short.tex"))
-  (setq d (parse-article "/home/raman/emacs/lisp/aster-math/etc/test.tex")))
+  (setq s (parse-article (concatenate 'string *aster-root* "/etc/short.tex")))
+  (setq d (parse-article (concatenate 'string *aster-root* "/etc/test.tex"))))
