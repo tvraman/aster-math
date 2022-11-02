@@ -21,7 +21,7 @@
   (with-open-file (in-stream filename)
     (let ((process
             (run-program
-             (namestring  (merge-pathnames "lexer/lispify" *lisp-code-directory*))
+             (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*))
              nil
              :input in-stream :wait t :output  :stream)))
       (create-article
