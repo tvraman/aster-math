@@ -7,4 +7,5 @@ auto/
 **.lib
 **.fas
 **.fasl
+**.elc
 lisp/lexer/lispify
