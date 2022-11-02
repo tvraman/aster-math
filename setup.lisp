@@ -52,5 +52,5 @@
 
 (defun aster-test ()
   "Test Aster by loading test documents."
-  (setq s (parse-article "/home/raman/emacs/lisp/aster-math/short.tex"))
-  (setq d (parse-article "/home/raman/emacs/lisp/aster-math/test.tex")))
+  (setq s (parse-article "/home/raman/emacs/lisp/aster-math/etc/short.tex"))
+  (setq d (parse-article "/home/raman/emacs/lisp/aster-math/etc/test.tex")))
