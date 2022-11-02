@@ -54,15 +54,27 @@
   "Common Lisp file loaded to configure Aster.")
 
 ;;}}}
+;;{{{Helpers:
+
+(defsubst aster-code-to-string (code)
+  "Return string representation of code."
+  (prin1-to-string code))
+
+;;}}}
 ;;{{{Interactive Functions:
 (defun aster ()
   "Load and configure AsTeR."
   (interactive)
-  (cl-declare (special aster-setup))
+  (cl-declare (special aster-setup
+                       slime-default-connection))
   (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
-          (afl-init "(afl:tts-init)"))
-    (unless (slime-current-connection) (slime))
+        (afl-init "(afl:tts-init)"))
+    (while (not slime-default-connection)
+        (slime)
+        (sit-for 1))
+      (accept-process-output)
     (slime-load-file aster-setup)
+    (accept-process-output)
     (slime-eval-save afl-init)
     (slime-eval-save welcome)))
 
