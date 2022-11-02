@@ -42,8 +42,8 @@
 ;;{{{ Configure locations:
 
 (defvar aster-root
-  (expand-file-name "../" (file-name-directory load-file-name))
-  "Directory where common-lisp files are stored.")
+  (expand-file-name ".." (file-name-directory load-file-name))
+  "Aster Project Root")
 
 (defvar aster-lisp-dir
   (expand-file-name "lisp/" aster-root)
@@ -66,12 +66,14 @@
   "Prepare Aster once slime is ready."
   (cl-declare (special aster-setup))
   (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
-        (afl-init "(afl:tts-init)"))
+        (afl-init "(afl:tts-init)")
+        (aster-test  (aster-code-to-string '(aster-test))))
     (slime-load-file aster-setup)
     (accept-process-output)
     (sit-for 1)
     (slime-eval-save afl-init)
-    (slime-eval-save welcome)))
+    (slime-eval-save welcome)
+    (slime-eval-save aster-test)))
 
 (add-hook
  'slime-connected-hook
@@ -86,10 +88,10 @@
     (sit-for 1))
   (accept-process-output))
 
-(defun aster-cmd (string)
+(defun aster-cmd (sexp)
   "Read Aster sexp from minibuffer and run it."
-  (interactive (list (read-from-minibuffer "Aster Sexp:")))
-  (slime-eval-save string))
+  (interactive (list (read-minibuffer "Aster:")))
+  (slime-eval-save (aster-code-to-string sexp)))
 
 ;;}}}
 (provide 'aster)
