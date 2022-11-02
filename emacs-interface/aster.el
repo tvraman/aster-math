@@ -59,15 +59,12 @@
   "Load and configure AsTeR."
   (interactive)
   (cl-declare (special aster-setup))
-    (if-let
-        ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
-         (afl-init "(afl:tts-init)")
-         (_live (buffer-live-p (get-buffer "*inferior-lisp*"))))
-        (progn
-          (or (slime-connection) (slime))
-          (slime-load-file aster-setup)
-          (slime-eval-save afl-init)
-          (slime-eval-save welcome))))
+  (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
+          (afl-init "(afl:tts-init)"))
+    (unless (slime-current-connection) (slime))
+    (slime-load-file aster-setup)
+    (slime-eval-save afl-init)
+    (slime-eval-save welcome)))
 
 (defun aster-cmd (string)
   "Read Aster sexp from minibuffer and run it."
