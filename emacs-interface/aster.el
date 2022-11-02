@@ -63,21 +63,27 @@
 ;;}}}
 ;;{{{Interactive Functions:
 (defun aster-post-startup ()
-  "Announce AsTeR is ready by starting TTS."
+  "Prepare Aster once slime is ready."
+  (cl-declare (special aster-setup))
   (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
         (afl-init "(afl:tts-init)"))
+    (slime-load-file aster-setup)
+    (accept-process-output)
+    (sit-for 1)
     (slime-eval-save afl-init)
     (slime-eval-save welcome)))
 
+(add-hook
+ 'slime-connected-hook
+ 'aster-post-startup
+ 'at-end)
+
 (defun aster ()
-  "Load and configure AsTeR."
+  "Start Slime For AsTeR"
   (interactive)
-  (cl-declare (special aster-setup slime-default-connection))
-  (while (not slime-default-connection)
+  (while (not (slime-connected-p))
     (slime)
     (sit-for 1))
-  (slime-load-file aster-setup)
-  (sit-for 1)
   (accept-process-output))
 
 (defun aster-cmd (string)
