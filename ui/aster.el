@@ -50,7 +50,7 @@
   "Directory where common-lisp files are stored.")
 
 (defvar aster-setup
-  (expand-file-name "aster-setup.lisp" aster-root)
+  (expand-file-name "setup.lisp" aster-root)
   "Common Lisp file loaded to configure Aster.")
 
 ;;}}}
