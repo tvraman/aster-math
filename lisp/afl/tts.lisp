@@ -134,7 +134,7 @@
 
 (defun tts-icon (icon)
   "No-op for now ."
-  (when nil 
+  (when nil  ; no-op
     (let ((i (tts-input (tts))))
       (unless i (setq i (tts-open)))
       (format i "a {~a}~%" (icon-file icon))
