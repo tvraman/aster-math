@@ -112,7 +112,11 @@
   "Send region to aster to be read out."
   (interactive "r")
   (let ((text (buffer-substring-no-properties start end))
-        (file (make-temp-file "aster" nil ".tex")))
+        (file
+         (or (get-text-property start 'aster-file)
+             (make-temp-file "aster" nil ".tex"))))
+    (unless (get-text-property (point) 'aster-file)
+      (put-text-property start end 'aster-file file))
     (with-temp-file file
       (insert "\\begin{document}\n")
       (insert text)
