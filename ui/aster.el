@@ -65,6 +65,12 @@
   (cl-declare (special aster-ready))
   (cl-assert aster-ready t "First setup and start Aster"))
 
+
+(defun aster-eval (string)
+  "Like slime-eval-save but using auditory icons."
+  (slime-eval-async `(swank:eval-and-grab-output ,string)
+    (lambda (result) (emacspeak-auditory-icon 'task-done))))
+
 ;;}}}
 ;;{{{Interactive Commands:
 
@@ -79,8 +85,8 @@
     (slime-load-file aster-setup)
     (accept-process-output)
     (sit-for 1)
-    (slime-eval-save afl-init)
-    (slime-eval-save welcome)
+    (aster-eval afl-init)
+    (aster-eval welcome)
     (setq aster-ready t)))
 
 (add-hook
@@ -99,7 +105,7 @@
 (defun aster-cmd (sexp)
   "Run Aster command,  a sexp."
   (interactive (list (read-minibuffer "Aster:")))
-  (slime-eval-save (a--code sexp)))
+  (aster-eval (a--code sexp)))
 
 (defun aster-file (file)
   "Run Aster on specified file."
