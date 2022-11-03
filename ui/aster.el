@@ -69,7 +69,7 @@
 (defun aster-eval (string)
   "Like slime-eval-save but using auditory icons."
   (slime-eval-async `(swank:eval-and-grab-output ,string)
-    (lambda (result) (emacspeak-auditory-icon 'task-done))))
+    (lambda (_result) t)))
 
 ;;}}}
 ;;{{{Interactive Commands:
