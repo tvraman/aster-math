@@ -2,12 +2,11 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :cl-user)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
 
 ;;; Mon Dec 28 14:02:10 EST 1992
 ;;; Cross references.
@@ -25,10 +24,8 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (defparameter *follow-cross-ref-wait* 1
   "Follow cross reference behaviour. ")
-
 
   ;;; Parameter: *CROSS-REF-CUE*                               Author: raman
   ;;; Created: Sat May  1 15:21:47 1993
@@ -42,10 +39,10 @@
   referenced object and continue.
  Behaviour determined by *follow-cross-ref-wait*. If 0, do not prompt.
 If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
-  (unless (zerop *follow-cross-ref-wait*) 
+  (unless (zerop *follow-cross-ref-wait*)
     (afl:tts-icon *cross-ref-cue*)
     (y-or-n-p    *follow-cross-ref-wait*
-                           "Follow cross ref? ")
+                 "Follow cross ref? ")
     )
   )
 
@@ -59,7 +56,7 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
       (read-cross-reference (points-to cross-reference-label  )))
     (when (follow-cross-reference?)
       (save-pointer-excursion
-       (follow-cross-reference cross-ref )))
+        (follow-cross-reference cross-ref )))
     )
   )
 
@@ -74,9 +71,9 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
                        (points-to cross-reference-label  ))))
     (when cross-reference-label
       (afl:new-block
-       (afl:local-set-state (afl-state ref-object ))
-       (read-aloud ref-object )))
-    )  
+        (afl:local-set-state (afl-state ref-object ))
+        (read-aloud ref-object )))
+    )
   )
 
   ;;; Method: READ-CROSS-REFERENCE                             Author: raman
@@ -94,7 +91,6 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (afl:tts-force)
   )
 
-
   ;;; Method: READ-CROSS-REFERENCE                             Author: raman
   ;;; Created: Mon Dec 28 16:59:39 1992
 
@@ -102,7 +98,7 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   "Read a cross reference equation"
   (cond ((label math-equation)
          (read-aloud (label-name (label  math-equation ))))
-        (t (read-aloud "equation")
+        (t (afl:tts-queue  "equation")
            (read-aloud math-equation ))
         )
   )
@@ -120,7 +116,7 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   "Read cross referenced figure"
   (cond
     ((label figure) (read-aloud
-                              (label-name (label figure )))
+                     (label-name (label figure )))
      (afl:tts-force)
      (afl:tts-pause 1)
      (read-aloud (caption figure)))
@@ -133,7 +129,7 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   "Read cross referenced table"
   (cond
     ((label table) (read-aloud
-                              (label-name (label table )))
+                    (label-name (label table )))
      (afl:tts-force)
      (afl:tts-pause 1)
      (read-aloud (caption table)))
@@ -141,7 +137,6 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
        (read-aloud (caption  table )))
     )
   )
-
 
 (defmethod read-cross-reference ((labelled-class labelled-class ))
   "read cross references that are labelled"
@@ -152,4 +147,3 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
 (defmethod read-cross-reference((object t )) nil)
 
 (defmethod points-to ((ordinary t )) nil)
-
