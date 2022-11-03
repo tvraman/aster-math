@@ -116,7 +116,8 @@
          (or (get-text-property start 'aster-file)
              (make-temp-file "aster" nil ".tex"))))
     (unless (get-text-property (point) 'aster-file)
-      (put-text-property start end 'aster-file file))
+      (put-text-property start end 'aster-file file)
+      (set-buffer-modified-p nil))
     (with-temp-file file
       (insert "\\begin{document}\n")
       (insert text)
