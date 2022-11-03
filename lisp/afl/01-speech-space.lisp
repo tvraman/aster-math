@@ -64,8 +64,7 @@
 (defstruct dimension
   (name nil)
   (value nil)
-  (step-size nil)
-  )
+  (step-size nil))
 
 ;;;
 
