@@ -118,6 +118,7 @@
   "Send region to aster to be read out."
   (interactive "r")
   (let ((text (buffer-substring-no-properties start end))
+        (inhibit-read-only t)
         (file
          (or (get-text-property start 'aster-file)
              (make-temp-file "aster" nil ".tex"))))
