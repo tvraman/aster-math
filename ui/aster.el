@@ -56,9 +56,10 @@
 ;;}}}
 ;;{{{Helpers:
 
-(defsubst aster-code-to-string (code)
-  "Return string representation of code."
+(defsubst a--code (code)
+  "Return string representation of code; prin1-to-string."
   (prin1-to-string code))
+
 (defsubst aster-check ()
   "Assert that Aster is ready"
   (cl-declare (special aster-ready))
@@ -74,7 +75,7 @@
   (cl-declare (special aster-setup aster-ready))
   (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
         (afl-init "(afl:tts-init)")
-        (aster-test  (aster-code-to-string '(aster-test))))
+        (slime-eval-save   (a--code '(aster-test))))
     (slime-load-file aster-setup)
     (accept-process-output)
     (sit-for 1)
@@ -97,16 +98,15 @@
   (accept-process-output))
 
 (defun aster-cmd (sexp)
-  "Read Aster sexp from minibuffer and run it."
+  "Run Aster command,  a sexp."
   (interactive (list (read-minibuffer "Aster:")))
-  (slime-eval-save (aster-code-to-string sexp)))
+  (slime-eval-save (a--code sexp)))
 
 (defun aster-file (file)
   "Run Aster on specified file."
   (interactive "fFile: ")
   (aster-check)
-  (slime-eval-save
-   (aster-code-to-string `(aster-file ,file))))
+   (aster-cmd `(aster-file ,file)))
 
 ;;}}}
 (provide 'aster)
