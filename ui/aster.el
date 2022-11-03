@@ -67,6 +67,7 @@
 
 ;;}}}
 ;;{{{Interactive Commands:
+
 (defvar aster-ready nil
   "Flag to record if Aster is ready.")
 
@@ -74,14 +75,12 @@
   "Prepare Aster once slime is ready."
   (cl-declare (special aster-setup aster-ready))
   (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
-        (afl-init "(afl:tts-init)")
-        (slime-eval-save   (a--code '(aster-test))))
+        (afl-init "(afl:tts-init)"))
     (slime-load-file aster-setup)
     (accept-process-output)
     (sit-for 1)
     (slime-eval-save afl-init)
     (slime-eval-save welcome)
-    (slime-eval-save aster-test)
     (setq aster-ready t)))
 
 (add-hook
@@ -107,6 +106,18 @@
   (interactive "fFile: ")
   (aster-check)
    (aster-cmd `(aster-file ,file)))
+
+
+(defun aster-region (start end)
+  "Send region to aster to be read out."
+  (interactive "r")
+  (let ((text (buffer-substring-no-properties start end))
+        (file (make-temp-file "aster" nil ".tex")))
+    (with-temp-file file
+      (insert "\\begin{document}\n")
+      (insert text)
+      (insert "\\end{document}\n"))
+    (aster-file file)))
 
 ;;}}}
 (provide 'aster)
