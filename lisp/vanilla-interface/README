@@ -1,4 +1,0 @@
-;;; The .el files in this directory define the emacs interface to the
-;;; reader
-;;; Load these files, to read a document mark off the region and use
-read-aloud-region. 
