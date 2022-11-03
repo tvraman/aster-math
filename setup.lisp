@@ -58,6 +58,6 @@
   (setq s (parse-article (concatenate 'string *aster-root* "/etc/short.tex")))
   (setq d (parse-article (concatenate 'string *aster-root* "/etc/test.tex"))))
 
-(defun read-aloud-file (filename)
+(defun aster-file (filename)
   "Parse and read-aloud TeX file."
   (read-aloud (parse-article filename)))
