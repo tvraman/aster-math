@@ -177,10 +177,10 @@
     ("s" aster-stop)
     ("t" aster-to-top)
     ("u" aster-read-above)
-    ([down] aster-move-to-children )
-    ([left] aster-move-back)
-    ([right] aster-move-forward)
-    ([up] aster-move-up)
+    ("<down>" aster-move-to-children )
+    ("<left>" aster-move-back)
+    ("<right>" aster-move-forward)
+    ("<up>" aster-move-up)
 
     )
   
