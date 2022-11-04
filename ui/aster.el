@@ -201,8 +201,6 @@
 
 '(
     ("m" aster-mark)
-    
-    
     ("r" aster-this-node)
     ("s" aster-stop)
     ("t" aster-top)
@@ -298,16 +296,28 @@
   (interactive)
   (aster-cmd '(move-to-contents )))
 
-(defun aster-read-previous ()
+(defun aster-previous ()
   "Move to previous and read it."
   (interactive)
   (aster-cmd '(read-previous )))
 
 
-(defun aster-read-next ()
+(defun aster-next ()
   "Move to next and read it."
   (interactive)
   (aster-cmd '(read-next )))
+
+(defun aster-top ()
+  "Move to top and read"
+  (interactive)
+  t)
+
+(defun aster-stop ()
+  "Stop speech"
+  (interactive)
+  (aster-cmd '(afl:tts-stop )))
+
+
 ;;}}}
 (provide 'aster)
 ;;{{{ end of file
