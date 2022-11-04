@@ -22,6 +22,8 @@
   "Return current read-pointer position. "
   *read-pointer*
   )
+(defvar *document* nil
+  "Cache document pointer used in browser.")
 
 (defmacro save-article (save-variable &optional (article *document*))
   "Save article (default *document*) in save-variable. "
@@ -94,7 +96,6 @@
                                           (inline-math-p *read-pointer* ))))))
             (afl:new-block
               (afl:local-set-state afl:*global-speech-state*)
-              (afl:local-set-state)
               (if  math-flag
                    (with-reading-state (reading-state 'math)
                      (afl:local-set-state :math)
