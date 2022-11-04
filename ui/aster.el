@@ -66,7 +66,6 @@
   (cl-declare (special aster-ready))
   (cl-assert aster-ready t "First setup and start Aster"))
 
-
 (defun aster-eval (string)
   "Like slime-eval-save but using auditory icons."
   (slime-eval-async `(swank:eval-and-grab-output ,string)
@@ -114,8 +113,7 @@
   "Run Aster on specified file."
   (interactive "fFile: ")
   (aster-check)
-   (aster-cmd `(aster-file ,file)))
-
+  (aster-cmd `(aster-file ,file)))
 
 (defun aster-region (start end)
   "Send region to aster to be read out."
@@ -143,7 +141,6 @@
 (define-prefix-command 'aster-keymap   'aster-keymap)
 (global-set-key  (kbd "C-; SPC") 'aster-keymap)
 
-
 (defsubst aster-keymap-bindings-update (keymap bindings)
   "Update keymap with  list of bindings."
   (cl-loop
@@ -152,7 +149,7 @@
    (define-key keymap (kbd (cl-first binding)) (cl-second binding))))
 
 (defcustom aster-keys
- '(
+  '(
     ("." aster-current)
     ("A" aster-to-attributes)
     ("C" aster-children)
@@ -179,8 +176,8 @@
     ("<down>" aster-to-children )
     ("<left>" aster-to-left)
     ("<right>" aster-to-right)
-    ("<up>" aster-to-up)) 
-  
+    ("<up>" aster-to-up))
+
   "Aster key bindings. "
   :group 'aster
   :type '(repeat
@@ -200,35 +197,20 @@
 ;;}}}
 ;;{{{Navigators:
 
-'(
-    ("m" aster-mark)
-    ("r" aster-this-node)
-    ("s" aster-stop)
-    ("t" aster-top)
-    ("u" aster-above)
-    ("<down>" aster-to-children )
-    ("<left>" aster-to-left)
-    ("<right>" aster-to-right)
-    ("<up>" aster-to-up)
-)
-
 (defun aster-current ()
   "Aster current node."
   (interactive)
   (aster-cmd '(read-current)))
-
 
 (defun aster-to-attributes ()
   "Move to attributes"
   (interactive)
   (aster-cmd '(move-to-attributes )))
 
-
 (defun aster-to-children ()
   "Move to children"
   (interactive)
   (aster-cmd '(move-to-children )))
-
 
 (defun aster-to-abstract ()
   "Move to abstract"
@@ -254,6 +236,12 @@
   "Move to superscript"
   (interactive)
   (aster-cmd '(move-to-superscript )))
+
+(defun aster-above ()
+  "If in a matrix or other tabular structure,
+ move the current selection to the element above it, and read it."
+  (interactive)
+  (aster-cmd '(move-to-abovebelow )))
 
 (defun aster-below ()
   "If in a matrix or other tabular structure,
@@ -302,7 +290,6 @@
   (interactive)
   (aster-cmd '(read-previous )))
 
-
 (defun aster-next ()
   "Move to next and read it."
   (interactive)
@@ -317,7 +304,6 @@
   "Stop speech"
   (interactive)
   (aster-cmd '(afl:tts-stop )))
-
 
 (defun aster-to-top ()
   "Move to document root."
