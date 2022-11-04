@@ -200,15 +200,9 @@
 ;;{{{Navigators:
 
 '(
-    
-    ("h" aster-to-left)
-    ("i" aster-to-to-contents)
-    ("j" aster-to-to-children )
-    ("k" aster-to-up)
-    ("l" aster-to-right)
     ("m" aster-mark)
-    ("n" aster-next)
-    ("p" aster-previous)
+    
+    
     ("r" aster-this-node)
     ("s" aster-stop)
     ("t" aster-to-top)
@@ -284,8 +278,37 @@
   (interactive)
   (aster-cmd '(read-follow-cross-ref )))
 
-;;}}}
+(defun aster-to-left ()
+  "Move left"
+  (interactive)
+  (aster-cmd '(move-back )))
 
+(defun aster-to-right ()
+  "Move right"
+  (interactive)
+  (aster-cmd '(move-forward )))
+
+(defun aster-to-up ()
+  "Move up"
+  (interactive)
+  (aster-cmd '(move-up )))
+
+(defun aster-to-contents ()
+  "Move to contents"
+  (interactive)
+  (aster-cmd '(move-to-contents )))
+
+(defun aster-read-previous ()
+  "Move to previous and read it."
+  (interactive)
+  (aster-cmd '(read-previous )))
+
+
+(defun aster-read-next ()
+  "Move to next and read it."
+  (interactive)
+  (aster-cmd '(read-next )))
+;;}}}
 (provide 'aster)
 ;;{{{ end of file
 
