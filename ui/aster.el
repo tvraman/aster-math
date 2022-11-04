@@ -151,7 +151,39 @@
 
 (defcustom aster-keys
   '(
-    ("SPC"  aster-current))
+    ("." aster-read-current)
+    ("A" aster-move-to-attributes)
+    ("C" aster-read-children)
+    ("C-a" aster-move-to-abstract)
+    ("C-f" aster-file)
+    ("C-r" aster-region)
+    ("P" aster-read-parent )
+    ("SPC" aster-read-current)
+    ("^" aster-move-to-superscript )
+    ("_" aster-move-to-subscript)
+    ("d" aster-read-below)
+    ("f"aster-follow-bookmark)
+    ("g" aster-read-follow-cross-ref)
+    ("h" aster-move-back)
+    ("i" aster-move-to-contents)
+    ("j" aster-move-to-children )
+    ("k" aster-move-up)
+    ("l" aster-move-forward)
+    ("m" aster-mark-read-pointer)
+    ("n" aster-read-next)
+    ("p" aster-read-previous)
+    ("q" aster-quit-reading)
+    ("r" aster-read-just-this-node)
+    ("s" aster-stop)
+    ("t" aster-to-top)
+    ("u" aster-read-above)
+    ([down] aster-move-to-children )
+    ([left] aster-move-back)
+    ([right] aster-move-forward)
+    ([up] aster-move-up)
+
+    )
+  
   "Aster key bindings. "
   :group 'aster
   :type '(repeat
