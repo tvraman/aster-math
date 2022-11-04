@@ -200,14 +200,6 @@
 ;;{{{Navigators:
 
 '(
-    ("." aster-current)
-    ("A" aster-to-to-attributes)
-    ("C" aster-children)
-    ("C-a" aster-to-to-abstract)
-    ("C-f" aster-file)
-    ("C-r" aster-region)
-    ("P" aster-parent )
-    ("SPC" aster-rest)
     ("^" aster-to-to-superscript )
     ("_" aster-to-to-subscript)
     ("d" aster-below)
@@ -230,6 +222,39 @@
     ("<right>" aster-to-right)
     ("<up>" aster-to-up)
 )
+
+(defun aster-current ()
+  "Aster current node."
+  (interactive)
+  (aster-cmd '(read-current)))
+
+
+(defun aster-to-attributes ()
+  "Move to attributes"
+  (interactive)
+  (aster-cmd '(move-to-attributes )))
+
+
+(defun aster-to-children ()
+  "Move to children"
+  (interactive)
+  (aster-cmd '(move-to-children )))
+
+
+(defun aster-to-abstract ()
+  "Move to abstract"
+  (interactive)
+  (aster-cmd '(move-to-abstract )))
+
+(defun aster-parent ()
+  "Move to and read parent."
+  (interactive)
+  (aster-cmd '(read-parent )))
+
+(defun aster-rest ()
+  "Read rest of current node."
+  (interactive)
+  (aster-cmd '(read-rest  *read-pointer* )))
 
 ;;}}}
 (provide 'aster)
