@@ -132,6 +132,43 @@
     (aster-file file)))
 
 ;;}}}
+;;{{{Key Bindings:
+
+
+(defvar  aster-keymap nil
+  " aster Keymap")
+
+(define-prefix-command 'aster-keymap   'aster-keymap)
+(global-set-key  (ems-kbd "C-. a") 'aster-keymap)
+
+
+(defsubst aster-keymap-bindings-update (keymap bindings)
+  "Update keymap with  list of bindings."
+  (cl-loop
+   for binding in bindings
+   do
+   (define-key keymap (kbd (cl-first binding)) (cl-second binding))))
+
+(defcustom aster-keys
+  '(
+    ("SPC"  aster-current))
+  "Aster key bindings. "
+  :group 'aster
+  :type '(repeat
+          :tag "Emacspeak Super Keymap"
+          (list
+           :tag "Key Binding"
+           (key-sequence :tag "Key")
+           (ems-interactive-command :tag "Command")))
+  :set
+  #'(lambda (sym val)
+      (aster-keymap-bindings-update aster-keymap  val)
+      (set-default sym
+                   (sort
+                    val
+                    #'(lambda (a b) (string-lessp (car a) (car b)))))))
+
+;;}}}
 (provide 'aster)
 ;;{{{ end of file
 
