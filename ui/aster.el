@@ -139,7 +139,7 @@
   " aster Keymap")
 
 (define-prefix-command 'aster-keymap   'aster-keymap)
-(global-set-key  (ems-kbd "C-. a") 'aster-keymap)
+(global-set-key  (kbd "C-. a") 'aster-keymap)
 
 
 (defsubst aster-keymap-bindings-update (keymap bindings)
