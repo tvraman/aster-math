@@ -22,8 +22,7 @@
   "Return current read-pointer position. "
   *read-pointer*
   )
-(defvar *document* nil
-  "Cache document pointer used in browser.")
+
 
 (defmacro save-article (save-variable &optional (article *document*))
   "Save article (default *document*) in save-variable. "

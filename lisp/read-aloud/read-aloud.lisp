@@ -101,6 +101,8 @@
 (defmethod read-aloud ( (token t))
   "default method to read aloud "
   (when token (afl:tts-queue token)))
+(defvar *document* nil
+  "Cache document pointer used in browser.")
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Sat Apr 11 20:58:00 1992
@@ -147,6 +149,7 @@
   (afl:tts-init)
   (unless afl:*current-speech-state*
     (afl:initialize-speech-space))
+  (setf *document* article)
   (afl:new-block
     (when *play-signature-tune*(afl:tts-icon *article-open-cue*))
     (when (article-title article)
