@@ -126,7 +126,7 @@
            (read-current-relatively)
            (read-current)))
       (t  (setf *read-pointer* save-pointer  )
-          (afl:tts-queue
+          (afl:tts-speak
            (format nil
                    "First ~a. "
                    (type-of *read-pointer*)))))
@@ -177,7 +177,7 @@
     (if move-flag
         (read-current)
         (and (setf *read-pointer* save-pointer  )
-             (read-aloud "Not that many parent elements. ")))
+             (afl:tts-speak "Not that many parent elements. ")))
     (afl:tts-force)
     )
   )
@@ -197,9 +197,8 @@
     ((and (parent  start-position)
           (not (equal 'undefined (parent start-position ))))
      (read-rest  (parent  start-position) nil))
-                                        ;(t (read-aloud "Nothing to read? "))
-    )
-  )
+    (t (afl:tts-speak "Nothing to read? "))))
+
 (defun move-up (&optional(n 1))
   "Move to parent."
   (afl:refresh)
@@ -211,7 +210,7 @@
                                                (null (parent *read-pointer*  )))
                                     (setf *read-pointer* (parent *read-pointer*  )))))
     (cond
-      ((null move-flag) (read-aloud "No parent defined. ")
+      ((null move-flag) (afl:tts-speak "No parent defined. ")
        (setf *read-pointer* save-pointer))
       (t (summarize *read-pointer*)
                                         ;         (move-outside-subformula-if-necessary)
@@ -280,7 +279,7 @@
     ((table-element-above table-element )
      (setf *read-pointer*  (table-element-above table-element  ))
      (read-current-relatively))
-    (t (read-aloud "top row. "))
+    (t (afl:tts-speak "top row. "))
     )
   )
 
@@ -298,18 +297,18 @@
     ((table-element-below table-element )
      (setf *read-pointer*  (table-element-below table-element  ))
      (read-current-relatively))
-    (t (read-aloud "Bottom row. ")))
+    (t (afl:tts-speak "Bottom row. ")))
   )
 
 (defmethod read-element-above ((ordinary t ))
   "Not a table element "
-  (read-aloud "not a table element. ")
+  (afl:tts-speak "not a table element. ")
   )
 
 (defmethod read-element-below ((ordinary t ))
   "Not a table element "
   (afl:refresh)
-  (read-aloud "not a table element. ")
+  (afl:tts-speak "not a table element. ")
   )
 
 (defun move-above()
@@ -322,12 +321,12 @@
   (if  (table-element-above table-element )
        (type-of (setf *read-pointer*  (table-element-above
                                        table-element  )))
-       (read-aloud "top row. "))
+       (afl:tts-speak "top row. "))
   )
 
 (defmethod move-to-element-above ((ordinary t ))
   "No where to go "
-  (read-aloud "No above element defined for this object. ")
+  (afl:tts-speak "No above element defined for this object. ")
   )
 
 (defun move-below ()
@@ -340,12 +339,12 @@
   (if  (table-element-below table-element )
        (type-of (setf *read-pointer* (table-element-below
                                       table-element )))
-       (read-aloud "bottom row. "))
+       (afl:tts-speak "bottom row. "))
   )
 
 (defmethod move-to-element-below ((ordinary t))
   "No where to go"
-  (read-aloud "Current object does not have an element below defined.
+  (afl:tts-speak "Current object does not have an element below defined.
 ")
   )
 
@@ -355,7 +354,7 @@
   (cond
     ((or  (equal 'undefined (children *read-pointer* ))
           (null (children *read-pointer*  )))
-     (read-aloud "no children defined. ")
+     (afl:tts-speak "no children defined. ")
      )
     (t (setf  *read-pointer* (children *read-pointer* ))
        (read-current))
@@ -370,7 +369,7 @@
           (attributes *read-pointer*))
      (setf *read-pointer* (attributes *read-pointer*))
      (summarize *read-pointer*))
-    (t (read-aloud "No attributes defined. "))
+    (t (afl:tts-speak "No attributes defined. "))
     )
   )
 
@@ -380,7 +379,7 @@
   (cond
     ((or  (equal 'undefined (children *read-pointer* ))
           (null (children *read-pointer*  )))
-     (read-aloud "no children defined.  "))
+     (afl:tts-speak "no children defined.  "))
     ((listp (children *read-pointer*))
      (setf *read-pointer* (first (children *read-pointer* )))
      (summarize *read-pointer* )
@@ -405,7 +404,7 @@
      (setf *read-pointer* (contents
                            *read-pointer* ))
      (summarize *read-pointer*))
-    (t (read-aloud "No contents. "))
+    (t (afl:tts-speak "No contents. "))
     )
   )
 
@@ -569,7 +568,7 @@
           (article-abstract *read-pointer*))
      (setf *read-pointer*
            (article-abstract *read-pointer* )))
-    (t (read-aloud "No abstract. "))))
+    (t (afl:tts-speak "No abstract. "))))
 
 (defun read-follow-cross-ref(direction-flag)
   "Follow and read the closest cross reference. "
