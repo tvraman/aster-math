@@ -37,6 +37,7 @@
 (require 'cl-lib)
 (cl-declaim  (optimize  (safety 0) (speed 3)))
 (require 'slime)
+(require 'repeat)
 
 ;;}}}
 ;;{{{ Configure locations:
@@ -103,9 +104,11 @@
   (accept-process-output))
 
 (defun aster-cmd (sexp)
-  "Run Aster command,  a sexp."
+  "Run Aster command,  a sexp, after first stopping speech."
   (interactive (list (read-minibuffer "Aster:")))
-  (aster-eval (a--code sexp)))
+  (aster-eval
+   (a--code
+    `(progn (afl:tts-stop) ,sexp))))
 
 (defun aster-file (file)
   "Run Aster on specified file."
@@ -262,9 +265,9 @@
 
 (defun aster-above ()
   "If in a matrix or other tabular structure,
- move the current selection to the element above it, and read it."
+ move the current selection to the element above it and read it."
   (interactive)
-  (aster-cmd '(move-to-above )))
+  (aster-cmd '(read-above )))
 
 (defun aster-to-bookmark ()
   "Move to bookmark"
@@ -317,6 +320,15 @@
   (interactive)
   (aster-cmd '(afl:tts-stop )))
 
+
+;;}}}
+;;{{{Setup Repeat Mode
+
+(map-keymap
+ (lambda (_key cmd)
+   (when (symbolp cmd)
+     (put cmd 'repeat-map 'aster-keymap)))
+ aster-keymap)
 
 ;;}}}
 (provide 'aster)
