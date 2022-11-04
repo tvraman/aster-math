@@ -197,7 +197,7 @@
     ((and (parent  start-position)
           (not (equal 'undefined (parent start-position ))))
      (read-rest  (parent  start-position) nil))
-    (t (afl:tts-speak "Nothing to read? "))))
+    (t nil)))
 
 (defun move-up (&optional(n 1))
   "Move to parent."
