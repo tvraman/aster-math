@@ -176,7 +176,7 @@
     ("p" aster-previous)
     ("r" aster-this-node)
     ("s" aster-stop)
-    ("t" aster-top)
+    ("t" aster-to-top)
     ("u" aster-above)
     ("<down>" aster-to-children )
     ("<left>" aster-to-left)
@@ -320,6 +320,12 @@
   (interactive)
   (aster-cmd '(afl:tts-stop )))
 
+
+(defun aster-to-top ()
+  "Move to document root."
+  (interactive)
+  (aster-eval
+      '(summarize *document*)))
 
 ;;}}}
 ;;{{{Setup Repeat Mode
