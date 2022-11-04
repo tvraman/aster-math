@@ -325,7 +325,10 @@
   "Move to document root."
   (interactive)
   (aster-eval
-      '(summarize *document*)))
+   (a--code
+    '(progn
+       (setf *read-pointer* *document*)
+       (afl:tts-speak "Moved to document root.")))))
 
 ;;}}}
 ;;{{{Setup Repeat Mode

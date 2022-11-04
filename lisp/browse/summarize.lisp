@@ -205,9 +205,7 @@
     ((article-title article)
      (save-pointer-excursion
       (read-aloud (article-title article ))))
-    (t (afl:tts-queue "article. "))
-    )
-  )
+    (t (afl:tts-queue "article. "))))
 
 (defmethod summarize ((attribute attribute ))
   "Summarize an attribute. "
