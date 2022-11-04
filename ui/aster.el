@@ -200,11 +200,7 @@
 ;;{{{Navigators:
 
 '(
-    ("^" aster-to-to-superscript )
-    ("_" aster-to-to-subscript)
-    ("d" aster-below)
-    ("f"aster-to-bookmark)
-    ("g" aster-to-cross-ref)
+    
     ("h" aster-to-left)
     ("i" aster-to-to-contents)
     ("j" aster-to-to-children )
@@ -256,7 +252,40 @@
   (interactive)
   (aster-cmd '(read-rest  *read-pointer* )))
 
+(defun aster-to-subscript ()
+  "Move to subscript"
+  (interactive)
+  (aster-cmd '(move-to-subscript )))
+
+(defun aster-to-superscript ()
+  "Move to superscript"
+  (interactive)
+  (aster-cmd '(move-to-superscript )))
+
+(defun aster-below ()
+  "If in a matrix or other tabular structure,
+ move the current selection to the element below it, and read it."
+  (interactive)
+  (aster-cmd '(move-to-below )))
+
+(defun aster-above ()
+  "If in a matrix or other tabular structure,
+ move the current selection to the element above it, and read it."
+  (interactive)
+  (aster-cmd '(move-to-above )))
+
+(defun aster-to-bookmark ()
+  "Move to bookmark"
+  (interactive)
+  (aster-cmd '(goto-bookmark )))
+
+(defun aster-to-cross-ref ()
+  "Move to cross-ref"
+  (interactive)
+  (aster-cmd '(read-follow-cross-ref )))
+
 ;;}}}
+
 (provide 'aster)
 ;;{{{ end of file
 
