@@ -13,13 +13,9 @@
    (:file "tts")
    (:file "global-variables")
    (:file "01-speech-space"
-    :depends-on
-    ( "global-variables" "05-block-structure"))
+    :depends-on ( "global-variables" "tts"))
    (:file "02-user-definitions"
-    :depends-on
-    ("global-variables"
-      "01-speech-space"
-      "07-final-scaling"))
+    :depends-on ("01-speech-space"))
    (:file "03-standard-voice-definitions")
    (:file "04-moving-in-speech-space")
    (:file "05-block-structure" )
