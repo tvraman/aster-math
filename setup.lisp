@@ -1,7 +1,7 @@
 ;;;   -*- Mode: LISP -*- ;;;
 
-;; Place etc/10-aster.conf in  ~/.config/common-lisp/source-registry.conf.
-;; for registering and finding packages
+;; Place etc/10-aster.conf in  ~/.config/common-lisp/source-registry.conf.d/
+;; for registering and finding packages.
 
 (require "asdf")
 (asdf:clear-source-registry)
@@ -13,7 +13,7 @@
           (namestring
            (uiop:pathname-directory-pathname   #.   *load-truename*))))
     (setq *aster-root* where)
-    (concatenate 'string where "/lisp/"))
+    (concatenate 'string where "lisp/"))
   "directory under which lisp code is organized")
 
 (defun aster ()
