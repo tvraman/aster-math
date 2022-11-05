@@ -67,7 +67,7 @@
   (cl-assert aster-ready t "First setup and start Aster"))
 
 (defun aster-eval (string)
-  "Like slime-eval-save but using auditory icons."
+  "Like slime-eval-save."
   (slime-eval-async `(swank:eval-and-grab-output ,string)
     (lambda (_result) t)))
 
@@ -295,24 +295,17 @@
   (interactive)
   (aster-cmd '(read-next )))
 
-(defun aster-top ()
-  "Move to top and read"
-  (interactive)
-  t)
-
 (defun aster-stop ()
   "Stop speech"
   (interactive)
   (aster-cmd '(afl:tts-stop )))
 
-(defun aster-to-top ()
-  "Move to document root."
-  (interactive)
-  (aster-eval
-   (a--code
-    '(progn
-       (setf *read-pointer* *document*)
-       (afl:tts-speak "Moved to document root.")))))
+(defun aster-to-top (prefix)
+  "Move to root of math expression, or to document root."
+  (interactive "P")
+  (if prefix
+      (aster-eval (a--code '(setf *read-pointer* *document*)))
+    (aster-eval (a--code '(move-to-top-of-math)))))
 
 ;;}}}
 ;;{{{Setup Repeat Mode
