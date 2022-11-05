@@ -10,6 +10,7 @@
           *pronunciation-mode* *global-pronunciation-mode*
           *pronounce-ignore-case-in-text*
           *always-dehyphenate*
+          dehyphenate-word
           ))
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
 ;;; Pronunciation tables for dectalk.

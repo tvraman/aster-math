@@ -175,6 +175,24 @@
                                         ; so the struct gets defined before it is used:
 
 (define-point-in-speech-space)
+
+
+;;; Macro: WITH-LAZY-SET-STATE                               Author: raman
+;;; Created: Tue Aug 25 14:49:17 1992
+
+(defmacro with-lazy-set-state (&body body)
+  "Locally sets *lazy-set-state* to t and executes body and then
+unsets *lazy-set-state*"
+  `(let ((save-value afl::*lazy-set-state*))
+     (unwind-protect
+          (progn
+            (setf *lazy-set-state* t)
+            ,@body)
+       (setf afl::*lazy-set-state* save-value)
+       )
+     )
+  )
+
 ;;; The following function relies on the list representation of the
 ;;; structure point-in-speech-space and will have to be changed if the
 ;;; structure representation for points in speech space is modified.

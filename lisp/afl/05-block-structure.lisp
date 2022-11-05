@@ -242,22 +242,6 @@ dimension-list"
    (find 'right-volume dimension-list))
   )
 
-;;; Macro: WITH-LAZY-SET-STATE                               Author: raman
-;;; Created: Tue Aug 25 14:49:17 1992
-
-(defmacro with-lazy-set-state (&body body)
-  "Locally sets *lazy-set-state* to t and executes body and then
-unsets *lazy-set-state*"
-  `(let ((save-value afl::*lazy-set-state*))
-     (unwind-protect
-          (progn
-            (setf *lazy-set-state* t)
-            ,@body)
-       (setf afl::*lazy-set-state* save-value)
-       )
-     )
-  )
-
 ;;; <(old versions and comments backed up)>
 
 ;;; Wed Feb 10 12:11:45 EST 1993

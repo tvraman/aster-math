@@ -48,7 +48,7 @@
   ;;; Parameter: *GET-LABEL-WAIT*                              Author: raman
   ;;; Created: Sat May  1 12:55:39 1993
 
-(defparameter *get-label-wait* 1
+(defparameter *get-label-wait* 0
   "Seconds to wait to see if user wants to enter a label")
 
 
@@ -60,8 +60,7 @@
 Wait for *get-label-wait* seconds before returning. "
   (unless (zerop *get-label-wait*)
     (afl:tts-icon *prompt-cue*)
-    (when (y-or-n-p    *get-label-wait*
-                                 "Do you want to enter a new label. ")
+    (when (y-or-n-p "Do you want to enter a new label. ")
       (afl:tts-queue "enter label. ")
       (format t "~% enter label.~% ")
       (fix-read-line ))))
