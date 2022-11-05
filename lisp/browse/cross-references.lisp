@@ -24,7 +24,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *follow-cross-ref-wait* 1
+(defparameter *follow-cross-ref-wait* 0
   "Follow cross reference behaviour. ")
 
   ;;; Parameter: *CROSS-REF-CUE*                               Author: raman
@@ -41,8 +41,7 @@
 If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (unless (zerop *follow-cross-ref-wait*)
     (afl:tts-icon *cross-ref-cue*)
-    (y-or-n-p    *follow-cross-ref-wait*
-                 "Follow cross ref? ")
+    (y-or-n-p "Follow cross ref? ")
     )
   )
 
