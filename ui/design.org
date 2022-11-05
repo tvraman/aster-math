@@ -6,13 +6,18 @@
   - AsTeR accepts TeX/LaTeX markup and produces audio-formatted spoken renderings.
   - UI is implemented in Emacs and integrated with Emacspeak.
   - Slime provides our Lisp IDE.
-  - The communication to AsTeR is implemented using [[https://quickref.common-lisp.net/swank-client.html][Swank]] which is
-    also used by Slime.
+  - Emacs commands send snippets of Lisp to a running Common-Lisp
+    interpreter to control Aster.
+  
 
 * Pre-requisites 
 
   - Install package /slime/ using M-x package-install
-  - Install /SBCL/ Common Lisp using  your linux system's package manager.
+  - Install /SBCL/  and /cl-asdf/using  your linux system's package manager.
+  - Install Software DECTalk from Github.
+  - Install Emacspeak from Github --- Aster uses the Emacspeak
+    speech-server to communicate with the DECTalk.
+
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
