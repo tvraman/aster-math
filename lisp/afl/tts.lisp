@@ -48,7 +48,7 @@
 (defstruct tts engine process input output )
 
 (defvar *emacspeak*
-  (sb-unix::posix-getenv "EMACSPEAK_DIR")
+  (uiop:getenv "EMACSPEAK_DIR")
   "Root of Emacspeak installation.")
 
 (defun tts-location (engine)
