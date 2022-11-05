@@ -9,10 +9,11 @@
   "Project root.")
 
 (defvar *lisp-dir*
-  (let* ((where (namestring  #.   *load-truename*))
-         (index (search "/"where :from-end t )))
-    (setq *aster-root* (subseq where 0 index))
-    (concatenate 'string (subseq where 0 index) "/lisp/"))
+  (let ((where
+          (namestring
+           (uiop:pathname-directory-pathname   #.   *load-truename*))))
+    (setq *aster-root* where)
+    (concatenate 'string where "/lisp/"))
   "directory under which lisp code is organized")
 
 (defun aster ()
