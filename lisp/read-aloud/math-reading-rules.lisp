@@ -193,8 +193,9 @@
   "Simple reading rule for equations. Uses directional audio"
   (let ((equation (contents math-equation ))
         (number (anumber math-equation ))
-        (label-name  (when (label math-equation)
-                       (label-name (label math-equation  )))))
+        (label-name
+          (when (label math-equation)
+            (label-name (label math-equation  )))))
     (afl:new-block
       (afl:local-set-state :math)
       (afl:local-set-state (reading-state 'math ) )
