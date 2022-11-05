@@ -51,7 +51,7 @@
   "Directory where common-lisp files are stored.")
 
 (defvar aster-setup
-  (expand-file-name "setup.lisp" aster-root)
+  (expand-file-name "aster.lisp" aster-root)
   "Common Lisp file loaded to configure Aster.")
 
 ;;}}}
@@ -304,7 +304,11 @@
   "Move to root of math expression, or to document root."
   (interactive "P")
   (if prefix
-      (aster-eval (a--code '(setf *read-pointer* *document*)))
+      (aster-eval
+       (a--code
+        '(progn
+           (setf *read-pointer* *document*)
+           (summarize *document*))))
     (aster-eval (a--code '(move-to-top-of-math)))))
 
 ;;}}}
