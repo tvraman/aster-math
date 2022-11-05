@@ -47,8 +47,10 @@
 ;;; A TTS structure holds the engine name, process handle, and input/output streams.
 (defstruct tts engine process input output )
 
-(defvar *emacspeak* "/home/raman/emacs/lisp/emacspeak/"
+(defvar *emacspeak*
+  (sb-unix::posix-getenv "EMACSPEAK_DIR")
   "Root of Emacspeak installation.")
+
 (defun tts-location (engine)
   "Return location of specified engine."
   (declare (special *emacspeak* *tts-log*))
