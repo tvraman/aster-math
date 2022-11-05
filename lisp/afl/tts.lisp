@@ -109,7 +109,8 @@
           (sb-ext:run-program
            (tts-engine handle) nil :wait nil :input :stream))
     (setf (tts-input handle) (sb-ext:process-input (tts-process handle)))
-    (write-line (format nil "tts_set_punctuations all") (tts-input handle))
+    (write-line (format nil "tts_set_punctuations some") (tts-input handle))
+    
     (force-output (tts-input handle))))
 
 (defun icon-file (icon)
