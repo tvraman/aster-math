@@ -19,5 +19,4 @@
    (:file "03-standard-voice-definitions")
    (:file "04-moving-in-speech-space")
    (:file "05-block-structure" )
-   (:file "06-synthesizer-codes")
-   (:file "07-final-scaling")))
+   (:file "06-synthesizer-codes")))
