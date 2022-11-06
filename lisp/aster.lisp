@@ -6,7 +6,6 @@
 (require "asdf")
 (asdf:clear-source-registry)
 
-
 (defvar *lisp-dir*
   (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))
   "directory under which lisp code is organized")
@@ -16,9 +15,8 @@
   (mapc #'asdf:load-system
         '(:parser :afl :pronounce :read-aloud :browse))
   (mapc #'asdf:load-system
-        '("vavasis-book" "vanloan-book" "tcs-chicago"
-          "rz-book" "norvig-book" "gries-book"
-          "dennis-math-books" "cs611-notes"))
+        '( :vavasis-book :vanloan-book :tcs-chicago :rz-book
+          :norvig-book :gries-book :dennis-math-books :cs611-notes))
   ;; configure rules and  styles:
   (activate-rule 'stackrel 'default)
   (activate-rule 'overbrace 'default)
