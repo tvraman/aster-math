@@ -38,5 +38,3 @@
         *get-label-wait* 0))
 
 (aster)
-
-
