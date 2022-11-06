@@ -7,7 +7,7 @@ function aster_snoop () {
     index=$(pacmd list-sink-inputs  | grep -B 15 DECtalk  |grep index | cut -d ':' -f 2)
     echo "DECtalk sink at $index"
     pacmd move-sink-input   $index    snoop 
-    parec -d snoop.monitor | oggenc -b 192 -o /tmp/aster-$$.ogg --raw -
+    parec -d snoop.monitor | oggenc -o /tmp/aster-$$.ogg --raw -
 }
 
 
