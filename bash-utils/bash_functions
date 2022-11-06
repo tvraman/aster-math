@@ -1,10 +1,11 @@
 # -*- mode: shell-script -*-
 # Assumes a pulse device <snoop> --- see default.pa from emacspeak
 #Start Aster talking, then run this in a shell to record.
+# Recording is found in /tmp/aster$$.ogg
 
 function aster_snoop () {
     index=$(pacmd list-sink-inputs  | grep -B 15 DECtalk  |grep index | cut -d ':' -f 2)
     echo "DECtalk sink at $index"
     pacmd move-sink-input   $index    snoop 
-    parec --verbose -d snoop.monitor | oggenc -b 192 -o /tmp/aster.ogg --raw -
+    parec -d snoop.monitor | oggenc -b 192 -o /tmp/aster-$$.ogg --raw -
 }
