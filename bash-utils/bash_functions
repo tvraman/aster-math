@@ -4,19 +4,15 @@
 # Recording is found in /tmp/aster$$.ogg
 
 function aster_snoop () {
-    index=$(pacmd list-sink-inputs  | grep -B 15 DECtalk  |grep index | cut -d ':' -f 2)
-    echo "DECtalk sink at $index"
-    pacmd move-sink-input   $index    snoop 
+    i=$(pacmd list-sink-inputs | grep -B 15 DEC  |grep index | cut -d ':' -f 2)
+    echo "DECtalk sink at $i"
+    pacmd move-sink-input   $i    snoop 
     parec -d snoop.monitor | oggenc -o /tmp/aster-$$.ogg --raw -
 }
-
-
-
-
 
 # find index of sink-input used by app (pattern)
 
 function app_pa_sink () {
-    index=$(pacmd list-sink-inputs  | grep -i -B 15 $1  |grep index | cut -d ':' -f 2)
-    echo "sink at $index"
+    local i=$(pacmd list-sink-inputs | grep -i -B 15 $1 |grep index | cut -d ':' -f 2)
+    echo "$i"
 }
