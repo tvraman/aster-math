@@ -241,19 +241,13 @@
   "If in a matrix or other tabular structure,
  move the current selection to the element above it, and read it."
   (interactive)
-  (aster-cmd '(move-to-abovebelow )))
+  (aster-cmd '(move-to-above )))
 
 (defun aster-below ()
   "If in a matrix or other tabular structure,
  move the current selection to the element below it, and read it."
   (interactive)
   (aster-cmd '(move-to-below )))
-
-(defun aster-above ()
-  "If in a matrix or other tabular structure,
- move the current selection to the element above it and read it."
-  (interactive)
-  (aster-cmd '(read-above )))
 
 (defun aster-to-bookmark ()
   "Move to bookmark"
@@ -303,6 +297,7 @@
 (defun aster-to-top (prefix)
   "Move to root of math expression, or to document root."
   (interactive "P")
+  (aster-stop)
   (if prefix
       (aster-eval
        (a--code
