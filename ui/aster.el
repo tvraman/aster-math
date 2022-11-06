@@ -113,7 +113,7 @@
   "Run Aster on specified file."
   (interactive "fFile: ")
   (aster-check)
-  (aster-cmd `(aster-file ,file)))
+  (aster-cmd `(read-aloud (parse-article ,file))))
 
 (defun aster-region (start end)
   "Send region to aster to be read out."
