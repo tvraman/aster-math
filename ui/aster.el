@@ -115,6 +115,18 @@
   (aster-check)
   (aster-cmd `(read-aloud (parse-article ,file))))
 
+
+(defun aster-record ()
+  "Record Aster's reading of current document node.
+Output is found in /tmp/aster-$$.ogg"
+  (interactive )
+  (let ((cmd (expand-file-name "bash-utils/aster-record" aster-root)))
+    (aster-check)
+    (aster-current)
+    (accept-process-output)
+    (async-shell-command cmd)
+    (message "Recording. Remember to kill parec after stopping Aster ")))
+
 (defun aster-region (start end)
   "Send region to aster to be read out."
   (interactive "r")
@@ -154,6 +166,7 @@
     ("A" aster-to-attributes)
     ("C" aster-children)
     ("C-a" aster-to-abstract)
+    ("C-r" aster-record)
     ("r" aster-region)
     ("P" aster-parent )
     ("SPC" aster-rest)
