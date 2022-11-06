@@ -8,7 +8,6 @@
 
 
 (defvar *lisp-dir*
-  concatenate
   (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))
   "directory under which lisp code is organized")
 
