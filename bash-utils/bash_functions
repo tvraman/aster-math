@@ -9,3 +9,14 @@ function aster_snoop () {
     pacmd move-sink-input   $index    snoop 
     parec -d snoop.monitor | oggenc -b 192 -o /tmp/aster-$$.ogg --raw -
 }
+
+
+
+
+
+# find index of sink-input used by app (pattern)
+
+function app_pa_sink () {
+    index=$(pacmd list-sink-inputs  | grep -i -B 15 $1  |grep index | cut -d ':' -f 2)
+    echo "sink at $index"
+}
