@@ -1,4 +1,11 @@
 https://askubuntu.com/questions/60837/record-a-programs-output-with-pulseaudio
+
+* Shell Commands:
+
+#+begin_src 
+$ pacmd list-sinks | grep -A1 "* index"
+echo $(pacmd list-sinks | grep -A1 "* index" | grep -oP "<\K[^ >]+")
+#+end_src
 Use slave, not null sink  so we hear what we are recording:
 Look at second answer.
 
