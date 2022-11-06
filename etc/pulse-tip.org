@@ -3,9 +3,22 @@ https://askubuntu.com/questions/60837/record-a-programs-output-with-pulseaudio
 * Shell Commands:
 
 #+begin_src 
+#find source using list-sink-inputs
+$index is the index of our source ink from which to record.
+# next find default output 
 $ pacmd list-sinks | grep -A1 "* index"
 echo $(pacmd list-sinks | grep -A1 "* index" | grep -oP "<\K[^ >]+")
+
+# create the slave:
+ pactl load-module module-combine-sink \
+  sink_name=record-n-play slaves=$DEFAULT_OUTPUT \
+  sink_properties=device.description="snoo"
+
+pactl move-sink-input $INDEX snoo
+parec -d snoo.monitor | oggenc -b 192 -o snoo.ogg --raw -
+
 #+end_src
+
 Use slave, not null sink  so we hear what we are recording:
 Look at second answer.
 
