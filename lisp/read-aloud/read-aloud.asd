@@ -73,7 +73,7 @@
      (:file "float-readings")
      (:file "float-rules"
       :depends-on ("float-macros" "float-objects" "float-readings"))))
-   (:file "extra-objects")
+   ;(:file "extra-objects")
    (:module "var-subst"
     :pathname ""
     :components 
