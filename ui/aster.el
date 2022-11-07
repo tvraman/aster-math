@@ -134,9 +134,9 @@ Output is found in /tmp/aster-$$.ogg"
   (let ((index "")
         (cmd
          (concat 
-          "pacmd move-sink-input   %s snoop;"
-          "parec -d snoop.monitor |"
-          "oggenc -o %s  -r - &")))
+          "pacmd move-sink-input %s snoop; "
+          "parec -d snoop.monitor | "
+          "oggenc -o %s -r - &")))
     (aster-check)
     (aster-current)
     (setq index (a--pa-index "DEC"))
