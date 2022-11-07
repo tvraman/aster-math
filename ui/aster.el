@@ -61,6 +61,17 @@
   "Return string representation of code; prin1-to-string."
   (prin1-to-string code))
 
+
+(defun a--pa-index (pattern)
+  "Find index of input sink from list-sink-inputs for app matching
+pattern."
+  (interactive "sPattern:")
+  (shell-command-to-string
+   (format
+    "pacmd list-sink-inputs | grep -i -B 15 %s | grep index | cut -d ':' -f 2"
+    pattern)))
+
+
 (defsubst aster-check ()
   "Assert that Aster is ready"
   (cl-declare (special aster-ready))
@@ -124,8 +135,9 @@ Output is found in /tmp/aster-$$.ogg"
     (aster-check)
     (aster-current)
     (accept-process-output)
-    (async-shell-command cmd)
-    (message "Recording. Remember to kill parec after stopping Aster ")))
+    (when (y-or-n-p "Record?")
+      (async-shell-command cmd)
+      (message "Recording. Remember to kill parec after stopping Aster "))))
 
 (defun aster-region (start end)
   "Send region to aster to be read out."
