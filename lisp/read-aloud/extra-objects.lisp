@@ -204,75 +204,16 @@
   nil
   )
 
-(define-text-object :macro-name "weloveyoudavid"
-  :number-args 0
-  :processing-function weloveyoudavid-expand
-  :precedence  nil
-  :object-name we-love-you-david
-  :supers (document)
-  )
+
 
 ;;; Object has 0 slots
-(defmethod read-aloud  (( we-love-you-david we-love-you-david ))
-  "Read aloud method for object we-love-you-david "
-  (afl:new-block
-    (afl:speak-file "/home/raman/dt-demos/david.sng"))
-  )
-
-(define-text-object :macro-name "birthday"
-  :number-args 0
-  :processing-function birthday-expand
-  :precedence  nil
-  :object-name birthday
-  :supers (document)
-  )
 
 ;;; Object has 0 slots
-(defmethod read-aloud  (( birthday birthday ))
-  "Read aloud method for object birthday "
-  (afl:new-block
-    (afl:speak-file "/home/raman/dt-demos/birthday.sng"))
-  )
 
-(define-text-object :macro-name "asterwish"
-  :number-args 0
-  :processing-function asterwish-expand
-  :precedence  nil
-  :object-name aster-wish
-  :supers (document)
-  )
+
+
 
 ;;; Object has 0 slots
-(defmethod read-aloud  (( aster-wish aster-wish ))
-  "Read aloud method for object aster-wish "
-  (afl:tts-icon
-   (afl:make-audio-filename "bark") )
-  )
-
-(def-reading-rule (centered-text  play-sound)
-  "play a sound while reading"
-  (afl:new-block
-    (afl:local-set-state (afl:switch-on afl:*current-audio-state* ))
-    (sleep 1)
-    (read-aloud (contents centered-text ))
-    )
-  )
-
-(def-reading-rule (abstract play-sound)
-  "read out abstract"
-  (afl:new-block
-    (afl:local-set-state
-     (afl:select-sound afl:*current-audio-state* "snippet"))
-    (afl:local-set-state (afl:switch-on
-                          afl:*current-audio-state* ))
-    (process-allow-schedule)
-    (afl:local-set-state
-     (reading-state 'abstract))
-    (process-allow-schedule)
-    (read-aloud
-     (abstract-contents abstract))
-    )
-  )
 
 (define-text-object :macro-name "voicemail"
   :number-args 1
@@ -404,66 +345,15 @@
 
 (activate-rule 'thanks 'default)
 
-(define-text-object :macro-name "aster"
-  :number-args 0
-  :processing-function aster-expand
-  :precedence  nil
-  :object-name aster
-  :supers (document)
-  :children-are-called nil
-  )
+;;; Object has 0 slots
 
 ;;; Object has 0 slots
-(defmethod read-aloud  (( aster aster ))
-  "Read aloud method for object aster "
-  (afl:tts-queue " Aster ")
-  (afl:tts-icon (afl:make-audio-filename "bark"))
-  (afl:comma-intonation)
-  (afl:tts-force)
-  )
 
-(def-reading-rule (aster dont-bark)
-  (afl:tts-queue " aster" )
-  )
-(define-text-object :macro-name "asterlogo"
-  :number-args 0
-  :processing-function asterlogo-expand
-  :precedence  nil
-  :object-name aster-logo
-  :supers (document)
-  :children-are-called nil
-  )
 
-;;; Object has 0 slots
-(defmethod read-aloud  (( aster-logo aster-logo ))
-  "Read aloud method for object aster-logo "
-  (afl:tts-icon
-   (afl:make-audio-filename "bark"))
-  (afl:tts-queue "aster")
-  (afl:comma-intonation)
-  (afl:tts-force)
-  (afl:tts-icon  (afl:make-audio-filename "bark"))
-  )
-(activate-rule 'aster-logo 'default)
 
-(def-reading-rule (aster-logo dog-pant)
-  "Panting aster logo. "
-  (afl:tts-icon
-   (afl:make-audio-filename "dog-pant"))
-  (afl:tts-queue "aster")
-  (afl:tts-force)
-                                        ;(afl:tts-icon  (afl:make-audio-filename "dog-pant"))
-  )
 
-(def-reading-rule (aster-logo  pant-bark)
-  "Reading rule for aster-logo"
-  (afl:tts-icon  (afl:make-audio-filename "dog-pant")
-                 :background-flag t)
-  (afl:tts-queue "aster")
-  (afl:comma-intonation)
-  (afl:tts-force)
-                                        ;(afl:tts-icon  (afl:make-audio-filename "bark"))
-  )
+
+
 
 (define-text-object :macro-name "talktitle"
   :number-args 0
@@ -596,19 +486,6 @@
   )
 
 ;;; Object has 0 slots
-(defmethod read-aloud  (( contents-page contents-page ))
-  "Read aloud method for object contents-page "
-  (table-of-contents *document*)
-  )
-(def-reading-rule (contents-page float)
-  "Render table of contents at the end. "
-  (let   ((guess (null (internal-time-to-read *document*))))
-    (if guess
-        (delay-until 'article
-                     #'(lambda()
-                         (table-of-contents *document*)))
-        (table-of-contents *document*)))
-  )
 
 (activate-rule 'contents-page 'float)
 
@@ -654,28 +531,9 @@
   "Read aloud method for object single-spacing "
   )
 
-(def-reading-rule (title-page simple)
-  "Read aloud a  title page.
-Assumes the title page of a Cornell PhD thesis. "
-  (read-aloud (title *document*))
-  (afl:tts-icon  *newline-cue*)
-  (afl:speak-file "/home/raman/emacs/lisp/aster/lisp-code/read-aloud/cu-phd-title.txt")
-  (afl:tts-icon  *newline-cue*)
-  (with-reading-state (reading-state 'annotation-voice)
-    (afl:tts-queue "By, "))
-  (read-aloud (author *document*))
-  (afl:tts-icon  *newline-cue*)
-  (afl:tts-pause 1)
-  (read-aloud (contents title-page))
-  (afl:tts-icon  *newline-cue*)
-  )
 
-(def-reading-rule (acknowledgements simple)
-  "Render the acknowledgements"
-  (read-aloud "Acknowledgements")
-  (afl:tts-force)
-  (afl:tts-pause 1)
-  (read-aloud (contents acknowledgements )))
+
+
 
 (def-reading-rule (copyright-page  simple)
   "Read aloud a  copyright page ."
@@ -738,23 +596,10 @@ Assumes the title page of a Cornell PhD thesis. "
   "Read aloud method for object newpage "
   )
 
-(define-text-object :macro-name "asterpicture"
-  :number-args 0
-  :processing-function aster-picture-expand
-  :precedence  nil
-  :object-name aster-picture
-  :supers (document)
-  :children-are-called nil
-  )
+
 
 ;;; Object has 0 slots
-(defmethod read-aloud  (( aster-picture aster-picture ))
-  "Read aloud method for object aster-picture "
-  (afl:tts-icon
-   (afl:make-audio-filename "dog-pant")
-   :background-flag t)
-  (afl:speak-file "~/lisp-code/read-aloud/aster-picture.txt")
-  )
+
 
 (define-text-object :macro-name "bs"
   :number-args 0
@@ -781,10 +626,6 @@ Assumes the title page of a Cornell PhD thesis. "
   )
 
 ;;; Object has 0 slots
-(defmethod read-aloud  (( table-of-contents-list table-of-contents-list ))
-  "Read aloud method for object table-of-contents-list "
-  (table-of-contents *document*);not safe
-  )
 
 (def-reading-rule (afl simple)
   "Simple reading rule for AFL. "

@@ -64,7 +64,7 @@
      (:file "special-patterns"
       :depends-on ("special-pattern-macros")))
     :depends-on ("read-aloud" "complexity"
-                 "reading-rules-and-styles" "reading-state" "new-document-objects"))
+                              "reading-rules-and-styles" "reading-state" "new-document-objects"))
    (:module "floats"
     :pathname ""
     :components 
@@ -73,6 +73,7 @@
      (:file "float-readings")
      (:file "float-rules"
       :depends-on ("float-macros" "float-objects" "float-readings"))))
+   (:file "extra-objects")
    (:module "var-subst"
     :pathname ""
     :components 
