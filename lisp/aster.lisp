@@ -12,6 +12,7 @@
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
+  (setf (uiop:getenv "PULSE_SINK") "tts_left")
   (mapc #'asdf:load-system
         '(:parser :afl :pronounce :read-aloud :browse))
   (mapc #'asdf:load-system
