@@ -9,13 +9,11 @@
 (defvar *lisp-dir*
   (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))
   "directory under which lisp code is organized")
-;;; By default output goes to left channel:
-;;; Configure pulseaudio to have a tts_left device.
-;;; See default.pa from emacspeak/etc/pulse
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
-  (setf (uiop:getenv "PULSE_SINK") "tts_left")
+  (when (uiop:getenv "ASTER_TTS")
+    (setf (uiop:getenv "PULSE_SINK") (uiop:getenv "ASTER_TTS")))
   (mapc #'asdf:load-system
         '(:parser :afl :pronounce :read-aloud :browse))
   (mapc #'asdf:load-system
