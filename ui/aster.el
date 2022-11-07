@@ -131,13 +131,16 @@ pattern."
   "Record Aster's reading of current document node.
 Output is found in /tmp/aster-$$.ogg"
   (interactive )
-  (let ((cmd (expand-file-name "bash-utils/aster-record" aster-root)))
+  (let ((output (make-temp-file "aster-" nil ".ogg"))
+        (cmd
+         "pacmd move-sink-input   %s    snoop  &&
+         parec -d snoop.monitor | oggenc -o%s  --r - &"))
     (aster-check)
     (aster-current)
-    (accept-process-output)
-    (when (y-or-n-p "Record?")
-      (async-shell-command cmd)
-      (message "Recording. Remember to kill parec after stopping Aster "))))
+    (unless (zerop (length (a--pa-index "DEC")))
+      (async-shell-command
+       (format cmd index output)))
+    (message "Recording. Remember to kill parec after stopping Aster ")))
 
 (defun aster-region (start end)
   "Send region to aster to be read out."
