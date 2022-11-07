@@ -132,18 +132,18 @@ pattern."
 Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive )
   (let ((index "")
+        (output (expand-file-name "tests/aster.ogg" aster-root))
         (move "pacmd move-sink-input %s snoop ")
         (record "parec -d snoop.monitor | oggenc -o %s -r - &"))
-    (save-current-buffer
       (aster-check)
       (aster-current)
       (sit-for 0.4)
       (setq index (a--pa-index "DEC"))
       (unless (zerop (length index))
         (shell-command (format move index ))
-        (shell-command (format record
-                               (expand-file-name "tests/aster.ogg" aster-root)))
-        (message "Recording. Remember to kill parec")))))
+        (shell-command
+         (format record output))
+        (message "Recording. Remember to kill parec"))))
 
 (defun aster-region (start end)
   "Send region to aster to be read out."

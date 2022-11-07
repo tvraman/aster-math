@@ -9,3 +9,4 @@ auto/
 **.fasl
 **.elc
 lisp/lexer/lispify
+**.ogg
