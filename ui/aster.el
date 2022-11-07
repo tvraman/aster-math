@@ -132,16 +132,19 @@ pattern."
 Output is found in /tmp/aster-$$.ogg"
   (interactive )
   (let ((index "")
-        (cmd
+        (move "pacmd move-sink-input %s snoop ")
+        (record
          (concat 
-          "pacmd move-sink-input %s snoop; "
           "parec -d snoop.monitor | "
           "oggenc -o %s -r - &")))
     (aster-check)
     (aster-current)
+    (sit-for 1)
     (setq index (a--pa-index "DEC"))
+    (message "index: %s" index)
     (unless (zerop (length index))
-      (shell-command (format cmd index (make-temp-file "aster-" nil ".ogg")))
+      (shell-command (format move index ))
+      (shell-command (format record  (make-temp-file "aster-" nil ".ogg")))
       (message "Recording. Remember to kill parec"))))
 
 (defun aster-region (start end)
