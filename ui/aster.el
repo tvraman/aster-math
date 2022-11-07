@@ -61,7 +61,6 @@
   "Return string representation of code; prin1-to-string."
   (prin1-to-string code))
 
-
 (defun a--pa-index (pattern)
   "Find index of input sink from list-sink-inputs for app matching
 pattern."
@@ -70,7 +69,6 @@ pattern."
    (shell-command-to-string
     (format
      "pacmd list-sink-inputs | grep -i -B 15 %s | grep index | cut -d ':' -f 2" pattern))))
-
 
 (defsubst aster-check ()
   "Assert that Aster is ready"
@@ -126,7 +124,6 @@ pattern."
   (aster-check)
   (aster-cmd `(read-aloud (parse-article ,file))))
 
-
 (defun aster-record ()
   "Record Aster's reading of current document node.
 Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
@@ -135,15 +132,15 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
         (output (expand-file-name "tests/aster.ogg" aster-root))
         (move "pacmd move-sink-input %s snoop ")
         (record "parec -d snoop.monitor | oggenc -o %s -r - &"))
-      (aster-check)
-      (aster-current)
-      (sit-for 0.4)
-      (setq index (a--pa-index "DEC"))
-      (unless (zerop (length index))
-        (shell-command (format move index ))
-        (shell-command
-         (format record output))
-        (message "Recording. Remember to kill parec"))))
+    (aster-check)
+    (aster-current)
+    (sit-for 0.4)
+    (setq index (a--pa-index "DEC"))
+    (unless (zerop (length index))
+      (shell-command (format move index ))
+      (shell-command
+       (format record output))
+      (message "Recording. Remember to kill parec"))))
 
 (defun aster-region (start end)
   "Send region to aster to be read out."
