@@ -141,8 +141,7 @@ Output is found in /tmp/aster-$$.ogg"
     (aster-current)
     (setq index (a--pa-index "DEC"))
     (unless (zerop (length index))
-      (shell-command
-       (format cmd index (make-temp-file "aster-" nil ".ogg")))
+      (shell-command (format cmd index (make-temp-file "aster-" nil ".ogg")))
       (message "Recording. Remember to kill parec"))))
 
 (defun aster-region (start end)
