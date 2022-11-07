@@ -46,10 +46,6 @@
   (expand-file-name ".." (file-name-directory load-file-name))
   "Aster Project Root")
 
-(defvar aster-lisp-dir
-  (expand-file-name "lisp/" aster-root)
-  "Directory where common-lisp files are stored.")
-
 (defvar aster-setup
   (expand-file-name "lisp/aster.lisp" aster-root)
   "Common Lisp file loaded to configure Aster.")
