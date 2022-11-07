@@ -66,10 +66,10 @@
   "Find index of input sink from list-sink-inputs for app matching
 pattern."
   (interactive "sPattern:")
-  (shell-command-to-string
-   (format
-    "pacmd list-sink-inputs | grep -i -B 15 %s | grep index | cut -d ':' -f 2"
-    pattern)))
+  (string-trim
+   (shell-command-to-string
+    (format
+     "pacmd list-sink-inputs | grep -i -B 15 %s | grep index | cut -d ':' -f 2" pattern))))
 
 
 (defsubst aster-check ()
@@ -133,15 +133,11 @@ Output is found in /tmp/aster-$$.ogg"
   (interactive )
   (let ((index "")
         (move "pacmd move-sink-input %s snoop ")
-        (record
-         (concat 
-          "parec -d snoop.monitor | "
-          "oggenc -o %s -r - &")))
+        (record "parec -d snoop.monitor | oggenc -o %s -r - &"))
     (aster-check)
     (aster-current)
-    (sit-for 1)
+    (sit-for 0.5)
     (setq index (a--pa-index "DEC"))
-    (message "index: %s" index)
     (unless (zerop (length index))
       (shell-command (format move index ))
       (shell-command (format record  (make-temp-file "aster-" nil ".ogg")))
