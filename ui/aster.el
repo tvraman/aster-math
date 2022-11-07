@@ -58,8 +58,7 @@
   (prin1-to-string code))
 
 (defun a--pa-index (pattern)
-  "Find index of input sink from list-sink-inputs for app matching
-pattern."
+  "Index of input sink from list-sink-inputs for app matching pattern."
   (interactive "sPattern:")
   (string-trim
    (shell-command-to-string
@@ -67,7 +66,7 @@ pattern."
      "pacmd list-sink-inputs | grep -i -B 15 %s | grep index | cut -d ':' -f 2" pattern))))
 
 (defsubst aster-check ()
-  "Assert that Aster is ready"
+  "Check that Aster is ready"
   (cl-declare (special aster-ready))
   (cl-assert aster-ready t "First setup and start Aster"))
 
