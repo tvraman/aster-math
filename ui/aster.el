@@ -99,7 +99,7 @@
  'at-end)
 
 (defun aster ()
-  "Start Slime For AsTeR"
+  "Load and start Aster"
   (interactive)
   (while (not (slime-connected-p))
     (slime)
@@ -120,7 +120,7 @@
   (aster-cmd `(read-aloud (parse-article ,file))))
 
 (defun aster-record ()
-  "Record Aster's reading of current document node.
+  "Record Aster's reading of current node.
 Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive )
   (let ((index "")
@@ -133,8 +133,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     (setq index (a--pa-index "DEC"))
     (unless (zerop (length index))
       (shell-command (format move index ))
-      (shell-command
-       (format record output))
+      (shell-command (format record output))
       (message "Recording. Remember to kill parec"))))
 
 (defun aster-region (start end)
