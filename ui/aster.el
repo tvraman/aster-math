@@ -129,19 +129,21 @@ pattern."
 
 (defun aster-record ()
   "Record Aster's reading of current document node.
-Output is found in /tmp/aster-$$.ogg"
+Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive )
   (let ((index "")
         (move "pacmd move-sink-input %s snoop ")
         (record "parec -d snoop.monitor | oggenc -o %s -r - &"))
-    (aster-check)
-    (aster-current)
-    (sit-for 0.5)
-    (setq index (a--pa-index "DEC"))
-    (unless (zerop (length index))
-      (shell-command (format move index ))
-      (shell-command (format record  (make-temp-file "aster-" nil ".ogg")))
-      (message "Recording. Remember to kill parec"))))
+    (save-current-buffer
+      (aster-check)
+      (aster-current)
+      (sit-for 0.4)
+      (setq index (a--pa-index "DEC"))
+      (unless (zerop (length index))
+        (shell-command (format move index ))
+        (shell-command (format record
+                               (expand-file-name "tests/aster.ogg" aster-root)))
+        (message "Recording. Remember to kill parec")))))
 
 (defun aster-region (start end)
   "Send region to aster to be read out."
