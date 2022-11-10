@@ -73,7 +73,11 @@
 (defsubst aster-check ()
   "Check that Aster is ready"
   (cl-declare (special aster-ready))
-  (unless (and  aster-ready (slime-connected-p) (slime-process))
+  (unless
+      (and  aster-ready
+            (condition-case nil
+                (slime-process)
+              (error nil)))
     (aster)))
 
 (defsubst aster-eval (string)
