@@ -255,16 +255,14 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
         `(read-aloud (parse-latex-string ,(buffer-string))))))))
 
 (defun aster-text (text)
-  "Send text as LaTeX  to aster to be read out."
-  (let ((inhibit-read-only t)
-        (file (make-temp-file "aster" nil ".tex")))
-    (with-temp-file file
-      (insert "\\begin{document}\n")
-      (insert "$")
+  "Send text as LaTeX  Math to aster to be read out."
+    (with-temp-buffer
+      (insert "\\begin{document}$")
       (insert text)
-      (insert "$\n")
-      (insert "\\end{document}\n"))
-    (aster-file file)))
+      (insert "$\\end{document}")
+      (aster-eval
+       (a--code
+        `(read-aloud (parse-latex-string ,(buffer-string)))))))
 
 ;;}}}
 ;;{{{Navigators:
