@@ -57,13 +57,13 @@
   "Return string representation of code; prin1-to-string."
   (prin1-to-string code))
 
-(defun a--pa-index (pattern)
+(defsubst a--pa-index (pattern)
   "Index of input sink from list-sink-inputs for app matching pattern."
-  (interactive "sPattern:")
   (string-trim
    (shell-command-to-string
     (format
-     "pacmd list-sink-inputs | grep -i -B 15 %s | grep index | cut -d ':' -f 2" pattern))))
+     "pacmd list-sink-inputs | grep -i -B 15 %s | grep index | cut -d ':' -f 2"
+     pattern))))
 
 (defsubst aster-check ()
   "Check that Aster is ready"
@@ -170,8 +170,7 @@ buffer.")
      (when mark-active (buffer-substring (region-beginning)(region-end)))))))
 
 (defun aster-guess ()
-  "Send guessed expression to Aster."
-  (interactive)
+  "Guess Math input based on context."
   (aster-check)
   (aster-guess-input)         ;guess based on context
   )
