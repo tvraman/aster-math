@@ -76,6 +76,122 @@
     (lambda (_result) t)))
 
 ;;}}}
+;;{{{Input Helpers:
+
+(declare-function calc-kill "calc-yank" (flag no-delete))
+;; Guess expression from Calc:
+(defun aster-guess-calc ()
+  "Guess expression to speak in calc buffers. "
+  (cl-declare (special calc-last-kill calc-language))
+  (cl-assert (eq major-mode 'calc-mode) nil "This is not a Calc
+buffer.")
+  (setq calc-language 'tex)
+  (calc-kill 1 'no-delete)
+  (substring (car calc-last-kill) 2))
+
+;; Guess expression from sage
+
+(declare-function emacspeak-sage-get-output-as-latex "emacspeak-sage" nil)
+
+(defun aster-guess-sage ()
+  "Guess expression to speak in sage-mode buffers."
+  (cl-assert
+   (eq major-mode 'sage-shell:sage-mode) nil "This is not a Sage buffer.")
+  (sit-for 0.1)
+  (emacspeak-sage-get-output-as-latex))
+
+;; Helper: Guess current math expression from TeX/LaTeX
+
+(defun aster-guess-tex ()
+  "Extract math content around point."
+  (cl-declare (special texmathp-why))
+  (cl-assert (require 'texmathp) nil "Install package auctex to get texmathp")
+  (when (texmathp)
+    (let ((delimiter (car texmathp-why))
+          (start (cdr texmathp-why))
+          (begin nil)
+          (end nil))
+      (cond
+       ;; $ and $$
+       ((or (string= "$" delimiter)
+            (string= "$$" delimiter))
+        (save-excursion
+          (goto-char start)
+          (forward-char (length delimiter))
+          (setq begin (point))
+          (skip-syntax-forward "^$")
+          (setq end (point))
+          (buffer-substring begin end)))
+       ;; \( and \[
+       ((string= "\\(" delimiter)
+        (goto-char start)
+        (setq begin (+ start  2))
+        (search-forward "\\)")
+        (setq end (- (point) 2))
+        (buffer-substring begin end))
+       ((string= "\\[" delimiter)
+        (goto-char start)
+        (setq begin (+ start  2))
+        (search-forward "\\]")
+        (setq end (- (point) 2))
+        (buffer-substring begin end))
+       ;; begin equation
+       ((string= "equation" delimiter)
+        (goto-char start)
+        (forward-char (length "\\begin{equation}"))
+        (setq begin (point))
+        (search-forward "\\end{equation}")
+        (backward-char (length "\\begin{equation}"))
+        (setq end (point))
+        (buffer-substring begin end))
+
+       (t nil)))))
+
+(defun aster-guess-input ()
+  "Examine current mode, text around point etc. to guess Math content to read."
+  (cl-declare (special aster))
+  (unless aster (aster-start))
+  (setf
+   (aster-input aster)
+   (cond
+    ((eq major-mode 'calc-mode)
+     (aster-guess-calc))
+    ((eq major-mode 'sage-shell:sage-mode)
+     (aster-guess-sage))
+    ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode ams-tex-mode))
+          (featurep 'texmathp))
+     (aster-guess-tex))
+    ((and
+      (eq major-mode 'eww-mode)
+      (not
+       (string-equal
+        (get-text-property (point) 'shr-alt)
+        "No image under point")))
+     (get-text-property (point) 'shr-alt))
+    (t
+     (read-from-minibuffer
+      "Maths: " nil nil nil nil
+      (when mark-active (buffer-substring (region-beginning)(region-end))))))))
+
+
+(defun aster-guess ()
+  "Send guessed expression to Aster."
+  (interactive)
+  (aster-check)
+  (aster-guess-input)         ;guess based on context
+  )
+
+;;;###autoload
+(defun aster-math (latex)
+  "Send a LaTeX expression to Aster,
+ guess  based on context. "
+  (interactive (list (aster-guess-input)))
+  (aster-check)
+  (when (or (null latex) (string= "" latex))
+    (setq latex (read-from-minibuffer "Enter expression:")))
+  ; send latex to aster)
+
+;;}}}
 ;;{{{Interactive Commands:
 
 (defvar aster-ready nil
