@@ -67,10 +67,13 @@
       "grep index | cut -d ':' -f 2")
      pattern))))
 
+(defvar aster-ready nil
+  "Flag to record if Aster is ready.")
+
 (defsubst aster-check ()
   "Check that Aster is ready"
   (cl-declare (special aster-ready))
-  (cl-assert aster-ready t "First setup and start Aster"))
+  (unless aster-ready (aster)))
 
 (defsubst aster-eval (string)
   "Like slime-eval-save."
@@ -82,7 +85,7 @@
 
 (declare-function calc-kill "calc-yank" (flag no-delete))
 
-(defun aster-guess-calc ()
+(defsubst aster-guess-calc ()
   "Guess expression to speak in calc buffers. Set calc-language to latex "
   (cl-declare (special calc-last-kill ))
   (cl-assert (eq major-mode 'calc-mode) nil "Not in a calc buffer.")
@@ -169,9 +172,14 @@
 
 ;;}}}
 ;;{{{Running Aster:
+(defun aster ()
+  "Load and start Aster"
+  (interactive)
+  (save-current-buffer
+    (while (not (slime-connected-p))
+      (slime)
+      (sit-for 1))))
 
-(defvar aster-ready nil
-  "Flag to record if Aster is ready.")
 
 (defun aster-post-startup ()
   "Prepare Aster once slime is ready."
@@ -190,13 +198,7 @@
  'aster-post-startup
  'at-end)
 
-(defun aster ()
-  "Load and start Aster"
-  (interactive)
-  (while (not (slime-connected-p))
-    (slime)
-    (sit-for 1))
-  (accept-process-output))
+
 
 (defun aster-cmd (sexp)
   "Run Aster command,  a sexp, after first stopping speech."
