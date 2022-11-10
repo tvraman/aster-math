@@ -83,7 +83,7 @@
 
 (defun aster-guess-calc ()
   "Guess expression to speak in calc buffers. Set calc-language to latex "
-(cl-declare (special calc-last-kill ))
+  (cl-declare (special calc-last-kill ))
   (cl-assert (eq major-mode 'calc-mode) nil "Not in a calc buffer.")
   (calc-kill 1 'no-delete)
   (substring (car calc-last-kill) 2))
@@ -165,14 +165,6 @@
      (when mark-active (buffer-substring (region-beginning)(region-end)))))))
 
 ;; ###autoload
-(defun aster-math (latex)
-  "Send a LaTeX expression to Aster,
- guess  based on context. "
-  (interactive (list (aster-guess)))
-  (aster-check)
-  (when (or (null latex) (string= "" latex))
-    (setq latex (read-from-minibuffer "Enter expression:")))
-  (aster-text latex))
 
 ;;}}}
 ;;{{{Interactive Commands:
@@ -207,7 +199,6 @@
 
 (defun aster-cmd (sexp)
   "Run Aster command,  a sexp, after first stopping speech."
-  (interactive (list (read-minibuffer "Aster:")))
   (aster-eval
    (a--code
     `(progn (afl:tts-stop) ,sexp))))
@@ -251,6 +242,15 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
       (insert text)
       (insert "\\end{document}\n"))
     (aster-file file)))
+
+(defun aster-math (latex)
+  "Send a LaTeX expression to Aster,
+ guess  based on context. "
+  (interactive (list (aster-guess)))
+  (aster-check)
+  (when (or (null latex) (string= "" latex))
+    (setq latex (read-from-minibuffer "Enter expression:")))
+  (aster-text latex))
 
 (defun aster-text (text)
   "Send text as LaTeX  to aster to be read out."
