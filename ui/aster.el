@@ -309,16 +309,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive)
   (aster-cmd '(move-to-superscript )))
 
-(defun aster-to-bookmark ()
-  "Move to bookmark"
-  (interactive)
-  (aster-cmd '(goto-bookmark )))
-
-(defun aster-to-cross-ref ()
-  "Move to cross-ref"
-  (interactive)
-  (aster-cmd '(read-follow-cross-ref )))
-
 (defun aster-to-left ()
   "Move left"
   (interactive)
