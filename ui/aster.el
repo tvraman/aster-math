@@ -243,16 +243,16 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
       (message "Recording. Remember to kill parec"))))
 
 (defun aster-region (start end)
-  "Send region to aster to be read out."
+  "Read region using Aster."
   (interactive "r")
-  (let ((text (buffer-substring-no-properties start end)))
-    (with-temp-buffer
-      (insert "\\begin{document}")
-      (insert text)
-      (insert "\\end{document}")
-      (aster-eval
-       (a--code
-        `(read-aloud (parse-latex-string ,(buffer-string))))))))
+  (aster-eval
+     (a--code
+      `(read-aloud
+        (parse-latex-string
+         ,(concat
+           "\\begin{document}"
+           (buffer-substring-no-properties start end)
+           "\\end{document}"))))))
 
 (defun aster-text (text)
   "Send text as LaTeX  Math to aster to be read out."
