@@ -77,20 +77,16 @@
     (lambda (_result) t)))
 
 ;;}}}
-;;{{{Input Helpers:
+;;{{{Guess Math Input
 
 (declare-function calc-kill "calc-yank" (flag no-delete))
-;; Guess expression from Calc:
+
 (defun aster-guess-calc ()
-  "Guess expression to speak in calc buffers. "
-  (cl-declare (special calc-last-kill calc-language))
-  (cl-assert (eq major-mode 'calc-mode) nil "This is not a Calc
-buffer.")
-  (setq calc-language 'tex)
+  "Guess expression to speak in calc buffers. Set calc-language to latex "
+(cl-declare (special calc-last-kill ))
+  (cl-assert (eq major-mode 'calc-mode) nil "Not in a calc buffer.")
   (calc-kill 1 'no-delete)
   (substring (car calc-last-kill) 2))
-
-;; Guess expression from sage
 
 (declare-function emacspeak-sage-get-output-as-latex "emacspeak-sage" nil)
 
@@ -101,10 +97,8 @@ buffer.")
   (sit-for 0.1)
   (emacspeak-sage-get-output-as-latex))
 
-;; Helper: Guess current math expression from TeX/LaTeX
-
 (defun aster-guess-tex ()
-  "Extract math content around point."
+  "Extract math content around point in TeX/LaTeX."
   (cl-declare (special texmathp-why))
   (cl-assert (require 'texmathp) nil "Install package auctex to get texmathp")
   (when (texmathp)
@@ -147,7 +141,7 @@ buffer.")
         (buffer-substring-no-properties begin end))
        (t nil)))))
 
-(defun aster-guess-input ()
+(defun aster-guess ()
   "Examine current mode, text around point etc. to guess Math content to read."
   (aster-check)
   (cond
@@ -170,17 +164,11 @@ buffer.")
      "LaTeX: " nil nil nil nil
      (when mark-active (buffer-substring (region-beginning)(region-end)))))))
 
-(defun aster-guess ()
-  "Guess Math input based on context."
-  (aster-check)
-  (aster-guess-input)         ;guess based on context
-  )
-
 ;; ###autoload
 (defun aster-math (latex)
   "Send a LaTeX expression to Aster,
  guess  based on context. "
-  (interactive (list (aster-guess-input)))
+  (interactive (list (aster-guess)))
   (aster-check)
   (when (or (null latex) (string= "" latex))
     (setq latex (read-from-minibuffer "Enter expression:")))
