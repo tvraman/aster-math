@@ -173,7 +173,6 @@ buffer.")
       "LaTeX: " nil nil nil nil
       (when mark-active (buffer-substring (region-beginning)(region-end))))))))
 
-
 (defun aster-guess ()
   "Send guessed expression to Aster."
   (interactive)
@@ -189,7 +188,7 @@ buffer.")
   (aster-check)
   (when (or (null latex) (string= "" latex))
     (setq latex (read-from-minibuffer "Enter expression:")))
-  ; send latex to aster)
+  (aster-text latex))
 
 ;;}}}
 ;;{{{Interactive Commands:
@@ -269,6 +268,15 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
       (insert "\\end{document}\n"))
     (aster-file file)))
 
+(defun aster-text (text)
+  "Send text to aster to be read out."
+  (let ((inhibit-read-only t)
+        (file (make-temp-file "aster" nil ".tex")))
+    (with-temp-file
+        (insert "\\begin{document}\n")
+      (insert text)
+      (insert "\\end{document}\n"))
+    (aster-file file)))
 ;;}}}
 ;;{{{Key Bindings:
 
