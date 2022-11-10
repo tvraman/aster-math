@@ -309,18 +309,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive)
   (aster-cmd '(move-to-superscript )))
 
-(defun aster-above ()
-  "If in a matrix or other tabular structure,
- move the current selection to the element above it, and read it."
-  (interactive)
-  (aster-cmd '(move-to-above )))
-
-(defun aster-below ()
-  "If in a matrix or other tabular structure,
- move the current selection to the element below it, and read it."
-  (interactive)
-  (aster-cmd '(move-to-below )))
-
 (defun aster-to-bookmark ()
   "Move to bookmark"
   (interactive)
@@ -406,7 +394,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     ("SPC" aster-rest)
     ("^" aster-to-superscript )
     ("_" aster-to-subscript)
-    ("d" aster-below)
     ("f"aster-file)
     ("g" aster-to-cross-ref)
     ("h" aster-to-left)
@@ -419,7 +406,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     ("p" aster-previous)
     ("s" aster-stop)
     ("t" aster-to-top)
-    ("u" aster-above)
     ("<down>" aster-to-children )
     ("<left>" aster-to-left)
     ("<right>" aster-to-right)
