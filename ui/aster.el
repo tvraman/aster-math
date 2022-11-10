@@ -71,7 +71,7 @@
   (cl-declare (special aster-ready))
   (cl-assert aster-ready t "First setup and start Aster"))
 
-(defun aster-eval (string)
+(defsubst aster-eval (string)
   "Like slime-eval-save."
   (slime-eval-async `(swank:eval-and-grab-output ,string)
     (lambda (_result) t)))
