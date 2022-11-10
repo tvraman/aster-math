@@ -121,20 +121,20 @@ buffer.")
           (setq begin (point))
           (skip-syntax-forward "^$")
           (setq end (point))
-          (buffer-substring begin end)))
+          (buffer-substring-no-properties begin end)))
        ;; \( and \[
        ((string= "\\(" delimiter)
         (goto-char start)
         (setq begin (+ start  2))
         (search-forward "\\)")
         (setq end (- (point) 2))
-        (buffer-substring begin end))
+        (buffer-substring-no-properties begin end))
        ((string= "\\[" delimiter)
         (goto-char start)
         (setq begin (+ start  2))
         (search-forward "\\]")
         (setq end (- (point) 2))
-        (buffer-substring begin end))
+        (buffer-substring-no-properties begin end))
        ;; begin equation
        ((string= "equation" delimiter)
         (goto-char start)
@@ -143,8 +143,7 @@ buffer.")
         (search-forward "\\end{equation}")
         (backward-char (length "\\begin{equation}"))
         (setq end (point))
-        (buffer-substring begin end))
-
+        (buffer-substring-no-properties begin end))
        (t nil)))))
 
 (defun aster-guess-input ()
@@ -266,14 +265,17 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     (aster-file file)))
 
 (defun aster-text (text)
-  "Send text to aster to be read out."
+  "Send text as LaTeX  to aster to be read out."
   (let ((inhibit-read-only t)
         (file (make-temp-file "aster" nil ".tex")))
-    (with-temp-file
-        (insert "\\begin{document}\n")
+    (with-temp-file file
+      (insert "\\begin{document}\n")
+      (insert "$")
       (insert text)
+      (insert "$\n")
       (insert "\\end{document}\n"))
     (aster-file file)))
+
 ;;}}}
 ;;{{{Key Bindings:
 
