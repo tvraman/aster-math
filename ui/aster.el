@@ -1,4 +1,4 @@
-;;; aster.el - Load And Configure -*- lexical-binding: t; -*-
+;;; aster.el - AsTeR UI  -*- lexical-binding: t; -*-
 ;;; Description:  Load and Configure Aster
 ;;; Keywords: Audio System For Technical Readings (AsTeR
 ;;{{{  Copyright:
