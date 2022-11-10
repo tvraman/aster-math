@@ -21,9 +21,16 @@
   (with-open-file (in-stream filename)
     (let ((process
             (run-program
-             (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*))
-             nil
-             :input in-stream :wait t :output  :stream)))
-      (create-article
-       (read
-        (process-output process) nil)))))
+             (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
+             :input in-stream :wait t :output  :stream))) (create-article
+       (read (process-output process) nil)))))
+
+
+(defun parse-string (string) 
+  "Parses a Latex article passed as a string."
+  (let ((process
+          (run-program
+           (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
+           :input (make-string-input-stream string)
+           :wait t :output  :stream)))
+    (create-article (read (process-output process) nil))))
