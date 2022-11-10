@@ -170,7 +170,7 @@ buffer.")
      (get-text-property (point) 'shr-alt))
     (t
      (read-from-minibuffer
-      "Maths: " nil nil nil nil
+      "LaTeX: " nil nil nil nil
       (when mark-active (buffer-substring (region-beginning)(region-end))))))))
 
 
