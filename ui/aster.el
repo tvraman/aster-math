@@ -100,7 +100,7 @@
 (defun aster-guess-tex ()
   "Extract math content around point in TeX/LaTeX."
   (cl-declare (special texmathp-why))
-  (cl-assert (require 'texmathp) nil "Install package auctex to get texmathp")
+  (cl-assert (require 'texmathp) nil "Install package auctex")
   (when (texmathp)
     (let ((delimiter (car texmathp-why))
           (start (cdr texmathp-why))
@@ -142,7 +142,7 @@
        (t nil)))))
 
 (defun aster-guess ()
-  "Examine current mode, text around point etc. to guess Math content to read."
+  "Examine current mode and context  etc. to guess Math content to read."
   (aster-check)
   (cond
    ((eq major-mode 'calc-mode)
