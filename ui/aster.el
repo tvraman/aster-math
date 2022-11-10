@@ -313,7 +313,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     ("j" aster-to-children )
     ("k" aster-to-up)
     ("l" aster-to-right)
-    ("m" aster-mark)
+    ("m" aster-math)
     ("n" aster-next)
     ("p" aster-previous)
     ("s" aster-stop)
