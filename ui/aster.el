@@ -37,7 +37,8 @@
 (cl-declaim  (optimize  (safety 0) (speed 3)))
 (require 'slime)
 (require 'repeat)
-
+(require 'calc)
+(require 'texmathp)
 ;;}}}
 ;;{{{ Configure locations:
 
