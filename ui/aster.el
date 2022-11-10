@@ -149,29 +149,26 @@ buffer.")
 
 (defun aster-guess-input ()
   "Examine current mode, text around point etc. to guess Math content to read."
-  (cl-declare (special aster))
-  (unless aster (aster-start))
-  (setf
-   (aster-input aster)
-   (cond
-    ((eq major-mode 'calc-mode)
-     (aster-guess-calc))
-    ((eq major-mode 'sage-shell:sage-mode)
-     (aster-guess-sage))
-    ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode ams-tex-mode))
-          (featurep 'texmathp))
-     (aster-guess-tex))
-    ((and
-      (eq major-mode 'eww-mode)
-      (not
-       (string-equal
-        (get-text-property (point) 'shr-alt)
-        "No image under point")))
-     (get-text-property (point) 'shr-alt))
-    (t
-     (read-from-minibuffer
-      "LaTeX: " nil nil nil nil
-      (when mark-active (buffer-substring (region-beginning)(region-end))))))))
+  (aster-check)
+  (cond
+   ((eq major-mode 'calc-mode)
+    (aster-guess-calc))
+   ((eq major-mode 'sage-shell:sage-mode)
+    (aster-guess-sage))
+   ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode ams-tex-mode))
+         (featurep 'texmathp))
+    (aster-guess-tex))
+   ((and
+     (eq major-mode 'eww-mode)
+     (not
+      (string-equal
+       (get-text-property (point) 'shr-alt)
+       "No image under point")))
+    (get-text-property (point) 'shr-alt))
+   (t
+    (read-from-minibuffer
+     "LaTeX: " nil nil nil nil
+     (when mark-active (buffer-substring (region-beginning)(region-end)))))))
 
 (defun aster-guess ()
   "Send guessed expression to Aster."
