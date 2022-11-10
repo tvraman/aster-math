@@ -25,7 +25,7 @@
 ;;}}}
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;{{{  introduction
+;;{{{  introduction:
 
 ;;  Commentary:
 ;;  See design.org for the overall design.
@@ -77,7 +77,7 @@
     (lambda (_result) t)))
 
 ;;}}}
-;;{{{Guess Math Input
+;;{{{Guess Math Input:
 
 (declare-function calc-kill "calc-yank" (flag no-delete))
 
@@ -167,7 +167,7 @@
 ;; ###autoload
 
 ;;}}}
-;;{{{Interactive Commands:
+;;{{{Running Aster:
 
 (defvar aster-ready nil
   "Flag to record if Aster is ready.")
@@ -202,6 +202,18 @@
   (aster-eval
    (a--code
     `(progn (afl:tts-stop) ,sexp))))
+
+;;}}}
+;;{{{Reading Commands:
+
+(defun aster-math (latex)
+  "Send a LaTeX expression to Aster,
+ guess  based on context. "
+  (interactive (list (aster-guess)))
+  (aster-check)
+  (when (or (null latex) (string= "" latex))
+    (setq latex (read-from-minibuffer "Enter expression:")))
+  (aster-text latex))
 
 (defun aster-file (file)
   "Run Aster on specified file."
@@ -243,15 +255,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
       (insert "\\end{document}\n"))
     (aster-file file)))
 
-(defun aster-math (latex)
-  "Send a LaTeX expression to Aster,
- guess  based on context. "
-  (interactive (list (aster-guess)))
-  (aster-check)
-  (when (or (null latex) (string= "" latex))
-    (setq latex (read-from-minibuffer "Enter expression:")))
-  (aster-text latex))
-
 (defun aster-text (text)
   "Send text as LaTeX  to aster to be read out."
   (let ((inhibit-read-only t)
@@ -263,69 +266,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
       (insert "$\n")
       (insert "\\end{document}\n"))
     (aster-file file)))
-
-;;}}}
-;;{{{Key Bindings:
-
-(defvar  aster-keymap nil
-  " aster Keymap")
-
-(define-prefix-command 'aster-keymap   'aster-keymap)
-(global-set-key  (kbd "C-; SPC") 'aster-keymap)
-
-(defsubst aster-keymap-bindings-update (keymap bindings)
-  "Update keymap with  list of bindings."
-  (cl-loop
-   for binding in bindings
-   do
-   (define-key keymap (kbd (cl-first binding)) (cl-second binding))))
-
-(defcustom aster-keys
-  '(
-    ("." aster-current)
-    ("A" aster-to-attributes)
-    ("C" aster-children)
-    ("C-a" aster-to-abstract)
-    ("C-r" aster-record)
-    ("r" aster-region)
-    ("P" aster-parent )
-    ("SPC" aster-rest)
-    ("^" aster-to-superscript )
-    ("_" aster-to-subscript)
-    ("d" aster-below)
-    ("f"aster-file)
-    ("g" aster-to-cross-ref)
-    ("h" aster-to-left)
-    ("i" aster-to-contents)
-    ("j" aster-to-children )
-    ("k" aster-to-up)
-    ("l" aster-to-right)
-    ("m" aster-math)
-    ("n" aster-next)
-    ("p" aster-previous)
-    ("s" aster-stop)
-    ("t" aster-to-top)
-    ("u" aster-above)
-    ("<down>" aster-to-children )
-    ("<left>" aster-to-left)
-    ("<right>" aster-to-right)
-    ("<up>" aster-to-up))
-
-  "Aster key bindings. "
-  :group 'aster
-  :type '(repeat
-          :tag "Emacspeak Super Keymap"
-          (list
-           :tag "Key Binding"
-           (key-sequence :tag "Key")
-           (ems-interactive-command :tag "Command")))
-  :set
-  #'(lambda (sym val)
-      (aster-keymap-bindings-update aster-keymap  val)
-      (set-default sym
-                   (sort
-                    val
-                    #'(lambda (a b) (string-lessp (car a) (car b)))))))
 
 ;;}}}
 ;;{{{Navigators:
@@ -438,6 +378,69 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
            (setf *read-pointer* *document*)
            (summarize *document*))))
     (aster-eval (a--code '(move-to-top-of-math)))))
+
+;;}}}
+;;{{{Key Bindings:
+
+(defvar  aster-keymap nil
+  " aster Keymap")
+
+(define-prefix-command 'aster-keymap   'aster-keymap)
+(global-set-key  (kbd "C-; SPC") 'aster-keymap)
+
+(defsubst aster-keymap-bindings-update (keymap bindings)
+  "Update keymap with  list of bindings."
+  (cl-loop
+   for binding in bindings
+   do
+   (define-key keymap (kbd (cl-first binding)) (cl-second binding))))
+
+(defcustom aster-keys
+  '(
+    ("." aster-current)
+    ("A" aster-to-attributes)
+    ("C" aster-children)
+    ("C-a" aster-to-abstract)
+    ("C-r" aster-record)
+    ("r" aster-region)
+    ("P" aster-parent )
+    ("SPC" aster-rest)
+    ("^" aster-to-superscript )
+    ("_" aster-to-subscript)
+    ("d" aster-below)
+    ("f"aster-file)
+    ("g" aster-to-cross-ref)
+    ("h" aster-to-left)
+    ("i" aster-to-contents)
+    ("j" aster-to-children )
+    ("k" aster-to-up)
+    ("l" aster-to-right)
+    ("m" aster-math)
+    ("n" aster-next)
+    ("p" aster-previous)
+    ("s" aster-stop)
+    ("t" aster-to-top)
+    ("u" aster-above)
+    ("<down>" aster-to-children )
+    ("<left>" aster-to-left)
+    ("<right>" aster-to-right)
+    ("<up>" aster-to-up))
+
+  "Aster key bindings. "
+  :group 'aster
+  :type '(repeat
+          :tag "Emacspeak Super Keymap"
+          (list
+           :tag "Key Binding"
+           (key-sequence :tag "Key")
+           (ems-interactive-command :tag "Command")))
+  :set
+  #'(lambda (sym val)
+      (aster-keymap-bindings-update aster-keymap  val)
+      (set-default sym
+                   (sort
+                    val
+                    #'(lambda (a b) (string-lessp (car a) (car b)))))))
 
 ;;}}}
 ;;{{{Setup Repeat Mode
