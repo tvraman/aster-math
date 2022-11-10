@@ -8,14 +8,14 @@
 
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-(export '(parse-article parse-latex-string))
+(export '(parse-latex-file parse-latex-string))
 ;;; Variable: *LEX-PROGRAM*                                  Author: raman
 ;;; Created: Fri Feb 21 09:15:19 1992
 
 ;;; Function: PARSE-ARTICLE                                 Author: raman
 ;;; Created: Fri Feb 21 09:10:37 1992
 
-(defun parse-article (filename) 
+(defun parse-latex-file (filename) 
   "Parses a Latex article "
   (format t "Lex: ~a~%" filename)
   (with-open-file (in-stream filename)
@@ -24,7 +24,6 @@
              (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
              :input in-stream :wait t :output  :stream))) (create-article
        (read (process-output process) nil)))))
-
 
 (defun parse-latex-string (string) 
   "Parses a Latex article passed as a string."

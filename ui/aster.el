@@ -225,7 +225,7 @@
   "Run Aster on specified file."
   (interactive "fFile: ")
   (aster-check)
-  (aster-cmd `(read-aloud (parse-article ,file))))
+  (aster-cmd `(read-aloud (parse-latex-file ,file))))
 
 (defun aster-record ()
   "Record Aster's reading of current node.
