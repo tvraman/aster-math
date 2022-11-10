@@ -1,5 +1,4 @@
 ;;; aster.el - Load And Configure -*- lexical-binding: t; -*-
-;;; $Author: tv.raman.tv $
 ;;; Description:  Load and Configure Aster
 ;;; Keywords: Audio System For Technical Readings (AsTeR
 ;;{{{  Copyright:
@@ -28,8 +27,8 @@
 
 ;;{{{  introduction
 
-;;; Commentary:
-;;; See design.org for the overall design.
+;;  Commentary:
+;;  See design.org for the overall design.
 
 ;;}}}
 ;;{{{  Required modules
@@ -175,7 +174,7 @@ buffer.")
   (aster-guess-input)         ;guess based on context
   )
 
-;;;###autoload
+;; ###autoload
 (defun aster-math (latex)
   "Send a LaTeX expression to Aster,
  guess  based on context. "
@@ -463,8 +462,8 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 (provide 'aster)
 ;;{{{ end of file
 
-;;; local variables:
-;;; folded-file: t
-;;; end:
+;;  local variables:
+;;  folded-file: t
+;;  end:
 
 ;;}}}
