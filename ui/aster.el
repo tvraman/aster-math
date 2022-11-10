@@ -177,10 +177,9 @@
 (defun aster ()
   "Load and start Aster"
   (interactive)
-    (while (not (slime-connected-p))
-      (slime)
-      (sit-for 1)))
-
+  (while (not (slime-connected-p))
+    (slime)
+    (sit-for 1)))
 
 (defun aster-post-startup ()
   "Prepare Aster once slime is ready."
@@ -198,8 +197,6 @@
  'slime-connected-hook
  'aster-post-startup
  'at-end)
-
-
 
 (defun aster-cmd (sexp)
   "Run Aster command,  a sexp, after first stopping speech."
@@ -246,23 +243,23 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   "Read region using Aster."
   (interactive "r")
   (aster-eval
-     (a--code
-      `(read-aloud
-        (parse-latex-string
-         ,(concat
-           "\\begin{document}"
-           (buffer-substring-no-properties start end)
-           "\\end{document}"))))))
+   (a--code
+    `(read-aloud
+      (parse-latex-string
+       ,(concat
+         "\\begin{document}"
+         (buffer-substring-no-properties start end)
+         "\\end{document}"))))))
 
 (defun aster-text (text)
   "Send text as LaTeX  Math to aster to be read out."
-    (with-temp-buffer
-      (insert "\\begin{document}$")
-      (insert text)
-      (insert "$\\end{document}")
-      (aster-eval
-       (a--code
-        `(read-aloud (parse-latex-string ,(buffer-string)))))))
+  (with-temp-buffer
+    (insert "\\begin{document}$")
+    (insert text)
+    (insert "$\\end{document}")
+    (aster-eval
+     (a--code
+      `(read-aloud (parse-latex-string ,(buffer-string)))))))
 
 ;;}}}
 ;;{{{Navigators:
