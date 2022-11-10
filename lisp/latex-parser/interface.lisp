@@ -8,7 +8,7 @@
 
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-(export '(parse-article))
+(export '(parse-article parse-latex-string))
 ;;; Variable: *LEX-PROGRAM*                                  Author: raman
 ;;; Created: Fri Feb 21 09:15:19 1992
 
@@ -26,7 +26,7 @@
        (read (process-output process) nil)))))
 
 
-(defun parse-string (string) 
+(defun parse-latex-string (string) 
   "Parses a Latex article passed as a string."
   (let ((process
           (run-program
