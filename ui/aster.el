@@ -77,8 +77,10 @@
 
 (defsubst aster-eval (string)
   "Like slime-eval-save."
-  (slime-eval-async `(swank:eval-and-grab-output ,string)
-    (lambda (_result) t)))
+  (let ((buffer (get-buffer-create "aster-temp")))
+    (with-current-buffer buffer
+      (slime-eval-async `(swank:eval-and-grab-output ,string)
+        (lambda (_result) t)))))
 
 ;;}}}
 ;;{{{Guess Math Input:
@@ -243,19 +245,14 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 (defun aster-region (start end)
   "Send region to aster to be read out."
   (interactive "r")
-  (let ((text (buffer-substring-no-properties start end))
-        (inhibit-read-only t)
-        (file
-         (or (get-text-property start 'aster-file)
-             (make-temp-file "aster" nil ".tex"))))
-    (unless (get-text-property (point) 'aster-file)
-      (put-text-property start end 'aster-file file)
-      (set-buffer-modified-p nil))
-    (with-temp-file file
-      (insert "\\begin{document}\n")
+  (let ((text (buffer-substring-no-properties start end)))
+    (with-temp-buffer
+      (insert "\\begin{document}")
       (insert text)
-      (insert "\\end{document}\n"))
-    (aster-file file)))
+      (insert "\\end{document}")
+      (aster-eval
+       (a--code
+        `(read-aloud (parse-latex-string ,(buffer-string))))))))
 
 (defun aster-text (text)
   "Send text as LaTeX  to aster to be read out."
