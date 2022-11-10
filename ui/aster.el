@@ -175,10 +175,9 @@
 (defun aster ()
   "Load and start Aster"
   (interactive)
-  (save-current-buffer
     (while (not (slime-connected-p))
       (slime)
-      (sit-for 1))))
+      (sit-for 1)))
 
 
 (defun aster-post-startup ()
