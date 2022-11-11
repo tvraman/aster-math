@@ -74,7 +74,7 @@
 
 (defun add-dimension (name)
   "Add dimension named NAME to speech space"
-  (push name *speech-dimensions*))
+  (pushnew name *speech-dimensions*))
 
 (add-dimension 'lax-breathiness)
 (add-dimension 'average-pitch)
