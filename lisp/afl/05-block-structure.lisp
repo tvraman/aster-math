@@ -259,7 +259,7 @@ dimension-list"
           "~a is not a valid dimension"
           dimension)
   (setf
-   (reference-val (gethash dimension *global-values*) )
+   (reference-val (gethash dimension (global-values)))
    value)
 
   (set-speech-state  *current-speech-state* )

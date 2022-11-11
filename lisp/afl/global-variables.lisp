@@ -57,12 +57,15 @@
 (defvar *global-values* (make-hash-table :test #'equal  )
   "global parameter settings")
 
+(defun global-values ()
+  "Return global settings."
+  *global-values*)
 
 ;;;  Function: DEFINE-DEFAULT-VALUE Author: raman
 ;;; Created: Fri Aug  7 12:49:30 1992
 (defun  define-default-value (dimension value)
   "Assign VALUE as the default value along dimension DIMENSION."
-  (setf (gethash dimension *global-values* )
+  (setf (gethash dimension (global-values) )
         (make-reference :val  value))
   )
 
@@ -73,7 +76,7 @@
 ;;; Created: Fri Aug  7 13:29:55 1992
 (defun  get-global-value  (dimension) 
   "return global value for dimension dimension."
-  (gethash dimension *global-values*)
+  (gethash dimension (global-values))
   )
 
 
@@ -82,10 +85,10 @@
 
 (defun set-global-value (dimension value) 
   "set new global value to set for the first time use define-default-value"
-  (assert (gethash dimension *global-values*) nil
+  (assert (gethash dimension (global-values)) nil
           "Error: First define a global value for dimension ~a "
           dimension)
-  (setf (reference-val (gethash dimension *global-values*) )
+  (setf (reference-val (gethash dimension (global-values)) )
         value)
   )
 
@@ -324,6 +327,9 @@ number-of-end-points -1 subintervals"
 (defvar *standard-voices*
   (make-hash-table :test #'equal  )
   "table of standard voices.")
+(defun standard-voices ()
+  "Return table of standard voices."
+  *standard-voices*)
 
 ;;; Modified: Tue Aug 11 10:09:32 EDT 1992
 ;;; Modified: Thu Aug 20 09:35:45 EDT 1992
@@ -337,8 +343,7 @@ number-of-end-points -1 subintervals"
   (assert (point-in-speech-space-p point) nil
           "~a is not a point in speech space"
           point)
-  (setf  (gethash name *standard-voices*)
-         point)
+  (setf  (gethash name (standard-voices)) point)
   )
 ;;; Modified: Thu Aug 20 09:34:49 EDT 1992
 ;;; export name of voice that is being defined.
@@ -367,8 +372,7 @@ assign a value to it"
                                              assign ))
         )
       )
-    (setf (gethash name *standard-voices*)
-          point)
+    (setf (gethash name (standard-voices)) point)
     )
   )
 ;;; Modified: Tue Aug 25 11:42:19 EDT 1992
@@ -388,7 +392,7 @@ assign a value to it"
 (defun get-point-in-speech-space (name) 
   "return predefined point associated with name"
   (values 
-   (embed-point-in-speech-space (gethash name *standard-voices*))
+   (embed-point-in-speech-space (gethash name (standard-voices)))
    (speech-dimensions))
   )
 

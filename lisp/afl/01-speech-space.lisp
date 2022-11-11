@@ -366,7 +366,7 @@ space."
 based on the default settings specified for the various dimensions.
 Default settings are overridden by settings specified by  the optional
 argument to this function,  the name of a point in speech space"
-  (assert  (gethash voice *standard-voices*) nil
+  (assert  (gethash voice (standard-voices)) nil
            "error: Standard voice ~a not yet defined"
            voice)
   (setup-globals voice)
@@ -389,12 +389,7 @@ argument to this function,  the name of a point in speech space"
       (let
           ((dimension  (point-accessor dim standard-voice )))
         (when dimension
-          (define-globals dimension )
-          )
-        )
-      )
-    )
-  )
+          (define-globals dimension ))))))
 
 ;;; Function: DEFINE-GLOBALS                                 Author: raman
 ;;; Created: Sat Aug  8 11:10:29 1992
@@ -402,15 +397,12 @@ argument to this function,  the name of a point in speech space"
 (defun define-globals (dimension)
   "defines global values along dimension dimension as specified by the
 argument which is an object of type dimension. "
-  (assert  (dimension-p dimension) nil
-           "Error: Argument to define-globals ~a is not of type dimension"
-           dimension)
-  (let
-      ((name (dimension-name dimension )))
+  (assert
+   (dimension-p dimension) nil
+   "Error: Argument to define-globals ~a is not of type dimension" dimension)
+  (let ((name (dimension-name dimension )))
     (define-default-value name  (dimension-value dimension))
-    (define-step-size name (dimension-step-size dimension))
-    )
-  )
+    (define-step-size name (dimension-step-size dimension))))
 
 ;;}}}
 ;;; Include 07-final-scaling here
@@ -514,8 +506,7 @@ state as recorded by afl"
 
 (defun scale-dimension  (dimension)
   "Return a scaled copy of dimension"
-  (let
-      ((new-dimension (copy-dimension dimension )))
+  (let ((new-dimension (copy-dimension dimension )))
     (setf (dimension-value new-dimension)
           (*  (reference-value  (dimension-value new-dimension))
               (get-final-scale-factor (dimension-name dimension ))))
