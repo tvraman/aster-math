@@ -36,19 +36,6 @@ is at front"
 ;;; after setting something else clobbers earlier settings.
 ;;; stereo present on multivoice:
 
-;;; The Express does not provide a earphone port.
-;;; So we have no right volume.
-;;; The express does have tones.
-;;; So if we define the synthesizer code for right-volume to be
-;;; :tone 500,
-;;; then setting right volume will actually produce a beep, with the duration
-;;; determined by the value to which we would have set right volume.
-;;; What a kluge:-
-;(add-dimension 'left-volume)
-;(add-dimension 'right-volume)
-;;; this went away after dectalk 3:
-;(add-dimension 'loudness)
-;;; common dimensions to multivoice and express
 (add-dimension 'lax-breathiness)
 (add-dimension 'average-pitch)
 (add-dimension 'pitch-range)
