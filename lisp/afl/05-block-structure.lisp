@@ -99,7 +99,7 @@
 
 ;;; Modified: Thu Aug 20 11:00:46 EDT 1992
 ;;; accept additional keyword argument changed-dimensions whose
-;;; default value is *list-of-speech-dimensions*
+;;; default value is *speech-dimensions*
 ;;; Modified: Mon Aug 24 08:21:06 EDT 1992
 
 ;;; Modified: Sat Oct  3 14:14:22 EDT 1992
@@ -135,14 +135,6 @@
 
 (defvar *speech-hardware-state* nil "Holds current state of speech
 hardware")
-
-  ;;; Variable: *AWAIT-SILENCE-WHEN-USING-STEREO*              Author: raman
-  ;;; Created: Sun Jan  9 12:20:50 1994
-
-(defvar *await-silence-when-using-stereo*  nil
-  "If T, then await silence before changing parameters that affect
-directional speech. ")
-
 (defun set-speech-state (state )
   "sets state of audio  formatter to state   after applying final
 scaling"
@@ -173,24 +165,24 @@ scaling"
   ;;; Created: Wed Feb 10 11:47:34 1993
 ;;; Relies on representation of point-in-speech-space
 ;;; forward declaration: see 01-speech-space for real definition
-(defvar *list-of-speech-dimensions*)
+(defvar *speech-dimensions*)
 (defun compute-modified-dimensions (old-point new-point )
   "Return names of dimensions that are changed in new-point"
   (cond
-    ((null old-point ) *list-of-speech-dimensions*)
+    ((null old-point ) (speech-dimensions))
     (t (assert  (and
                  (point-in-speech-space-p  old-point)
                  (point-in-speech-space-p new-point )) nil
                  "Arguments are not valid points in speech space. ")
        (let ((modified-dimensions nil ))
          (dolist
-             (dim-name *list-of-speech-dimensions*)
+             (dim-name (speech-dimensions))
            (unless (same-dimension-value
                     (point-accessor  dim-name old-point)
                     (point-accessor dim-name new-point ))
              (push dim-name modified-dimensions  )))
          (if (find 'voice modified-dimensions )
-             *list-of-speech-dimensions*
+             (speech-dimensions)
              modified-dimensions)))))
 
   ;;; Function: SAME-DIMENSION-VALUE                           Author: raman
@@ -244,7 +236,7 @@ dimension-list"
           "~a is not a point in speech space"
           new-state )
   (dolist
-      (dimension *list-of-speech-dimensions*)
+      (dimension (speech-dimensions))
     (set-global-value dimension
                       (current-value dimension new-state))
     (set-step-size dimension
@@ -263,7 +255,7 @@ dimension-list"
 
 (defun global-set-value (dimension value)
   "set value globally along dimension"
-  (assert (find dimension *list-of-speech-dimensions*) nil
+  (assert (find dimension (speech-dimensions)) nil
           "~a is not a valid dimension"
           dimension)
   (setf

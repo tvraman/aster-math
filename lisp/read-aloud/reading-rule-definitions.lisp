@@ -64,7 +64,7 @@ In addition, allow the user to mark a position while reading. "
 
 (defvar *random-step-limit*  2.0 "Limit on random stepping. ")
 (defvar *random-speech-interval*(1-  (length
-                                      (afl:list-of-speech-dimensions)))
+                                      (afl:speech-dimensions)))
   "Number of speech dimensions. ")
 
 (def-reading-rule (paragraph quick-interactive)

@@ -60,7 +60,7 @@ If called with :slot 'step-size, modifies the step size instead."
   (assert (point-in-speech-space-p point) nil
           "~a is not a point in speech space. "
           point)
-  (assert (find dimension *list-of-speech-dimensions*) nil
+  (assert (find dimension (speech-dimensions)) nil
           "move-by: Invalid dimension ~a"
           dimension)
   (let*
@@ -109,7 +109,7 @@ If called with :slot 'step-size, modifies the step size instead."
                                         ;        (current-value dimension)
                                         ;        number-of-steps
                                         ;        (current-step-size dimension ))
-  (assert (find dimension *list-of-speech-dimensions*) nil
+  (assert (find dimension (speech-dimensions)) nil
           "step-by: Invalid dimension ~a"
           dimension)
   (assert (point-in-speech-space-p point) nil
@@ -165,7 +165,7 @@ If called with :slot 'step-size, modifies the step size instead. "
   (assert (point-in-speech-space-p point) nil
           "~a is not a point in speech space"
           point)
-  (assert (find dimension *list-of-speech-dimensions*) nil
+  (assert (find dimension (speech-dimensions)) nil
           "move-to: Invalid dimension ~a"
           dimension)
   (let*
@@ -200,7 +200,7 @@ If called with :slot 'step-size, modifies the step size instead."
   (assert (point-in-speech-space-p point) nil
           "~a is not a point in speech space"
           point)
-  (assert (find dimension *list-of-speech-dimensions*) nil
+  (assert (find dimension (speech-dimensions)) nil
           "scale-by: Invalid dimension ~a"
           dimension)
   (let*

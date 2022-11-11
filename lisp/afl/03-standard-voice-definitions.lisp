@@ -14,7 +14,7 @@
 
 ;;; Export all dimension names
 
-(eval `(export ',*list-of-speech-dimensions*))
+(eval `(export ',*speech-dimensions*))
 ;;; This file defines the standard voices as points in the speech
 ;;; space using the function define-standard-voice
 

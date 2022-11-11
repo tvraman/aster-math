@@ -16,7 +16,7 @@
           define-standard-voice
           save-point-in-speech-space
           get-point-in-speech-space
-          list-of-speech-dimensions
+          speech-dimensions
           get-step-size
           define-minimum-value
           define-maximum-value
@@ -274,7 +274,7 @@
 (defun dimension-range (dimension-name) 
   "Return difference between maximum and minimum values for this
 dimension"
-  (assert   (find dimension-name  (list-of-speech-dimensions))  nil
+  (assert   (find dimension-name  (speech-dimensions))  nil
             "~a is not a known afl dimension"
             dimension-name)
   (- (maximum-value dimension-name)
@@ -358,7 +358,7 @@ of dimension value pairs."
       (let
           ((dimension (first setting))
            (assign  (second setting )))
-        (assert (find dimension *list-of-speech-dimensions*)  nil
+        (assert (find dimension (speech-dimensions))  nil
                 "Error: Dimension ~a has not been defined, you cannot
 assign a value to it"
                 (first setting))
@@ -389,7 +389,7 @@ assign a value to it"
   "return predefined point associated with name"
   (values 
    (embed-point-in-speech-space (gethash name *standard-voices*))
-   *list-of-speech-dimensions*)
+   (speech-dimensions))
   )
 
 ;;}}}
