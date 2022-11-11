@@ -8,58 +8,18 @@
 (in-package :afl)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-;;; export all dimension names.
 
 ;;; This file has the user definition of speech space, ie: set up list
 ;;; of dimensions, specify default values etc.
 ;;; Each fold contains assignments to one global table
 
-;;{{{ *list-of-speech-dimensions*
-
-;;; Function: REARRANGE-DIMENSIONS-FOR-DECTALK               Author: raman
-;;; Created: Sun Aug 16 12:33:28 1992
-
-(defun rearrange-dimensions-for-dectalk ()
-  "Rearrange dimensions in list-of-speech-dimensions for dectalk so that voice
-is at front"
-  (if (find 'voice *list-of-speech-dimensions*)
-      (setf *list-of-speech-dimensions*
-            (cons 'voice
-                  (remove 'voice *list-of-speech-dimensions*)))))
-
-;;; First initialize by setting list of dimensions to nil
-
-(setf *list-of-speech-dimensions* nil)
-;;; At present for the dectalk the order in which dimensions are added
-;;; is important.  I will need to fix this. The problem is that the
-;;; voice dimension has to be set first on the dectalk as setting this
-;;; after setting something else clobbers earlier settings.
-;;; stereo present on multivoice:
-
-(add-dimension 'lax-breathiness)
-(add-dimension 'average-pitch)
-(add-dimension 'pitch-range)
-(add-dimension 'breathiness)
-(add-dimension 'head-size)
-(add-dimension 'speech-rate)
-(add-dimension 'smoothness)
-(add-dimension 'richness)
-(add-dimension 'laryngilization)
-(add-dimension 'baseline-fall)
-(add-dimension 'hat-rise)
-(add-dimension 'stress-rise)
-(add-dimension 'assertiveness )
-(add-dimension 'quickness)
-(add-dimension 'voice)
-
-;;}}}
 ;;{{{ define-synthesizer-code
 
 ;;; defining some synthesizer codes. dectalk specific
 
-;(define-synthesizer-code 'left-volume " :vs ")
-;#+multivoice (define-synthesizer-code 'right-volume " :ve ")
-;#+express  (define-synthesizer-code 'right-volume ":sync  :tone 500 ")
+                                        ;(define-synthesizer-code 'left-volume " :vs ")
+                                        ;#+multivoice (define-synthesizer-code 'right-volume " :ve ")
+                                        ;#+express  (define-synthesizer-code 'right-volume ":sync  :tone 500 ")
 (define-synthesizer-code 'lax-breathiness " :dv lx ")
 (define-synthesizer-code 'voice ":n")
 (define-synthesizer-code 'head-size ":dv hs ")
@@ -194,4 +154,3 @@ is at front"
 (define-final-scale-factor 'voice 'undefined)
 
 ;;}}}
-

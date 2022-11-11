@@ -8,12 +8,58 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
 (export '(
-          *default-voice*
+          *default-voice* add-dimension
           *reader-period-pause* *reader-comma-pause*
           initialize-speech-space
           re-initialize-speech-space
           current-value
           ))
+;;{{{ *list-of-speech-dimensions*
+
+;;; Variable: *LIST-OF-SPEECH-DIMENSIONS*                           Author: raman
+;;; Created: Sat Aug  8 15:35:18 1992
+
+(defvar *list-of-speech-dimensions*
+  nil
+  "list of dimension names that make up the speech space. ")
+
+;;; Function: LIST-OF-SPEECH-DIMENSIONS                             Author: raman
+;;; Created: Sat Oct  3 12:18:18 1992
+
+(defun list-of-speech-dimensions ()
+  "Return current list of dimensions"
+  *list-of-speech-dimensions*)
+
+;;; This function pushes the name on to  the global list of
+;;; dimensions, and will later also set up the global values etc. Will
+;;; possibly generate a defstruct for defining the point in speech
+;;; space. Hold this off until second pass.
+;;; Modified: Tue Aug 18 12:20:31 EDT 1992
+
+;;; Function: ADD-DIMENSION                                  Author: raman
+;;; Created: Sat Aug  8 15:45:51 1992
+
+(defun add-dimension (name)
+  "Add dimension named NAME to speech space"
+  (push name *list-of-speech-dimensions*))
+
+(add-dimension 'lax-breathiness)
+(add-dimension 'average-pitch)
+(add-dimension 'pitch-range)
+(add-dimension 'breathiness)
+(add-dimension 'head-size)
+(add-dimension 'speech-rate)
+(add-dimension 'smoothness)
+(add-dimension 'richness)
+(add-dimension 'laryngilization)
+(add-dimension 'baseline-fall)
+(add-dimension 'hat-rise)
+(add-dimension 'stress-rise)
+(add-dimension 'assertiveness )
+(add-dimension 'quickness)
+(add-dimension 'voice)
+
+;;}}}
 ;;; Include module reference-variables here for simplicity:
 
 ;;; implements reference variables. Uses a mutable object structure
@@ -167,15 +213,9 @@
 ;;; this is  generated automatically from the list of
 ;;; dimensions.
 ;;; point in speech space
-
-(defmacro define-point-in-speech-space ()
-  "define point in speech space  from dimensions defined so far"
-  `(defstruct (point-in-speech-space :named (:type list))
-     ,@ *list-of-speech-dimensions*))
-                                        ; so the struct gets defined before it is used:
-
-(define-point-in-speech-space)
-
+(eval
+ `(defstruct (point-in-speech-space :named (:type list))
+    ,@ *list-of-speech-dimensions*))
 
 ;;; Macro: WITH-LAZY-SET-STATE                               Author: raman
 ;;; Created: Tue Aug 25 14:49:17 1992

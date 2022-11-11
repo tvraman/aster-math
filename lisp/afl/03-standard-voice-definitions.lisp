@@ -8,12 +8,9 @@
 (in-package :afl)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-;;; rearrange dimensions for dectalk:
-
-(rearrange-dimensions-for-dectalk)
 ;;; first define points in speech space
 
-(define-point-in-speech-space)
+;(define-point-in-speech-space)
 
 ;;; Export all dimension names
 

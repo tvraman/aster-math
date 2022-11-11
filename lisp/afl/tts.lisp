@@ -136,12 +136,11 @@
     (finish-output i)))
 
 (defun tts-icon (icon)
-  "No-op for now ."
-  (when nil  ; no-op
+  "play icon"
     (let ((i (tts-input (tts))))
       (unless i (setq i (tts-open)))
       (format i "a {~a}~%" (icon-file icon))
-      (finish-output i))))
+      (finish-output i)))
 
 (defun tts-queue (text)
   "Queue text to speak."

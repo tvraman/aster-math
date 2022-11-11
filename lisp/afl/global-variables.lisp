@@ -8,7 +8,6 @@
 
 
 (export '(
-          add-dimension
           define-default-value
           define-unit-size
           define-synthesizer-code
@@ -34,41 +33,7 @@
 ;;; Contains all defvars etc used by afl.
 ;;; Also contains accessor and modifiers for these defvars.
 
-;;{{{ *list-of-speech-dimensions*
 
-;;; Variable: *LIST-OF-SPEECH-DIMENSIONS*                           Author: raman
-;;; Created: Sat Aug  8 15:35:18 1992
-
-(defvar *list-of-speech-dimensions*
-  nil
-  "list of dimension names that make up the speech space. ")
-
-;;; This function pushes the name on to the the global list of
-;;; dimensions, and will later also set up the global values etc. Will
-;;; possibly generate a defstruct for defining the point in speech
-;;; space. Hold this off until second pass.
-;;; Modified: Tue Aug 18 12:20:31 EDT 1992
-
-;;; added call to rearrange-dimensions-for-dectalk inside this
-;;; function.
-;;; Function: ADD-DIMENSION                                  Author: raman
-;;; Created: Sat Aug  8 15:45:51 1992
-
-(defun add-dimension (name) 
-  "Add dimension named NAME to speech space"
-  (push name *list-of-speech-dimensions*)
-  (rearrange-dimensions-for-dectalk)
-  )
-
-
-;;; Function: LIST-OF-SPEECH-DIMENSIONS                             Author: raman
-;;; Created: Sat Oct  3 12:18:18 1992
-
-(defun list-of-speech-dimensions () 
-  "Return current list of dimensions"
-  *list-of-speech-dimensions*
-  )
-;;}}}
 ;;{{{ *global-values*
 
 ;;;  comments on global settings implementation
