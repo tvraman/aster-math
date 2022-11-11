@@ -104,10 +104,6 @@
      "05-math-processing"
      "math-classes"
      "precedence-of-operators"))
-   (
-    :file "macro-name-children-and-attributes")
-   (
-    :file "children-and-attributes-are-called"
-    :depends-on 
-    (
-     "macro-name-children-and-attributes"))))               
+   (:file "macro-name-children-and-attributes")
+   (:file "children-and-attributes-are-called"
+    :depends-on ("macro-name-children-and-attributes"))))               
