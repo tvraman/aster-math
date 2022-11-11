@@ -78,8 +78,9 @@
 
 (defsubst aster-eval (string)
   "Like slime-eval-save but ignores result."
-  (slime-eval-async `(swank:eval-and-grab-output ,string)
-    (lambda (_result) t)))
+  (let ((font-lock-mode nil))
+    (slime-eval-async `(swank:eval-and-grab-output ,string)
+      (lambda (_result) t))))
 
 ;;}}}
 ;;{{{Guess Math Input:
@@ -207,8 +208,7 @@
 ;;{{{Reading Commands:
 
 (defun aster-math (latex)
-  "Send a LaTeX expression to Aster,
- guess  based on context. "
+  "Send a LaTeX expression to Aster from    context. "
   (interactive (list (aster-guess)))
   (aster-check)
   (when (or (null latex) (string= "" latex))
@@ -252,13 +252,14 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 
 (defun aster-text (text)
   "Send text as LaTeX  Math to aster to be read out."
-  (with-temp-buffer
-    (insert "\\begin{document}$")
-    (insert text)
-    (insert "$\\end{document}")
-    (aster-eval
-     (a--code
-      `(read-aloud (parse-latex-string ,(buffer-string)))))))
+  (aster-eval
+   (a--code
+    `(read-aloud
+      (parse-latex-string
+       ,(concat
+         "\\begin{document}$"
+         text
+         "$\\end{document}"))))))
 
 ;;}}}
 ;;{{{Navigators:
