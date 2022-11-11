@@ -69,21 +69,17 @@
   "Flag to record if Aster is ready.")
 
 (defsubst aster-check ()
-  "Check that Aster is ready"
+  "Check that Aster is ready. Start slime if needed."
   (cl-declare (special aster-ready))
   (unless
       (and  aster-ready
-            (condition-case nil
-                (slime-process)
-              (error nil)))
+            (condition-case nil (slime-process) (error nil)))
     (aster)))
 
 (defsubst aster-eval (string)
-  "Like slime-eval-save."
-  (let ((buffer (get-buffer-create "aster-temp")))
-    (with-current-buffer buffer
-      (slime-eval-async `(swank:eval-and-grab-output ,string)
-        (lambda (_result) t)))))
+  "Like slime-eval-save but ignores result."
+  (slime-eval-async `(swank:eval-and-grab-output ,string)
+    (lambda (_result) t)))
 
 ;;}}}
 ;;{{{Guess Math Input:
