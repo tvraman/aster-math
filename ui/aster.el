@@ -208,7 +208,7 @@
 ;;{{{Reading Commands:
 
 (defun aster-math (latex)
-  "Send a LaTeX expression to Aster from    context. "
+  "Send a LaTeX expression (no math delimiters) to Aster from    context. "
   (interactive (list (aster-guess)))
   (aster-check)
   (when (or (null latex) (string= "" latex))
