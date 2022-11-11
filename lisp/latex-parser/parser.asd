@@ -16,37 +16,20 @@
    (:file "macros-define-objects"
     :depends-on ("document-component-classes" "math-classes" ))
    (:file "parents-and-siblings"
-    :depends-on
-    ("document-component-classes"
-     "math-classes"))
+    :depends-on ("document-component-classes" "math-classes"))
    (:file "table-driver"
-    :depends-on
-    ("special-variables"
-     "math-classification"))
+    :depends-on ("special-variables" "math-classification"))
    (:file "special-variables")
    (:file "math-classification")
    (:file "01-sections"
-    :depends-on
-    (
-     "structs"
-     "document-component-classes"
-     "math-classes"
-     "buffers"
-     "special-variables"
-     "math-classification"
-     "table-driver"
-     "02-text-processing"))
+    :depends-on ("structs" "document-component-classes" "buffers"
+     "math-classes" "special-variables"
+     "math-classification" "table-driver" "02-text-processing"))
    (:file "02-text-processing"
     :depends-on
-    (
-     "05-math-processing"
-     "structs"
-     "document-component-classes"
-     "math-classes"
-     "buffers"
-     "special-variables"
-     "math-classification"
-     "table-driver"))
+    ("05-math-processing" "structs" "document-component-classes"
+     "math-classes" "buffers" "special-variables"
+     "math-classification" "table-driver"))
    (
     :file "03-tex-macro-expand"
     :depends-on
