@@ -6,9 +6,9 @@
   :components
   (
    (:file "pronounce")
-   (:file "pronunciations"
-          :depends-on ("pronounce"))
+   (:file "pronunciations" :depends-on ("pronounce"))
    (:file "french-pronunciations"
-          :depends-on ("pronounce" ))
+    :depends-on ("pronounce" ))
    (:file  "interface-pronounce"
-           :depends-on( "pronounce"))))
+    :depends-on( "pronounce"))
+   ))

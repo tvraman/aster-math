@@ -15,7 +15,7 @@
   (when (uiop:getenv "ASTER_TTS")
     (setf (uiop:getenv "PULSE_SINK") (uiop:getenv "ASTER_TTS")))
   (mapc #'asdf:load-system
-        '(:parser :afl :pronounce :read-aloud :browse))
+        '(:parser :afl  :read-aloud :browse))
   (mapc #'asdf:load-system
         '( :vavasis-book :vanloan-book :tcs-chicago :rz-book
           :norvig-book :gries-book :dennis-math-books :cs611-notes))

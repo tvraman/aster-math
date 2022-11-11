@@ -19,4 +19,9 @@
    (:file "03-standard-voice-definitions")
    (:file "04-moving-in-speech-space")
    (:file "05-block-structure" )
-   (:file "06-synthesizer-codes")))
+   (:file "06-synthesizer-codes")
+   (:file "pronounce")
+   (:file "pronunciations" :depends-on ("pronounce"))
+   (:file "french-pronunciations" :depends-on ("pronounce" ))
+   (:file  "interface-pronounce" :depends-on( "pronounce"))))
+   
