@@ -84,3 +84,39 @@ Note: call here used as in a spade is called a spade."
     ',name-spec)
   )
 
+;;; Migrated from children-are-called.lisp
+;;{{{summation
+
+(call-its-children summation (summand))
+(call-its-attributes summation ((subscript "lower constraint ")
+                                (superscript "upper constraint ")))
+
+;;}}}
+;;{{{Integral
+
+(call-its-children integral ( " integrant " ))
+(call-its-attributes integral ((subscript lower-limit)
+                               (superscript upper-limit)))
+
+;;}}}
+;;{{{Juxtaposition
+
+(call-its-children juxtaposition term) 
+
+
+
+;;}}}
+;;{{{Parenthesis
+
+(call-its-children parenthesis ( " parenthesized expression " ))
+
+;;}}}
+;;{{{relational operator
+
+(call-its-children relational-operator (" left hand side "  " right hand side "))
+;;}}}
+;;{{{arrow operator
+
+(call-its-children arrow-operator (" left hand side " " right hand side " ))
+
+;;}}}
