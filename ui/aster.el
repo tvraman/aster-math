@@ -92,7 +92,7 @@
   (cl-declare (special calc-last-kill ))
   (cl-assert (eq major-mode 'calc-mode) nil "Not in a calc buffer.")
   (calc-kill 1 'no-delete)
-  (substring (car calc-last-kill) 2))
+  (string-trim (substring (car calc-last-kill) 2)))
 
 (declare-function emacspeak-sage-get-output-as-latex "emacspeak-sage" nil)
 
