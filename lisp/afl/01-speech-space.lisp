@@ -30,12 +30,8 @@
   "Return current list of dimensions"
   *list-of-speech-dimensions*)
 
-;;; This function pushes the name on to  the global list of
-;;; dimensions, and will later also set up the global values etc. Will
-;;; possibly generate a defstruct for defining the point in speech
-;;; space. Hold this off until second pass.
-;;; Modified: Tue Aug 18 12:20:31 EDT 1992
 
+;;; Modified: Tue Aug 18 12:20:31 EDT 1992
 ;;; Function: ADD-DIMENSION                                  Author: raman
 ;;; Created: Sat Aug  8 15:45:51 1992
 
