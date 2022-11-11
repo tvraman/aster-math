@@ -53,9 +53,7 @@
 ;;}}}
 ;;{{{Helpers:
 
-(defsubst a--code (code)
-  "Return string representation of code; prin1-to-string."
-  (prin1-to-string code))
+(defalias 'a--code 'prin1-to-string)
 
 (defsubst a--pa-index (pattern)
   "Index of input sink from list-sink-inputs for app matching pattern."
