@@ -12,8 +12,46 @@
           *reader-period-pause* *reader-comma-pause*
           initialize-speech-space
           re-initialize-speech-space
-          current-value
-          ))
+          current-value))
+;;{{{ Structure: REFERENCE                                     Author:
+
+;;raman
+
+;;; implements reference variables. Uses a mutable object structure
+;;; with one field val. A method reference-value is written to make
+;;; the interface clean. If passed any lisp object reference-value
+;;; returns it, except for objects of type reference in which case the
+;;; slot value is returned.
+
+;;; Created: Fri Aug  7 11:27:54 1992
+;;; A mutable object that implements reference variables
+(defstruct reference val)
+
+;;}}}
+;;{{{ method reference-value
+(defgeneric reference-value (ref))
+
+;;; Overloading reference-value. If argument is not a reference
+;;; object, just return it, otherwise return the slot value.
+;;; Method: REFERENCE-VALUE                                  Author: raman
+;;; Created: Fri Aug  7 11:44:54 1992
+(defmethod reference-value ((ordinary t))
+  "return argument"
+  ordinary)
+
+;;; Method: REFERENCE-VALUE                                  Author: raman
+;;; Created: Fri Aug  7 11:48:37 1992
+(defmethod reference-value ((reference reference))
+  "return value of ref"
+  (reference-val reference))
+
+;;}}}
+;;{{{Symbol:
+
+(defun afl-symbol (&rest args)
+  "Concatenate symbols or strings to form an interned symbol"
+  (intern (format nil "~{~a~}" args)))
+;;}}}
 ;;{{{ *list-of-speech-dimensions*
 
 ;;; Variable: *LIST-OF-SPEECH-DIMENSIONS*                           Author: raman
@@ -29,7 +67,6 @@
 (defun list-of-speech-dimensions ()
   "Return current list of dimensions"
   *list-of-speech-dimensions*)
-
 
 ;;; Modified: Tue Aug 18 12:20:31 EDT 1992
 ;;; Function: ADD-DIMENSION                                  Author: raman
@@ -55,45 +92,6 @@
 (add-dimension 'quickness)
 (add-dimension 'voice)
 
-;;}}}
-;;; Include module reference-variables here for simplicity:
-
-;;; implements reference variables. Uses a mutable object structure
-;;; with one field val. A method reference-value is written to make
-;;; the interface clean. If passed any lisp object reference-value
-;;; returns it, except for objects of type reference in which case the
-;;; slot value is returned.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;{{{ Structure: REFERENCE                                     Author: raman
-;;; Created: Fri Aug  7 11:27:54 1992
-;;; A mutable object that implements reference variables
-(defstruct reference val)
-;;}}}
-;;{{{ method reference-value
-(defgeneric reference-value (ref))
-
-;;; Overloading reference-value. If argument is not a reference
-;;; object, just return it, otherwise return the slot value.
-;;; Method: REFERENCE-VALUE                                  Author: raman
-;;; Created: Fri Aug  7 11:44:54 1992
-(defmethod reference-value ((ordinary t))
-  "return argument"
-  ordinary)
-
-;;; Method: REFERENCE-VALUE                                  Author: raman
-;;; Created: Fri Aug  7 11:48:37 1992
-(defmethod reference-value ((reference reference))
-  "return value of ref"
-  (reference-val reference))
-
-;;}}}
-
-;;{{{Symbol:
-
-(defun afl-symbol (&rest args)
-  "Concatenate symbols or strings to form an interned symbol"
-  (intern (format nil "~{~a~}" args)))
 ;;}}}
 
 ;;; Each fold contains functions associated with the fold marker
@@ -212,22 +210,6 @@
 (eval
  `(defstruct (point-in-speech-space :named (:type list))
     ,@ *list-of-speech-dimensions*))
-
-;;; Macro: WITH-LAZY-SET-STATE                               Author: raman
-;;; Created: Tue Aug 25 14:49:17 1992
-
-(defmacro with-lazy-set-state (&body body)
-  "Locally sets *lazy-set-state* to t and executes body and then
-unsets *lazy-set-state*"
-  `(let ((save-value afl::*lazy-set-state*))
-     (unwind-protect
-          (progn
-            (setf *lazy-set-state* t)
-            ,@body)
-       (setf afl::*lazy-set-state* save-value)
-       )
-     )
-  )
 
 ;;; The following function relies on the list representation of the
 ;;; structure point-in-speech-space and will have to be changed if the
@@ -350,9 +332,8 @@ space."
       (set-step-size dimension
                      (current-step-size dimension new-voice))
       )
-    (with-lazy-set-state
-      (set-speech-state  *current-speech-state*)
-      )
+    (set-speech-state  *current-speech-state*)
+
     )
   )
 
@@ -504,8 +485,7 @@ if scale factor already defined "
   "Set scale factor for dimension"
   (setf (gethash dimension *table-of-final-scale-factors*)
         scale-factor)
-  (with-lazy-set-state
-    (set-speech-state *current-speech-state*))
+  (set-speech-state *current-speech-state*)
   )
 
 ;;; Function: REFRESH                                        Author: raman
@@ -515,8 +495,7 @@ if scale factor already defined "
   "Call this function if the hardware gets out of synch with the current
 state as recorded by afl"
   (tts-queue "[:punc some]")
-  (with-lazy-set-state
-    (set-speech-state *current-speech-state*))
+  (set-speech-state *current-speech-state*)
   )
 
 ;;}}}

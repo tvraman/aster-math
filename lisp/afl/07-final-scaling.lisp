@@ -62,8 +62,7 @@ if scale factor already defined "
   "Set scale factor for dimension"
   (setf (gethash dimension *table-of-final-scale-factors*)
         scale-factor)
-  (with-lazy-set-state
-    (set-speech-state *current-speech-state*))
+  (set-speech-state *current-speech-state*)
   )
 
 ;;; Function: REFRESH                                        Author: raman
@@ -73,8 +72,7 @@ if scale factor already defined "
   "Call this function if the hardware gets out of synch with the current
 state as recorded by afl"
   (tts-queue "[:punc some]")
-  (with-lazy-set-state
-    (set-speech-state *current-speech-state*))
+  (set-speech-state *current-speech-state*)
   )
 
 ;;}}}

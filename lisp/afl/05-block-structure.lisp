@@ -9,10 +9,9 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (export '(
           *current-speech-state* *global-speech-state*
-          ;*await-silence-when-using-stereo*
+                                        ;*await-silence-when-using-stereo*
           local-set-state global-set-state
-          new-block exit-block
-          *lazy-set-state* with-lazy-set-state))
+          new-block exit-block))
 ;;;  Contains definition of new-block as a macro.
 ;;; and associated assignment operators.
 
@@ -63,7 +62,7 @@
 
 (defun afl-block-name()
   "Generate a afl block name"
-  (afl-symbol 'block- (incf *afl-block-id*)))
+  (gensym "afl-block-"))
 
 ;;; Modified: Tue Mar 23 13:11:56 EST 1993
 ;;; new block now handles speech and sound components
@@ -98,35 +97,10 @@
 ;;}}}
 ;;{{{ assignments
 
-;;; Variable: *LAZY-SET-STATE*                               Author: raman
-;;; Created: Mon Aug 24 08:24:11 1992
-;;; external variable:
-(defvar *lazy-set-state*
-  nil
-  "If t set-speech-state sets all the dimensions, without checking if some
-dimension has actually been modified. Setting this to t will slow down
-the dectalk.")
-
-;;; Variable: *LAZY-SET-STATE-DEFAULT*                       Author: raman
-;;; Created: Tue Aug 25 14:33:03 1992
-
-(defvar *lazy-set-state-default*
-  nil
-  "default value for *lazy-set-state*")
-
 ;;; Modified: Thu Aug 20 11:00:46 EDT 1992
 ;;; accept additional keyword argument changed-dimensions whose
 ;;; default value is *list-of-speech-dimensions*
 ;;; Modified: Mon Aug 24 08:21:06 EDT 1992
-;;; If *lazy-set-state* is t, do not bother checking for changed
-;;; dimensions, just set everything.
-
-;;; Variable: *AFL-SET-STATE-DEBUG*                          Author: raman
-;;; Created: Thu Oct  1 09:55:50 1992
-
-(defvar *afl-set-state-debug*
-  nil
-  "If t set-speech-state prints out values it sends to the synthesizer")
 
 ;;; Modified: Sat Oct  3 14:14:22 EDT 1992
 ;;; surround  body of set-speech-state in with-interruptions-inhibited so that
@@ -176,10 +150,9 @@ scaling"
           "~a is not a point in speech space" state)
   (let*
       ((new-state (scale-point-in-speech-space state ))
-       (modified-dimensions(if *lazy-set-state*
-                               *list-of-speech-dimensions*
-                               (compute-modified-dimensions
-                                *speech-hardware-state* new-state  )))
+       (modified-dimensions
+         (compute-modified-dimensions
+          *speech-hardware-state* new-state  ))
        (command-string nil))
     (when modified-dimensions
       (dolist
@@ -194,14 +167,13 @@ scaling"
              (dimension-name dimension)
              (reference-value (dimension-value dimension )))))))
       (setf *speech-hardware-state* new-state )
-      (tts-code  command-string))
-    (when *afl-set-state-debug*
-      (format nil  "Sending: ~% ~a  "command-string))))
+      (tts-code  command-string))))
 
   ;;; Function: COMPUTE-MODIFIED-DIMENSIONS                    Author: raman
   ;;; Created: Wed Feb 10 11:47:34 1993
 ;;; Relies on representation of point-in-speech-space
-
+;;; forward declaration: see 01-speech-space for real definition
+(defvar *list-of-speech-dimensions*)
 (defun compute-modified-dimensions (old-point new-point )
   "Return names of dimensions that are changed in new-point"
   (cond
@@ -278,9 +250,8 @@ dimension-list"
     (set-step-size dimension
                    (current-step-size dimension new-state))
     )
-  (with-lazy-set-state
-    (set-speech-state  *current-speech-state*)
-    )
+  (set-speech-state  *current-speech-state*)
+
   )
 
 ;;; use this for setting single global value
@@ -298,9 +269,9 @@ dimension-list"
   (setf
    (reference-val (gethash dimension *global-values*) )
    value)
-  (with-lazy-set-state
-    (set-speech-state  *current-speech-state* )
-    )
+
+  (set-speech-state  *current-speech-state* )
+
                                         ; actually send the commands.
   )
 
