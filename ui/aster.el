@@ -213,7 +213,14 @@
   (aster-check)
   (when (or (null latex) (string= "" latex))
     (setq latex (read-from-minibuffer "Enter expression:")))
-  (aster-text latex))
+  (aster-eval
+   (a--code
+    `(read-aloud
+      (parse-latex-string
+       ,(concat
+         "\\begin{document}$"
+         latex
+         "$\\end{document}"))))))
 
 (defun aster-file (file)
   "Run Aster on specified file."
@@ -249,17 +256,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
          "\\begin{document}"
          (buffer-substring-no-properties start end)
          "\\end{document}"))))))
-
-(defun aster-text (text)
-  "Send text as LaTeX  Math to aster to be read out."
-  (aster-eval
-   (a--code
-    `(read-aloud
-      (parse-latex-string
-       ,(concat
-         "\\begin{document}$"
-         text
-         "$\\end{document}"))))))
 
 ;;}}}
 ;;{{{Navigators:
