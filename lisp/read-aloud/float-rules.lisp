@@ -60,9 +60,8 @@
   "Footnote cue. ")
 
 (define-reading-state 'footnote-mark
-    #'(lambda(state)
-        (afl:step-by afl:*current-speech-state*
-                     'afl:average-pitch 2 )))
+    #'(lambda(_state)
+        (afl:step-by afl:*current-speech-state* 'afl:average-pitch 2 )))
 
 
 (def-reading-rule (footnote float)

@@ -36,8 +36,7 @@
       (loop for item in contents do
         (read-aloud  item)
         (when  (end-of-sentence? item)
-                                        ;(afl:tts-force )
-          ))))
+          (afl:tts-force )))))
   )
 
 (defvar *mark-interactively-char* #\m
@@ -46,20 +45,19 @@
 (def-reading-rule (paragraph allow-interactive-marks)
   "Skip out at end of sentence if requested.
 In addition, allow the user to mark a position while reading. "
-  (afl:new-block (afl:local-set-state :text)
+  (afl:new-block
+    (afl:local-set-state :text)
     (with-slots  ((contents contents )) paragraph
       (afl:tts-icon "paragraph")
       (afl:tts-icon  *paragraph-cue* )
       (loop for item in contents do
         (read-aloud  item)
         (when  (end-of-sentence? item)
-                                        ;(afl:tts-force )
+          (afl:tts-force )
           (when  (char=
-                  (or (read-char-no-hang)
-                      #\space)
+                  (or (read-char-no-hang) #\space)
                   *mark-interactively-char*)
-            (mark-read-pointer))
-          ))))
+            (mark-read-pointer))))))
   )
 
 (defvar *random-step-limit*  2.0 "Limit on random stepping. ")
