@@ -119,8 +119,8 @@ processing function")
        (defmethod name-of-child  ((n integer) (,object-name ,object-name))
          "Automatically generated name of child  accessor"
          (assert (<= n (length (arguments  ,object-name ))) nil
-                  "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
-                  n ,object-name  (length (arguments ,object-name )))
+                 "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
+                 n ,object-name  (length (arguments ,object-name )))
          (cond
            ((null  (children-are-called ,object-name ) ) nil)
            ((listp (children-are-called  ,object-name) )
