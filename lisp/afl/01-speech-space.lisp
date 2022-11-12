@@ -68,21 +68,6 @@
 
 ;;; Modified: Tue Aug 18 12:20:31 EDT 1992
 
-(add-dimension 'lax-breathiness)
-(add-dimension 'average-pitch)
-(add-dimension 'pitch-range)
-(add-dimension 'breathiness)
-(add-dimension 'head-size)
-(add-dimension 'speech-rate)
-(add-dimension 'smoothness)
-(add-dimension 'richness)
-(add-dimension 'laryngilization)
-(add-dimension 'baseline-fall)
-(add-dimension 'hat-rise)
-(add-dimension 'stress-rise)
-(add-dimension 'assertiveness )
-(add-dimension 'quickness)
-(add-dimension 'voice)
 
 ;;}}}
 
