@@ -721,24 +721,10 @@
   (typep self  'math-subformula))
 
 ;;}}}
-;;{{{ fraction
-
-;;; Class: FRACTION                                          Author: raman
-;;; Created: Fri Oct  9 13:56:00 1992
-
-
-
-
-;;; <(Handled by define-text-object )>
-
-(defun fraction-p (self)
-  (typep self  'fraction))
-
-;;}}}
 ;;{{{ root
 
-  ;;; Class: GENERALIZED-ROOT                                  Author: raman
-  ;;; Created: Tue Mar 16 12:19:31 1993
+;;; Class: GENERALIZED-ROOT                                  Author: raman
+;;; Created: Tue Mar 16 12:19:31 1993
 
 (defclass generalized-root (math-object)
   ()
