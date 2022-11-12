@@ -24,21 +24,22 @@
 
  ;;; define class
  ;;; define processing function
-(defmacro define-text-object ( &key
-                                 macro-name number-args processing-function
-                                 children-are-called
-                                 precedence object-name supers)
+(defmacro define-text-object (
+                              &key
+                              macro-name number-args processing-function
+                              children-are-called
+                              precedence object-name supers)
   "define new object in text"
   `(progn
-    ;;; First define the class:
-    ;;; if n args is 0 no argument slot
+;;; First define the class:
+;;; if n args is 0 no argument slot
      (cond
        (, (= 0 number-args )
           (defclass ,object-name   ,supers
             ((contents :initform nil :initarg  :contents
                        :accessor contents ))
             (:documentation ,(format nil
-                                     "Class ~a corresponding to  document macro ~a"
+                                     "Class ~a corresponding to macro ~a"
                                      object-name macro-name))
             ))
                                         ;otherwise
@@ -51,12 +52,12 @@
              (contents :initform nil :initarg  :contents
                        :accessor contents ))
             (:documentation ,(format nil
-                                     "Class ~a corresponding to  document macro ~a"
+                                     "Class ~a corresponding to macro ~a"
                                      object-name macro-name))
             ))
-       )                               ; end if
-    ;;; Now define the processing function:
-    ;;; Modified to match class definition
+       )                       ; end if
+;;; Now define the processing function:
+;;; Modified to match class definition
      (defun ,processing-function (&rest arguments)
        "Automatically generated processing function"
        (assert
@@ -81,31 +82,30 @@ processing function")
        )
 ;;; define argument accessor method
                                         ; and children-called method
-    ;;; only if n-args is not 0
+;;; only if n-args is not 0
      (when ,(>  number-args 0)
        (defmethod argument ((,object-name ,object-name) (n integer))
          "Automatically generated argument accessor"
-         (assert  (<= n (length (arguments  ,object-name ))) nil
-                  "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
-                  n  ,object-name (length (arguments ,object-name )))
-         (elt  (arguments ,object-name)  (- n 1 ))
-         )
-                                        ; define it with the arguments in the reverse order
+         (assert (<= n (length (arguments  ,object-name ))) nil
+                 "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
+                 n ,object-name  (length (arguments ,object-name )))
+         (elt  (arguments ,object-name)  (- n 1 )))
+                                        ;  with arguments in the reverse order
        (defmethod argument ((n integer) (,object-name ,object-name))
          "Automatically generated argument accessor"
-         (assert  (<= n (length (arguments  ,object-name ))) nil
-                  "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
-                  n  ,object-name (length (arguments ,object-name )))
+         (assert (<= n (length (arguments  ,object-name ))) nil
+                 "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
+                 n ,object-name  (length (arguments ,object-name )))
          (elt  (arguments ,object-name)  (- n 1 ))
          )
-       )                                 ; end when
+       )                                ; end when
                                         ; children-are-called
      (when ,children-are-called
        (defmethod name-of-child  ((,object-name ,object-name) (n integer))
          "Automatically generated name of child  accessor"
-         (assert  (<= n (length (children   ,object-name ))) nil
-                  "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
-                  n  ,object-name (length (children ,object-name )))
+         (assert (<= n (length (arguments  ,object-name ))) nil
+                 "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
+                 n ,object-name  (length (arguments ,object-name )))
          (cond
            ((null  (children-are-called ,object-name ) ) nil)
            ((listp (children-are-called  ,object-name) )
@@ -118,9 +118,9 @@ processing function")
                                         ; with calling sequence reversed
        (defmethod name-of-child  ((n integer) (,object-name ,object-name))
          "Automatically generated name of child  accessor"
-         (assert  (<= n (length (children   ,object-name ))) nil
-                  "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
-                  n  ,object-name (length (children  ,object-name )))
+         (assert (<= n (length (arguments  ,object-name ))) nil
+                  "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
+                  n ,object-name  (length (arguments ,object-name )))
          (cond
            ((null  (children-are-called ,object-name ) ) nil)
            ((listp (children-are-called  ,object-name) )
@@ -130,11 +130,11 @@ processing function")
            (t (error "Should not have got here. "))
            )
          )
-       )                                 ; end when
-    ;;; define precedence
+       )                                ; end when
+;;; define precedence
      (when ',precedence
        (define-precedence ,macro-name :same-as ',precedence))
-   ;;; Install processing function
+;;; Install processing function
      (define-tex-macro ,macro-name ,number-args ',processing-function)
      )
   )
