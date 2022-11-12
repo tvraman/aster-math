@@ -382,14 +382,7 @@ bulletins violate this. ")
 (defun process-argument-as-math (argument)
   "Process argument as math. "
   (process-math
-   (make-buffer :contents (list argument )))
-  )
-
-;;; Modified: Fri Oct  9 13:57:35 EDT 1992
-;;; build up a fraction object:
-;;; Function: FRAC-EXPAND                                    Author: raman
-;;; Created: Wed Sep 16 17:23:04 1992
-
+   (make-buffer :contents (list argument ))))
 ;;; Following function expects that each of the arguments to the \root
 ;;; macro are enclosed in  in braces in the tex documents. Tex allows
 ;;; \root n+1 \of m+n  At present this will not be recognized.
@@ -475,8 +468,15 @@ bulletins violate this. ")
   (declare (ignore math-buffer))
   (make-instance 'integral-d
                  :contents "dt"
-                 :children (list  "t"))
-  )
+                 :children (list  "t")))
+
+(define-text-object :macro-name "frac" 
+  :number-args 2
+  :processing-function frac-expand 
+  :precedence  nil
+  :children-are-called (list 'numerator 'denominator )
+  :object-name fraction
+  :supers (math-object))
 
 (define-tex-macro "dx" 0 'dx-expand)
 (define-tex-macro "dy" 0 'dy-expand)

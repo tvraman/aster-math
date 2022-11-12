@@ -726,7 +726,8 @@
 ;;; Class: FRACTION                                          Author: raman
 ;;; Created: Fri Oct  9 13:56:00 1992
 
-;;; class fraction no longer defined by hand.
+
+
 
 ;;; <(Handled by define-text-object )>
 
