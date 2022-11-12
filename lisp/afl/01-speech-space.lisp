@@ -8,7 +8,7 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
 (export '(
-          *default-voice* add-dimension
+          *default-voice* 
           *reader-period-pause* *reader-comma-pause*
           initialize-speech-space
           re-initialize-speech-space
@@ -52,10 +52,14 @@
 ;;; Created: Sat Aug  8 15:35:18 1992
 
 (defvar *speech-dimensions*
-  nil
-  "list of dimension names that make up the speech space. ")
+'(
+  AFL:VOICE AFL:QUICKNESS AFL:ASSERTIVENESS AFL:STRESS-RISE AFL:HAT-RISE
+  AFL:BASELINE-FALL AFL:LARYNGILIZATION AFL:RICHNESS AFL:SMOOTHNESS
+  AFL:SPEECH-RATE AFL:HEAD-SIZE AFL:BREATHINESS AFL:PITCH-RANGE
+  AFL:AVERAGE-PITCH AFL:LAX-BREATHINESS)  
+  "list of dimension names in  the speech space. ")
 
-;;; Function: LIST-OF-SPEECH-DIMENSIONS                             Author: raman
+;;; FunctionSPEECH-DIMENSIONS                             Author: raman
 ;;; Created: Sat Oct  3 12:18:18 1992
 
 (defun speech-dimensions ()
@@ -63,12 +67,6 @@
   *speech-dimensions*)
 
 ;;; Modified: Tue Aug 18 12:20:31 EDT 1992
-;;; Function: ADD-DIMENSION                                  Author: raman
-;;; Created: Sat Aug  8 15:45:51 1992
-
-(defun add-dimension (name)
-  "Add dimension named NAME to speech space"
-  (pushnew name *speech-dimensions*))
 
 (add-dimension 'lax-breathiness)
 (add-dimension 'average-pitch)
