@@ -41,24 +41,20 @@
                          :accessor contents ))
               (:documentation ,(format nil
                                        "Class ~a corresponding to macro ~a"
-                                       object-name macro-name))
-              ))
-                                        ;otherwise
-         (t (defclass ,object-name   ,supers
-              ((arguments :initform nil :initarg :arguments
-                          :accessor arguments :accessor children)
-               (children-are-called :initform  ,children-are-called
-                                    :initarg :children-are-called
-                                    :accessor children-are-called )
-               (contents :initform nil :initarg  :contents
-                         :accessor contents ))
-              (:documentation ,(format nil
-                                       "Class ~a corresponding to macro ~a"
-                                       object-name macro-name))
-              ))
-         ))                       ; end if
-;;; Now define the processing function:
-;;; Modified to match class definition
+                                       object-name macro-name))))
+         (t
+          (defclass ,object-name   ,supers
+            ((arguments :initform nil :initarg :arguments
+                        :accessor arguments :accessor children)
+             (children-are-called :initform  ,children-are-called
+                                  :initarg :children-are-called
+                                  :accessor children-are-called )
+             (contents :initform nil :initarg  :contents
+                       :accessor contents ))
+            (:documentation
+             ,(format nil
+                      "Class ~a corresponding to macro ~a"
+                      object-name macro-name))))))                      
      (defun ,processing-function (&rest arguments)
        "Automatically generated processing function"
        (assert
@@ -79,8 +75,7 @@ processing function")
                        collect
                        (funcall processor  arg)
                        )))
-         self)
-       )
+         self))
 ;;; define argument accessor method
                                         ; and children-called method
 ;;; only if n-args is not 0
@@ -97,9 +92,7 @@ processing function")
          (assert (<= n (length (arguments  ,object-name ))) nil
                  "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
                  n ,object-name  (length (arguments ,object-name )))
-         (elt  (arguments ,object-name)  (- n 1 ))
-         )
-       )                                ; end when
+         (elt  (arguments ,object-name)  (- n 1 ))))                                ; end when
                                         ; children-are-called
      (when ,children-are-called
        (defmethod name-of-child  ((,object-name ,object-name) (n integer))
@@ -113,9 +106,7 @@ processing function")
             (elt  (children-are-called ,object-name)  (- n 1 )))
            ((atom  (children-are-called ,object-name ))
             (children-are-called ,object-name))
-           (t (error "Should not have got here. "))
-           )
-         )
+           (t (error "Should not have got here. "))))
                                         ; with calling sequence reversed
        (defmethod name-of-child  ((n integer) (,object-name ,object-name))
          "Automatically generated name of child  accessor"
@@ -128,17 +119,12 @@ processing function")
             (elt  (children-are-called ,object-name)  (- n 1 )))
            ((atom  (children-are-called ,object-name ))
             (children-are-called ,object-name))
-           (t (error "Should not have got here. "))
-           )
-         )
-       )                                ; end when
+           (t (error "Should not have got here. ")))))                                ; end when
 ;;; define precedence
      (when ',precedence
        (define-precedence ,macro-name :same-as ',precedence))
 ;;; Install processing function
-     (define-tex-macro ,macro-name ,number-args ',processing-function)
-     )
-  )
+     (define-tex-macro ,macro-name ,number-args ',processing-function)))
 
 ;;{{{ labelled text objects:
 ;;;
