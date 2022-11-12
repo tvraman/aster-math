@@ -31,7 +31,7 @@
   "define new object in text"
   `(handler-bind
        ((style-warning #'muffle-warning))
-     (progn
+    (progn
 ;;; First define the class:
 ;;; if n args is 0 no argument slot
        (cond
