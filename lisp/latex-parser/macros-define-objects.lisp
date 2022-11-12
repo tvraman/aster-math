@@ -31,31 +31,32 @@
                               precedence object-name supers)
   "define new object in text"
   `(progn
+     (progn
 ;;; First define the class:
 ;;; if n args is 0 no argument slot
-     (cond
-       (, (= 0 number-args )
-          (defclass ,object-name   ,supers
-            ((contents :initform nil :initarg  :contents
-                       :accessor contents ))
-            (:documentation ,(format nil
-                                     "Class ~a corresponding to macro ~a"
-                                     object-name macro-name))
-            ))
+       (cond
+         (, (= 0 number-args )
+            (defclass ,object-name   ,supers
+              ((contents :initform nil :initarg  :contents
+                         :accessor contents ))
+              (:documentation ,(format nil
+                                       "Class ~a corresponding to macro ~a"
+                                       object-name macro-name))
+              ))
                                         ;otherwise
-       (t (defclass ,object-name   ,supers
-            ((arguments :initform nil :initarg :arguments
-                        :accessor arguments :accessor children)
-             (children-are-called :initform  ,children-are-called
-                                  :initarg :children-are-called
-                                  :accessor children-are-called )
-             (contents :initform nil :initarg  :contents
-                       :accessor contents ))
-            (:documentation ,(format nil
-                                     "Class ~a corresponding to macro ~a"
-                                     object-name macro-name))
-            ))
-       )                       ; end if
+         (t (defclass ,object-name   ,supers
+              ((arguments :initform nil :initarg :arguments
+                          :accessor arguments :accessor children)
+               (children-are-called :initform  ,children-are-called
+                                    :initarg :children-are-called
+                                    :accessor children-are-called )
+               (contents :initform nil :initarg  :contents
+                         :accessor contents ))
+              (:documentation ,(format nil
+                                       "Class ~a corresponding to macro ~a"
+                                       object-name macro-name))
+              ))
+         ))                       ; end if
 ;;; Now define the processing function:
 ;;; Modified to match class definition
      (defun ,processing-function (&rest arguments)
