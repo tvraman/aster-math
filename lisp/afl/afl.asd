@@ -11,18 +11,22 @@
   :components
   (
    (:file "tts")
+   (:file "structs")
    (:file "global-variables"
-    :depends-on ("01-speech-space"))
+    :depends-on ("01-speech-space" "structs"))
    (:file "01-speech-space"
-    :depends-on (  "tts" "05-block-structure"))
+    :depends-on (  "tts" "05-block-structure" "structs"))
    (:file "02-user-definitions"
     :depends-on ("01-speech-space"))
-   (:file "03-standard-voice-definitions")
-   (:file "04-moving-in-speech-space")
-   (:file "05-block-structure" )
-   (:file "06-synthesizer-codes")
+   (:file "03-standard-voice-definitions"
+    :depends-on ("structs"))
+   (:file "04-moving-in-speech-space"
+    :depends-on ("structs"))
+   (:file "05-block-structure"
+    :depends-on ("structs"))
+   (:file "06-synthesizer-codes"
+    :depends-on ("structs"))
    (:file "pronounce")
    (:file "pronunciations" :depends-on ("pronounce"))
    (:file "french-pronunciations" :depends-on ("pronounce" ))
    (:file  "interface-pronounce" :depends-on( "pronounce"))))
-   

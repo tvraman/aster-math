@@ -13,21 +13,7 @@
           initialize-speech-space
           re-initialize-speech-space
           current-value))
-;;{{{ Structure: REFERENCE                                     Author:
 
-;;raman
-
-;;; implements reference variables. Uses a mutable object structure
-;;; with one field val. A method reference-value is written to make
-;;; the interface clean. If passed any lisp object reference-value
-;;; returns it, except for objects of type reference in which case the
-;;; slot value is returned.
-
-;;; Created: Fri Aug  7 11:27:54 1992
-;;; A mutable object that implements reference variables
-(defstruct reference val)
-
-;;}}}
 ;;{{{ method reference-value
 (defgeneric reference-value (ref))
 
@@ -46,30 +32,7 @@
   (reference-val reference))
 
 ;;}}}
-;;{{{ *speech-dimensions*
 
-;;; Variable: *LIST-OF-SPEECH-DIMENSIONS*                           Author: raman
-;;; Created: Sat Aug  8 15:35:18 1992
-
-(defvar *speech-dimensions*
-'(
-  AFL:VOICE AFL:QUICKNESS AFL:ASSERTIVENESS AFL:STRESS-RISE AFL:HAT-RISE
-  AFL:BASELINE-FALL AFL:LARYNGILIZATION AFL:RICHNESS AFL:SMOOTHNESS
-  AFL:SPEECH-RATE AFL:HEAD-SIZE AFL:BREATHINESS AFL:PITCH-RANGE
-  AFL:AVERAGE-PITCH AFL:LAX-BREATHINESS)  
-  "list of dimension names in  the speech space. ")
-
-;;; FunctionSPEECH-DIMENSIONS                             Author: raman
-;;; Created: Sat Oct  3 12:18:18 1992
-
-(defun speech-dimensions ()
-  "Return current list of dimensions"
-  *speech-dimensions*)
-
-;;; Modified: Tue Aug 18 12:20:31 EDT 1992
-
-
-;;}}}
 
 ;;; Each fold contains functions associated with the fold marker
 ;;{{{ Introduction:
@@ -97,24 +60,7 @@
 
 
 ;;}}}
-;;{{{ dimension
-
-;;;  Structure: DIMENSION                                     Author: raman
-;;; Constant: *DEFAULT-VOICE*                                Author: raman
-;;; Created: Sun Aug 30 19:11:20 1992
-;;; external variable:
-(defvar *default-voice* 'paul  "default voice")
-
-;;; note: the dimension voice is in a sense redundant. The other
-;;; dimensions that occur in the speech space are independent of one
-;;; another, they together determine the voice.
-;;; Structure:  dimension Author: raman
-;;; Created: Fri Aug  7 10:25:35 1992
-;;; A dimension in speech space.
-(defstruct dimension
-  (name nil)
-  (value nil)
-  (step-size nil))
+;;{{{Dimension:
 
 ;;;
 
@@ -134,9 +80,7 @@
   (make-dimension
    :name name
    :value value
-   :step-size step-size
-   )
-  )
+   :step-size step-size))
 
 ;;; Adding accessor table to allow for setf form for
 ;;; dimension-accessor.  This is because I need to modify slots in the
@@ -179,13 +123,7 @@
 ;;; this is  generated automatically from the list of
 ;;; dimensions.
 ;;; point in speech space
-(eval
- `(defstruct (point-in-speech-space :named (:type list))
-    ,@ *speech-dimensions*))
 
-;;; The following function relies on the list representation of the
-;;; structure point-in-speech-space and will have to be changed if the
-;;; structure representation for points in speech space is modified.
 ;;; Function: UPDATE-POINT-IN-SPEECH-SPACE Author: raman
 ;;; Created: Sun Aug  9 18:04:02 1992
 

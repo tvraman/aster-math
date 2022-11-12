@@ -61,14 +61,7 @@
 
 (defvar *voice-codes-table* nil "table of voice codes for dectalk")
 
-;;; Structure: VOICE-CODE                                    Author: raman
-;;; Created: Tue Aug 11 14:58:10 1992
 
-(defstruct (voice-code
-                                        ;(:named)
-            (:type list))
-  voice
-  code)
 ;;; Modified: Thu Aug 20 09:37:22 EDT 1992
 ;;; export voice whose code is defined
 ;;; Function:  DEFINE-VOICE-CODE Author: raman Created: Tue Aug 11 14:56:56 1992
