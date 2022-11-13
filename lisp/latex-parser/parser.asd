@@ -23,13 +23,13 @@
    (:file "math-classification")
    (:file "01-sections"
     :depends-on ("structs" "document-component-classes" "buffers"
-     "math-classes" "special-variables"
-     "math-classification" "table-driver" "02-text-processing"))
+                           "math-classes" "special-variables"
+                           "math-classification" "table-driver" "02-text-processing"))
    (:file "02-text-processing"
     :depends-on
     ("05-math-processing" "structs" "document-component-classes"
-     "math-classes" "buffers" "special-variables"
-     "math-classification" "table-driver"))
+                          "math-classes" "buffers" "special-variables"
+                          "math-classification" "table-driver"))
    (
     :file "03-tex-macro-expand"
     :depends-on
@@ -83,5 +83,6 @@
      "05-math-processing"
      "math-classes"
      "precedence-of-operators"))
+   (:file "cardinal-numbers")
    (:file "macro-name-children-and-attributes"
-    :depends-on ("macros-define-objects"))))
+    :depends-on ("cardinal-numbers" "macros-define-objects"))))
