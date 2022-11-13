@@ -10,3 +10,4 @@ auto/
 **.elc
 lisp/lexer/lispify
 **.ogg
+lisp/.compile.log
