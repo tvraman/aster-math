@@ -14,7 +14,7 @@
   "Load AsTeR modules and initialize system."
   (when (uiop:getenv "ASTER_TTS")
     (setf (uiop:getenv "PULSE_SINK") (uiop:getenv "ASTER_TTS")))
-  (let ((sb-ext:*muffled-warnings* 'style-warning)
+  (let (; (*muffled-warnings* 'style-warning)
         (*print-case* :downcase))
     (mapc #'asdf:load-system
           '(:parser :afl  :read-aloud :browse))
