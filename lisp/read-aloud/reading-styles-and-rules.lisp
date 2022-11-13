@@ -169,73 +169,10 @@
 ;;; Using inline function lookup-effective-style
 ;;; Forward Declaration
 (defvar *read-pointer* )
-(defmethod read-aloud  :around ((document document))
-  "Around method"
-  (when document ; record for browsing
-    (when *read-pointer* (setf *previous-read-pointer* *read-pointer* ))
-    (setf *read-pointer* document)
-    (let* ((active-rule (active-rule document))
-           (special-pattern (special-pattern document ))
-           (substitution (substitution document ))
-           (current-style (current-reading-style ))
-           (active-style
-             (if *efficient-styles*
-                 (lookup-effective-style document )
-                 (compute-effective-style document))))
-      (cond ; read substitution if any.
-        ((and substitution
-              (find 'read-substitution  current-style))
-         (reading-rule document 'read-substitution ))
-                                        ; special pattern have precedence
-        ((and special-pattern
-              (find 'use-special-pattern current-style)
-              (not (eql active-style 'variable-substitution ))
-              (if *efficient-styles*
-                  (lookup-effective-method
-                   #'reading-rule
-                   (list document special-pattern ))
-                  (compute-applicable-methods
-                   #'reading-rule
-                   (list document special-pattern ))))
-         (reading-rule document special-pattern ))
-                                        ;active rule  default  call primary
-        ((equal 'default active-rule )
-         (call-next-method ))
-                                        ; rule active and defined then
-        ((and active-rule
-              (if *efficient-styles*
-                  (lookup-effective-method
-                   #'reading-rule
-                   (list document  active-rule ))
-                  (compute-applicable-methods
-                   #'reading-rule
-                   (list document  active-rule ))))
-         (reading-rule document active-rule ))
-                                        ; If current applicable style is
-                                        ; 'default then call primary  method
-        ((equal 'default active-style )
-         (call-next-method ))
-                                        ; if applicable style found
-        (  active-style
-           (reading-rule document active-style ))
-                                        ; Otherwise use default
-                                        ; not setting reading style
-                                        ; is same as setting it to 'default
-                                        ; primary method
-        (t (call-next-method )))
-      (read-aloud-delayed-floats document)
-      (when *step-through-math-readings*
-        (step-through-reading document)))))
 
 ;;{{{ Stepping through math readings:
 
-;;; Switch to determine if we step through a math reading:
 
-  ;;; Variable: *STEP-THROUGH-MATH-READINGS*                            Author: raman
-  ;;; Created: Thu Nov 11 12:15:24 1993
-
-(defvar *step-through-math-readings* nil "Switch to determine if we step
-through a math reading. ")
 
 ;;; This threshold determines if this object is complex enough to be
 ;;; stepped through:

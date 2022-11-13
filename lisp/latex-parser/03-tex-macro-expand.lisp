@@ -478,6 +478,14 @@ bulletins violate this. ")
   :object-name fraction
   :supers (math-object))
 
+
+(define-text-object :macro-name "gcd" 
+  :number-args 2
+  :processing-function gcd-expand 
+  :precedence  nil 
+  :object-name a-gcd
+  :supers (math)
+  )
 (define-tex-macro "dx" 0 'dx-expand)
 (define-tex-macro "dy" 0 'dy-expand)
 (define-tex-macro "dz" 0 'dz-expand)
