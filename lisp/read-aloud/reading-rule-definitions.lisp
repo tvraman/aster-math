@@ -120,19 +120,6 @@ In addition, allow the user to mark a position while reading. "
     )
   )
 
-(def-reading-rule (paragraph summary)
-  "read first sentence"
-  (let ((contents (contents paragraph )))
-    (afl:new-block
-      (afl:tts-icon  *paragraph-cue*)
-      (loop for word in contents
-            do
-               (read-aloud word)
-               (when (end-of-sentence? word)
-                 (return nil)
-                 (afl:tts-force )))))
-  )
-
 ;;}}}
 
 ;;{{{verbatim: quiet verbose
@@ -204,19 +191,6 @@ In addition, allow the user to mark a position while reading. "
 
 ;;{{{ slide
 ;;; read title only
-(def-reading-rule (slide read-only-title)
-  "only read titles of slides. "
-  (flet
-      ((extract-slide-title(paragraph)
-         "extract slide title if present. "
-         (when (paragraph-p paragraph)
-           (find-if
-            #'(lambda(object)  (typep object 'slide-title )) (contents paragraph)))
-         ))
-    (let
-        ((title(mapcar #'extract-slide-title (contents slide ))))
-      (read-aloud title )))
-  )
 ;;}}}
 
 (def-reading-rule (figure read-caption-only)
