@@ -70,10 +70,8 @@ processing function")
                              #'process-argument )))
            (unless (= 0 ,number-args)
              (setf (arguments self)
-                   (loop for arg in arguments
-                         collect
-                         (funcall processor  arg)
-                         )))
+                   (loop for arg in arguments collect
+                         (funcall processor  arg))))
            self))
 ;;; define argument accessor method
                                         ; and children-called method
