@@ -379,24 +379,14 @@
   (read-aloud (argument 2 divides ))
   )
 
-                                        ;(activate-rule 'divides 'default)
-
-(define-text-object :macro-name "gcd" 
-  :number-args 2
-  :processing-function gcd-expand 
-  :precedence  nil 
-  :object-name a-gcd
-  :supers (math)
-  )
-
 ;;; Use  (argument object)  1 ...( argument
                         ;;; object 2)  in                         read-aloud 
 (defmethod read-aloud  (( a-gcd a-gcd )) 
   "Read aloud method for object gcd "
   (read-aloud  "gcd of, ")
-  (read-math-child  (argument 1 gcd))
+  (read-math-child  (argument 1 a-gcd))
   (read-aloud "and ")
-  (read-math-child  (argument 2 gcd ))
+  (read-math-child  (argument 2 a-gcd ))
   )
 
 
