@@ -223,20 +223,12 @@
                                         ; is same as setting it to 'default
                                         ; primary method
         (t (call-next-method )))
-      (read-aloud-delayed-floats document)
-      (when *step-through-math-readings*
-        (step-through-reading document)))))
+      (read-aloud-delayed-floats document))))
 
 ;;{{{ Stepping through math readings:
 
 ;;; Switch to determine if we step through a math reading:
-
-  ;;; Variable: *STEP-THROUGH-MATH-READINGS*                            Author: raman
-  ;;; Created: Thu Nov 11 12:15:24 1993
-
-(defvar *step-through-math-readings* nil "Switch to determine if we step
-through a math reading. ")
-
+  
 ;;; This threshold determines if this object is complex enough to be
 ;;; stepped through:
 
@@ -260,32 +252,6 @@ math object against this threshold. ")
 
 ;;; Introduce  a new function and call this from the around method.
 
-
-  ;;; Method: STEP-THROUGH-READING                             Author: raman
-  ;;; Created: Thu Nov 11 13:16:27 1993
-
-(defmethod step-through-reading ((object t))
-  "Step through readings. Default is to do nothing."
-  nil)
-
-
-  ;;; Method: STEP-THROUGH-READING                             Author: raman
-  ;;; Created: Thu Nov 11 13:16:57 1993
-
-(defmethod step-through-reading ((math-object math-object))
-  "Step through math readings. "
-  (when (and
-         *step-through-math-readings*
-         (>= (weight math-object) *math-step-threshold* )
-         (if  (listp  (children math-object))
-              (every #'(lambda(child)
-                         (< (weight child) *math-step-threshold* ))
-                     (children math-object))
-              (< (weight (children math-object))
-                 *math-step-threshold*)))
-    (afl:tts-force)
-    (read-char))
-  )
 
 ;;}}}
 
