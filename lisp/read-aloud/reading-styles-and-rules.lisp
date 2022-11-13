@@ -170,68 +170,6 @@
 ;;; Forward Declaration
 (defvar *read-pointer* )
 
-;;{{{ Stepping through math readings:
-
-
-
-;;; This threshold determines if this object is complex enough to be
-;;; stepped through:
-
-  ;;; Variable: *MATH-STEP-THRESHOLD*                          Author: raman
-  ;;; Created: Thu Nov 11 12:16:12 1993
-
-(defvar *math-step-threshold* 2 "Threshold value for stepping through math objects. Compare weight of a
-math object against this threshold. ")
-
-;;; After method on read-aloud  for math-object
-;;; Arranges for math readings to be stepped through.
-;;; Actually, this should be an after method on document to be
-;;; completely general.
-;;; then:
-;;; Is switch on?
-;;; is object complex enough?
-;;; Are all the children simple?
-
-;;; after method will not work, either on document or math-object for
-;;; stepping through readings.
-
-;;; Introduce  a new function and call this from the around method.
-
-
-  ;;; Method: STEP-THROUGH-READING                             Author: raman
-  ;;; Created: Thu Nov 11 13:16:27 1993
-
-(defmethod step-through-reading ((object t))
-  "Step through readings. Default is to do nothing."
-  nil)
-
-
-  ;;; Method: STEP-THROUGH-READING                             Author: raman
-  ;;; Created: Thu Nov 11 13:16:57 1993
-
-(defmethod step-through-reading ((math-object math-object))
-  "Step through math readings. "
-  (when (and
-         *step-through-math-readings*
-         (>= (weight math-object) *math-step-threshold* )
-         (if  (listp  (children math-object))
-              (every #'(lambda(child)
-                         (< (weight child) *math-step-threshold* ))
-                     (children math-object))
-              (< (weight (children math-object))
-                 *math-step-threshold*)))
-    (afl:tts-force)
-    (read-char))
-  )
-
-;;}}}
-
-
-
-
-
-
-
  ;;; Macro: DEF-READING-RULE                               Author: raman
  ;;; Created: Tue Dec  8 19:00:47 1992
 
