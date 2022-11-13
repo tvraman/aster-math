@@ -19,7 +19,8 @@
     :depends-on ("document-component-classes" "math-classes"))
    (:file "table-driver"
     :depends-on ("special-variables" "math-classification"))
-   (:file "special-variables")
+   (:file "special-variables"
+    :depends-on ("macros-define-objects"))
    (:file "math-classification")
    (:file "01-sections"
     :depends-on ("structs" "document-component-classes" "buffers"
