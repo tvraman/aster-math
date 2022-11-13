@@ -37,7 +37,7 @@
         (, (= 0 number-args )
            (defclass ,object-name   ,supers
              ((contents :initform nil :initarg  :contents
-                        :allocation :class:accessor contents ))
+                        :allocation :class :accessor contents ))
              (:documentation
               ,(format nil
                        "Class ~a corresponding to macro ~a"
