@@ -384,9 +384,9 @@
 (defmethod read-aloud  (( a-gcd a-gcd )) 
   "Read aloud method for object gcd "
   (read-aloud  "gcd of, ")
-  (read-math-child  (argument 1 gcd))
+  (read-math-child  (argument 1 a-gcd))
   (read-aloud "and ")
-  (read-math-child  (argument 2 gcd ))
+  (read-math-child  (argument 2 a-gcd ))
   )
 
 

@@ -484,8 +484,7 @@ bulletins violate this. ")
   :processing-function gcd-expand 
   :precedence  nil 
   :object-name a-gcd
-  :supers (math)
-  )
+  :supers (math))
 (define-tex-macro "dx" 0 'dx-expand)
 (define-tex-macro "dy" 0 'dy-expand)
 (define-tex-macro "dz" 0 'dz-expand)

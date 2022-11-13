@@ -39,8 +39,6 @@
      (:file "math-reader-aux")
      (:file "reading-rule-definitions"
       :depends-on (                                      "reading-styles-and-rules"))
-     (:file "summary-style"
-      :depends-on (  "reading-styles-and-rules"))
      (:file "math-reading-rules"
       :depends-on ("reading-styles-and-rules" "math-reader-aux" ))
      (:file "descriptive-math-readings"
