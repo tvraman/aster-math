@@ -2,17 +2,15 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :cl-user)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-
 ;;; Wed Dec 23 12:07:24 EST 1992
 ;;; Simple hack to convert digits to cardinal numbers.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
   ;;; Variable: *CARDINAL-NUMBERS-TABLE*                       Author: raman
   ;;; Created: Wed Dec 23 12:08:16 1992
@@ -21,15 +19,13 @@
   (make-hash-table :test  #'equal)
   "Maps digit strings to cardinal numbers ")
 
-
   ;;; Function: DEFINE-CARDINAL-NUMBER                         Author: raman
   ;;; Created: Wed Dec 23 12:09:04 1992
 
-(defun define-cardinal-number (string cardinal) 
+(defun define-cardinal-number (string cardinal)
   "Define cardinal number "
   (setf (gethash string *cardinal-numbers-table* ) cardinal)
   )
-
 
   ;;; Method: CARDINAL-NUMBER                                Author: raman
   ;;; Created: Wed Dec 23 12:09:45 1992
@@ -44,7 +40,6 @@
     )
   )
 
-
   ;;; Method: CARDINAL-NUMBER                                  Author: raman
   ;;; Created: Wed Dec 23 12:23:11 1992
 
@@ -58,7 +53,6 @@
   "Return cardinal number "
   (cardinal-number (contents  ordinary ))
   )
-
 
 (defmethod cardinal-number ((math-subformula math-subformula ))
   (cardinal-number  (contents math-subformula ))
