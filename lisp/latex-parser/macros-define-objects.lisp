@@ -37,19 +37,21 @@
         (, (= 0 number-args )
            (defclass ,object-name   ,supers
              ((contents :initform nil :initarg  :contents
-                        :accessor contents ))
-             (:documentation ,(format nil
-                                      "Class ~a corresponding to macro ~a"
-                                      object-name macro-name))))
+                        :allocation :class:accessor contents ))
+             (:documentation
+              ,(format nil
+                       "Class ~a corresponding to macro ~a"
+                       object-name macro-name))))
         (t
          (defclass ,object-name   ,supers
            ((arguments :initform nil :initarg :arguments
                        :accessor arguments :accessor children)
-            (children-are-called :initform  ,children-are-called
-                                 :initarg :children-are-called
-                                 :accessor children-are-called )
+            (children-are-called
+             :initform  ,children-are-called :allocation :class
+             :initarg :children-are-called
+             :accessor children-are-called )
             (contents :initform nil :initarg  :contents
-                      :accessor contents ))
+                      :allocation :class :accessor contents ))
            (:documentation
             ,(format nil
                      "Class ~a corresponding to macro ~a"
