@@ -36,6 +36,8 @@
     :pathname "" 
     :components 
     ((:file "reading-styles-and-rules" )
+     (:file "finalize"
+      :depends-on ("reading-styles-and-rules"))
      (:file "math-reader-aux")
      (:file "reading-rule-definitions"
       :depends-on (                                      "reading-styles-and-rules"))
