@@ -84,9 +84,9 @@
 (defmethod read-aloud  (( stackrel stackrel )) 
   "Read aloud method for object stackrel "
   (afl:with-surrounding-pause (compute-pause stackrel)
-    (read-aloud (argument 2 stackrel ))
+    (read-aloud (argument stackrel 2 ))
     (with-reading-state (reading-state 'accent )
-      (read-aloud (argument 1 stackrel ))))
+      (read-aloud (argument stackrel 1 ))))
   )
                                         ;(activate-rule 'stackrel 'default )
 
@@ -109,7 +109,7 @@
   (with-reading-state (reading-state 'annotation-voice )
     (read-aloud "Chapter: "))
   (with-reading-state (reading-state 'title-voice )
-    (read-aloud (argument 1 chapterx )))
+    (read-aloud (argument chapterx 1 )))
   )
 
 
@@ -152,7 +152,7 @@
   (afl:new-block
    (afl:local-set-state :french)
    (afl:local-set-state (reading-state 'annotation-voice ))
-   (read-aloud (argument 1 french  )))
+   (read-aloud (argument french 1  )))
   )
 
 
@@ -170,9 +170,9 @@
 (defmethod read-aloud  (( inference inference )) 
   "Read aloud method for object inference "
   (afl:new-block
-   (read-aloud  (argument 1 inference ))
+   (read-aloud  (argument inference 1 ))
    (read-aloud " implies ")
-   (read-aloud (argument 2 inference ))
+   (read-aloud (argument inference 2 ))
    (afl:tts-force))
   )
 

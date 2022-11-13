@@ -21,7 +21,7 @@
 (defmethod read-aloud  (( idx-term idx-term )) 
   "Read aloud method for object idx-term "
   (with-reading-state (reading-state 'emphasize)
-(read-aloud (argument 1 idx-term )))
+(read-aloud (argument idx-term 1 )))
   )
 
 

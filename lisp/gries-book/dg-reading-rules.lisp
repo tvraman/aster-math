@@ -14,7 +14,7 @@
                            (contents boxed-equation)
                            (anumber boxed-equation ))))
    (afl:tts-pause 5) 
-   (read-aloud (argument 1 boxed-equation))
+   (read-aloud (argument boxed-equation 1))
    )
   )
 

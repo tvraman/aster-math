@@ -244,7 +244,7 @@
 (defmethod read-aloud  (( b-ref b-ref )) 
   "Read aloud method for object b-ref "
 (read-aloud "refer to the book, ")
-(read-aloud (argument 1 b-ref ))
+(read-aloud (argument b-ref 1 ))
 (afl:comma-intonation)
 (afl:tts-force))
 

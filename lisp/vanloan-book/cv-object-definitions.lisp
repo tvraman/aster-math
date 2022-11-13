@@ -151,16 +151,15 @@
 (defmethod read-aloud  (( two-by-two-matrix two-by-two-matrix )) 
   "Read aloud method for object two-by-two-matrix "
   (let
-      ((array (make-instance 'math-array
-                             :contents (list
-                                        (list (argument
-                                               two-by-two-matrix 1) 
-                                              (argument two-by-two-matrix 2))
-                                        (list (argument two-by-two-matrix 3)
-                                              (argument two-by-two-matrix 4))))))
-    (read-aloud array)
-    )
-  )
+      ((array (make-instance
+               'math-array
+               :contents
+               (list
+                (list (argument two-by-two-matrix 1) 
+                      (argument two-by-two-matrix 2))
+                (list (argument two-by-two-matrix 3)
+                      (argument two-by-two-matrix 4))))))
+    (read-aloud array)))
 
 
 

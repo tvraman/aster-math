@@ -374,9 +374,9 @@
                         ;;; object 2)  in                         read-aloud 
 (defmethod read-aloud  (( divides divides )) 
   "Read aloud method for object divides "
-  (read-aloud (argument 1 divides))
+  (read-aloud (argument divides 1))
   (read-aloud " divides ")
-  (read-aloud (argument 2 divides ))
+  (read-aloud (argument divides 2 ))
   )
 
 ;;; Use  (argument object)  1 ...( argument
@@ -384,9 +384,9 @@
 (defmethod read-aloud  (( a-gcd a-gcd )) 
   "Read aloud method for object gcd "
   (read-aloud  "gcd of, ")
-  (read-math-child  (argument 1 a-gcd))
+  (read-math-child  (argument a-gcd 1))
   (read-aloud "and ")
-  (read-math-child  (argument 2 a-gcd ))
+  (read-math-child  (argument a-gcd 2 ))
   )
 
 
@@ -450,9 +450,9 @@
 (defmethod read-aloud ((induction induction))
   "Read aloud method for object induction "
   (read-aloud "by induction, ")
-  (read-aloud (argument 1 induction ))
+  (read-aloud (argument induction 1 ))
   (read-aloud "leads to ")
-  (read-aloud (argument 2 induction )))
+  (read-aloud (argument induction 2 )))
 
 
 
@@ -478,10 +478,10 @@
 (defmethod read-aloud  (( contents-line contents-line )) 
   "Read aloud method for object contents-line "
   (read-aloud (argument 1 contents-line))
-  (read-aloud (argument 2  contents-line ))
+  (read-aloud (argument contents-line  2 ))
   (afl:tts-queue "[_,]")
   (read-aloud "page ")
-  (read-aloud (argument 3 contents-line ))
+  (read-aloud (argument contents-line 3 ))
   (afl:tts-force)
   (afl:tts-icon  *newline-cue*)
   )
@@ -503,7 +503,7 @@
                         ;;; object 1)  in                         read-aloud 
 (defmethod read-aloud  (( number-line number-line )) 
   "Read aloud method for object number-line "
-  (read-aloud (argument 1 number-line ))
+  (read-aloud (argument number-line 1 ))
   (afl:tts-queue "[_,]")
   )
                                         ;(activate-rule 'number-line 'default )
@@ -601,7 +601,7 @@
 (defmethod read-aloud  (( caption caption )) 
   "Read aloud method for object caption "
   (with-reading-state (reading-state 'annotation-voice )
-    (read-aloud  (argument 1 caption )))
+    (read-aloud  (argument caption 1 )))
   )
 
 
@@ -625,7 +625,7 @@
 (defmethod read-aloud  (( emph emph )) 
   "Read aloud method for object emph "
   (with-reading-state (reading-state 'emphasize )
-    (read-aloud  (argument 1 emph )))
+    (read-aloud  (argument emph 1 )))
   )
 
 
@@ -645,7 +645,7 @@
 (defmethod read-aloud  (( texttt texttt )) 
   "Read aloud method for object texttt "
   (with-reading-state (reading-state 'verbatim-voice )
-    (read-aloud  (argument 1 texttt )))
+    (read-aloud  (argument texttt 1 )))
   )
 
 
@@ -671,7 +671,7 @@
 (defmethod read-aloud  (( textsf textsf )) 
   "Read aloud method for object textsf "
   (with-reading-state (reading-state 'sans-seriph )
-    (read-aloud  (argument 1 textsf )))
+    (read-aloud  (argument textsf 1 )))
   )
 
 
@@ -691,7 +691,7 @@
 (defmethod read-aloud  (( textit textit )) 
   "Read aloud method for object textit "
   (with-reading-state (reading-state 'emphasize )
-    (read-aloud  (argument 1 textit )))
+    (read-aloud  (argument textit 1 )))
   )
 
 (define-text-object :macro-name "textbf" 
@@ -708,7 +708,7 @@
 (defmethod read-aloud  (( textbf textbf )) 
   "Read aloud method for object textbf "
   (with-reading-state (reading-state 'bold )
-    (read-aloud  (argument 1 textbf )))
+    (read-aloud  (argument textbf 1 )))
   )
 
 

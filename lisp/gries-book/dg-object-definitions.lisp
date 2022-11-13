@@ -46,7 +46,7 @@
                             (contents defined-text-object-with-label)
                             (anumber defined-text-object-with-label ))))
     (afl:tts-pause 5)
-    (read-aloud (argument 1 defined-text-object-with-label))
+    (read-aloud (argument defined-text-object-with-label 1))
     (relabel-if-necessary (label defined-text-object-with-label )))
   )
 
@@ -82,7 +82,7 @@
                         ;;; object 1)  in                         read-aloud
 (defmethod read-aloud  (( lefteqn lefteqn ))
   "Read aloud method for object lefteqn "
-  (read-aloud (argument 1 lefteqn ))
+  (read-aloud (argument lefteqn 1 ))
   )
 
 (define-text-object-with-label :macro-name "history"

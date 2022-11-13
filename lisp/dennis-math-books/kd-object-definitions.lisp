@@ -55,7 +55,7 @@ nil
 (defmethod read-aloud  (( pno pno )) 
   "Read aloud method for object pno "
 (read-aloud "end of page ")
-(read-aloud (argument 1 pno))
+(read-aloud (argument pno 1))
 (afl:tts-queue  "[_.]")
 (afl:tts-icon *newline-cue*)
   )

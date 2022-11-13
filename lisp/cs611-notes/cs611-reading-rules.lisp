@@ -92,9 +92,9 @@
     (afl:new-block
       (afl:with-surrounding-pause pause-amount
         (afl:tts-queue "lambda of, ")
-        (read-aloud (argument 1 abstraction))
+        (read-aloud (argument abstraction 1))
         (afl:tts-queue "is ")
-        (read-aloud (argument 2 abstraction))))))
+        (read-aloud (argument abstraction 2))))))
 (activate-rule 'application 'tree-like)
 
 ;;; }
@@ -122,9 +122,9 @@
     (afl:new-block
       (afl:with-surrounding-pause pause-amount
         (afl:tts-queue "Application of ")
-        (read-aloud (argument 1 application ))
+        (read-aloud (argument application 1 ))
         (afl:tts-queue "to, ")
-        (read-aloud (argument 2 application ))))))
+        (read-aloud (argument application 2 ))))))
 
 (activate-rule 'abstraction 'tree-like)
 

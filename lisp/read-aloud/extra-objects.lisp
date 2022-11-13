@@ -124,7 +124,7 @@
       '(afl:move-to afl:smoothness 0)
       )
      )
-    (read-aloud (argument 1 term )))
+    (read-aloud (argument term 1 )))
   )
 
 (define-text-object :macro-name "amstex"
@@ -185,7 +185,7 @@
   (afl:new-block
     (afl:local-set-state
      (reading-state 'bold))
-    (read-aloud (argument 1 slide-title ))
+    (read-aloud (argument slide-title 1 ))
     )
   )
 
@@ -228,7 +228,7 @@
   "Read aloud method for object document "
   (with-reading-state (reading-state 'annotation-voice)
     (read-aloud "Voice mail: "))
-  (read-aloud (argument 1 voice-mail )))
+  (read-aloud (argument 1  )))
 
 (define-text-object :macro-name "email"
   :number-args 1
@@ -245,7 +245,7 @@
   "Read aloud method for object e-mail "
   (with-reading-state (reading-state 'annotation-voice)
     (read-aloud "e mail: "))
-  (read-aloud (argument 1 e-mail ))
+  (read-aloud (argument e-mail 1 ))
   )
 
 (define-text-object :macro-name "activatevariablesubstitution"
