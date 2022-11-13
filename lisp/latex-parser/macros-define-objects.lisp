@@ -194,16 +194,7 @@ passed to automatically generated processing function")
        (assert  (<= n (length (arguments  ,object-name ))) nil
                 "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
                 n  ,object-name (length (arguments ,object-name )))
-       (elt  (arguments ,object-name)  (- n 1 ))
-       )
-                                        ; define  arguments in  reverse order
-     (defmethod argument ((n integer) (,object-name ,object-name))
-       "Automatically generated argument accessor"
-       (assert  (<= n (length (arguments  ,object-name ))) nil
-                "Not that many arguments:  n = ~a, but ~a has only ~a arguments. "
-                n  ,object-name (length (arguments ,object-name )))
-       (elt  (arguments ,object-name)  (- n 1 ))
-       )
+       (elt  (arguments ,object-name)  (- n 1 )))
 ;;; define precedence
      (when ',precedence
        (define-precedence ,macro-name :same-as ',precedence))
