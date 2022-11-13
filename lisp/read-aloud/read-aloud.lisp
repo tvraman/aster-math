@@ -6,6 +6,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;; Parameter: *MATH-SURROUND*                               Author: raman
+;;; Created: Thu Nov 26 12:30:20 1992
+
+(defvar *math-surround* 50
+  "Amount of pause around inline math in milliseconds. ")
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Created: Sat Apr 11 19:20:05 EDT 1992
 ;;; Contains  read-aloud methods  and associated code.
@@ -560,13 +568,6 @@ reading full documents. ")
                                         ;(afl:should-i-continue?)
     )
   )
-
-;;; Parameter: *MATH-SURROUND*                               Author: raman
-;;; Created: Thu Nov 26 12:30:20 1992
-
-(defparameter *math-surround* 50
-  "Amount of pause around inline math in milliseconds. ")
-
 ;;; Fri Oct 30 11:12:01 EST 1992
 
 (defmethod read-aloud ((inline-math inline-math))
