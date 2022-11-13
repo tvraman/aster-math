@@ -169,6 +169,131 @@
 ;;; Using inline function lookup-effective-style
 ;;; Forward Declaration
 (defvar *read-pointer* )
+(defmethod read-aloud  :around ((document document))
+  "Around method"
+  (when document ; record for browsing
+    (when *read-pointer* (setf *previous-read-pointer* *read-pointer* ))
+    (setf *read-pointer* document)
+    (let* ((active-rule (active-rule document))
+           (special-pattern (special-pattern document ))
+           (substitution (substitution document ))
+           (current-style (current-reading-style ))
+           (active-style
+             (if *efficient-styles*
+                 (lookup-effective-style document )
+                 (compute-effective-style document))))
+      (cond ; read substitution if any.
+        ((and substitution
+              (find 'read-substitution  current-style))
+         (reading-rule document 'read-substitution ))
+                                        ; special pattern have precedence
+        ((and special-pattern
+              (find 'use-special-pattern current-style)
+              (not (eql active-style 'variable-substitution ))
+              (if *efficient-styles*
+                  (lookup-effective-method
+                   #'reading-rule
+                   (list document special-pattern ))
+                  (compute-applicable-methods
+                   #'reading-rule
+                   (list document special-pattern ))))
+         (reading-rule document special-pattern ))
+                                        ;active rule  default  call primary
+        ((equal 'default active-rule )
+         (call-next-method ))
+                                        ; rule active and defined then
+        ((and active-rule
+              (if *efficient-styles*
+                  (lookup-effective-method
+                   #'reading-rule
+                   (list document  active-rule ))
+                  (compute-applicable-methods
+                   #'reading-rule
+                   (list document  active-rule ))))
+         (reading-rule document active-rule ))
+                                        ; If current applicable style is
+                                        ; 'default then call primary  method
+        ((equal 'default active-style )
+         (call-next-method ))
+                                        ; if applicable style found
+        (  active-style
+           (reading-rule document active-style ))
+                                        ; Otherwise use default
+                                        ; not setting reading style
+                                        ; is same as setting it to 'default
+                                        ; primary method
+        (t (call-next-method )))
+      (read-aloud-delayed-floats document)
+      (when *step-through-math-readings*
+        (step-through-reading document)))))
+
+;;{{{ Stepping through math readings:
+
+;;; Switch to determine if we step through a math reading:
+
+  ;;; Variable: *STEP-THROUGH-MATH-READINGS*                            Author: raman
+  ;;; Created: Thu Nov 11 12:15:24 1993
+
+(defvar *step-through-math-readings* nil "Switch to determine if we step
+through a math reading. ")
+
+;;; This threshold determines if this object is complex enough to be
+;;; stepped through:
+
+  ;;; Variable: *MATH-STEP-THRESHOLD*                          Author: raman
+  ;;; Created: Thu Nov 11 12:16:12 1993
+
+(defvar *math-step-threshold* 2 "Threshold value for stepping through math objects. Compare weight of a
+math object against this threshold. ")
+
+;;; After method on read-aloud  for math-object
+;;; Arranges for math readings to be stepped through.
+;;; Actually, this should be an after method on document to be
+;;; completely general.
+;;; then:
+;;; Is switch on?
+;;; is object complex enough?
+;;; Are all the children simple?
+
+;;; after method will not work, either on document or math-object for
+;;; stepping through readings.
+
+;;; Introduce  a new function and call this from the around method.
+
+
+  ;;; Method: STEP-THROUGH-READING                             Author: raman
+  ;;; Created: Thu Nov 11 13:16:27 1993
+
+(defmethod step-through-reading ((object t))
+  "Step through readings. Default is to do nothing."
+  nil)
+
+
+  ;;; Method: STEP-THROUGH-READING                             Author: raman
+  ;;; Created: Thu Nov 11 13:16:57 1993
+
+(defmethod step-through-reading ((math-object math-object))
+  "Step through math readings. "
+  (when (and
+         *step-through-math-readings*
+         (>= (weight math-object) *math-step-threshold* )
+         (if  (listp  (children math-object))
+              (every #'(lambda(child)
+                         (< (weight child) *math-step-threshold* ))
+                     (children math-object))
+              (< (weight (children math-object))
+                 *math-step-threshold*)))
+    (afl:tts-force)
+    (read-char))
+  )
+
+;;}}}
+
+
+
+
+
+
 
  ;;; Macro: DEF-READING-RULE                               Author: raman
  ;;; Created: Tue Dec  8 19:00:47 1992
