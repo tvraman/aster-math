@@ -44,6 +44,8 @@
      (:file "descriptive-math-readings"
       :depends-on ("reading-styles-and-rules" "math-reader-aux" )))
     :depends-on ("new-document-objects" "complexity"))
+   (:file "finalize"
+    :depends-on ("reading-rules-and-styles"))
    (:module "new-document-objects"
     :pathname ""
     :components
@@ -71,7 +73,7 @@
      (:file "float-readings")
      (:file "float-rules"
       :depends-on ("float-macros" "float-objects" "float-readings"))))
-   ;(:file "extra-objects")
+                                        ;(:file "extra-objects")
    (:module "var-subst"
     :pathname ""
     :components 
