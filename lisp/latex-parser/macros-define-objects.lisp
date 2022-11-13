@@ -84,15 +84,7 @@ processing function")
           (assert (<= n (length (arguments  ,object-name ))) nil
                   "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
                   n ,object-name  (length (arguments ,object-name )))
-          (elt  (arguments ,object-name)  (- n 1 )))
-                                        ;  with arguments in the reverse order
-        (defmethod argument ((n integer) (,object-name ,object-name))
-          "Automatically generated argument accessor"
-          (assert (<= n (length (arguments  ,object-name ))) nil
-                  "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
-                  n ,object-name  (length (arguments ,object-name )))
           (elt  (arguments ,object-name)  (- n 1 )))) ; end when
-      
                                         ; children-are-called
       (when ,children-are-called
         (defmethod name-of-child  ((,object-name ,object-name) (n integer))
