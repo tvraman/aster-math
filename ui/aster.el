@@ -355,7 +355,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 
 (define-prefix-command 'aster-keymap   'aster-keymap)
 (global-set-key  (kbd "C-; SPC") 'aster-keymap)
-
+(global-set-key  (kbd "C-' a") 'aster-keymap)
 (defsubst aster-keymap-bindings-update (keymap bindings)
   "Update keymap with  list of bindings."
   (cl-loop
