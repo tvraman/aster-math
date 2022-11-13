@@ -2,12 +2,11 @@
  ;;;                                                                       ;;;
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :cl-user)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
 
  ;;; Contains all the helper functions and methods used by the simple
  ;;; reading rule for math objects.
@@ -20,11 +19,10 @@
  ;;; representation.
  ;;; Develop the right intermediate representation based on these
  ;;; rules.
- ;;; First consider reading math expressions with no user defined 
- ;;; objects. 
+ ;;; First consider reading math expressions with no user defined
+ ;;; objects.
 
  ;;; A math object is a leaf if it has no children.
-
 
  ;;; Method: LEAF-P                                           Author: raman
  ;;; Created: Tue Nov 24 11:34:18 1992
@@ -35,7 +33,6 @@
   )
 
 (defmethod leaf-p ((math-array math-array)) nil)
-
 
  ;;; Method: LEAF-P                                           Author: raman
  ;;; Created: Sun Nov 29 16:19:22 1992
@@ -75,26 +72,25 @@
 (defmethod  read-as-infix ((math-object math-object ))
   "Read as infix"
   (flet
-   ((all-have-same-weight (list)
-                          (let ((first-weight (weight (first list  ))))
-                            (loop for item in (rest list)
-                                  always (= first-weight
-                                            (weight item ))))))
-   (let*  ((children (children math-object ))
-           (comma-flag(and *use-comma-intonation-for-lists*
-                           (> (length children ) 2)
-                           (all-have-same-weight children ))))
-     (read-math-child   (first children))
-     (afl:tts-queue " ")
-     (unless (rest children )
-       (read-math-object-and-attributes math-object))
-     (loop for child in (rest children) 
-           do
-           (when comma-flag (afl:tts-speak "[_,]"))
-           (read-math-object-and-attributes math-object)
-           (read-math-child  child ))))
+      ((all-have-same-weight (list)
+         (let ((first-weight (weight (first list  ))))
+           (loop for item in (rest list)
+                 always (= first-weight
+                           (weight item ))))))
+    (let*  ((children (children math-object ))
+            (comma-flag(and *use-comma-intonation-for-lists*
+                            (> (length children ) 2)
+                            (all-have-same-weight children ))))
+      (read-math-child   (first children))
+      (afl:tts-queue " ")
+      (unless (rest children )
+        (read-math-object-and-attributes math-object))
+      (loop for child in (rest children)
+            do
+               (when comma-flag (afl:tts-speak "[_,]"))
+               (read-math-object-and-attributes math-object)
+               (read-math-child  child ))))
   )
-
 
  ;;; Parameter: *PAUSE-AROUND-CHILD*                            Author: raman
  ;;; Created: Thu Nov 26 15:52:33 1992
@@ -104,20 +100,18 @@
 
  ;;; Modified: Sun Dec  6 09:47:52 EST 1992
  ;;; read aloud rule for math object puts pause if necessary, the rest
- ;;; of the helping functions need not do this any more. 
+ ;;; of the helping functions need not do this any more.
  ;;; Function: READ-MATH-CHILD                                Author: raman
  ;;; Created: Tue Nov 24 19:11:00 1992
 ;;; Modified: Mon Dec 28 10:07:05 EST 1992
 ;;; objects now have a parent link, so read-math-child needs only be
 ;;; passed the child. In fact read-math-child  is almost obselete.
-;;; Also removed *be-smart-about-division* before backing up. 
+;;; Also removed *be-smart-about-division* before backing up.
 ;;; <(backed up old version. )>
 
 (defmethod read-math-child ((ordinary t ))
   (read-aloud ordinary )
   )
-
-
 
 (defmethod  read-math-child ((child math-object ))
   "Read math child "
@@ -136,7 +130,6 @@
       )
     )
   )
-
 
  ;;; Method: READ-AS-PREFIX                                   Author: raman
  ;;; Created: Sun Dec  6 11:01:55 1992
@@ -165,15 +158,14 @@
 
  ;;; Function: READ-MATH-OBJECT-AND-ATTRIBUTES                Author: raman
  ;;; Created: Tue Nov 24 14:36:26 1992
-(defun read-math-object-and-attributes (math-object) 
+(defun read-math-object-and-attributes (math-object)
   "Read the object and its attributes"
   (read-aloud (contents math-object ))
   (afl:tts-queue " ")
   (when (attributes math-object)
-    (mapc #'read-aloud 
+    (mapc #'read-aloud
           (sorted-attributes  (attributes math-object ))))
   )
-
 
  ;;; Variable: *OBJECTS-READ-AS-INFIX*                        Author: raman
  ;;; Created: Tue Nov 24 13:49:44 1992
@@ -185,13 +177,9 @@
  ;;; Function: READ-AS-INFIX?                                 Author: raman
  ;;; Created: Tue Nov 24 13:07:01 1992
 
-(defun read-as-infix? (math-object) 
+(defun read-as-infix? (math-object)
   "Is this read as infix?"
-  (some  #'(lambda(type) (typep math-object type)) *objects-read-as-infix*)
-  )
-
-
-
+  (some  #'(lambda(type) (typep math-object type)) *objects-read-as-infix*))
 
  ;;; Variable: *OBJECTS-READ-AS-PREFIX*                       Author: raman
  ;;; Created: Tue Nov 24 13:51:29 1992
@@ -203,13 +191,13 @@
     )
   "These are read as prefix")
 ;;; Modified: Mon Dec 28 11:10:31 EST 1992
-;;; converting to method. 
+;;; converting to method.
  ;;; Method: READ-AS-PREFIX?                                Author: raman
  ;;; Created: Tue Nov 24 13:15:01 1992
 
 (defmethod  read-as-prefix? ((math-object  math-object ))
   "Is this read as prefix?"
-  (or 
+  (or
    (some  #'(lambda(type) (typep math-object type)) *objects-read-as-prefix* )
                                         ;disjunct2
    (and   (binary-operator-p math-object)
@@ -222,18 +210,14 @@
   (read-as-prefix? (contents math-subformula ))
   )
 
-
-
-
-
 ;;; Method: COMPUTE-PAUSE                                          Author: raman
 ;;; Created: Thu Dec 10 10:32:18 1992
 
 (defmethod compute-pause ((math-object math-object))
   "Compute amount of pause to put around this object"
   (declare (fixnum *pause-around-child* ))
-  (let* 
-      ((object-weight(the fixnum 
+  (let*
+      ((object-weight(the fixnum
                           (weight math-object )))
        (pause-duration (the fixnum
                             (if (> object-weight 1)
@@ -241,8 +225,6 @@
                                 0))))
     pause-duration)
   )
-
-
 
 ;;; Method: READ-ATTRIBUTES                                  Author: raman
 ;;; Created: Fri Dec 11 12:58:52 1992
