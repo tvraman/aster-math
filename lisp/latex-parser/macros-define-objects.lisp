@@ -30,30 +30,30 @@
                                 precedence object-name supers)
   "define new object in text"
   `(let   ((sb-ext:*muffled-warnings* 'style-warning))
-    (progn
 ;;; First define the class:
 ;;; if n args is 0 no argument slot
-       (cond
-         (, (= 0 number-args )
-            (defclass ,object-name   ,supers
-              ((contents :initform nil :initarg  :contents
-                         :accessor contents ))
-              (:documentation ,(format nil
-                                       "Class ~a corresponding to macro ~a"
-                                       object-name macro-name))))
-         (t
+     (cond
+       (, (= 0 number-args )
           (defclass ,object-name   ,supers
-            ((arguments :initform nil :initarg :arguments
-                        :accessor arguments :accessor children)
-             (children-are-called :initform  ,children-are-called
-                                  :initarg :children-are-called
-                                  :accessor children-are-called )
-             (contents :initform nil :initarg  :contents
+            ((contents :initform nil :initarg  :contents
                        :accessor contents ))
-            (:documentation
-             ,(format nil
-                      "Class ~a corresponding to macro ~a"
-                      object-name macro-name)))))                      
+            (:documentation ,(format nil
+                                     "Class ~a corresponding to macro ~a"
+                                     object-name macro-name))))
+       (t
+        (defclass ,object-name   ,supers
+          ((arguments :initform nil :initarg :arguments
+                      :accessor arguments :accessor children)
+           (children-are-called :initform  ,children-are-called
+                                :initarg :children-are-called
+                                :accessor children-are-called )
+           (contents :initform nil :initarg  :contents
+                     :accessor contents ))
+          (:documentation
+           ,(format nil
+                    "Class ~a corresponding to macro ~a"
+                    object-name macro-name)))))
+     (progn
        (defun ,processing-function (&rest arguments)
          "Automatically generated processing function"
          (assert
@@ -71,7 +71,7 @@ processing function")
            (unless (= 0 ,number-args)
              (setf (arguments self)
                    (loop for arg in arguments collect
-                         (funcall processor  arg))))
+                                              (funcall processor  arg))))
            self))
 ;;; define argument accessor method
                                         ; and children-called method
