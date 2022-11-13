@@ -101,8 +101,7 @@ processing function")
        (when ',precedence
          (define-precedence ,macro-name :same-as ',precedence))
 ;;; Install processing function
-       (define-tex-macro ,macro-name ,number-args ',processing-function))
-     ))
+       (define-tex-macro ,macro-name ,number-args ',processing-function))))
 
 ;;{{{ labelled text objects:
 ;;;
