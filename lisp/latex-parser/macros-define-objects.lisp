@@ -85,24 +85,26 @@ processing function")
 
 ;;; define it as a function:
 (defun argument (self pos)
-          "Positional argument accessor."
-          (assert (<= pos (length (arguments  self ))) nil
-                  "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
-                  pos  self  (length (arguments self )))
-          (elt  (arguments self)  (- pos 1 )))
+  "Positional argument accessor."
+  (when (slot-exists-p self 'arguments)
+    (assert (<= pos (length (arguments  self ))) nil
+            "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
+            pos  self  (length (arguments self )))
+    (elt  (arguments self)  (- pos 1 ))))
 
 (defun name-of-child  (self pos)
   "Name of child by position."
-  (assert (<= pos (length (arguments  self ))) nil
-                  "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
-                  pos self  (length (arguments self )))
-          (cond
-            ((null  (children-are-called self )) nil)
-            ((listp (children-are-called  self))
-             (elt  (children-are-called self)  (- pos 1 )))
-            ((atom  (children-are-called self ))
-             (children-are-called self))))
-                                        ; with calling sequence reversed
+  (when (slot-exists-p self 'arguments)
+    (assert (<= pos (length (arguments  self ))) nil
+            "In ~a:Not that many arguments:  n = ~a, found ~a arguments. "
+            pos self  (length (arguments self )))
+    (cond
+      ((null  (children-are-called self )) nil)
+      ((listp (children-are-called  self))
+       (elt  (children-are-called self)  (- pos 1 )))
+      ((atom  (children-are-called self ))
+       (children-are-called self)))))
+                                        
         
 ;;{{{ labelled text objects:
 ;;;
