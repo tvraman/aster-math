@@ -29,8 +29,7 @@
                                 children-are-called
                                 precedence object-name supers)
   "define new object in text"
-  `(handler-bind
-       ((style-warning #'muffle-warning))
+  `(let   ((sb-ext:*muffled-warnings* 'style-warning))
     (progn
 ;;; First define the class:
 ;;; if n args is 0 no argument slot
