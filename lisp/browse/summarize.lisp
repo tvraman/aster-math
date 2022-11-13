@@ -80,11 +80,7 @@
 
 (defmethod summarize ((paragraph paragraph))
   "Summarize a paragraph"
-  (save-pointer-excursion
-   (reading-rule paragraph 'summarize)
-   (force-if 'paragraph); force floats
-   (afl:tts-force))
-  )
+  (afl:tts-speak "Paragraph"))
 
 (defmethod summarize ((aword aword ))
   "Summarize a word. "

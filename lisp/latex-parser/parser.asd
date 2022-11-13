@@ -83,6 +83,4 @@
      "05-math-processing"
      "math-classes"
      "precedence-of-operators"))
-   (:file "cardinal-numbers")
-   (:file "macro-name-children-and-attributes"
-    :depends-on ("cardinal-numbers" "macros-define-objects"))))
+   (:file "cardinal-numbers")))
