@@ -4,7 +4,6 @@
 
 (in-package :cl-user)
 
-
  ;;; Tue Dec 8 12:17:21 EST 1992 This module replaces the
  ;;; reading-rules module defined in define-reading-rules.lisp.  The
  ;;; old version is kept in a subdirectory.  <(refer to
@@ -43,7 +42,6 @@
 
  ;;; Function: ACTIVATE-STYLE                                 Author: raman
  ;;; Created: Tue Dec  8 14:58:58 1992
-
 
 (defun activate-style (style)
   "Activate style as the current reading style"
@@ -85,8 +83,7 @@
 (defun deactivate-rule (object-name &optional rule-name )
   "Deactivate currently active rule for this object"
   (declare (ignore rule-name))
-  (remhash object-name *active-rules*)
-  )
+  (remhash object-name *active-rules*))
  ;;; Method: ACTIVE-RULE                                      Author: raman
  ;;; Created: Tue Dec  8 12:26:40 1992
 
@@ -95,7 +92,6 @@
   (let ((object-name (class-name (class-of document ))))
     (gethash object-name *active-rules*))
   )
-
 
   ;;; Generic: READING-RULE                                    Author: raman
   ;;; Created: Sun Dec 20 13:39:54 1992
@@ -120,20 +116,10 @@
  ;;; desired  is to have the default read-aloud method  to be called,
  ;;; then no reading-rule need or should be defined.
 
-
 ;;; Efficiency:
 ;;; Compute-applicable-methods is too inefficient at run time.
 ;;; The following function was contributed by
 ;;; <(refer to net article)>
-(defun lookup-effective-method (gf args)
-  ;; Returns the actual function (effective method) that is run when
-  ;; GF is applied to ARGS
-  ;; You could use this to avoid dispatch overhead if you like.
-                                        ;(CLOS::CHECKING/CACHING-DCODE-LOOKUP gf args)
-  )
-(defvar *efficient-styles* nil
-  "If t, then use the above efficient lookup-effective-method")
-
 
   ;;; Function: LOOKUP-EFFECTIVE-STYLE                         Author: raman
   ;;; Created: Tue Jan 18 15:38:00 1994
@@ -146,8 +132,6 @@
    (current-reading-style))
   )
 
-
-
   ;;; Function: COMPUTE-EFFECTIVE-STYLE                         Author: raman
   ;;; Created: Tue Jan 18 15:38:00 1994
 (defun compute-effective-style (document)
@@ -159,19 +143,11 @@
    (current-reading-style))
   )
 
-;;; Modified: Fri Jan 14 12:24:15 EST 1994
-;;; Trying out efficient solution.
-;;; For the present make this behavior dependent on *efficient-styles*
-;;; Modified: Wed Apr  7 16:43:51 EDT 1993
-;;; Not linking in reading order makes no sense.
-;;; <(Backed up version that did this)>
-;;; Modified: Tue Jan 18 15:42:58 EST 1994
-;;; Using inline function lookup-effective-style
-;;; Forward Declaration
 (defvar *read-pointer* )
+
 (defmethod read-aloud  :around ((document document))
   "Around method"
-  (when document ; record for browsing
+  (when document                        ; record for browsing
     (when *read-pointer* (setf *previous-read-pointer* *read-pointer* ))
     (setf *read-pointer* document)
     (let* ((active-rule (active-rule document))
@@ -179,10 +155,8 @@
            (substitution (substitution document ))
            (current-style (current-reading-style ))
            (active-style
-             (if *efficient-styles*
-                 (lookup-effective-style document )
-                 (compute-effective-style document))))
-      (cond ; read substitution if any.
+             (compute-effective-style document)))
+      (cond                             ; read substitution if any.
         ((and substitution
               (find 'read-substitution  current-style))
          (reading-rule document 'read-substitution ))
@@ -190,26 +164,18 @@
         ((and special-pattern
               (find 'use-special-pattern current-style)
               (not (eql active-style 'variable-substitution ))
-              (if *efficient-styles*
-                  (lookup-effective-method
-                   #'reading-rule
-                   (list document special-pattern ))
-                  (compute-applicable-methods
-                   #'reading-rule
-                   (list document special-pattern ))))
+              (compute-applicable-methods
+               #'reading-rule
+               (list document special-pattern )))
          (reading-rule document special-pattern ))
                                         ;active rule  default  call primary
         ((equal 'default active-rule )
          (call-next-method ))
                                         ; rule active and defined then
         ((and active-rule
-              (if *efficient-styles*
-                  (lookup-effective-method
-                   #'reading-rule
-                   (list document  active-rule ))
-                  (compute-applicable-methods
-                   #'reading-rule
-                   (list document  active-rule ))))
+              (compute-applicable-methods
+               #'reading-rule
+               (list document  active-rule )))
          (reading-rule document active-rule ))
                                         ; If current applicable style is
                                         ; 'default then call primary  method
@@ -228,7 +194,7 @@
 ;;{{{ Stepping through math readings:
 
 ;;; Switch to determine if we step through a math reading:
-  
+
 ;;; This threshold determines if this object is complex enough to be
 ;;; stepped through:
 
@@ -252,14 +218,7 @@ math object against this threshold. ")
 
 ;;; Introduce  a new function and call this from the around method.
 
-
 ;;}}}
-
-
-
-
-
-
 
  ;;; Macro: DEF-READING-RULE                               Author: raman
  ;;; Created: Tue Dec  8 19:00:47 1992
@@ -284,7 +243,6 @@ math object against this threshold. ")
                                 (list '(eql ,rule-name )))))
   )
 
-
   ;;; Created: Wed Dec 23 12:59:19 1992
 
   ;;; Macro: TRACE-READING-RULE                                Author: raman
@@ -298,7 +256,6 @@ math object against this threshold. ")
                   (mapcar #'find-class '(,class))
                   (list '(eql ,rule-name )))))
   )
-
 
   ;;; Macro: DOC-READING-RULE                                  Author: raman
   ;;; Created: Sun Jan  3 09:38:44 1993
@@ -314,7 +271,6 @@ math object against this threshold. ")
 
 ;;; removing before and after methods on read-aloud
 
-
   ;;; Function: REMOVE-BEFORE-READ-ALOUD                          Author: raman
   ;;; Created: Thu Jan  7 15:34:22 1993
 
@@ -324,7 +280,6 @@ math object against this threshold. ")
                  (find-method #'read-aloud '(:before)
                               (mapcar #'find-class (list class ))))
   )
-
 
 (defun remove-after-read-aloud (class)
   "Remove after method for this class on read-aloud"

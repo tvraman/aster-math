@@ -6,10 +6,7 @@
   :author "T. V. Raman <tv.raman.tv@gmail.com>"
   :licence "GPL V2"
   :components  
-  ((:module "cardinal"
-    :pathname ""
-    :components ((:file "cardinal-numbers" )))
-   (:module "user-input"
+  ((:module "user-input"
     :pathname ""
     :components ((:file "get-user-feedback" )))
    (:module "read-aloud"

@@ -60,7 +60,8 @@
   "Footnote cue. ")
 
 (define-reading-state 'footnote-mark
-    #'(lambda(_state)
+    #'(lambda(state)
+        (declare (ignore state))
         (afl:step-by afl:*current-speech-state* 'afl:average-pitch 2 )))
 
 
