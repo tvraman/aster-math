@@ -50,31 +50,8 @@ Note: call here used as in a spade is called a spade."
           ((atom  children-called )
            (format nil "~a ~a "
                    (cardinal-number n) children-called ))
-          (t (error "Should not have got here. "))
-          )
-        )
-      )
-                                        ; with calling sequence reversed
-    (defmethod name-of-child  ((n integer) (,object ,object))
-      "Automatically generated name of child  accessor"
-      (let
-          ((children-called (children-are-called  ,object )))
-        (cond
-          ((listp children-called)
-           (if (<=  n (length children-called ))
-               (elt  children-called   (- n 1 ))
-               (last children-called )))
-          ((atom  children-called )
-           (format nil "~a ~a "
-                   (cardinal-number n) children-called ))
-          (t (error "Should not have got here. "))
-          )
-        )
-      ))
+          (t (error "Should not have got here. "))))))
   )
-
-
-
 
 (defmacro call-its-attributes (object name-spec) 
   "Attributes of object are called as specified by name-spec.

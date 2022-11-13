@@ -253,7 +253,7 @@ passed to automatically generated processing function")
                                                 this-parent )))))
     (when child-position  (incf child-position ))
     (when this-parent
-      (name-of-child (or child-position  1) this-parent ))
+      (name-of-child this-parent (or child-position  1) ))
     )
   )
 
