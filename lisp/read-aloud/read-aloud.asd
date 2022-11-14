@@ -43,6 +43,7 @@
      (:file "descriptive-math-readings"
       :depends-on ("reading-styles-and-rules" "math-reader-aux" )))
     :depends-on ("new-document-objects" "complexity"))
+   (:file "new-document-methods")
    (:module "new-document-objects"
     :pathname ""
     :components
