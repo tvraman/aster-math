@@ -18,27 +18,7 @@
   :supers (relational-operator)
   )
 
-(def-reading-rule (alpha-equality simple)
-  "Read aloud method for object alpha-equality "
-  (let*
-      ((pause-duration  (compute-pause alpha-equality ))
-       (children (children alpha-equality)))
-    (afl:with-surrounding-pause pause-duration
-      (cond
-        ((leaf-p alpha-equality)
-         (read-aloud "  equals  ")
-         (with-reading-state (reading-state 'subscript)
-           (read-aloud " alpha ")))
-        (t
-         (read-math-child   (first children))
-         (afl:tts-queue " ")
-         (loop for child in (rest children)
-               do
-                  (read-aloud "  equals  ")
-                  (with-reading-state (reading-state 'subscript)
-                    (read-aloud " alpha "))
-                  (read-math-child  child ))))
-      )))
+
 
 (define-text-object     :macro-name "walksa"
   :number-args 0

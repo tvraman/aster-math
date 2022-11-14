@@ -19,22 +19,6 @@
   :object-name a-subst
   :supers (math-object))
 
-;;; Method: READ-ALOUD                                       Author: raman
-;;; Created: Thu Oct 15 14:40:31 1992
-(defmethod read-aloud ((subst a-subst))
-  "read aloud a subst object"
-  (afl:new-block
-                   (afl:local-set-state 
-                    (afl:multi-step-by afl:*current-speech-state*
-                                       '(afl:average-pitch 1)))
-                   (read-aloud (argument subst 1))
-                   (read-aloud " with ")
-                   (read-aloud (argument subst 3))
-                   (read-aloud "replaced by ") 
-                   (read-aloud (argument subst 2))))
-
-
-
 ;;; }
 ;;; { abstraction
 
@@ -47,34 +31,6 @@
   )
 
 
-;;; Method: READ-ALOUD                                       Author: raman
-;;; Created: Thu Oct 15 20:24:33 1992
-
-(defmethod read-aloud  ((abstraction abstraction))
-  "Read abstraction like a tree "
-  (read-aloud " lambda " )
-  (with-reading-state (reading-state 'children)
-    (read-aloud (argument abstraction 1))
-    (read-aloud  (argument abstraction 2)))
-  )
-
-#|
-(defmethod read-aloud ((abstraction abstraction))
-  "read aloud abstraction"
-                                          (read-aloud "abstraction")
-  (read-aloud  "lambda ")
-  (afl:new-block
-   (afl:local-set-state
-    (afl:step-by
-     afl:*current-speech-state*
-     'afl:smoothness 1))
-   (read-aloud  (argument abstraction 1))
-   (read-aloud "dot")
-   (read-aloud (argument abstraction 2))
-   )
-  )
-|#
-
 ;;; }
 ;;; { application
 
@@ -85,28 +41,9 @@
   :supers (math-object)
   )
 
-(defmethod  read-aloud ((application application ))
-  "Read application like a tree "
-  (read-aloud " application " )
-  (with-reading-state (reading-state  'children )
-    (read-aloud (argument application 1 ))
-    (read-aloud (argument application 2 )))
-  )
 
-#|
-(defmethod read-aloud  (( application application )) 
-  "Read aloud method for object application "
-  (read-aloud (argument application 1))
-  (read-aloud " applied to ")
-  (with-reading-state   (reading-state 'argument) 
-  (read-aloud (argument application 2)))
-  )
-|#
 
-(define-reading-state 'argument
-    #'(lambda(state)
-        (afl:step-by state
-                     'afl:average-pitch 1)))
+
 
 ;;; }
 
