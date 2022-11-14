@@ -623,8 +623,7 @@ enumerated and itemized lists."))
                                        supers)
   "Define a new environment of this name"
   `(progn
-    (setf (gethash ,env-name *latex-new-environment-names*)
-     ',class-name)
+    (setf (gethash ,env-name *latex-new-environment-names*) ',class-name)
     (cond
      (',supers
         (defclass ,class-name ,supers ()
@@ -634,12 +633,10 @@ enumerated and itemized lists."))
         (t (defclass ,class-name (new-environment) ()
                   (:documentation
                    ,(format nil "Latex environment ~a a subclass of new-environment."
-                           class-name))))
-        )                               ; end if supers 
+                           class-name)))))                               ; end if supers 
                                         ; all new environments in latex can be cross-referenced.
     (push ',class-name *objects-that-can-be-referred*)
-    (values))
-  )
+    (values)))
 
   ;;; Function: CREAATE-NEW-ENVIRONMENT                        Author: raman
   ;;; Created: Wed Feb 24 09:51:38 1993
