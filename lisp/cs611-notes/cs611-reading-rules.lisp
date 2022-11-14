@@ -33,7 +33,7 @@
     (read-aloud (argument  a-subst  3)))
   )
 
-(define-reading-state ' a-subst 
+(define-reading-state ' a-subst
     #'(lambda(state)
         (afl:step-by state 'afl:average-pitch 2)))
 
@@ -220,3 +220,54 @@
   )
 
 ;;; }
+
+
+
+(defmethod summarize ((alpha-equality alpha-equality))
+  (afl:new-block
+    (afl:local-set-state :math)
+    (read-aloud "  equals  ")
+    (with-reading-state (reading-state 'subscript)
+      (read-aloud " alpha "))))
+
+(defmethod read-aloud  (( walksa walksa ))
+  "Read aloud method for object walksa "
+  (read-aloud "walks  ")
+  (with-reading-state (reading-state 'subscript)
+    (read-aloud " alpha ")))
+
+(defmethod read-aloud  (( alphaone alphaone ))
+  "Read aloud method for object alphaone "
+  (read-aloud "  equivalent ")
+  (with-reading-state (reading-state 'subscript)
+    (read-aloud " alpha one "))
+  )
+
+(defmethod read-aloud  (( betaone betaone ))
+  "Read aloud method for object betaone "
+  (read-aloud "  reduces ")
+  (with-reading-state (reading-state 'subscript)
+    (read-aloud " beta one "))
+  )
+
+(defmethod read-aloud  (( abmany abmany ))
+  "Read aloud method for object abmany "
+  (read-aloud " by  a many step reduction ")
+  )
+
+(defmethod read-aloud  (( displaystyle displaystyle ))
+  "Read aloud method for object displaystyle "
+  (read-aloud (argument displaystyle 1 ))
+  )
+
+(defmethod read-aloud  (( derivation-ii derivation-ii ))
+  "Read aloud method for object derivation-ii "
+  (read-aloud " derivation ")
+  (afl:tts-icon *paragraph-cue*)
+  (read-aloud (argument derivation-ii 1 ))
+  (afl:tts-icon   *item-cue*)
+  (read-aloud (argument derivation-ii 2 ))
+  (afl:tts-icon *newline-cue*)
+  (with-reading-state (reading-state 'yields)
+    (read-aloud (argument derivation-ii 3 )))
+  )

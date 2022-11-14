@@ -40,25 +40,11 @@
                   (read-math-child  child ))))
       )))
 
-(defmethod summarize ((alpha-equality alpha-equality))
-  (afl:new-block
-    (afl:local-set-state :math)
-    (read-aloud "  equals  ")
-    (with-reading-state (reading-state 'subscript)
-      (read-aloud " alpha "))))
-
 (define-text-object     :macro-name "walksa"
   :number-args 0
   :processing-function walksa-expand
   :object-name walksa
   :supers (math)
-  )
-
-(defmethod read-aloud  (( walksa walksa ))
-  "Read aloud method for object walksa "
-  (read-aloud "walks  ")
-  (with-reading-state (reading-state 'subscript)
-    (read-aloud " alpha "))
   )
 
 (define-text-object     :macro-name "alphaone"
@@ -68,25 +54,11 @@
   :supers (math)
   )
 
-(defmethod read-aloud  (( alphaone alphaone ))
-  "Read aloud method for object alphaone "
-  (read-aloud "  equivalent ")
-  (with-reading-state (reading-state 'subscript)
-    (read-aloud " alpha one "))
-  )
-
 (define-text-object     :macro-name "betaone"
   :number-args 0
   :processing-function betaone-expand
   :object-name betaone
   :supers (math)
-  )
-
-(defmethod read-aloud  (( betaone betaone ))
-  "Read aloud method for object betaone "
-  (read-aloud "  reduces ")
-  (with-reading-state (reading-state 'subscript)
-    (read-aloud " beta one "))
   )
 
 (define-text-object     :macro-name "abmany"
@@ -96,21 +68,11 @@
   :supers (math)
   )
 
-(defmethod read-aloud  (( abmany abmany ))
-  "Read aloud method for object abmany "
-  (read-aloud " by  a many step reduction ")
-  )
-
 (define-text-object     :macro-name "displaystyle"
   :number-args 1
   :processing-function displaystyle-expand
   :object-name displaystyle
   :supers (math)
-  )
-
-(defmethod read-aloud  (( displaystyle displaystyle ))
-  "Read aloud method for object displaystyle "
-  (read-aloud (argument displaystyle 1 ))
   )
 
 ;;; }
@@ -126,17 +88,6 @@
   )
 
 ;;; Use slots argument ... 1 argument-3 in                         read-aloud
-(defmethod read-aloud  (( derivation-ii derivation-ii ))
-  "Read aloud method for object derivation-ii "
-  (read-aloud " derivation ")
-  (afl:tts-icon *paragraph-cue*)
-  (read-aloud (argument derivation-ii 1 ))
-  (afl:tts-icon   *item-cue*)
-  (read-aloud (argument derivation-ii 2 ))
-  (afl:tts-icon *newline-cue*)
-  (with-reading-state (reading-state 'yields)
-    (read-aloud (argument derivation-ii 3 )))
-  )
 
 (define-reading-state 'yields
     #'(lambda(state)
