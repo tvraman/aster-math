@@ -35,7 +35,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots 
+ 
 
 
 
@@ -46,7 +46,7 @@
   :object-name norvig-idx
   :supers (document))
 
-;;; Object has 0 slots 
+ 
 
 
 
