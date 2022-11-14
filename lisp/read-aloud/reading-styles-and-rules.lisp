@@ -143,8 +143,7 @@
            (special-pattern (special-pattern document ))
            (substitution (substitution document ))
            (current-style (current-reading-style ))
-           (active-style
-             (compute-effective-style document)))
+           (active-style (compute-effective-style document)))
       (cond                             ; read substitution if any.
         ((and substitution
               (find 'read-substitution  current-style))
@@ -171,8 +170,7 @@
         ((equal 'default active-style )
          (call-next-method ))
                                         ; if applicable style found
-        (  active-style
-           (reading-rule document active-style ))
+        (  active-style (reading-rule document active-style ))
                                         ; Otherwise use default
                                         ; not setting reading style
                                         ; is same as setting it to 'default
