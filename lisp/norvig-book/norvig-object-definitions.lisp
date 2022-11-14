@@ -18,22 +18,14 @@
 
 ;;; Use  (argument object)  1 ...( argument
                         ;;; object 1)  in                         read-aloud 
-(defmethod read-aloud  (( idx-term idx-term )) 
-  "Read aloud method for object idx-term "
-  (with-reading-state (reading-state 'emphasize)
-(read-aloud (argument idx-term 1 )))
-  )
+
 
 
 
 
 (define-new-environment :env-name "asis" :class-name asis)
 
-(defmethod read-aloud ((asis asis))
-  "Read out contents of asis"
-  (afl:with-pronunciation-mode (:mode :lisp)
-    (read-aloud (contents asis )))
-  )
+
 
 (define-text-object :macro-name "askip" 
   :number-args 0
@@ -44,10 +36,7 @@
   )
 
 ;;; Object has 0 slots 
-(defmethod read-aloud  (( askip askip )) 
-  "Read aloud method for object askip "
-nil
-  )
+
 
 
 (define-text-object :macro-name "idx" 
@@ -58,9 +47,6 @@ nil
   :supers (document))
 
 ;;; Object has 0 slots 
-(defmethod read-aloud  (( norvig-idx norvig-idx )) 
-  "Read aloud method for object norvig-idx "
-nil
-  )
+
 
 

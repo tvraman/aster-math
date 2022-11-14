@@ -13,3 +13,20 @@
     (afl:with-pronunciation-mode (:mode :lisp)
     (read-aloud (contents asis ))))
   )
+
+ 
+
+(defmethod read-aloud  (( idx-term idx-term )) 
+  "Read aloud method for object idx-term "
+  (with-reading-state (reading-state 'emphasize)
+(read-aloud (argument idx-term 1 ))))
+(defmethod read-aloud ((asis asis))
+  "Read out contents of asis"
+  (afl:with-pronunciation-mode (:mode :lisp)
+    (read-aloud (contents asis ))))
+(defmethod read-aloud  (( askip askip )) 
+  "Read aloud method for object askip "
+  nil)
+(defmethod read-aloud  (( norvig-idx norvig-idx )) 
+  "Read aloud method for object norvig-idx "
+  nil)
