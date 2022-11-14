@@ -1,0 +1,7 @@
+;;; SBCLRC: -*- mode: lisp -*-
+;;; The following lines added by ql:add-to-init-file:
+#-quicklisp
+(let ((ql (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
+  (when (probe-file ql) (load ql)))
+(require :asdf)
+(setq *print-case* :downcase )
