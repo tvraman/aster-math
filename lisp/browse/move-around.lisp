@@ -40,10 +40,6 @@
 
 (defvar *previous-read-pointer* nil "Previous object, ie object just read. ")
 (defun previous-read-pointer() *previous-read-pointer*)
-(defmethod read-aloud :before ((document document ))
-  "Record this object"
-  (setf  *read-pointer*   document)
-  )
 
 (defun move-inside-subformula-if-necessary()
   "Given that read-pointer is a  subformula with no attributes move
