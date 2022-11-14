@@ -121,17 +121,6 @@
 ;;; The following function was contributed by
 ;;; <(refer to net article)>
 
-  ;;; Function: LOOKUP-EFFECTIVE-STYLE                         Author: raman
-  ;;; Created: Tue Jan 18 15:38:00 1994
-(defun lookup-effective-style (document)
-  "Lookup effective style for this document object."
-  (find-if
-   #'(lambda(style)
-       (lookup-effective-method #'reading-rule
-                                (list document style)))
-   (current-reading-style))
-  )
-
   ;;; Function: COMPUTE-EFFECTIVE-STYLE                         Author: raman
   ;;; Created: Tue Jan 18 15:38:00 1994
 (defun compute-effective-style (document)
