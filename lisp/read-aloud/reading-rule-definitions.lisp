@@ -56,8 +56,7 @@ In addition, allow the user to mark a position while reading. "
           (afl:tts-force )
           (when  (char=
                   (or (read-char-no-hang) #\space)
-                  *mark-interactively-char*)
-            (mark-read-pointer))))))
+                  *mark-interactively-char*))))))
   )
 
 (defvar *random-step-limit*  2.0 "Limit on random stepping. ")

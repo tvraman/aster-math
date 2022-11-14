@@ -49,6 +49,8 @@
     :components
     ((:file "new-document-objects")
      (:file "standard-math-objects")
+     (:file "standard-math-methods"
+      :depends-on ("standard-math-objects"))
      (:file "new-environment-definitions" )
      (:file "new-environment-methods"
       :depends-on ("new-environment-definitions"))))
