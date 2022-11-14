@@ -14,10 +14,6 @@
 
 (defclass constraint-brackets (delimited-expression) ())
 
-(defmethod read-aloud ((constraint-brackets constraint-brackets))
-  (with-reading-state (reading-state 'subscript )
-    (read-aloud (children constraint-brackets )))
-  )
 (activate-rule 'constraint-brackets 'default)
 
 ;;}}}
@@ -34,21 +30,9 @@
   :processing-function new-theorem-expand
   :precedence  nil
   :object-name new-theorem
-  :supers (defined-text-object-with-label)
-  )
+  :supers (defined-text-object-with-label))
 
-(defmethod read-aloud  (( defined-text-object-with-label defined-text-object-with-label ))
-  "Read aloud method for object defined-text-object-with-label "
-  (afl:new-block
-    (if (label defined-text-object-with-label)
-        (read-aloud (label-name (label defined-text-object-with-label )))
-        (read-aloud (format nil "~a  ~a. "
-                            (contents defined-text-object-with-label)
-                            (anumber defined-text-object-with-label ))))
-    (afl:tts-pause 5)
-    (read-aloud (argument defined-text-object-with-label 1))
-    (relabel-if-necessary (label defined-text-object-with-label )))
-  )
+
 
 (define-text-object-with-label :macro-name "definition"
   :processing-function new-definition-expand
@@ -80,10 +64,6 @@
 
 ;;; Use  (argument object)  1 ...( argument
                         ;;; object 1)  in                         read-aloud
-(defmethod read-aloud  (( lefteqn lefteqn ))
-  "Read aloud method for object lefteqn "
-  (read-aloud (argument lefteqn 1 ))
-  )
 
 (define-text-object-with-label :macro-name "history"
   :processing-function history-expand
