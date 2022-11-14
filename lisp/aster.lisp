@@ -18,10 +18,14 @@
         (*print-case* :downcase))
     (mapc #'asdf:load-system
           '(:parser :afl  :read-aloud :browse))
-    (mapc #'asdf:load-system
-          '( :vavasis-book :vanloan-book :tcs-chicago :rz-book
-            :norvig-book :gries-book :dennis-math-books :cs611-notes))
 (setf *follow-cross-ref-wait* 0
       *get-label-wait* 0)))
+
+(defun aster-books ()
+  "Modules for reading books I used at Cornell."
+  (mapc #'asdf:load-system
+          '( :vavasis-book :vanloan-book :tcs-chicago :rz-book
+            :norvig-book :gries-book :dennis-math-books
+            :cs611-notes)))
 
 (aster)
