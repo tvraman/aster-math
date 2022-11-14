@@ -29,7 +29,8 @@
                                 children-are-called
                                 precedence object-name supers)
   "define new object in text"
-  `(let   ((sb-ext:*muffled-warnings* 'style-warning))
+  `(let   (                      ; (*muffled-warnings* 'style-warning)
+           )
     (progn
 ;;; First define the class:
 ;;; if n args is 0 no argument slot
