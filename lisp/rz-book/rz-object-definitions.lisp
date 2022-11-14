@@ -1,4 +1,3 @@
-
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -9,8 +8,6 @@
 ;;; Contains  object definitions from Zippel's book
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
 ;;{{{zippel book.
 (define-text-object     :macro-name "keyi"
   :number-args 1
@@ -18,11 +15,6 @@
   :object-name keyi
   :supers (document)
   )
-
-;;; Use slots argument-1 ... argument-1 in                         read-aloud
-(defmethod read-aloud  (( keyi keyi ))
-  "Read aloud method for object keyi "
-  (read-aloud  (argument keyi 1)))
 
 ;;}}}
 
@@ -38,11 +30,5 @@
 
 ;;; Use  (argument object)  1 ...( argument
                         ;;; object 2)  in                         read-aloud
-(defmethod read-aloud  (( addsymbol addsymbol ))
-  "Read aloud method for object addsymbol "
-  (read-aloud (argument addsymbol 1))
-  (afl:tts-queue  "denotes ")
-  (read-aloud (argument addsymbol 2 ))
-  )
 
 ;;}}}
