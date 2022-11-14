@@ -101,15 +101,6 @@
   :supers (math)
   )
 
-;;; Use slots argument-1 ... argument-2 in                         read-aloud
-(defmethod read-aloud  (( derivation-i derivation-i ))
-  "Read aloud method for object derivation-i "
-  (afl:tts-icon *paragraph-cue*)
-  (read-aloud (argument derivation-i 1 ))
-  (afl:tts-icon *newline-cue*)
-  (read-aloud (argument derivation-i 2 ))
-  )
-
 ;;; }
 ;;; { pred from solution to problem set 2 cs611
 
@@ -121,11 +112,5 @@
   )
 
 ;;; Object has 0 slots
-(defmethod read-aloud  (( pred pred ))
-  "Read aloud method for object pred "
-  (read-aloud " right arrow ")
-  (with-reading-state (reading-state 'subscript)
-    (read-aloud " beta "))
-  )
 
 ;;; }
