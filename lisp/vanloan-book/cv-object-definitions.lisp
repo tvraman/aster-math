@@ -31,28 +31,6 @@
   :supers (binary-operator)
   )
 
-;;; Object has 0 slots
-
-(def-reading-rule (kronecker prefix)
-  "Simple reading rule for kronecker product. "
-  (let ((children (children kronecker )))
-    (read-aloud  "kronecker product of")
-    (afl:subclause-boundary)
-    (read-aloud  (first children ))
-    (read-aloud "and" )
-    (read-aloud (second children ))
-    )
-  )
-(def-reading-rule (kronecker-product prefix)
-  "Simple reading rule for kronecker product. "
-  (let ((children (children kronecker-product )))
-    (read-aloud  "kronecker product of,  ")
-    (read-aloud  (first children ))
-    (read-aloud "and" )
-    (read-aloud (second children ))
-    )
-  )
-
 ;;}}}
 ;;{{{ Vectors and matrices
 
