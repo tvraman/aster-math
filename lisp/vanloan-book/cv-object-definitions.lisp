@@ -71,7 +71,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 
 (define-text-object     :macro-name "qquad"
   :number-args 0
@@ -81,7 +81,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 
 ;;}}}
 ;;{{{matrix computations book:

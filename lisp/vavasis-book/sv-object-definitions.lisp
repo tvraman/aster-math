@@ -20,7 +20,7 @@
   :supers (math)
   )
 
-;;; Object has 0 slots
+ 
 
 
 
@@ -45,7 +45,7 @@
   :supers (math-number)
   )
 
-;;; Object has 0 slots
+ 
 
 
 (define-text-object       :macro-name "xs"
@@ -56,7 +56,7 @@
   :supers (math)
   )
 
-;;; Object has 0 slots
+ 
 
 
 (define-text-object       :macro-name "ddfdxi"
@@ -67,7 +67,7 @@
   :supers (ordinary)
   )
 
-;;; Object has 0 slots
+ 
 
 (define-text-object     :macro-name "dfdxi"
   :number-args 0
@@ -77,7 +77,7 @@
   :supers (ordinary)
   )
 
-;;; Object has 0 slots
+ 
 
 ;;}}}
 
@@ -166,7 +166,7 @@
   :supers (ordinary)
   )
 
-;;; Object has 0 slots
+ 
 
 (activate-rule  'bmu 'default)
 

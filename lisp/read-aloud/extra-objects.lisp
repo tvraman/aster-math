@@ -19,7 +19,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( descriptive descriptive ))
   "Read aloud method for object descriptive "
   (activate-style 'descriptive)
@@ -35,7 +35,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( layout layout ))
   "Read aloud method for object layout "
   (deactivate-style 'use-special-pattern)
@@ -51,7 +51,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( simple-layout simple-layout ))
   "Read aloud method for object simple-layout "
   (activate-rule 'integral 'simple)
@@ -65,7 +65,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( endsimplelayout-expand endsimplelayout-expand ))
   "Read aloud method for object endsimplelayout-expand "
   (deactivate-rule 'integral)
@@ -81,7 +81,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( use-long-summation use-long-summation ))
   "Read aloud method for object use-long-summation "
   (activate-rule 'summation 'long-descriptive)
@@ -95,7 +95,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( end-long-summation end-long-summation ))
   "Read aloud method for object end-long-summation "
   (when (equal 'long-descriptive (active-rule
@@ -136,7 +136,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( ams-tex ams-tex ))
   "Read aloud method for object ams-tex "
   (afl:tts-queue "[ey] m s tech ")
@@ -150,7 +150,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( small small ))
   "Read aloud method for object small "
   nil
@@ -164,7 +164,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( cap-large cap-large ))
   "Read aloud method for object cap-large "
   nil
@@ -206,14 +206,14 @@
 
 
 
-;;; Object has 0 slots
+ 
 
-;;; Object has 0 slots
-
-
+ 
 
 
-;;; Object has 0 slots
+
+
+ 
 
 (define-text-object :macro-name "voicemail"
   :number-args 1
@@ -256,7 +256,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( activate-variable-substitution activate-variable-substitution ))
   "Read aloud method for object activate-variable-substitution "
   (activate-style 'variable-substitution)
@@ -270,7 +270,7 @@
   :supers (document)
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( deactivate-variable-substitution deactivate-variable-substitution ))
   "Read aloud method for object deactivate-variable-substitution "
   (deactivate-style 'variable-substitution)
@@ -345,9 +345,9 @@
 
 (activate-rule 'thanks 'default)
 
-;;; Object has 0 slots
+ 
 
-;;; Object has 0 slots
+ 
 
 
 
@@ -364,7 +364,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( talk-title talk-title ))
   "Read aloud method for object talk-title "
   (afl:tts-queue "Recognition, ")
@@ -386,7 +386,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( m-dash m-dash ))
   "Read aloud method for object m-dash "
   (afl:comma-intonation)
@@ -472,7 +472,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( make-abs-title make-abs-title ))
   "Read aloud method for object make-abs-title "
   )
@@ -485,7 +485,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 
 (activate-rule 'contents-page 'float)
 
@@ -498,7 +498,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( table-list-page table-list-page ))
   "Read aloud method for object table-list-page "
   )
@@ -512,7 +512,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( figure-list-page figure-list-page ))
   "Read aloud method for object figure-list-page "
   )
@@ -526,7 +526,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( single-spacing single-spacing ))
   "Read aloud method for object single-spacing "
   )
@@ -562,7 +562,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( make-copyright make-copyright ))
   "Read aloud method for object make-copyright "
   )
@@ -591,14 +591,14 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( newpage newpage ))
   "Read aloud method for object newpage "
   )
 
 
 
-;;; Object has 0 slots
+ 
 
 
 (define-text-object :macro-name "bs"
@@ -610,7 +610,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( tt-backslash tt-backslash ))
   "Read aloud method for object tt-backslash "
   (afl:tts-queue "backslash" )
@@ -625,7 +625,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 
 (def-reading-rule (afl simple)
   "Simple reading rule for AFL. "
@@ -640,7 +640,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( thesis-title-macro thesis-title-macro ))
   "Read aloud method for object thesis-title-macro "
   (afl:tts-queue "Audio system for Technical Readings. ")
@@ -663,7 +663,7 @@
   :children-are-called nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( mini-page-size mini-page-size ))
   "Read aloud method for object mini-page-size "
   nil

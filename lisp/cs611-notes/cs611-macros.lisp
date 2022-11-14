@@ -91,6 +91,6 @@
   :supers (math)
   )
 
-;;; Object has 0 slots
+ 
 
 ;;; }

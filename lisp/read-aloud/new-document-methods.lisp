@@ -219,13 +219,13 @@
 
 ;;}}}
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( tex-logo tex-logo ))
   "Read aloud method for object tex-logo "
   (afl:tts-queue "[t`ehkhx_<10>q]")
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( sub-group sub-group ))
   "Read aloud method for object sub-group "
   (call-next-method)
@@ -250,7 +250,7 @@
   (read-math-child  (argument a-gcd 2 ))
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( no-number no-number ))
   "Read aloud method for object no-number "
   nil
@@ -309,7 +309,7 @@
   nil
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  ((diagonal-dots diagonal-dots))
   "Read aloud method for object diagonal-dots "
   (afl:new-block
@@ -322,7 +322,7 @@
                                               ))))
   )
 
-;;; Object has 0 slots
+ 
 (defmethod read-aloud  (( vertical-dots vertical-dots ))
   "Read aloud method for object vertical-dots "
   (afl:tts-queue "dot, dot, dot. ")
