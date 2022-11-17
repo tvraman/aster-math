@@ -366,11 +366,13 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 (defcustom aster-keys
   '(
     ("." aster-current)
+    ("<down>" aster-to-children )
+    ("<left>" aster-to-left)
+    ("<right>" aster-to-right)
+    ("<up>" aster-to-up)
     ("A" aster-to-attributes)
     ("C-a" aster-to-abstract)
     ("C-r" aster-record)
-    ("r" aster-region)
-    ("P" aster-parent )
     ("SPC" aster-rest)
     ("^" aster-to-superscript )
     ("_" aster-to-subscript)
@@ -383,12 +385,10 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     ("m" aster-math)
     ("n" aster-next)
     ("p" aster-previous)
+    ("r" aster-region)
     ("s" aster-stop)
     ("t" aster-to-top)
-    ("<down>" aster-to-children )
-    ("<left>" aster-to-left)
-    ("<right>" aster-to-right)
-    ("<up>" aster-to-up))
+    ("u" aster-parent ))
 
   "Aster key bindings. "
   :group 'aster
