@@ -367,7 +367,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   '(
     ("." aster-current)
     ("A" aster-to-attributes)
-    ("C" aster-children)
     ("C-a" aster-to-abstract)
     ("C-r" aster-record)
     ("r" aster-region)
@@ -376,7 +375,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     ("^" aster-to-superscript )
     ("_" aster-to-subscript)
     ("f"aster-file)
-    ("g" aster-to-cross-ref)
     ("h" aster-to-left)
     ("i" aster-to-contents)
     ("j" aster-to-children )
