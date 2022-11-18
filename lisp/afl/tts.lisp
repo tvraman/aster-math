@@ -226,10 +226,6 @@
   "Send a  secondary-stress. "
   (tts-queue " "))
 
-(defun exclamatory-stress  ()
-  "Send an   exclamatory-stress. "
-  (tts-queue " "))
-
 (defun set-period-pause  (ms)
   "Set Period Pause."
   (tts-code (format nil "[:pp ~a]" ms)))
