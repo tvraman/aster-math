@@ -214,10 +214,6 @@
   "Generate a period intonation"
   (tts-queue " "))
 
-(defun exclamation  ()
-  "Send an exclamation. "
-  (tts-queue " "))
-
 (defun interrogative  ()
   "Send an interrogative. "
   (tts-queue " "))
