@@ -9,7 +9,6 @@
   (make-package :aster :use '(:cl :common-lisp :sb-ext )))
 
 (in-package :aster)
-(export '(aster))
 
 (defvar *lisp-dir*
   (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))
