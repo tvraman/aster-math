@@ -101,7 +101,7 @@
 ;;; Created: Mon Apr 13 11:01:28 1992
 
 (defgeneric read-aloud (object)
-  (:documentation "read aloud an object on the multivoice."))
+  (:documentation "read aloud an object."))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Sat Apr 11 21:10:50 1992
