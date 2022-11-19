@@ -5,7 +5,7 @@
   - We use SBCL for the Common Lisp implementation
   - AsTeR accepts TeX/LaTeX markup and produces audio-formatted spoken renderings.
   - UI is implemented in Emacs and integrated with Emacspeak.
-  - Slime provides our Lisp IDE.
+  - We use package /slime/ to connect Emacs and Common Lisp.
   - Emacs commands send snippets of Lisp to a running Common-Lisp
     interpreter to control Aster.
   
@@ -17,6 +17,9 @@
   - Install Software DECTalk from Github.
   - Install Emacspeak from Github --- Aster uses the Emacspeak
     speech-server to communicate with the DECTalk.
+  - By default, Aster launches the TTS server to send output to the
+    left ear; See the Emacspeak distribution for setting up left and
+    right channels under Pulseaudio.
 
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
