@@ -34,4 +34,6 @@
            (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
            :input (make-string-input-stream string)
            :wait t :output  :stream)))
-    (create-article (read (sb-ext:process-output process) nil))))
+    (create-article
+     (read
+      (sb-ext:process-output process) nil))))
