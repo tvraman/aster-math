@@ -22,8 +22,6 @@
         (*print-case* :downcase))
     (mapc #'asdf:load-system
           '(:parser :afl  :read-aloud :browse))
-    (setf *follow-cross-ref-wait* 0
-          *get-label-wait* 0)
     (format nil "Ready to talk")))
 
 (defun aster-books ()
