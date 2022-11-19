@@ -23,7 +23,8 @@
     (let ((process
             (sb-ext:run-program
              (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
-             :input in-stream :wait t :output  :stream))) (create-article
+             :input in-stream :wait t :output  :stream)))
+      (create-article
        (read (sb-ext:process-output process) nil)))))
 
 (defun parse-latex-string (string) 
