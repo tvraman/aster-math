@@ -18,6 +18,7 @@
 
 (defun aster-latex-file (filename)
   "Aster a  Latex article "
+  (format t "file: ~a" filename)
   (with-open-file (in-stream filename)
     (let ((process
             (sb-ext:run-program
