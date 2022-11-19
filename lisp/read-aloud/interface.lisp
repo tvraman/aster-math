@@ -17,7 +17,7 @@
 ;;; Created: Fri Feb 21 09:10:37 1992
 
 (defun aster-latex-file (filename)
-  "Parses a Latex article "
+  "Aster a  Latex article "
   (with-open-file (in-stream filename)
     (let ((process
             (sb-ext:run-program
@@ -28,7 +28,7 @@
         (read (sb-ext:process-output process)))))))
 
 (defun aster-latex-string (latex-string) 
-  "Parses a Latex article passed as a string."
+  "Aster  a Latex article passed as a string."
   (let ((process
           (sb-ext:run-program
            (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil

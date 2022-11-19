@@ -9,6 +9,8 @@
   (make-package :aster :use '(:cl :common-lisp )))
 
 (in-package :aster)
+(export '(aster))
+
 (defvar *lisp-dir*
   (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))
   "directory under which lisp code is organized")
