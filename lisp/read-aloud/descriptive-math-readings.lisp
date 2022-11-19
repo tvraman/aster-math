@@ -5,9 +5,9 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :cl-user)
+(in-package :aster)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
+(in-package :aster)
 
 ;;; Thu Dec 10 16:21:01 EST 1992
 ;;; This file contains reading rules for a style that will use

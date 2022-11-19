@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(in-package :cl-user)
+(in-package :aster)
 
 ;;; Separating out object definitions generated via a macro from
 ;;; method definitions on those objects into separate files.

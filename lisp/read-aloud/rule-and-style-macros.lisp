@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(in-package :cl-user)
+(in-package :aster)
 
 ;;; Macros to conveniently activate and deactivate styles and rules
 ;;; within other rules.

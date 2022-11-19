@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(in-package :cl-user)
+(in-package :aster)
 ;;; 
 ;;; Fri Apr 30 10:00:14 EDT 1993
 ;;; Define new environments here:

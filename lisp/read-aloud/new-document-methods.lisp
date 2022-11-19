@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(in-package :cl-user)
+(in-package :aster)
 ;;; contains methods defined on objects from new-document-objects.
 
 ;;; Modified: Mon Dec 21 09:32:07 EST 1992

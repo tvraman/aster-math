@@ -5,9 +5,9 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
-(in-package :cl-user)
+(in-package :aster)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
+(in-package :aster)
 ;;; This file contains reading rule definitions using the new
 ;;; defmethod reading-rule.
 ;;; Will eventually replace the reading rules in math-reading-rules.lisp

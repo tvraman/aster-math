@@ -2,7 +2,7 @@
  ;;;                                                                       ;;;
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(in-package :cl-user)
+(in-package :aster)
 
  ;;; Tue Dec 8 12:17:21 EST 1992 This module replaces the
  ;;; reading-rules module defined in define-reading-rules.lisp.  The

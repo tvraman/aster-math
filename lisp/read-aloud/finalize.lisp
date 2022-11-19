@@ -1,4 +1,6 @@
 ;; configure rules and  styles:
+
+(in-package :aster)
 (activate-style  'use-special-pattern)
 (activate-style 'descriptive)
 (activate-style 'simple)

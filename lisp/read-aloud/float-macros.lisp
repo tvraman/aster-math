@@ -5,9 +5,9 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
-(in-package :cl-user)
+(in-package :aster)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
+(in-package :aster)
 ;;; Mon Oct 25 08:54:44 EDT 1993
  ;;; Macros used by the module for handling floating objects.
 
