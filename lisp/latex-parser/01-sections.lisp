@@ -99,15 +99,11 @@ recognize")
                (get-sectional-units! text-buffer
                                      :sectional-unit-name
                                      (name-of-sectional-unit-in-front
-                                      text-buffer))
-               ))
+                                      text-buffer))))
 	(setf (article-references *new-article*)
 	      (get-references! text-buffer))
         (link-children-to-parent *new-article*)
-        (when *recognizer-debug*
-          (print "done recognizing"))
-	*new-article*       )))
-  )
+	*new-article*       ))))
 
 ;;; Variable: *VALID-SECTIONAL-UNIT-NAMES*                   Author: raman
 ;;; Created: Thu Apr  9 15:50:50 1992
