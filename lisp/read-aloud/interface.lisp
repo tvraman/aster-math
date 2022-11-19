@@ -9,14 +9,14 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
 
-(export '(aster-latex-file aster-latex-string))
+(export '(aster-file aster-string))
 ;;; Variable: *LEX-PROGRAM*                                  Author: raman
 ;;; Created: Fri Feb 21 09:15:19 1992
 
 ;;; Function: PARSE-ARTICLE                                 Author: raman
 ;;; Created: Fri Feb 21 09:10:37 1992
 
-(defun aster-latex-file (filename)
+(defun aster-file (filename)
   "Aster a  Latex article "
   (let ((process
           (sb-ext:run-program
@@ -24,7 +24,7 @@
            :input (open filename) :wait t :output  :stream)))
     (read-aloud (create-article (read (sb-ext:process-output process))))))
 
-(defun aster-latex-string (latex-string) 
+(defun aster-string (latex-string) 
   "Aster  a Latex article passed as a string."
   (let ((process
           (sb-ext:run-program

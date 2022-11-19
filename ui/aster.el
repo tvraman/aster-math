@@ -216,7 +216,7 @@
     (setq latex (read-from-minibuffer "Enter expression:")))
   (aster-eval
    (a--code
-    `(aster:aster-latex-string
+    `(aster:aster-string
        ,(concat
          "\\begin{document}$"
          latex
@@ -227,7 +227,7 @@
   (interactive "fFile: ")
   (aster-check)
   (aster-cmd
-   `(aster:aster-latex-file ,file)))
+   `(aster:aster-file ,file)))
 
 (defun aster-record ()
   "Record Aster's reading of current node.
@@ -252,7 +252,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (aster-eval
    (a--code
     `(aster:read-aloud
-      (aster:aster-latex-string
+      (aster:aster-string
        ,(concat
          "\\begin{document}"
          (buffer-substring-no-properties start end)
