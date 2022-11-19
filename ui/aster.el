@@ -192,7 +192,7 @@
     (sit-for 1)
     (aster-eval afl-init)
     (aster-eval welcome)
-    ;(aster-eval "(setq *package* (find-package :aster))")
+    (slime-repl-eval-string (a--code '(in-package :aster)))
     (setq aster-ready t)))
 
 (add-hook
