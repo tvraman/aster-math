@@ -1,3 +1,6 @@
+(afl:tts-init)
+  (unless afl:*current-speech-state*
+    (afl:initialize-speech-space))
 ;; configure rules and  styles:
 
 (in-package :aster)
