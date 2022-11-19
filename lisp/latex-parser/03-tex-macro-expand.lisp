@@ -13,7 +13,7 @@
 ;;; Handles tex macros.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(provide '03-tex-macro-expand)
+
 
 ;;; Function: LATEX-EXPAND                                   Author: raman
 ;;; Created: Thu May  7 19:32:00 1992
