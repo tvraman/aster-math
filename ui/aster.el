@@ -192,7 +192,7 @@
     (sit-for 1)
     (aster-eval afl-init)
     (aster-eval welcome)
-    (aster-eval "(setq *package* (find-package :aster))")
+    ;(aster-eval "(setq *package* (find-package :aster))")
     (setq aster-ready t)))
 
 (add-hook
@@ -217,7 +217,7 @@
     (setq latex (read-from-minibuffer "Enter expression:")))
   (aster-eval
    (a--code
-    `(aster:aster-string
+    `(aster:aster-text
        ,(concat
          "\\begin{document}$"
          latex
@@ -253,7 +253,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (aster-eval
    (a--code
     `(aster:read-aloud
-      (aster:aster-string
+      (aster:aster-text
        ,(concat
          "\\begin{document}"
          (buffer-substring-no-properties start end)
