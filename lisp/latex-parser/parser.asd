@@ -1,5 +1,4 @@
 (in-package :asdf)
-(unless (find-package :parser) (make-package :parser ))
 (defsystem "parser"
   :description "parser: Parse Latex into CLOS classes."
   :version "1.0"

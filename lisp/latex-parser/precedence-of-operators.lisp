@@ -7,7 +7,7 @@
 ;;;
 
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
+(in-package :aster)
 
 
 ;;; Wed Oct 28 10:51:15 EST 1992

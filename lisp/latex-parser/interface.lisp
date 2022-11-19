@@ -7,6 +7,7 @@
 ;;;
 
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+(in-package :aster)
 
 (export '(parse-latex-file parse-latex-string))
 ;;; Variable: *LEX-PROGRAM*                                  Author: raman
@@ -20,7 +21,7 @@
   (format t "Lex: ~a~%" filename)
   (with-open-file (in-stream filename)
     (let ((process
-            (run-program
+            (sb-ext:run-program
              (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
              :input in-stream :wait t :output  :stream))) (create-article
        (read (process-output process) nil)))))
@@ -28,7 +29,7 @@
 (defun parse-latex-string (string) 
   "Parses a Latex article passed as a string."
   (let ((process
-          (run-program
+          (sb-ext:run-program
            (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
            :input (make-string-input-stream string)
            :wait t :output  :stream)))

@@ -5,7 +5,10 @@
 
 (require "asdf")
 (asdf:clear-source-registry)
+(unless (find-package :aster)
+  (make-package :aster :use '(:cl :common-lisp )))
 
+(in-package :aster)
 (defvar *lisp-dir*
   (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))
   "directory under which lisp code is organized")

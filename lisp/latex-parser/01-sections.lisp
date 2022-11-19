@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
+(in-package :aster)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Modified: Thu Apr  9 19:49:28 EDT 1992

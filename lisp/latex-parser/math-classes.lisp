@@ -7,6 +7,8 @@
 ;;;
 
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+(in-package :aster)
+
 ;;; Modified: Thu Dec 24 11:00:35 EST 1992
 ;;; Changing predicates like math-object-p to use typep instead of
 ;;; checking the class name. This means that subtypes are also true
@@ -19,8 +21,8 @@
 ;;; <(Modified:)> Sat Dec 19 14:07:36 EST 1992
 ;;; Converting to a class so subscript etc can be made subclasses.
 
-  ;;; Class: ATTRIBUTE                                         Author: raman
-  ;;; Created: Sat Dec 19 14:10:53 1992
+;;; Class: ATTRIBUTE                                         Author: raman
+;;; Created: Sat Dec 19 14:10:53 1992
 
 (defclass attribute (math)
   ((name :initform nil :initarg :name :accessor attribute-name)

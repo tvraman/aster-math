@@ -7,7 +7,7 @@
 ;;;
 
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
-
+(in-package :aster)
 
 ;;; Wed Dec  9 11:29:59 EST 1992
 ;;; Code to generate class definitions for operators.

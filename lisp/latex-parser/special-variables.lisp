@@ -7,6 +7,7 @@
 ;;;
 
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+(in-package :aster)
 ;;; Modified: Mon Mar  2 21:52:02 EST 1992
 ;;; used define-parsing-function to set up table of parsing functions.
 ;;; Modified: Sat Feb  8 11:47:12 EST 1992

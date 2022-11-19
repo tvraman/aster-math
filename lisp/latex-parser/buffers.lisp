@@ -7,7 +7,7 @@
 ;;;
 
 (proclaim '(optimize (compilation-speed 0) (safety 0) (speed 3)))
-
+(in-package :aster)
 ;;; Modified: Thu Sep 24 20:55:06 EDT 1992
 ;;; Added optimising declaration since buffers is working safely.
 
