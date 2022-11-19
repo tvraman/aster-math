@@ -52,14 +52,6 @@
      (read in-stream nil)))
   )
 
-
-  ;;; Variable: *RECOGNIZER-DEBUG*                             Author: raman
-  ;;; Created: Thu Dec 24 16:12:29 1992
-
-(defvar *recognizer-debug* nil "If t announce completion of
-recognize")
-
-
   ;;; Variable: *LINK-CHILDREN*                                Author: raman
   ;;; Created: Fri Dec 25 12:38:08 1992
 
