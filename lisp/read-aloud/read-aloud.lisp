@@ -3,9 +3,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (in-package :aster)
-(export
- '(read-aloud *document*))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(export '(read-aloud ))
+
 
 
 ;;; Parameter: *MATH-SURROUND*                               Author: raman
@@ -110,8 +109,6 @@
 (defmethod read-aloud ( (token t))
   "default method to read aloud "
   (when token (afl:tts-queue token)))
-(defvar *document* nil
-  "Cache document pointer used in browser.")
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Sat Apr 11 20:58:00 1992
@@ -160,7 +157,6 @@
     (afl:initialize-speech-space))
   (setf *document* article)
   (afl:new-block
-    (when *play-signature-tune*(afl:tts-icon *article-open-cue*))
     (when (article-title article)
       (with-reading-state (reading-state 'annotation-voice)
         (afl:tts-queue    "Title[_.] "))
@@ -180,9 +176,7 @@
       (read-aloud (article-abstract article)))
     (read-aloud (article-initial-body article))
     (read-aloud  (article-sectional-units article))
-    (when *play-signature-tune*(afl:tts-icon *article-close-cue*))
-    (afl:tts-force))
-  )
+    (afl:tts-force)))
 
 ;;{{{ punctuations
 

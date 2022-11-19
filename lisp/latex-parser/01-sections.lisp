@@ -7,6 +7,10 @@
 ;;;
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
+(export '(*document*))
+
+(defvar *document* nil
+  "Cache document pointer used in browser.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Modified: Thu Apr  9 19:49:28 EDT 1992
@@ -38,8 +42,6 @@
 ;;; Functions which expect a buffer as an argument have their arg names
 ;;; ending in buffer, eg: text-buffer.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 
 ;;; Function: READ-DOCUMENT                                   Author: raman
 ;;; Created: Fri Oct 11 11:20:10 1991
@@ -95,7 +97,8 @@
 	(setf (article-references *new-article*)
 	      (get-references! text-buffer))
         (link-children-to-parent *new-article*)
-	*new-article*       ))))
+	(setq *document* *new-article*))
+      )))
 
 ;;; Variable: *VALID-SECTIONAL-UNIT-NAMES*                   Author: raman
 ;;; Created: Thu Apr  9 15:50:50 1992
