@@ -62,7 +62,6 @@
   "Mark current location of read pointer. "
   (let ((tag nil ))
     (afl:tts-queue "Enter bookmark name. ")
-    (setf tag (fix-read-line ))
     (set-bookmark tag *read-pointer* )
     (values))
   )
@@ -76,7 +75,6 @@
   (let ((tag nil)
         (referend nil))
     (afl:tts-queue "Follow which bookmark? ")
-    (setf tag (fix-read-line))
     (setf referend (get-bookmark tag ))
     (cond
       ((null referend) (afl:tts-queue "No such bookmark defined. "))
@@ -92,7 +90,6 @@
   (let ((tag nil)
         (referend nil))
     (afl:tts-queue "goto  which bookmark? ")
-    (setf tag (fix-read-line))
     (setf referend (get-bookmark tag ))
     (cond
       ((null referend) (afl:tts-queue "No such bookmark defined. "))

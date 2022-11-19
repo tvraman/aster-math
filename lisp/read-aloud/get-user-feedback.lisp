@@ -19,25 +19,7 @@
 ;;; Introducing a variable *buggy-ilisp-read-line*
 ;;; If T then call read-line twice, discarding the initial empty
 ;;; string.
-
-
-  ;;; Variable: *BUGGY-ILISP-READ-LINE*                        Author: raman
-  ;;; Created: Sun May 16 14:52:44 1993
-
-(defvar *buggy-ilisp-read-line* t
-  "Determine if read-line called twice to fix ilisp input problem")
-
-  ;;; Function: FIX-READ-LINE                                  Author: raman
-  ;;; Created: Sun May 16 14:54:17 1993
-(defun fix-read-line (&rest args)
-  "Fix read line to work under ilisp:"
-  (when *buggy-ilisp-read-line* (clear-input)
-        ) ; discarded
-  (prog1 
-      (apply #'read-line args)
-    (clear-input))
-  )
-
+  
   ;;; Variable: *PROMPT-CUE*                                   Author: raman
   ;;; Created: Sat May  1 13:06:02 1993
 
@@ -62,8 +44,7 @@ Wait for *get-label-wait* seconds before returning. "
     (afl:tts-icon *prompt-cue*)
     (when (y-or-n-p "Do you want to enter a new label. ")
       (afl:tts-queue "enter label. ")
-      (format t "~% enter label.~% ")
-      (fix-read-line ))))
+      (format t "~% enter label.~% "))))
 
 
 
