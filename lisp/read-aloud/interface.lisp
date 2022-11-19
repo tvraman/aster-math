@@ -18,11 +18,12 @@
 
 (defun aster-file (filename)
   "Aster a  Latex article "
-  (let ((process
-          (sb-ext:run-program
-           (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
-           :input (open filename) :wait t :output  :stream)))
-    (read-aloud (create-article (read (sb-ext:process-output process))))))
+  (let* ((process
+           (run-program
+            (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
+            :input (open filename) :wait t :output  :stream))
+         (output (process-output process)))
+    (read-aloud (create-article (read output)))))
 
 (defun aster-string (latex-string) 
   "Aster  a Latex article passed as a string."

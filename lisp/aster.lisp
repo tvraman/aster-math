@@ -6,7 +6,7 @@
 (require "asdf")
 (asdf:clear-source-registry)
 (unless (find-package :aster)
-  (make-package :aster :use '(:cl :common-lisp )))
+  (make-package :aster :use '(:cl :common-lisp :sb-ext )))
 
 (in-package :aster)
 (export '(aster))
