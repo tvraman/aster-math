@@ -231,6 +231,8 @@
   (aster-cmd
    `(aster:aster-file ,file)))
 
+;; Make sure to first setup device <snoop> via default.pa for Pulseaudio
+
 (defun aster-record ()
   "Record Aster's reading of current node.
 Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
