@@ -34,5 +34,4 @@
            :input (make-string-input-stream latex-string)
            :wait t :output  :stream)))
     (create-article
-     (read
-      (sb-ext:process-output process)))))
+     (read (sb-ext:process-output process)))))
