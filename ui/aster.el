@@ -36,6 +36,7 @@
 (require 'cl-lib)
 (cl-declaim  (optimize  (safety 0) (speed 3)))
 (require 'slime)
+(require  'slime-repl)
 (require 'repeat)
 (require 'calc)
 (require 'texmathp)
@@ -337,17 +338,22 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive)
   (aster-cmd '(afl:tts-stop )))
 
-(defun aster-to-top (prefix)
-  "Move to root of math expression, or to document root."
-  (interactive "P")
+(defun aster-to-document-root ()
+  "Move to   document root."
+  (interactive )
   (aster-stop)
-  (if prefix
       (aster-eval
        (a--code
         '(progn
            (setf *read-pointer* *document*)
-           (summarize *document*))))
-    (aster-eval (a--code '(aster:move-to-top-of-math)))))
+           (summarize *document*)))))
+
+
+(defun aster-to-math-root ()
+  "Move to   math  root."
+  (interactive )
+  (aster-stop)
+  (aster-eval (a--code '(aster:move-to-top-of-math))))
 
 ;;}}}
 ;;{{{Key Bindings:
@@ -368,10 +374,10 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 (defcustom aster-keys
   '(
     ("." aster-current)
-    ("<down>" aster-to-children )
-    ("<left>" aster-to-left)
-    ("<right>" aster-to-right)
-    ("<up>" aster-to-up)
+                                        ;("<down>" aster-to-children )
+                                        ;("<left>" aster-to-left)
+                                        ;("<right>" aster-to-right)
+                                        ;("<up>" aster-to-up)
     ("A" aster-to-attributes)
     ("C-a" aster-to-abstract)
     ("C-r" aster-record)
@@ -389,7 +395,8 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     ("p" aster-previous)
     ("r" aster-region)
     ("s" aster-stop)
-    ("t" aster-to-top)
+    ("T" aster-to-document-root)
+    ("t" aster-to-math-root)
     ("u" aster-parent ))
 
   "Aster key bindings. "
