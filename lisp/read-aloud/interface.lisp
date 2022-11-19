@@ -9,29 +9,31 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
 
-(export '(parse-latex-file parse-latex-string))
+(export '(aster-latex-file aster-latex-string))
 ;;; Variable: *LEX-PROGRAM*                                  Author: raman
 ;;; Created: Fri Feb 21 09:15:19 1992
 
 ;;; Function: PARSE-ARTICLE                                 Author: raman
 ;;; Created: Fri Feb 21 09:10:37 1992
 
-(defun parse-latex-file (filename)
+(defun aster-latex-file (filename)
   "Parses a Latex article "
   (with-open-file (in-stream filename)
     (let ((process
             (sb-ext:run-program
              (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
              :input in-stream :wait t :output  :stream)))
-      (create-article
-       (read (sb-ext:process-output process))))))
+      (read-aloud
+       (create-article
+        (read (sb-ext:process-output process)))))))
 
-(defun parse-latex-string (latex-string) 
+(defun aster-latex-string (latex-string) 
   "Parses a Latex article passed as a string."
   (let ((process
           (sb-ext:run-program
            (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
            :input (make-string-input-stream latex-string)
            :wait t :output  :stream)))
-    (create-article
-     (read (sb-ext:process-output process)))))
+    (read-aloud
+     (create-article
+      (read (sb-ext:process-output process))))))

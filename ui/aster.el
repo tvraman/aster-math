@@ -215,18 +215,18 @@
     (setq latex (read-from-minibuffer "Enter expression:")))
   (aster-eval
    (a--code
-    `(aster:read-aloud
-      (aster:parse-latex-string
+    `(aster:aster-latex-string
        ,(concat
          "\\begin{document}$"
          latex
-         "$\\end{document}"))))))
+         "$\\end{document}")))))
 
 (defun aster-file (file)
   "Run Aster on specified file."
   (interactive "fFile: ")
   (aster-check)
-  (aster-cmd `(aster:read-aloud (aster:parse-latex-file ,file))))
+  (aster-cmd
+   `(aster:aster-latex-file ,file)))
 
 (defun aster-record ()
   "Record Aster's reading of current node.
@@ -251,7 +251,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (aster-eval
    (a--code
     `(aster:read-aloud
-      (aster:parse-latex-string
+      (aster:aster-latex-string
        ,(concat
          "\\begin{document}"
          (buffer-substring-no-properties start end)

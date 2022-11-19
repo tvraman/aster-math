@@ -52,21 +52,6 @@
      "math-classification"
      "table-driver"
      ))
-   (:file "interface"
-    :depends-on
-    (
-     "structs"
-     "document-component-classes"
-     "math-classes"
-     "buffers"
-     "special-variables"
-     "math-classification"
-     "table-driver"
-     "01-sections"
-     "02-text-processing"
-     "03-tex-macro-expand"
-     "05-math-processing"
-     ))
    (:file "precedence-of-operators"
     :depends-on
     (
