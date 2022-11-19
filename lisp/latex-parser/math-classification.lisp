@@ -21,7 +21,7 @@
   "Hash table holding classification of symbols in math mode.")
 
 ;;; Modified: Wed Sep 16 08:50:11 EDT 1992
-;;; made inline:
+ 
 ;;; Function: LOOKUP-MATH-CLASSIFICATION                     Author: raman
 ;;; Created: Tue Feb 25 14:53:02 1992
 

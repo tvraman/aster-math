@@ -215,7 +215,7 @@
     (setq latex (read-from-minibuffer "Enter expression:")))
   (aster-eval
    (a--code
-    `(read-aloud
+    `(aster:read-aloud
       (parse-latex-string
        ,(concat
          "\\begin{document}$"
@@ -226,7 +226,7 @@
   "Run Aster on specified file."
   (interactive "fFile: ")
   (aster-check)
-  (aster-cmd `(read-aloud (parse-latex-file ,file))))
+  (aster-cmd `(aster:read-aloud (parse-latex-file ,file))))
 
 (defun aster-record ()
   "Record Aster's reading of current node.
@@ -250,7 +250,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive "r")
   (aster-eval
    (a--code
-    `(read-aloud
+    `(aster:read-aloud
       (parse-latex-string
        ,(concat
          "\\begin{document}"
@@ -263,72 +263,72 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 (defun aster-current ()
   "Aster current node."
   (interactive)
-  (aster-cmd '(read-current)))
+  (aster-cmd '(aster:read-current)))
 
 (defun aster-to-attributes ()
   "Move to attributes"
   (interactive)
-  (aster-cmd '(move-to-attributes )))
+  (aster-cmd 'aster:move-to-attributes )))
 
 (defun aster-to-children ()
   "Move to children"
   (interactive)
-  (aster-cmd '(move-to-children )))
+  (aster-cmd 'aster:move-to-children )))
 
 (defun aster-to-abstract ()
   "Move to abstract"
   (interactive)
-  (aster-cmd '(move-to-abstract )))
+  (aster-cmd 'aster:move-to-abstract )))
 
 (defun aster-parent ()
   "Move to and read parent."
   (interactive)
-  (aster-cmd '(read-parent )))
+  (aster-cmd '(aster:read-parent )))
 
 (defun aster-rest ()
   "Read rest of current node."
   (interactive)
-  (aster-cmd '(read-rest  *read-pointer* )))
+  (aster-cmd '(aster:read-rest  *read-pointer* )))
 
 (defun aster-to-subscript ()
   "Move to subscript"
   (interactive)
-  (aster-cmd '(move-to-subscript )))
+  (aster-cmd 'aster:move-to-subscript )))
 
 (defun aster-to-superscript ()
   "Move to superscript"
   (interactive)
-  (aster-cmd '(move-to-superscript )))
+  (aster-cmd 'aster:move-to-superscript )))
 
 (defun aster-to-left ()
   "Move left"
   (interactive)
-  (aster-cmd '(move-back )))
+  (aster-cmd 'aster:move-back )))
 
 (defun aster-to-right ()
   "Move right"
   (interactive)
-  (aster-cmd '(move-forward )))
+  (aster-cmd 'aster:move-forward )))
 
 (defun aster-to-up ()
   "Move up"
   (interactive)
-  (aster-cmd '(move-up )))
+  (aster-cmd 'aster:move-up )))
 
 (defun aster-to-contents ()
   "Move to contents"
   (interactive)
-  (aster-cmd '(move-to-contents )))
+  (aster-cmd 'aster:move-to-contents )))
 
 (defun aster-previous ()
   "Move to previous and read it."
   (interactive)
-  (aster-cmd '(read-previous )))
+  (aster-cmd '(aster:read-previous )))
 
 (defun aster-next ()
   "Move to next and read it."
   (interactive)
-  (aster-cmd '(read-next )))
+  (aster-cmd '(aster:read-next )))
 
 (defun aster-stop ()
   "Stop speech"
@@ -345,7 +345,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
         '(progn
            (setf *read-pointer* *document*)
            (summarize *document*))))
-    (aster-eval (a--code '(move-to-top-of-math)))))
+    (aster-eval (a--code 'aster:move-to-top-of-math)))))
 
 ;;}}}
 ;;{{{Key Bindings:

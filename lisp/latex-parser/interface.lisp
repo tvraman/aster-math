@@ -24,7 +24,7 @@
             (sb-ext:run-program
              (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
              :input in-stream :wait t :output  :stream))) (create-article
-       (read (process-output process) nil)))))
+       (read (sb-ext:process-output process) nil)))))
 
 (defun parse-latex-string (string) 
   "Parses a Latex article passed as a string."
@@ -33,4 +33,4 @@
            (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*)) nil
            :input (make-string-input-stream string)
            :wait t :output  :stream)))
-    (create-article (read (process-output process) nil))))
+    (create-article (read (sb-ext:process-output process) nil))))

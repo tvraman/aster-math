@@ -148,7 +148,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   ;;; Created: Sat Dec 26 08:51:44 1992
 
 (defvar *link-words* nil "If t words linked so make up a word object")
-;;; made inline.
+ 
 
 (defun process-word (text-buffer )
   "Process a word "
@@ -897,7 +897,7 @@ default is enumerated list."
 ;;; Function: CS-NAME                                        Author: raman
 ;;; Created: Mon Nov  4 09:21:55 1991
 ;;; Modified: Mon Apr 20 17:41:28 EDT 1992
-;;; made inline.
+ 
 
 (defun  cs-name (token)
   "Return name of cs where cs is a list of two elements, the marker 'cs and the name of the cs."

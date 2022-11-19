@@ -69,7 +69,7 @@
 ;;; Function: POP-CURRENT-ENTRY                              Author: raman
 ;;; Created: Thu Oct 31 13:44:16 1991
 ;;; Modified: Mon Apr 20 17:43:46 EDT 1992
-;;; Made inline.
+
 
 (defun pop-current-entry (buff)
   "pops current entry off buffer modifyin gpointer"
@@ -78,7 +78,7 @@
 ;;; Function: LOOKAT-CURRENT-ENTRY                           Author: raman
 ;;; Created: Thu Oct 31 13:15:56 1991
 ;;; Modified: Mon Apr 20 17:42:41 EDT 1992
-;;; made inline
+
 
 (defun lookat-current-entry (buff )
   "Looks at current entry  in buff. Does not modify pointer"
@@ -105,7 +105,7 @@
 ;;; Modified: Mon Feb  3 11:44:54 EST 1992
 ;;; REturn buffer after advancing pointer.
 ;;; Modified: Mon Apr 20 17:47:04 EDT 1992
-;;; made inline.
+
 
 (defun  advance-pointer (buff)
   "return buffer after advancing pointer. "
@@ -138,7 +138,7 @@
 ;;; Function: END-OF-BUFFER?                                 Author: raman
 ;;; Created: Tue Nov  5 15:51:47 1991
 ;;; Modified: Mon Apr 20 17:48:34 EDT 1992
-;;; made inline.
+
 
 (defun end-of-buffer? (buff)
   "Checks if pointer is at the end of buff"
