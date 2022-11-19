@@ -73,8 +73,9 @@
   (cl-declare (special aster-ready))
   (unless
       (and  aster-ready
-            (condition-case nil (slime-process) (error nil)))
-    (aster)))
+            (condition-case nil (slime-process) (error nil))
+            (aster))
+    t))
 
 (defsubst aster-eval (string)
   "Like slime-eval-save but ignores result."
