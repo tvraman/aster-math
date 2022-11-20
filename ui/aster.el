@@ -55,14 +55,12 @@
              :help-echo "AsTeR Source Code")
   :group 'applications)
 
-
 (defcustom aster-bind-arrows nil
   "Turn this on to have AsTeR use arrows for navigation."
-  :type 'boolean 
+  :type 'boolean
   :group 'aster)
 
 ;;}}}
-
 ;;{{{ Configure locations:
 
 (defvar aster-root
@@ -241,10 +239,10 @@
   (aster-eval
    (a--code
     `(aster:aster-text
-       ,(concat
-         "\\begin{document}$"
-         latex
-         "$\\end{document}")))))
+      ,(concat
+        "\\begin{document}$"
+        latex
+        "$\\end{document}")))))
 
 (defun aster-file (file)
   "Run Aster on specified file."
@@ -366,12 +364,11 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   "Move to   document root."
   (interactive )
   (aster-stop)
-      (aster-eval
-       (a--code
-        '(progn
-           (setf *read-pointer* *document*)
-           (summarize *document*)))))
-
+  (aster-eval
+   (a--code
+    '(progn
+       (setf *read-pointer* *document*)
+       (summarize *document*)))))
 
 (defun aster-to-math-root ()
   "Move to   math  root."
@@ -434,7 +431,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
                    (sort
                     val
                     #'(lambda (a b) (string-lessp (car a) (car b)))))))
-
 
 (when aster-bind-arrows
   (cl-loop
