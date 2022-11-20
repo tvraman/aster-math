@@ -283,7 +283,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
      ,(a--wrap-doc (buffer-substring-no-properties start end)))))
 
 ;;}}}
-;;{{{Navigators:
+;;{{{Navigation Commands:
 
 (defun aster-current ()
   "Aster current node."
