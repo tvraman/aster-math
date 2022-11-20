@@ -15,12 +15,12 @@
 
 ;;; Variable: *BEGIN-COMMAND*                                Author: raman
 ;;; Created: Tue Aug 11 13:40:16 1992
-;;; external variable:
+
 (defvar *begin-command* "[" " string that begins a synthesizer command")
 
 ;;; Variable: *END-COMMAND*                                  Author: raman
 ;;; Created: Tue Aug 11 13:40:44 1992
-;;; external variable:
+
 (defvar *end-command* "]" "string that ends a synthesizer command")
 
 ;;}}}
@@ -49,8 +49,7 @@
      (if (stringp value)
          value
          (prin1-to-string
-          (bound-in-interval dimension
-                             (round value))))
+          (bound-in-interval dimension (round value))))
      *end-command*)))
 
 ;;}}}
@@ -60,7 +59,6 @@
 ;;; Created: Tue Aug 11 14:56:19 1992
 
 (defvar *voice-codes-table* nil "table of voice codes for dectalk")
-
 
 ;;; Modified: Thu Aug 20 09:37:22 EDT 1992
 ;;; export voice whose code is defined
@@ -72,9 +70,7 @@
   (push
    (make-voice-code :voice  voice
                     :code code)
-   *voice-codes-table*
-   )
-  )
+   *voice-codes-table*))
 
 (define-voice-code 'paul "p")
 (define-voice-code 'harry "h")
@@ -91,15 +87,10 @@
 
 (defun get-voice-code (voice)
   "get code for voice"
-  (let
-      ((voice-code
-         (find voice *voice-codes-table* :key #'voice-code-voice )))
+  (let ((voice-code
+          (find voice *voice-codes-table* :key #'voice-code-voice )))
     (if  voice-code
          (voice-code-code voice-code)
-         (error "Voice code for voice ~a not defined"
-                voice)
-         )
-    )
-  )
+         (error "Voice code for voice ~a not defined" voice))))
 
 ;;}}}
