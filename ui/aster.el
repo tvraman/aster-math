@@ -41,6 +41,28 @@
 (require 'calc)
 (require 'texmathp)
 ;;}}}
+;;{{{Customizations:
+
+(defgroup aster nil
+  "Audio System For Technical Readings"
+  :link
+  '(url-link :tag "Demo"
+             "https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg"
+             :help-echo "AsTeR Demo")
+  :link
+  '(url-link :tag "Source"
+             "https://github.com/tvraman/aster-math"
+             :help-echo "AsTeR Source Code")
+  :group 'applications)
+
+
+(defcustom aster-bind-arrows nil
+  "Turn this on to have AsTeR use arrows for navigation."
+  :type 'boolean 
+  :group 'aster)
+
+;;}}}
+
 ;;{{{ Configure locations:
 
 (defvar aster-root
@@ -376,10 +398,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 (defcustom aster-keys
   '(
     ("." aster-current)
-                                        ;("<down>" aster-to-children )
-                                        ;("<left>" aster-to-left)
-                                        ;("<right>" aster-to-right)
-                                        ;("<up>" aster-to-up)
     ("A" aster-to-attributes)
     ("C-a" aster-to-abstract)
     ("C-r" aster-record)
@@ -416,6 +434,17 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
                    (sort
                     val
                     #'(lambda (a b) (string-lessp (car a) (car b)))))))
+
+
+(when aster-bind-arrows
+  (cl-loop
+   for b in
+   '(("<down>" aster-to-children )
+     ("<left>" aster-to-left)
+     ("<right>" aster-to-right)
+     ("<up>" aster-to-up))
+   do
+   (define-key aster-keymap  (cl-first b) (cl-second b))))
 
 ;;}}}
 ;;{{{Setup Repeat Mode
