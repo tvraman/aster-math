@@ -128,8 +128,6 @@
    (abstract :initform nil :initarg :abstract :accessor
              article-abstract
              :accessor  abstract )
-   (time-to-read :initform nil :initarg :time-to-read
-                 :accessor internal-time-to-read )
    (initial-body
     :initform nil :initarg :initial-body :accessor
     article-initial-body :accessor contents 
@@ -158,8 +156,6 @@
   ((name :initform nil :initarg :name :accessor sectional-unit-name)
    (title :initform nil :initarg :title :accessor sectional-unit-title
           :accessor  title )
-   (time-to-read :initform nil :initarg :time-to-read
-                 :accessor internal-time-to-read )
    (number  :initform nil :initarg :number :accessor sectional-unit-number)
    (body :initform nil :initarg :body :accessor sectional-unit-body
          :accessor  body  :accessor contents )
