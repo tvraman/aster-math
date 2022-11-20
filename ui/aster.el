@@ -77,7 +77,8 @@
 (defalias 'a--code 'prin1-to-string)
 
 (defsubst a--pa-index (pattern)
-  "Index of input sink from list-sink-inputs for app matching pattern."
+  "Index of input-sink used by app that matches  pattern.
+Value is derived from `pacmd list-sink-inputs'."
   (string-trim
    (shell-command-to-string
     (format
@@ -100,9 +101,8 @@
 
 (defsubst aster-eval (string)
   "Like slime-eval-save but ignores result."
-  (let ((font-lock-mode nil))
-    (slime-eval-async `(swank:eval-and-grab-output ,string)
-      (lambda (_result) t))))
+  (slime-eval-async `(swank:eval-and-grab-output ,string)
+    (lambda (_result) t)))
 
 ;;}}}
 ;;{{{Guess Math Input:
@@ -170,14 +170,12 @@
        (t nil)))))
 
 (defun aster-guess ()
-  "Examine current mode and context  etc. to guess Math content to read."
+  "Examine current mode and context to guess Math content to read."
   (aster-check)
   (cond
-   ((eq major-mode 'calc-mode)
-    (aster-guess-calc))
-   ((eq major-mode 'sage-shell:sage-mode)
-    (aster-guess-sage))
-   ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode ams-tex-mode))
+   ((eq major-mode 'calc-mode) (aster-guess-calc))
+   ((eq major-mode 'sage-shell:sage-mode) (aster-guess-sage))
+   ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode))
          (featurep 'texmathp))
     (aster-guess-tex))
    ((and
