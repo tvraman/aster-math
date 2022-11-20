@@ -12,17 +12,23 @@
   (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*))
   "Lexical analyser.")
 
+(defvar *docs-cache* (make-hash-table :test #'eq)
+  "Hash table of cached documents read in this session.")
+
 (defun doc-from-stream (input)
   "Return document parsed by reading  input stream."
   (let ((p (run-program *lexer* nil :input input  :wait t :output  :stream)))
     (create-article (read (process-output p)))))
 
-(defun aster-file (filename)
-  "Aster a  Latex article "
+(defun aster-file (filename &key  id)
+  "Aster a  Latex article.
+ Cache resulting using id."
   (let ((doc (doc-from-stream (open filename))))
+    (when id (setf (gethash id *docs-cache* ) doc))
     (read-aloud doc)))
 
-(defun aster-text (latex) 
+(defun aster-text (latex &key id) 
   "Aster  a Latex article passed as a string."
   (let ((doc (doc-from-stream (make-string-input-stream latex))))
+    (when id (setf (gethash id *docs-cache* ) doc))    
     (read-aloud doc)))
