@@ -104,13 +104,19 @@ Value is derived from `pacmd list-sink-inputs'."
   (slime-eval-async `(swank:eval-and-grab-output ,string)
     (lambda (_result) t)))
 
+(defsubst a--wrap-doc (latex)
+  "Wrap text in document start/end markup."
+  (concat
+   "\\begin{document}"
+   latex
+   "\\end{document}"))
 
 (defsubst a--wrap-math (latex)
   "Wrap text in math document start/end markup."
   (concat
-        "\\begin{document}$"
-        latex
-        "$\\end{document}"))
+   "\\begin{document}$"
+   latex
+   "$\\end{document}"))
 
 ;;}}}
 ;;{{{Guess Math Input:
@@ -272,14 +278,9 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 (defun aster-region (start end)
   "Read region using Aster."
   (interactive "r")
-  (aster-eval
-   (a--code
-    `(aster:read-aloud
-      (aster:aster-text
-       ,(concat
-         "\\begin{document}"
-         (buffer-substring-no-properties start end)
-         "\\end{document}"))))))
+  (aster-cmd
+   `(aster:aster-text
+     ,(a--wrap-doc (buffer-substring-no-properties start end)))))
 
 ;;}}}
 ;;{{{Navigators:
