@@ -248,13 +248,15 @@ Value is derived from `pacmd list-sink-inputs'."
   (aster-check)
   (when (or (null latex) (string= "" latex))
     (setq latex (read-from-minibuffer "Enter expression:")))
-  (aster-cmd `(aster:aster-text ,(a--wrap-math latex))))
+  (aster-cmd
+   `(aster:aster-text ,(a--wrap-math latex))))
 
 (defun aster-file (file)
   "Run Aster on specified file."
   (interactive "fFile: ")
   (aster-check)
-  (aster-cmd `(aster:aster-file ,file)))
+  (aster-cmd
+   `(aster:aster-file ,file :id ',(gensym "aster-"))))
 
 ;; Make sure to first setup device <snoop> via default.pa for Pulseaudio
 
