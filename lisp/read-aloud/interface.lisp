@@ -14,9 +14,8 @@
 
 (defun doc-from-stream (input)
   "Return document parsed by reading  input stream."
-  (let ((process
-          (run-program *lexer* nil :input input  :wait t :output  :stream)))
-    (create-article (read (process-output process)))))
+  (let ((p (run-program *lexer* nil :input input  :wait t :output  :stream)))
+    (create-article (read (process-output p)))))
 
 (defun aster-file (filename)
   "Aster a  Latex article "
