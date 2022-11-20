@@ -104,6 +104,14 @@ Value is derived from `pacmd list-sink-inputs'."
   (slime-eval-async `(swank:eval-and-grab-output ,string)
     (lambda (_result) t)))
 
+
+(defsubst a--wrap-math (latex)
+  "Wrap text in math document start/end markup."
+  (concat
+        "\\begin{document}$"
+        latex
+        "$\\end{document}"))
+
 ;;}}}
 ;;{{{Guess Math Input:
 
@@ -194,6 +202,7 @@ Value is derived from `pacmd list-sink-inputs'."
 
 ;;}}}
 ;;{{{Running Aster:
+
 (defun aster ()
   "Load and start Aster"
   (interactive)
@@ -207,7 +216,6 @@ Value is derived from `pacmd list-sink-inputs'."
   (let ((welcome "(afl:tts-speak \"Welcome to Aster\") ")
         (afl-init "(afl:tts-init)"))
     (slime-load-file aster-setup)
-    (accept-process-output)
     (sit-for 1)
     (aster-eval afl-init)
     (aster-eval welcome)
@@ -229,25 +237,18 @@ Value is derived from `pacmd list-sink-inputs'."
 ;;{{{Reading Commands:
 
 (defun aster-math (latex)
-  "Send a LaTeX expression (no math delimiters) to Aster from    context. "
+  "Send  LaTeX  text (no math delimiters) to Aster guessed from     context. "
   (interactive (list (aster-guess)))
   (aster-check)
   (when (or (null latex) (string= "" latex))
     (setq latex (read-from-minibuffer "Enter expression:")))
-  (aster-eval
-   (a--code
-    `(aster:aster-text
-      ,(concat
-        "\\begin{document}$"
-        latex
-        "$\\end{document}")))))
+  (aster-cmd `(aster:aster-text ,(a--wrap-math latex))))
 
 (defun aster-file (file)
   "Run Aster on specified file."
   (interactive "fFile: ")
   (aster-check)
-  (aster-cmd
-   `(aster:aster-file ,file)))
+  (aster-cmd `(aster:aster-file ,file)))
 
 ;; Make sure to first setup device <snoop> via default.pa for Pulseaudio
 
