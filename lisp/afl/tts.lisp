@@ -44,7 +44,9 @@
    interrogative exclamation
    primary-stress secondary-stress exclamatory-stress
    subclause-boundary))
-;;; A TTS structure holds the engine name, process handle, and input/output streams.
+;; A TTS structure holds:
+;; the engine name, process handle, and input/output streams.
+
 (defstruct tts engine process input output )
 
 (defvar *emacspeak*
@@ -73,7 +75,7 @@
       (or
        (null *tts*)
        (null (tts-process *tts*))
-       (not (eq :running (sb-ext:process-status (tts-process *tts*)))))
+       (not (eq :running (process-status (tts-process *tts*)))))
     (setq *tts*
           (make-tts :engine (tts-location engine)))
     (tts-open)))
@@ -106,9 +108,9 @@
   "Open a TTS session."
   (let ((handle (tts)))
     (setf (tts-process handle)
-          (sb-ext:run-program
+          (run-program
            (tts-engine handle) nil :wait nil :input :stream))
-    (setf (tts-input handle) (sb-ext:process-input (tts-process handle)))
+    (setf (tts-input handle) (process-input (tts-process handle)))
     (write-line (format nil "tts_set_punctuations some") (tts-input handle))
     
     (force-output (tts-input handle))))
