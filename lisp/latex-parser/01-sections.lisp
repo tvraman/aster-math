@@ -97,8 +97,7 @@
 	(setf (article-references *new-article*)
 	      (get-references! text-buffer))
         (link-children-to-parent *new-article*)
-	(setq *document* *new-article*))
-      )))
+	(setq *document* *new-article*)))))
 
 ;;; Variable: *VALID-SECTIONAL-UNIT-NAMES*                   Author: raman
 ;;; Created: Thu Apr  9 15:50:50 1992
