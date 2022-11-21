@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
+
+
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
@@ -8,7 +8,7 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
 (export '(
-          *default-voice* 
+          *default-voice*
           *reader-period-pause* *reader-comma-pause*
           initialize-speech-space
           re-initialize-speech-space
@@ -33,7 +33,6 @@
 
 ;;}}}
 
-
 ;;; Each fold contains functions associated with the fold marker
 ;;{{{ Introduction:
 
@@ -57,7 +56,6 @@
 ;;; generated from the list of dimensions specified by the user.
 ;;; Global values are stored in a special structure that implements
 ;;; reference variables.
-
 
 ;;}}}
 ;;{{{Dimension:
@@ -150,7 +148,6 @@
     )
   )
 ;;; Modified: Tue Aug 11 09:52:58 EDT 1992
-
 
 ;;; defsetf form for updating points
 ;;; Could be sued as an alternative to update-point-in-speech-space
