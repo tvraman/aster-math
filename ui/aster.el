@@ -363,9 +363,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (aster-stop)
   (aster-eval
    (a--code
-    '(progn
-       (setf *read-pointer* *document*)
-       (summarize *document*)))))
+    '(aster:move-to-doc-root))))
 
 (defun aster-to-math-root ()
   "Move to   math  root."

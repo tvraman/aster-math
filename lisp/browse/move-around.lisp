@@ -10,7 +10,6 @@
 
 (export
  '(
-   *read-pointer*
    move-back 
    move-forward 
    move-to-abstract 
@@ -19,9 +18,9 @@
    move-to-contents 
    move-to-subscript 
    move-to-superscript 
-   move-to-top-of-math
+   move-to-top-of-math move-to-doc-root
    move-up
-   read-current read-next read-previous read-rest))
+   read-current read-next read-previous))
 
 ;;; Sun Jan 10 15:47:28 EST 1993
 ;;; initial attempt at browsing.
@@ -499,6 +498,13 @@
     (setf *read-pointer* (parent *read-pointer* )))
   (summarize *read-pointer*)
   )
+
+
+(defun move-to-doc-root ()
+  "Move to document root."
+  (progn
+    (setf *read-pointer* *document*)
+    (summarize *document*)))
 
 (defun move-to-subscript ()
   "move to subscript. "

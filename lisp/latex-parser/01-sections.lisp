@@ -7,7 +7,6 @@
 ;;;
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
-(export '(*document*))
 
 (defvar *document* nil
   "Cache document pointer used in browser.")
