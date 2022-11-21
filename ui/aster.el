@@ -249,7 +249,9 @@ Value is derived from `pacmd list-sink-inputs'."
   (when (or (null latex) (string= "" latex))
     (setq latex (read-from-minibuffer "Enter expression:")))
   (aster-cmd
-   `(aster:text ,(a--wrap-math latex))))
+   `(aster:text
+     ,(a--wrap-math latex)
+     :title ,(buffer-name))))
 
 (defun aster-file (file)
   "Run Aster on specified file."
