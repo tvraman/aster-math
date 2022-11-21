@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (in-package :afl)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
@@ -15,7 +15,7 @@
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
 ;;; Pronunciation tables for dectalk.
 ;;; Separate tables for text and math mode.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Variable: *PRONUNCIATION-MODE*                           Author: raman
 ;;; Created: Fri Sep 25 11:37:16 1992

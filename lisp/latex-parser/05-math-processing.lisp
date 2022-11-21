@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -9,10 +9,10 @@
 ;;; Modified: Thu Mar 18 22:13:18 EST 1993
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; processing math mode of tex.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Variable: *CONVERT-TO-PREFIX*                            Author: raman
 ;;; Created: Thu Oct 29 16:18:43 1992
@@ -311,12 +311,12 @@ matched ~a "
                                         ;  )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; processing functions for the math symbols classified in
 ;;; math-classification.lisp
 ;;; At present all these functions look alike,
 ;;; but they will evolve differently.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Current classification types:
 ;;; ordinary
 ;;; large-operator
@@ -326,7 +326,7 @@ matched ~a "
 ;;; arrow-operator
 ;;; open-delimiter
 ;;; close-delimiter
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Modified: Tue Sep 15 15:17:33 EDT 1992
 ;;; Modifying following process-<type> functions to return clos object
 ;;; math-object with the type and contents slots assigned.

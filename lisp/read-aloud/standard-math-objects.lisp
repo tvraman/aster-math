@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (in-package :aster)
 
@@ -16,7 +16,7 @@
 ;;; The approach of using define-text-object seems equally good, so I
 ;;; am trying that here for the mathematical functions as and when I
 ;;; need them.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;;
 (define-text-object     :macro-name "log"

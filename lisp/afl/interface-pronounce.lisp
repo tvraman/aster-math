@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -15,7 +15,7 @@
 ;;; Provide local-set-state  global-set-state methods and make afl
 ;;; blocks work with pronunciations.
 ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 

@@ -1,7 +1,7 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Modified: Sat Apr 11 18:12:09 EDT 1992
 ;;; All the process environment functions now work with classes.
 ;;; Modified: Sun Jan 26 10:20:44 EST 1992
@@ -9,7 +9,7 @@
 ;;; The lexer has now been made powerful so that the tokens
 ;;; returned are easier to parse.
 ;;; At the same time the functions here are being made table driven.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -18,13 +18,13 @@
 ;;; Modified: Thu Mar 18 22:12:24 EST 1993
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; This  file processes the text occuring in the body of the article.
 ;;; ie: processes the text occuring inside sections, subsections etc.
 ;;; This file handles Latex environments, and the next file will specifically
 ;;; handle mathematical constructs.
 ;;; The next file also handles control sequences.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Some explanations from the older version:
 ;;; This file uses special variables in  three situations.
@@ -54,7 +54,7 @@
 ;;; nesting enumerate inside itemize, and then nest the whole thing
 ;;; inside a description.
 ;;; Similarly,  arrays and tables can also be nested.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Sun Jan 26 10:22:05 EST 1992
 ;;; In the light of the above,  the lexer has been made more intelligent.
@@ -64,11 +64,11 @@
 ;;; This means that the parser cannot do the same amount of validation
 ;;; but it also makes the parser a lot cleaner, and obviates some of the
 ;;; special variables  from the older version.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Function: PEEL-OFF-LISTS                                 Author: raman
 ;;; Created: Fri Nov 27 10:49:25 1992
@@ -869,7 +869,7 @@ default is enumerated list."
         (pop-current-entry text-buffer))
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; some helper functions:
 
 ;;; Function: IS-A                                           Author: raman
@@ -914,6 +914,6 @@ default is enumerated list."
     (second token))
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; end of file
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 

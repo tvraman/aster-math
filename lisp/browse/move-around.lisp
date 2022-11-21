@@ -1,6 +1,6 @@
 ;;;   -*- Syntax-Lisp;  Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -24,7 +24,7 @@
 
 ;;; Sun Jan 10 15:47:28 EST 1993
 ;;; initial attempt at browsing.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Record display math objects  as they are read
 

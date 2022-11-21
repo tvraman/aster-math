@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -16,7 +16,7 @@
 ;;; setup-operators-class-table defined in <(operator-classes.lisp)>
 ;;; Run the function defined in that file with a file name and then
 ;;; insert the contents of that file into this file.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Variable: *OPERATOR-CLASS-NAMES*                         Author: raman
 ;;; Created: Wed Dec  9 11:44:16 1992
@@ -48,7 +48,7 @@
 (SETF (GETHASH "prod" *OPERATOR-CLASS-NAMES*) (QUOTE PRODUCT)) 
 (SETF (GETHASH "bigotimes" *OPERATOR-CLASS-NAMES*) (QUOTE BIG-O-TIMES)) 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; delimiters ;;; hand generated
 (setf (gethash "constraint-brackets" *operator-class-names* )
       'constraint-brackets)

@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -9,10 +9,10 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
 ;;; Created: Tue Feb 25 16:46:13 EST 1992
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Contains the classification of symbols in math mode.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Variable: *MATH-CLASSIFICATION-TABLE*                    Author: raman
 ;;; Created: Tue Feb 25 14:51:57 1992
@@ -56,13 +56,13 @@
   (define-math-symbol-classification symbol classification )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Classification of symbols in math mode:
 ;;; This classification is taken from Appendix F of the tex book.
 ;;; Refer to the file "~raman/books/texdocs/tex3.0/ch35"
 ;;; <( link to appendix f of tex book)>
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Current classification types:
 ;;; ordinary
 ;;; large-operator
@@ -213,9 +213,9 @@
 (define-math-symbol-classification "backslash"  'ordinary)
 (define-math-symbol-classification "spadesuit"  'ordinary)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Large operators.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (define-math-symbol-classification "sum" 'big-operator)
 (define-math-symbol-classification "bigcap" 'big-operator)
@@ -233,7 +233,7 @@
 (define-math-symbol-classification "bigwedge" 'big-operator)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; binary operators: These are rarely subscripted
 ;;; as opposed to the  big operators above.
 ;;; The above comment is misleading. The big operators are considered
@@ -245,7 +245,7 @@
 ;;; operators, the subscript is merely used to distinguish the
 ;;; operator eg the subscripted '+' sign in modulo arithmetic.
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (define-math-symbol-classification "+" 'binary-operator)
 (define-math-symbol-classification "-" 'binary-operator)
@@ -303,10 +303,10 @@
 (define-math-symbol-classification "rhd" 'binary-operator)
 (define-math-symbol-classification "unrhd" 'binary-operator)
 (define-math-symbol-classification "bmod" 'binary-operator)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (define-math-symbol-classification "pmod" 'binary-operator)
 ;;; relations
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (define-math-symbol-classification "=" 'relational-operator)
 (define-math-symbol-classification "<" 'relational-operator)
@@ -350,13 +350,13 @@
 (define-math-symbol-classification "owns" 'relational-operator)
 (define-math-symbol-classification "vert" 'ordinary)
 (define-math-symbol-classification "iff" 'relational-operator)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; handle negation carefully.
 (define-math-symbol-classification "not" 'negation-operator)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; arrows: relations?
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (define-math-symbol-classification "leftarrow" 'arrow-operator)
 (define-math-symbol-classification "longleftarrow" 'arrow-operator)
 (define-math-symbol-classification "uparrow" 'arrow-operator)
@@ -391,9 +391,9 @@
 (define-math-symbol-classification "to" 'arrow-operator)
 (define-math-symbol-classification "gets" 'arrow-operator)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; opening delimiters.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (define-math-symbol-classification "lbrack" 'open-delimiter)
 (define-math-symbol-classification "lbrace" 'open-delimiter)
@@ -437,7 +437,7 @@
 (define-math-symbol-classification "\"" 'ordinary)
 (define-math-symbol-classification "|" 'ordinary)
 (define-math-symbol-classification "qquad" 'ordinary)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; mathematical function names taken from the latex book:
 ;;; <(math functions in man3.tex)>
 
@@ -476,7 +476,7 @@
 (define-math-symbol-classification "sin" 'mathematical-function-name)
 (define-math-symbol-classification "tanh" 'mathematical-function-name)
                                         ;(define-math-symbol-classification "sqrt" 'mathematical-function-name)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Tex treats accents as a macro taking one argument.
 ;;; instead model it as a math char which is classified as an accent,
 ;;; and make process-accent pick up the object being accented.
@@ -487,7 +487,7 @@
 ;;; for the present classified sqrt as a mathematical-function-name so
 ;;; the latex kluge of supplying an optional argument to sqrt will not
 ;;; be caught. 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (define-math-symbol-classification "hat" 'accent)
 (define-math-symbol-classification "grave" 'accent)

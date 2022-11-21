@@ -1,12 +1,12 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (in-package :cl-user)
 
 ;;; Mon Dec 21 09:23:42 EST 1992
 ;;; Contains  object definitions from Zippel's book
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;{{{zippel book.
 (define-text-object     :macro-name "keyi"

@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (in-package :aster)
 ;;{{{ Introduction:
@@ -25,7 +25,7 @@
 ;;; Read the expression.
 ;;; Read the substitutions.
 ;;; M transformed into S based on the notes.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Algorithm:
 ;;;  When substituting variable 'x' for expression 'm' we do:
 ;;; build the substitution pair x::m
@@ -39,7 +39,7 @@
 ;;; read-substitution for the duration of its execution.
 ;;; In reading style read-substitution, the substitute slot of a math
 ;;; object is read.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; When to substitute
 ;;;  proportional complexity of a math object is the ratio of its
 ;;;  weight to the ratio of its parent. For a math object that is a
@@ -51,7 +51,7 @@
 ;;; $ w > wr\times *proportional-complexity-threshold*$
 ;;; If *proportional-complexity-threshold* is 1, then we never substitute. 
 ;;; Setting this to 0 will cause big trouble:-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;}}}
 ;;{{{ Class definitions:

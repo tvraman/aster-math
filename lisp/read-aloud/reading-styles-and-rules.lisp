@@ -1,6 +1,6 @@
  ;;;   -*-   Mode: LISP -*-    ;;;
  ;;;                                                                       ;;;
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
 
 (in-package :aster)
 
@@ -15,7 +15,7 @@
  ;;; style is currently effective, or no rule is defined in the
  ;;; current style for this object, then the default read-aloud method
  ;;; is used.
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
  ;;; Implementation  details:
  ;;; Reading-rule method will specialize on the class of its first
  ;;; argument and use an eql specializer on the second argument which
@@ -26,7 +26,7 @@
  ;;; (activate-rule object rule-name )
  ;;; (activate-style style-name)
  ;;; deactivate-rule  rule-name
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
  ;;; Variable: *CURRENT-READING-STYLE*                        Author: raman
  ;;; Created: Tue Dec  8 12:21:50 1992
 

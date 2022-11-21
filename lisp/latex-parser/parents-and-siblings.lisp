@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -14,7 +14,7 @@
 ;;; Initial cut now working, simplify by specializing for section etc
 ;;; using before and after methods.
 ;;; <(First cut implementation backed up)>
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
   ;;; Method: LINK-CHILDREN-TO-PARENT Author: raman
   ;;; Created: Tue Dec 22 17:26:12 1992

@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (in-package :aster)
 
@@ -16,7 +16,7 @@
 ;;; has been defined for this object type, then that rule is called.
 ;;; Work out a clean way for specifying a number of special patterns
 ;;; to check for:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 ;;;
@@ -26,7 +26,7 @@
 ;;; called before the object is read, in the around method for
 ;;; read-aloud. If special-pattern returns a special pattern, then
 ;;; read-aloud will invoke the reading rule of that name. 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 ;;; Only math objects have special patterns for now:
@@ -34,7 +34,7 @@
 ;;; math-object. If later on other document objects  also need special
 ;;; patterns, then move this slot to the appropriate super class, and
 ;;; define the around method for that super class.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Do nothing in the case of ordinary objects, just return nil. 
 ;;; around method not defined  in this case

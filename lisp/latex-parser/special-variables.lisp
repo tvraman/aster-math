@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -11,7 +11,7 @@
 ;;; Modified: Mon Mar  2 21:52:02 EST 1992
 ;;; used define-parsing-function to set up table of parsing functions.
 ;;; Modified: Sat Feb  8 11:47:12 EST 1992
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Holds all special variables used by the parser.
 ;;; Convention:
 ;;; Special variables are named as *foo*:
@@ -19,7 +19,7 @@
 ;;; there are macros with names starting with define
 ;;; that are used to add table entries.
 ;;; At present new items are pushed on to the list which holds the table.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Table for holding the parsing functions for different
 ;;; node types  in a article.
@@ -45,9 +45,9 @@ a suitable entry to the table *processing-function-table*"
   )
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Now define the entries in the table.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (define-parsing-function 'word'process-word)
 (define-parsing-function 'text-number 'process-text-number)
 (define-parsing-function 'math-number 'process-math-number)
@@ -76,10 +76,10 @@ a suitable entry to the table *processing-function-table*"
 (define-parsing-function 'slide 'process-slide)
 (define-parsing-function 'verbatim 'process-verbatim)
 (define-parsing-function 'new-environment'process-new-environment)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; parsing functions for math mode:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (define-parsing-function 'math-cs 'process-math-cs)
 (define-parsing-function 'subformula 'process-subformula)
 (define-parsing-function  'math-string 'process-math-string)
@@ -120,7 +120,7 @@ a suitable entry to the table *processing-function-table*"
 
 ;;; Modified: Mon Mar  2 22:11:36 EST 1992
 ;;; introducing define macro for setting up table.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 ;;; Function: DEFINE-TEX-MACRO                                  Author: raman
@@ -138,9 +138,9 @@ the table of known tex macros "
         )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Now set up the table.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; macros that change font:
 (define-tex-macro  "it" 0  'it-expand)
 (define-tex-macro  "sc" 0  'sc-expand)
@@ -175,13 +175,13 @@ the table of known tex macros "
 (define-tex-macro "mathrel" 1 'mathrel-expand) 
 (define-tex-macro "root" 3 'root-expand)
 (define-tex-macro  'default 0  'default)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Variable: *TABLE-OF-MATH-DELIMITERS*                     Author: raman
 ;;; Created: Tue Feb  4 18:35:59 1992
@@ -200,10 +200,10 @@ the table of known tex macros "
      :name ,delimiter-name)
     *table-of-math-delimiters*)
   )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Now set up the table
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (define-math-delimiter  "{" "}"  "braces") 
 (define-math-delimiter  "(" ")"  "paren") 
 (define-math-delimiter  "[" "]"  "brackets") 
@@ -220,11 +220,11 @@ the table of known tex macros "
 (define-math-delimiter '(math-cs "lceil")   '(math-cs "rceil" )
   "ceiling-brackets")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; boolean variables.
 ;;; Affect default behaviour
 ;;; Can be toggled with (toggle *var*)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Variable: *SIGNAL-ERROR-ON-UNKNOWN-TEX-MACRO*            Author: raman
 ;;; Created: Thu Jan 30 11:54:06 1992
@@ -236,7 +236,7 @@ the table of known tex macros "
 ;;; Set it to true for now:
 (setf *do-not-signal-error-on-unknown-tex-macro* t)
 ;;; You can toggle it by using (toggle var)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 ;;; Variable: *RETURN-A-DEFAULT-PARSER*                      Author: raman
@@ -249,7 +249,7 @@ the table of known tex macros "
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 

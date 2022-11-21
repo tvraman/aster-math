@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
  ;;;                                                                       ;;;
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -16,7 +16,7 @@
 ;;; specified by integer. Also, define children as an alternative
 ;;; accessor for the arguments slot.
 ;;; A <(backup is being kept)> of this file.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
  ;;;  tex macros define new objects .
  ;;; refer to the notes on <(macros define objects)>
  ;;; Thu Oct 15 12:58:18 EDT 1992

@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -10,7 +10,7 @@
 (in-package :aster)
 ;;; Wed Dec 23 12:07:24 EST 1992
 ;;; Simple hack to convert digits to cardinal numbers.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
   ;;; Variable: *CARDINAL-NUMBERS-TABLE*                       Author: raman
   ;;; Created: Wed Dec 23 12:08:16 1992
@@ -65,7 +65,7 @@
   "Default method, just return math objects "
   math-object
   )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; definitions:
 (define-cardinal-number "1" "first")
 (define-cardinal-number "2" "second" )

@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (in-package :aster)
 (export '(read-aloud ))
@@ -14,10 +14,10 @@
   "Amount of pause around inline math in milliseconds. ")
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Created: Sat Apr 11 19:20:05 EDT 1992
 ;;; Contains  read-aloud methods  and associated code.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Modified: Thu Aug 20 08:49:51 EDT 1992
 ;;;  Using AFL to express rendering rules.
 
@@ -95,7 +95,7 @@
   "cue for slides.")
 
 ;;; end of cues section.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Generic: READ-ALOUD                                      Author: raman
 ;;; Created: Mon Apr 13 11:01:28 1992

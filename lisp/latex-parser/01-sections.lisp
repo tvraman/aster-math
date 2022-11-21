@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -11,7 +11,7 @@
 (defvar *document* nil
   "Cache document pointer used in browser.")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Modified: Thu Apr  9 19:49:28 EDT 1992
 ;;; Introduced two new functions:
 ;;; create-sectional-unit and get-sectional-units!
@@ -19,7 +19,7 @@
 ;;; Modified: Thu Apr  2 15:40:22 EST 1992
 ;;; Modifying to use classes for document components instead of
 ;;; structures. 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; New version:  Sun Jan 26 09:37:20 EST 1992
 ;;; Made to work with a more intelligent lexer.
 ;;; The tokenizer does more work,
@@ -27,7 +27,7 @@
 ;;; version.
 
 ;;; This version is also being made table driven.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; The functions in this file are being reimplemented using the buffer
 ;;; structure defined in buffers.lisp.
@@ -40,7 +40,7 @@
 ;;; Predicates have names ending  in ? mark.
 ;;; Functions which expect a buffer as an argument have their arg names
 ;;; ending in buffer, eg: text-buffer.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Function: READ-DOCUMENT                                   Author: raman
 ;;; Created: Fri Oct 11 11:20:10 1991
@@ -326,7 +326,7 @@
 ;;; object, first add that object to the list of *enclosing-referends*
 ;;; and make label-expand install the label by looking at the front of
 ;;; this list. This means that label-expand will return nil.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
   ;;; Variable: *OBJECTS-THAT-CAN-BE-REFERRED*                 Author: raman
   ;;; Created: Tue Dec 29 09:16:04 1992
@@ -606,7 +606,7 @@ Leaves the pointer of text buffer pointing at  next unit"
       ))
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; end of file ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 

@@ -1,6 +1,6 @@
 ;;;   -*- Syntax: Common-Lisp; Base: 10; Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -24,7 +24,7 @@
 ;;; Introduces classes for document components.
 ;;; Will completely replace the structures for document components
 ;;; defined in structs.lisp.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 
 ;;; Class: DOCUMENT                                          Author: raman

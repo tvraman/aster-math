@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -11,7 +11,7 @@
 ;;; Modified: Thu Sep 24 20:55:06 EDT 1992
 ;;; Added optimising declaration since buffers is working safely.
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Implements a buffer structure, which maintains contents as a list,
 ;;; and a pointer to the current buffer location.
@@ -20,15 +20,15 @@
 ;;; pop-next-entry
 ;;; return next entry and mofify buffer pointer.
 ;;; lookat-current-entry Return current entry without modifying pointer.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Modified: Wed Jan 29 10:42:59 EST 1992
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Added a slot local-environment to the buffer structure.
 ;;; This makes passing information about the environment around easier.
 ;;; In particular avoid use of special variables for handling font changes.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;; Structure: BUFFER                                        Author: raman
 ;;; Created: Thu Oct 31 09:37:17 1991

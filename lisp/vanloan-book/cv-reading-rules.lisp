@@ -1,13 +1,13 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (in-package :cl-user)
 
 ;;; Sun Dec 20 13:21:39 EST 1992
 ;;; Reading rule definitions for objects defined in VanLoan's book.
 ;;; Object definitions are in <(file object definitions)>
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (def-reading-rule (c-vector simple)
   "Simple reading rule for a  vector"
   (read-aloud   (argument c-vector 1))

@@ -1,6 +1,6 @@
  ;;;   -*-   Mode: LISP -*-    ;;;
  ;;;                                                                       ;;;
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -11,7 +11,7 @@
  ;;; Contains all the helper functions and methods used by the simple
  ;;; reading rule for math objects.
  ;;; Tue Dec  8 13:53:34 EST 1992
- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
 
  ;;; Tue Nov 24 10:54:42 EST 1992
  ;;; Contains some reading rules for reading math expressions.

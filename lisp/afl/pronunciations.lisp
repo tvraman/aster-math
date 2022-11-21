@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 ;;;                                                                       ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 (in-package :afl)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
@@ -10,7 +10,7 @@
 
 ;;; Created: Fri Sep 25 11:58:49 EDT 1992
 ;;; Pronunciations for dectalk.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;{{{text mode
 
 ;;; text mode:
@@ -64,7 +64,7 @@
 (define-pronunciation "figure" "figur" :text)
 (define-pronunciation "ny" " new york " :text)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 
 ;;}}}
 ;;{{{Math mode
@@ -101,7 +101,7 @@
 ;;; Lower case letters:
 (define-pronunciation "a" "[`ey]" :math)
 ;;; TeX characters and symbols:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (define-pronunciation "imath" "i" :math)
 (define-pronunciation "jmath" "j" :math)
 
@@ -116,7 +116,7 @@
 (define-pronunciation  "vartheta"   "var theta" :math) 
 (define-pronunciation "omega"  "ommega" :math)
 ;; the rest of the lower case greek letters spoken correctly. 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Upper case Greek letters:
 
 (define-pronunciation "Gamma"  " cap Gamma" :math)
@@ -135,7 +135,7 @@
 (define-pronunciation "infty" "infinity" :math)
 (define-pronunciation "Re" "real" :math)
 (define-pronunciation "Im" "imaginary" :math)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Large operators: Usually unary.
 
 (define-pronunciation  "sum"   "summation" :math)
@@ -153,7 +153,7 @@
 (define-pronunciation  "oint"   "contour integral" :math)
 (define-pronunciation  "bigwedge"   "wedge" :math)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; binary operators:
 
 (define-pronunciation  "-"  "minus " :math)
@@ -196,7 +196,7 @@
 (define-pronunciation  "lor"   "logical or" :math)
 (define-pronunciation  "lnot"   "logical not" :math)
 (define-pronunciation  "&"   "and" :math)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Relationals:
 (define-pronunciation  "="  "equals" :math)
 (define-pronunciation  "<"   "lessthan" :math)
@@ -243,7 +243,7 @@
 
 ;;; negation:
 (define-pronunciation "not" "not" :math)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Arrows:
 
 (define-pronunciation "leftarrow"   "left arrow" :math)
@@ -280,10 +280,10 @@
 (define-pronunciation  "rightleftharpoons"  " right left harpoons" :math)
 (define-pronunciation  "to"   " goes to " :math)
 (define-pronunciation  "gets"   "gets" :math)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Delimiters:
 ;;; opening delimiters.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (define-pronunciation "["  "left bracket" :math)
 (define-pronunciation  "lbrack"   " left bracket" :math)
 (define-pronunciation  "lbrace"   " left brace" :math)
@@ -303,7 +303,7 @@
 (define-pronunciation  "}"    "right brace" :math)
 (define-pronunciation  "right"   "" :math)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Punctuation in math:
 (define-pronunciation  "!"   " factorial, " :math)
 (define-pronunciation  "."   " dot" :math)
@@ -318,7 +318,7 @@
 (define-pronunciation  "|"   " pipe" :math)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; mathematical function names taken from the latex book:
 ;;; <(math functions in man3.tex)>
 
@@ -359,7 +359,7 @@
 (define-pronunciation  "sin"   " sine" :math)
 (define-pronunciation  "tanh"   " tan h" :math)
 (define-pronunciation  "sqrt"   " square root" :math)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 ;;; Accents: 
 (define-pronunciation  "hat"   " hat" :math)
 (define-pronunciation  "grave"   " graav" :math)
@@ -379,7 +379,7 @@
 ;;; Things that go under the math object
 (define-pronunciation  "underline"   " under line" :math)
 (define-pronunciation  "underbrace"   " under brace" :math)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
 (define-pronunciation "iff" "if and only if" :math)
 (define-pronunciation "bmod" "mod" :math)
 (define-pronunciation "pmod" "modulo" :math)
