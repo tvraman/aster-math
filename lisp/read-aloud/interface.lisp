@@ -19,12 +19,14 @@
   (let ((p (run-program *lexer* nil :input input  :wait t :output  :stream)))
     (create-article (read (process-output p)))))
 
-(defun update-next-and-previous (current doc)
+(defun insert-doc-after-current (current doc)
   "Insert doc into the prev/next link chain for current."
   (let ((cache (next current)))
-        (setf (previous doc) current)
-        (setf (next current) doc)
-        (setf (next doc) cache)))
+    (setf (previous doc) current)
+    (setf (next current) doc)
+    (when cache
+      (setf (next doc) cache)
+      (setf (previous cache) doc))))
 
 (defun file (filename &key  id)
   "Aster a  Latex article.
@@ -33,7 +35,7 @@
   (let ((current *document*)
         (doc (doc-from-stream (open filename))))
     (when id (setf (gethash id *docs-cache* ) doc))
-    (when current (update-next-and-previous current doc))
+    (when current (insert-doc-after-current current doc))
     (read-aloud doc)))
 
 (defun text (latex &key id)
@@ -41,5 +43,5 @@
   (let ((current *document*)
         (doc (doc-from-stream (make-string-input-stream latex))))
     (when id (setf (gethash id *docs-cache* ) doc))
-    (when current (update-next-and-previous current doc))
+    (when current (insert-doc-after-current current doc))
     (read-aloud doc)))
