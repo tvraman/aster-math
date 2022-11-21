@@ -251,6 +251,7 @@ Value is derived from `pacmd list-sink-inputs'."
   (aster-cmd
    `(aster:text
      ,(a--wrap-math latex)
+     :id ',(gensym "aster-")
      :title ,(buffer-name))))
 
 (defun aster-file (file)
