@@ -5,7 +5,7 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
 
-(export '(aster-file aster-text))
+(export '(file text))
 
 (defvar *lexer*
   (namestring  (merge-pathnames "lexer/lispify" *lisp-dir*))
@@ -19,24 +19,27 @@
   (let ((p (run-program *lexer* nil :input input  :wait t :output  :stream)))
     (create-article (read (process-output p)))))
 
-(defun aster-file (filename &key  id)
+(defun update-next-and-previous (current doc)
+  "Insert doc into the prev/next link chain for current."
+  (let ((cache (next current)))
+        (setf (previous doc) current)
+        (setf (next current) doc)
+        (setf (next doc) cache)))
+
+(defun file (filename &key  id)
   "Aster a  Latex article.
  Cache result using id. Also create a next/previous link with document
   that is current."
   (let ((current *document*)
         (doc (doc-from-stream (open filename))))
     (when id (setf (gethash id *docs-cache* ) doc))
-    (when current                       ; link next/previous:
-      (setf (next current) doc)
-      (setf (previous doc) current))
+    (when current (update-next-and-previous current doc))
     (read-aloud doc)))
 
-(defun aster-text (latex &key id)
+(defun text (latex &key id)
   "Aster  a Latex article passed as a string."
   (let ((current *document*)
         (doc (doc-from-stream (make-string-input-stream latex))))
     (when id (setf (gethash id *docs-cache* ) doc))
-    (when current                       ; link next/previous:
-      (setf (next current) doc)
-      (setf (previous doc) current))
+    (when current (update-next-and-previous current doc))
     (read-aloud doc)))
