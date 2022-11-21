@@ -3,9 +3,6 @@
  
 
 (in-package :aster)
-(export '(read-aloud ))
-
-
 
 ;;; Parameter: *MATH-SURROUND*                               Author: raman
 ;;; Created: Thu Nov 26 12:30:20 1992
