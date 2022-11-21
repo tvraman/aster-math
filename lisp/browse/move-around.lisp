@@ -1,6 +1,6 @@
 ;;;   -*- Syntax-Lisp;  Base: 10; Mode: LISP -*-    ;;;
- 
- 
+
+
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -10,21 +10,21 @@
 
 (export
  '(
-   move-back 
-   move-forward 
-   move-to-abstract 
-   move-to-attributes 
-   move-to-children 
-   move-to-contents 
-   move-to-subscript 
-   move-to-superscript 
+   move-back
+   move-forward
+   move-to-abstract
+   move-to-attributes
+   move-to-children
+   move-to-contents
+   move-to-subscript
+   move-to-superscript
    move-to-top-of-math move-to-doc-root
    move-up
    read-current read-next read-previous))
 
 ;;; Sun Jan 10 15:47:28 EST 1993
 ;;; initial attempt at browsing.
- 
+
 
 ;;; Record display math objects  as they are read
 
@@ -36,7 +36,6 @@
   "Return current read-pointer position. "
   *read-pointer*
   )
-
 
 (defmacro save-article (save-variable &optional (article *document*))
   "Save article (default *document*) in save-variable. "
@@ -494,7 +493,6 @@
     (setf *read-pointer* (parent *read-pointer* )))
   (summarize *read-pointer*)
   )
-
 
 (defun move-to-doc-root ()
   "Move to document root."

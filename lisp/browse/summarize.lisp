@@ -1,17 +1,15 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+
+
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :aster)
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
-
 ;;; Tue Jan 12 08:57:40 EST 1993
 ;;; Code to summarize an object
- 
 
 
   ;;; Method: SUMMARIZE                                        Author: raman
@@ -23,7 +21,6 @@
       (read-aloud (substitution object ))
       (read-aloud (type-of object  )))
   )
-
 
   ;;; Method: SUMMARIZE                                        Author: raman
   ;;; Created: Mon Sep 27 20:32:35 1993
@@ -70,13 +67,13 @@
 (defmethod summarize ((math-object math-object ))
   "Summarize math object. "
   (save-pointer-excursion
-   (say-what-this-is-called math-object)
-   (afl:tts-queue " ") 
-   (if(and  (leaf-p math-object )
-            (= 1 (weight math-object)))
-      (read-current)
-      (read-succinctly  math-object))
-   (afl:tts-force )))
+    (say-what-this-is-called math-object)
+    (afl:tts-queue " ")
+    (if(and  (leaf-p math-object )
+             (= 1 (weight math-object)))
+       (read-current)
+       (read-succinctly  math-object))
+    (afl:tts-force )))
 
 (defmethod summarize ((paragraph paragraph))
   "Summarize a paragraph"
@@ -88,86 +85,85 @@
   (afl:tts-queue (contents aword )))
 
 (defmethod summarize  ((slide slide ))
-  (save-pointer-excursion 
+  (save-pointer-excursion
     (read-aloud
      (first (contents slide))))
   )
 (defmethod summarize ((math-subformula math-subformula ))
   "Summarize math subformula"
   (save-pointer-excursion
-   (say-what-this-is-called math-subformula)
-   (afl:tts-queue " ") 
-   (cond
-     ((leaf-p math-subformula )
-      (read-current))
-     ((null (attributes math-subformula ))
-      (summarize (contents  *read-pointer* )))
-     (t (let ((attributes (attributes math-subformula )))
-          (read-succinctly math-subformula )
-          (loop for attr in attributes do
-                (read-aloud attr)
-                (afl:comma-intonation )))
-        ))
-   (afl:tts-force )))
+    (say-what-this-is-called math-subformula)
+    (afl:tts-queue " ")
+    (cond
+      ((leaf-p math-subformula )
+       (read-current))
+      ((null (attributes math-subformula ))
+       (summarize (contents  *read-pointer* )))
+      (t (let ((attributes (attributes math-subformula )))
+           (read-succinctly math-subformula )
+           (loop for attr in attributes do
+             (read-aloud attr)
+             (afl:comma-intonation )))
+         ))
+    (afl:tts-force )))
 
 (defmethod summarize ((arrow-operator arrow-operator ))
   "Summarize arrow operator "
   (save-pointer-excursion
-   (say-what-this-is-called arrow-operator)
-   (afl:with-pronunciation-mode (:mode :math) 
-     (read-aloud (contents arrow-operator )))
-   (afl:tts-force)
-   )
+    (say-what-this-is-called arrow-operator)
+    (afl:with-pronunciation-mode (:mode :math)
+      (read-aloud (contents arrow-operator )))
+    (afl:tts-force)
+    )
   )
 
 (defmethod summarize ((relational-operator relational-operator ))
   "Summarize relational operator "
   (save-pointer-excursion
-   (say-what-this-is-called relational-operator)
-   (afl:with-pronunciation-mode (:mode :math) 
-     (read-aloud (contents relational-operator )))
-   (afl:tts-force)
-   )
+    (say-what-this-is-called relational-operator)
+    (afl:with-pronunciation-mode (:mode :math)
+      (read-aloud (contents relational-operator )))
+    (afl:tts-force)
+    )
   )
 
 (defmethod summarize ((binary-operator binary-operator ))
   "Summarize binary operator "
   (save-pointer-excursion
-   (say-what-this-is-called binary-operator)
-   (afl:with-pronunciation-mode (:mode :math) 
-     (read-aloud (contents binary-operator)))
-   (afl:tts-force)
-   )
+    (say-what-this-is-called binary-operator)
+    (afl:with-pronunciation-mode (:mode :math)
+      (read-aloud (contents binary-operator)))
+    (afl:tts-force)
+    )
   )
 
 (defmethod summarize ((juxtaposition juxtaposition))
   "Summarize juxtaposition object"
   (save-pointer-excursion
-   (say-what-this-is-called juxtaposition )
-   (if (special-pattern juxtaposition )
-       (read-aloud (special-pattern juxtaposition )) 
-       (afl:tts-queue "juxtaposition. "))
-   (when (substitution juxtaposition)
-     (read-aloud (substitution juxtaposition )))
-   (afl:tts-force))
+    (say-what-this-is-called juxtaposition )
+    (if (special-pattern juxtaposition )
+        (read-aloud (special-pattern juxtaposition ))
+        (afl:tts-queue "juxtaposition. "))
+    (when (substitution juxtaposition)
+      (read-aloud (substitution juxtaposition )))
+    (afl:tts-force))
   )
 
 (defmethod summarize ((fraction fraction))
-  (say-what-this-is-called fraction ) 
+  (say-what-this-is-called fraction )
   (read-succinctly fraction)
   (afl:tts-force ))
-
 
 (defmethod summarize ((mathematical-function-name mathematical-function-name ))
   "Summarize functions. "
   (save-pointer-excursion
-   (say-what-this-is-called mathematical-function-name )
-   (afl:tts-queue " ") 
-   (if   (leaf-p (children mathematical-function-name ))
-         (read-current)
-         (read-succinctly     mathematical-function-name  ))
-   (afl:tts-force)
-   )
+    (say-what-this-is-called mathematical-function-name )
+    (afl:tts-queue " ")
+    (if   (leaf-p (children mathematical-function-name ))
+          (read-current)
+          (read-succinctly     mathematical-function-name  ))
+    (afl:tts-force)
+    )
   )
 
 (defmethod summarize ((ordinary t))
@@ -175,7 +171,6 @@
   (read-aloud (type-of ordinary ))
   (afl:tts-force )
   )
-
 
   ;;; Method: SUMMARIZE                                        Author: raman
   ;;; Created: Tue Jan 12 08:58:49 1993
@@ -191,18 +186,13 @@
     (type-of (setf *read-pointer* save-state )))
   )
 
-
-
-
-
 (defmethod summarize ((article article))
   "Summarize an article"
   (cond
     ((article-title article)
      (save-pointer-excursion
-      (read-aloud (article-title article ))))
+       (read-aloud (article-title article ))))
     (t (afl:tts-queue "article. "))))
-
 
 (defmethod summarize ((document document))
   "Summarize a document"
