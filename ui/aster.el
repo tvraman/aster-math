@@ -312,11 +312,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive)
   (aster-cmd '(aster:read-parent )))
 
-(defun aster-rest ()
-  "Read rest of current node."
-  (interactive)
-  (aster-cmd '(aster:read-rest  *read-pointer* )))
-
 (defun aster-to-subscript ()
   "Move to subscript"
   (interactive)
@@ -400,7 +395,6 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
     ("A" aster-to-attributes)
     ("C-a" aster-to-abstract)
     ("C-r" aster-record)
-    ("SPC" aster-rest)
     ("^" aster-to-superscript )
     ("_" aster-to-subscript)
     ("f"aster-file)
