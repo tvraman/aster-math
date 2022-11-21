@@ -47,12 +47,12 @@
   "Audio System For Technical Readings"
   :link
   '(url-link :tag "Demo"
-             "https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg"
-             :help-echo "AsTeR Demo")
+    "https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg"
+    :help-echo "AsTeR Demo")
   :link
   '(url-link :tag "Source"
-             "https://github.com/tvraman/aster-math"
-             :help-echo "AsTeR Source Code")
+    "https://github.com/tvraman/aster-math"
+    :help-echo "AsTeR Source Code")
   :group 'applications)
 
 (defcustom aster-bind-arrows nil
@@ -102,7 +102,7 @@ Value is derived from `pacmd list-sink-inputs'."
 (defsubst aster-eval (string)
   "Like slime-eval-save but ignores result."
   (slime-eval-async `(swank:eval-and-grab-output ,string)
-    (lambda (_result) t)))
+                    (lambda (_result) t)))
 
 (defsubst a--wrap-doc (latex)
   "Wrap text in document start/end markup."
@@ -149,60 +149,60 @@ Value is derived from `pacmd list-sink-inputs'."
           (begin nil)
           (end nil))
       (cond
-       ;; $ and $$
-       ((or (string= "$" delimiter)
-            (string= "$$" delimiter))
-        (save-excursion
+        ;; $ and $$
+        ((or (string= "$" delimiter)
+             (string= "$$" delimiter))
+         (save-excursion
           (goto-char start)
           (forward-char (length delimiter))
           (setq begin (point))
           (skip-syntax-forward "^$")
           (setq end (point))
           (buffer-substring-no-properties begin end)))
-       ;; \( and \[
-       ((string= "\\(" delimiter)
-        (goto-char start)
-        (setq begin (+ start  2))
-        (search-forward "\\)")
-        (setq end (- (point) 2))
-        (buffer-substring-no-properties begin end))
-       ((string= "\\[" delimiter)
-        (goto-char start)
-        (setq begin (+ start  2))
-        (search-forward "\\]")
-        (setq end (- (point) 2))
-        (buffer-substring-no-properties begin end))
-       ;; begin equation
-       ((string= "equation" delimiter)
-        (goto-char start)
-        (forward-char (length "\\begin{equation}"))
-        (setq begin (point))
-        (search-forward "\\end{equation}")
-        (backward-char (length "\\begin{equation}"))
-        (setq end (point))
-        (buffer-substring-no-properties begin end))
-       (t nil)))))
+        ;; \( and \[
+        ((string= "\\(" delimiter)
+         (goto-char start)
+         (setq begin (+ start  2))
+         (search-forward "\\)")
+         (setq end (- (point) 2))
+         (buffer-substring-no-properties begin end))
+        ((string= "\\[" delimiter)
+         (goto-char start)
+         (setq begin (+ start  2))
+         (search-forward "\\]")
+         (setq end (- (point) 2))
+         (buffer-substring-no-properties begin end))
+        ;; begin equation
+        ((string= "equation" delimiter)
+         (goto-char start)
+         (forward-char (length "\\begin{equation}"))
+         (setq begin (point))
+         (search-forward "\\end{equation}")
+         (backward-char (length "\\begin{equation}"))
+         (setq end (point))
+         (buffer-substring-no-properties begin end))
+        (t nil)))))
 
 (defun aster-guess ()
   "Examine current mode and context to guess Math content to read."
   (aster-check)
   (cond
-   ((eq major-mode 'calc-mode) (aster-guess-calc))
-   ((eq major-mode 'sage-shell:sage-mode) (aster-guess-sage))
-   ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode))
-         (featurep 'texmathp))
-    (aster-guess-tex))
-   ((and
-     (eq major-mode 'eww-mode)
-     (not
-      (string-equal
-       (get-text-property (point) 'shr-alt)
-       "No image under point")))
-    (get-text-property (point) 'shr-alt))
-   (t
-    (read-from-minibuffer
-     "LaTeX: " nil nil nil nil
-     (when mark-active (buffer-substring (region-beginning)(region-end)))))))
+    ((eq major-mode 'calc-mode) (aster-guess-calc))
+    ((eq major-mode 'sage-shell:sage-mode) (aster-guess-sage))
+    ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode))
+          (featurep 'texmathp))
+     (aster-guess-tex))
+    ((and
+      (eq major-mode 'eww-mode)
+      (not
+       (string-equal
+        (get-text-property (point) 'shr-alt)
+        "No image under point")))
+     (get-text-property (point) 'shr-alt))
+    (t
+     (read-from-minibuffer
+      "LaTeX: " nil nil nil nil
+      (when mark-active (buffer-substring (region-beginning)(region-end)))))))
 
 ;; ###autoload
 
@@ -213,8 +213,8 @@ Value is derived from `pacmd list-sink-inputs'."
   "Load and start Aster"
   (interactive)
   (while (not (slime-connected-p))
-    (slime)
-    (sit-for 1)))
+         (slime)
+         (sit-for 1)))
 
 (defun aster-post-startup ()
   "Prepare Aster once slime is ready."
