@@ -244,12 +244,8 @@
                               "Last ~a. "
                               (type-of *read-pointer*)) )
        (setf *read-pointer* save-pointer))
-      (t (summarize *read-pointer*)
-                                        ;         (move-inside-subformula-if-necessary)
-         )
-      )
-    (afl:tts-force ))
-  )
+      (t (summarize *read-pointer*)))
+    (afl:tts-force )))
 
 (defun move-back(&optional(n 1))
   "Move to previous sibling."
@@ -502,9 +498,9 @@
 
 (defun move-to-doc-root ()
   "Move to document root."
-  (progn
-    (setf *read-pointer* *document*)
-    (summarize *document*)))
+  (setf *read-pointer* *document*)
+  (summarize *document*)
+  (afl:tts-force))
 
 (defun move-to-subscript ()
   "move to subscript. "

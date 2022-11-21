@@ -203,13 +203,19 @@
       (read-aloud (article-title article ))))
     (t (afl:tts-queue "article. "))))
 
+
+(defmethod summarize ((document document))
+  "Summarize a document"
+  (afl:tts-speak (format nil "~a" (type-of document)))
+  (afl:tts-force))
+
 (defmethod summarize ((attribute attribute ))
   "Summarize an attribute. "
   (save-pointer-excursion
-   (say-what-this-attribute-is-called attribute )
-   (if (leaf-p (attribute-value attribute ))
-       (read-current)
-       (read-succinctly  (attribute-value attribute )))
-   (afl:tts-force)
-   )
+    (say-what-this-attribute-is-called attribute )
+    (if (leaf-p (attribute-value attribute ))
+        (read-current)
+        (read-succinctly  (attribute-value attribute )))
+    (afl:tts-force)
+    )
   )

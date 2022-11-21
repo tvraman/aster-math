@@ -361,9 +361,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   "Move to   document root."
   (interactive )
   (aster-stop)
-  (aster-eval
-   (a--code
-    '(aster:move-to-doc-root))))
+  (aster-eval (a--code '(aster:move-to-doc-root))))
 
 (defun aster-to-math-root ()
   "Move to   math  root."
