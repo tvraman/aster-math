@@ -1,5 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994 by T. V. Raman 
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994 by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 
@@ -32,7 +32,7 @@
       (setf (previous doc) current))
     (read-aloud doc)))
 
-(defun aster-text (latex &key id) 
+(defun aster-text (latex &key id)
   "Aster  a Latex article passed as a string."
   (let ((current *document*)
         (doc (doc-from-stream (make-string-input-stream latex))))
