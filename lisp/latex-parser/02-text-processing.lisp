@@ -1,5 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
-;;;                                                                       ;;;
+ 
 
  
 ;;; Modified: Sat Apr 11 18:12:09 EDT 1992
