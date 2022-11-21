@@ -44,6 +44,7 @@
         (doc (doc-from-stream (make-string-input-stream latex))))
     (when id (setf (gethash id *docs-cache* ) doc))
     (when title
-      (setf (title doc) (format nil "~a: ~a" title id)))
+      (setf (title doc) (format nil "~a: ~a"
+                                title (or id id ""))))
     (when current (insert-doc-after-current current doc))
     (read-aloud doc)))
