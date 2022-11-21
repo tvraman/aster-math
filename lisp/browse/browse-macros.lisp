@@ -1,6 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -25,4 +23,3 @@
       (setf *read-pointer* save-pointer))
     (values))
   )
-
