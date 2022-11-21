@@ -38,10 +38,11 @@
     (when current (insert-doc-after-current current doc))
     (read-aloud doc)))
 
-(defun text (latex &key id)
+(defun text (latex &key id title)
   "Aster  a Latex article passed as a string."
   (let ((current *document*)
         (doc (doc-from-stream (make-string-input-stream latex))))
     (when id (setf (gethash id *docs-cache* ) doc))
+    (when title (setf (title doc) title))
     (when current (insert-doc-after-current current doc))
     (read-aloud doc)))
