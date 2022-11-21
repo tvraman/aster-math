@@ -22,13 +22,22 @@
 
 (defun aster-file (filename &key  id)
   "Aster a  Latex article.
- Cache resulting using id."
-  (let ((doc (doc-from-stream (open filename))))
+ Cache result using id. Also create a next/previous link with document
+  that is current."
+  (let ((current *document*)
+        (doc (doc-from-stream (open filename))))
     (when id (setf (gethash id *docs-cache* ) doc))
+    (when current                       ; link next/previous:
+      (setf (next current) doc)
+      (setf (previous doc) current))
     (read-aloud doc)))
 
 (defun aster-text (latex &key id) 
   "Aster  a Latex article passed as a string."
-  (let ((doc (doc-from-stream (make-string-input-stream latex))))
-    (when id (setf (gethash id *docs-cache* ) doc))    
+  (let ((current *document*)
+        (doc (doc-from-stream (make-string-input-stream latex))))
+    (when id (setf (gethash id *docs-cache* ) doc))
+    (when current                       ; link next/previous:
+      (setf (next current) doc)
+      (setf (previous doc) current))
     (read-aloud doc)))
