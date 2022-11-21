@@ -282,7 +282,8 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive "r")
   (aster-cmd
    `(aster:text
-     ,(a--wrap-doc (buffer-substring-no-properties start end)))))
+     ,(a--wrap-doc (buffer-substring-no-properties start end))
+     :title ,(buffer-name))))
 
 ;;}}}
 ;;{{{Navigation Commands:
