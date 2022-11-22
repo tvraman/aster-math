@@ -210,7 +210,11 @@ Value is derived from `pacmd list-sink-inputs'."
 ;;{{{Running Aster:
 
 (defun aster ()
-  "Load and start Aster"
+  "Load and start Aster.
+Aster commands are invoked by first pressing the prefix-key  `C-; SPC'.
+The following commands are available on this prefix once aster is running:
+
+\\{aster-keymap}"
   (interactive)
   (while (not (slime-connected-p))
          (slime)
