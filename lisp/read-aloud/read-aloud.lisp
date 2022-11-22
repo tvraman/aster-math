@@ -1,7 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 
-
-
 (in-package :aster)
 
 ;;; Parameter: *MATH-SURROUND*                               Author: raman
@@ -10,15 +8,11 @@
 (defvar *math-surround* 50
   "Amount of pause around inline math in milliseconds. ")
 
-
 ;;; Created: Sat Apr 11 19:20:05 EDT 1992
 ;;; Contains  read-aloud methods  and associated code.
 
 ;;; Modified: Thu Aug 20 08:49:51 EDT 1992
 ;;;  Using AFL to express rendering rules.
-
-;;; end of cues section.
-
 
 ;;; Generic: READ-ALOUD                                      Author: raman
 ;;; Created: Mon Apr 13 11:01:28 1992
@@ -49,7 +43,7 @@
   (with-reading-state (reading-state 'annotation-voice)
     (afl:tts-queue   " Abstract,   ")
     (afl:tts-force))
-  
+
   (afl:new-block
     (afl:local-set-state (reading-state 'abstract))
     (read-aloud (abstract-contents abstract))))
@@ -226,7 +220,7 @@
 
 (defmethod read-aloud ((paragraph paragraph))
   "read aloud a paragraph."
-  
+
   (read-aloud (paragraph-contents paragraph)))
 
 ;;; The following are read-aloud methods for some parent classes.
@@ -240,7 +234,7 @@
   "read aloud a list environment."
   (afl:new-block
     (afl:local-set-state (reading-state 'list-environment-voice))
-    
+
     (read-aloud (list-environment-items list-environment))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -248,7 +242,7 @@
 
 (defmethod read-aloud ((item item))
   "read aloud an item."
-  
+
   (when (item-marker item)
     (with-reading-state (reading-state 'annotation-voice)
       (read-aloud (item-marker item ))))
@@ -321,7 +315,7 @@
           (string-downcase (sectional-unit-name section))
           "")
       (or (sectional-unit-number section) ""))))
-  
+
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (sectional-unit-title section)))
   (when (sectional-unit-body section)
@@ -413,12 +407,12 @@
 
 (defmethod read-aloud ((newline (eql  'newline)))
   "read aloud new lines"
-  
+
   (afl:tts-force))
 
 (defmethod read-aloud ((field-separator (eql  'field-separator)))
   "read aloud new lines"
-  
+
   (afl:tts-force))
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -426,7 +420,7 @@
 
 (defmethod read-aloud ((slide slide))
   "read aloud a slide"
-  
+
   (read-aloud (slide-contents slide)))
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -449,13 +443,6 @@
   (setf *read-all-text* nil)
   (read-aloud art)
   (toggle *read-all-text*))
-
-;;; Parameter: *MATH-CUE*                                    Author: raman
-;;; Created: Mon Sep  7 13:24:46 1992
-
-(defparameter *math-cue*
-  "jazz_piano_beep"
-  "cue math")
 
 ;;; Variable: *READ-MATH-ALOUD*                              Author: raman
 ;;; Created: Mon Sep 21 09:15:09 1992
@@ -565,20 +552,6 @@ reading full documents. ")
 ;;; Created: Wed Dec  2 11:48:09 1992
 
 (defvar *transpose-table* nil "If t read transposed tables")
-
-;;; Variable: *column-CUE*                                      Author: raman
-;;; Created: Sat Oct 31 11:16:32 1992
-
-(defvar *column-cue*
-  "column"
-  "Column cue")
-
-;;; Variable: *ROW-CUE*                                      Author: raman
-;;; Created: Sat Oct 31 11:17:10 1992
-
-(defvar *row-cue*
-  "long-beep"
-  "Row cue")
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Fri Oct 30 12:00:29 1992
 
@@ -599,7 +572,7 @@ reading full documents. ")
                         (dotimes (i col-index)
                           )
                         (read-aloud  column))
-               ))))
+            ))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Nov 19 15:30:15 1992
@@ -618,7 +591,7 @@ reading full documents. ")
                       (dotimes (i col-index)
                         )
                       (read-aloud  column))
-             ))
+          ))
   )
 
 (defmethod read-aloud ((math-eqnarray math-eqnarray))
@@ -632,7 +605,7 @@ reading full documents. ")
                     (dotimes (i col-index)
                       )
                     (read-aloud  column))
-           )
+        )
   )
 
 ;;; Method: READ-ALOUD                                       Author: raman

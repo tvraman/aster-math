@@ -17,14 +17,6 @@
 ;;; Introducing a variable *buggy-ilisp-read-line*
 ;;; If T then call read-line twice, discarding the initial empty
 ;;; string.
-
-  ;;; Variable: *PROMPT-CUE*                                   Author: raman
-  ;;; Created: Sat May  1 13:06:02 1993
-
-(defparameter *prompt-cue*
-  "prompt"
-  "Sound to play when prompting. ")
-
   ;;; Parameter: *GET-LABEL-WAIT*                              Author: raman
   ;;; Created: Sat May  1 12:55:39 1993
 
