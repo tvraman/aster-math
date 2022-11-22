@@ -1,7 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
-
 (in-package :aster)
 ;;{{{ Introduction:
 
@@ -17,7 +14,7 @@
 ;;; expression:  which contains the transformed expression,
 ;;; Transformed expression is just the original expression, with the
 ;;; substitute slot of the appropriate math objects set to the
-;;; variable to be substituted. 
+;;; variable to be substituted.
 ;;; Substitutions: A list of substitution objects.
 ;;; Each substitution object represents a pair:
 ;;; Variable :: denotes.
@@ -25,7 +22,7 @@
 ;;; Read the expression.
 ;;; Read the substitutions.
 ;;; M transformed into S based on the notes.
- 
+
 ;;; Algorithm:
 ;;;  When substituting variable 'x' for expression 'm' we do:
 ;;; build the substitution pair x::m
@@ -39,7 +36,7 @@
 ;;; read-substitution for the duration of its execution.
 ;;; In reading style read-substitution, the substitute slot of a math
 ;;; object is read.
- 
+
 ;;; When to substitute
 ;;;  proportional complexity of a math object is the ratio of its
 ;;;  weight to the ratio of its parent. For a math object that is a
@@ -49,9 +46,9 @@
 ;;; If the weight of an object m is w, and the weight of the entire
 ;;; expression is wr  then we try to substitute for m if and only  if
 ;;; $ w > wr\times *proportional-complexity-threshold*$
-;;; If *proportional-complexity-threshold* is 1, then we never substitute. 
+;;; If *proportional-complexity-threshold* is 1, then we never substitute.
 ;;; Setting this to 0 will cause big trouble:-
- 
+
 
 ;;}}}
 ;;{{{ Class definitions:
@@ -69,11 +66,8 @@
   (let ((self (make-instance 'substituted-expression )))
     self))
 
-
 (defun substituted-expression-p (self)
   (typep  self 'substituted-expression ))
-
-
 
   ;;; Class: SUBSTITUTION                                      Author: raman
   ;;; Created: Sun May 23 10:35:53 1993
@@ -87,7 +81,6 @@
   (let ((self (make-instance 'substitution )))
     self))
 
-
 (defun substitution-p (self)
   (typep  self 'substitution ))
 
@@ -95,7 +88,7 @@
 ;;{{{ Reading rules
 
 (def-reading-rule (math-object read-substitution)
-    "Read the substitution if any for math object."
+  "Read the substitution if any for math object."
   (let  ((flag nil ))
     (setf flag (deactivate-style 'read-substitution))
     (cond
@@ -107,7 +100,6 @@
       (add-reading-style 'read-substitution))
     )
   )
-
 
   ;;; Parameter: *WAIT-BEFORE-READING-SUBSTITUTIONS*           Author: raman
   ;;; Created: Sun Sep 26 10:51:33 1993
@@ -131,35 +123,35 @@ continues if y is not  pressed.")
 ;;{{{Clean reading rule:
 
 (def-reading-rule (math-object variable-substitution )
-    "Read math object after applying variable substitution. "
+  "Read math object after applying variable substitution. "
   (erase-substitutions math-object)
   (let
       ((substituted-expression (variable-substitution math-object )))
     (without-reading-style (variable-substitution)
-                           (with-added-reading-style (read-substitution)
-                             (read-aloud
-                              (expression substituted-expression )))
-                           (when (substitutions substituted-expression )
-                             (afl:new-block
-                              (cond
-                                ((and (numberp
-                                       *wait-before-reading-substitutions* )
-                                      (y-or-n-p
-                                        *wait-before-reading-substitutions*))
-                                 (afl:tts-queue "where, ")
-                                 (read-aloud
-                                  (substitutions substituted-expression)))
-                                ((numberp ;timeout 
-                                  *wait-before-reading-substitutions*))
-                                (*wait-before-reading-substitutions*
-                                 (afl:tts-queue "where, ")
-                                 (read-char)
-                                 (read-aloud
-                                  (substitutions substituted-expression  )))
-                                (t(afl:tts-queue "where, ")
-                                  (read-aloud
-                                   (substitutions substituted-expression
-                                                  ))))))))
+      (with-added-reading-style (read-substitution)
+        (read-aloud
+         (expression substituted-expression )))
+      (when (substitutions substituted-expression )
+        (afl:new-block
+          (cond
+            ((and (numberp
+                   *wait-before-reading-substitutions* )
+                  (y-or-n-p
+                   *wait-before-reading-substitutions*))
+             (afl:tts-queue "where, ")
+             (read-aloud
+              (substitutions substituted-expression)))
+            ((numberp ;timeout
+              *wait-before-reading-substitutions*))
+            (*wait-before-reading-substitutions*
+             (afl:tts-queue "where, ")
+             (read-char)
+             (read-aloud
+              (substitutions substituted-expression  )))
+            (t(afl:tts-queue "where, ")
+              (read-aloud
+               (substitutions substituted-expression
+                              ))))))))
   )
 
 ;;}}}
@@ -187,8 +179,7 @@ continues if y is not  pressed.")
       ((substitutions (complexity-threshold math-object )))
     (make-instance
      'substituted-expression :expression math-object
-                             :substitutions substitutions )))
-
+     :substitutions substitutions )))
 
   ;;; Method: ERASE-SUBSTITUTIONS                            Author: raman
   ;;; Created: Wed May 26 18:14:49 1993
@@ -198,9 +189,9 @@ continues if y is not  pressed.")
   (when (substitution math-object)
     (setf (substitution math-object)nil))
   (loop for attr in (attributes math-object) do
-        (erase-substitutions attr))
+    (erase-substitutions attr))
   (loop for child in (children math-object ) do
-        (erase-substitutions child ))
+    (erase-substitutions child ))
   )
 
 (defmethod erase-substitutions((math-subformula math-subformula ))
@@ -226,7 +217,7 @@ continues if y is not  pressed.")
   ;;; Created: Tue May 25 12:31:24 1993
 
 (defun collect-substitutions (math-object &key (threshold 1)
-                                           (original-weight 0)) 
+                                            (original-weight 0))
   "Collect substitutions applied to this object. Returns a list of
 substitutions. Side effects object: the substitution slot in the
 object or its children are set whenever a substitution is made. "
@@ -246,7 +237,7 @@ object or its children are set whenever a substitution is made. "
        (let ((variable (get-substitution-variable math-object )))
          (setf (substitution math-object ) variable)
          (push (make-instance 'substitution
-                              :variable  variable 
+                              :variable  variable
                               :denotes math-object) substitutions )))
       ((not (listp (children math-object )))
        (collect-substitutions
@@ -255,34 +246,29 @@ object or its children are set whenever a substitution is made. "
        (push
         (delete nil
                 (loop
-                  for attribute   in (attributes math-object) 
+                  for attribute   in (attributes math-object)
                   when (> (weight attribute)
                           (* *attr-weight-factor*  threshold))
                     collect
                     (collect-substitutions
                      (contents attribute)
-                    :threshold  (* *attr-weight-factor* threshold ))))
-            substitutions)
+                     :threshold  (* *attr-weight-factor* threshold ))))
+        substitutions)
        (push
-        (delete nil 
+        (delete nil
                 (loop
-                  for child in (children math-object) 
+                  for child in (children math-object)
                   when (> (weight child) threshold)
                     collect
                     (collect-substitutions
                      child :threshold threshold )))
-             substitutions )
-       (nreverse (delete nil substitutions)))
-      ))
-  )
-
-
-(defvar *subst-id* 0 )
+        substitutions )
+       (nreverse (delete nil substitutions))))))
 
   ;;; Function: GET-SUBSTITUTION-VARIABLE                      Author: raman
   ;;; Created: Tue May 25 17:19:09 1993
 
-(defun get-substitution-variable (object) 
+(defun get-substitution-variable (object)
   "Return a variable to substitute for this object"
   (let ((name (if (attribute-p object)
                   (this-attribute-is-called object)
@@ -290,7 +276,7 @@ object or its children are set whenever a substitution is made. "
     (when (and (null name)
                (math-subformula-p (parent object )))
       (loop while (math-subformula-p (parent object)) do
-            (setf object (parent object )))
+        (setf object (parent object )))
       (setf name (or (this-argument-is-called  object )
                      (this-attribute-is-called  (parent object )))))
     (get-substitution-id (or name
@@ -300,7 +286,6 @@ object or its children are set whenever a substitution is made. "
                              (type-of object )))
     )
   )
-
 
   ;;; Parameter: *ABSOLUTE-COMPLEXITY-THRESHOLD*               Author: raman
   ;;; Created: Wed May 26 07:07:11 1993
@@ -317,7 +302,7 @@ object or its children are set whenever a substitution is made. "
   ;;; Function: COMPLEXITY-THRESHOLD              Author: raman
   ;;; Created: Tue May 25 12:36:34 1993
 
-(defun complexity-threshold  (object) 
+(defun complexity-threshold  (object)
   "Compute the threshold value for children of this object"
   (let ((proportional-complexity (+ 1 (truncate
                                        (* (weight object )
@@ -329,12 +314,11 @@ object or its children are set whenever a substitution is made. "
 ;;}}}
 ;;{{{ reading state
 
-(define-reading-state   'read-substitution-voice 
+(define-reading-state   'read-substitution-voice
     #'(lambda(state)
         (declare (ignore state ))
         (afl:get-point-in-speech-space 'afl:kid))
   )
-
 
 (define-reading-state   'read-substitution
     #'(lambda(state)
@@ -349,19 +333,16 @@ object or its children are set whenever a substitution is made. "
         )
   )
 
-
-
   ;;; Variable: *SUBST-ID-TABLE*                               Author: raman
   ;;; Created: Wed May 26 19:40:02 1993
 
 (defvar *subst-id-table* (make-hash-table :test #'equal)
   "Table for holding substitution identifiers")
 
-
   ;;; Function: GET-SUBSTITUTION-ID                            Author: raman
   ;;; Created: Wed May 26 19:41:01 1993
 
-(defun get-substitution-id (name) 
+(defun get-substitution-id (name)
   "Get unique identifier of this name"
   (let ((entry (gethash name *subst-id-table* )))
     (cond
@@ -373,15 +354,12 @@ object or its children are set whenever a substitution is made. "
       ))
   )
 
-
   ;;; Function: RESET-SUBSTITUTION-ID                          Author: raman
   ;;; Created: Wed May 26 19:47:00 1993
 
-(defun reset-substitution-id  () 
+(defun reset-substitution-id  ()
   "Reset substitution id table"
   (setf *subst-id-table* (make-hash-table :test #'equal ))
   )
 
 ;;}}}
-
-

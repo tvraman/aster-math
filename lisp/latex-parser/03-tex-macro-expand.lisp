@@ -223,13 +223,6 @@
     )
   )
 
-  ;;; Parameter: *REF-MUST-HAVE-A-BLOCK-ARGUMENT*              Author: raman
-  ;;; Created: Sun Oct 17 16:14:04 1993
-;;; external variable:
-(defparameter *ref-must-have-a-block-argument* t
-  "If T, then \ref must be called with its argument in braces. AMS
-bulletins violate this. ")
-
   ;;; Function: REF-EXPAND                                     Author: raman
   ;;; Created: Mon Dec 28 15:08:00 1992
 
