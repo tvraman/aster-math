@@ -1,7 +1,5 @@
 ;;;   -*- Syntax: Common-Lisp; Base: 10; Mode: LISP -*-    ;;;
  
- 
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
@@ -51,43 +49,6 @@
 
 (defun document-p (self)
   (typep self  'document))
-
-
-;;; Default print-object method for all document objects. Solution
-;;; given by smh@franz.com
-;;; Modified: Mon Dec 21 16:33:55 EST 1992
-;;; Original method gets into an infinite loop  if we have parent slot
-;;; so fixing it. Original function is in <(test file)>
-;;; Modified: Tue Dec 22 14:56:35 EST 1992
-;;; smh suggested setting *print-circle*
-;;; seems to work, so setting it in lisp-init.lisp  rather
-;;; than just kluging the parent slot.
-;;; Modified: Wed Mar 31 12:53:02 EST 1993
-;;; added ignore slots
-
-(defparameter  *print-document-object-ignore-slots*
-  (list'afl-state  'next-read 'previous-read )
-  "slots to ignore while printing document object")
-#+(or lucid pcl)
-(defmethod print-object ((x document) s)
-  (flet
-      ((ignore-slots (slots)
-         (loop for slot in slots 
-               unless (find (slot-definition-name slot) 
-                            *print-document-object-ignore-slots* )
-               collect slot )))
-    (let* ((class (class-of x))
-           (slots(ignore-slots  (class-slots class)))
-           (l (mapcar #'(lambda (slot)
-                          (let* ((name (slot-definition-name slot))
-                                 (boundp (slot-boundp x name))
-                                 (val (and boundp
-                                           (slot-value x name))))
-                            (list name boundp val)))
-                      slots)))
-      (format s "[[~s~%~:{ ~s:~20t~:[<unbound>~;~s~]~%~}]]"
-              (class-name class) l))))
-
 
   ;;; Method: CHILD                                            Author: raman
   ;;; Created: Thu Sep 23 08:55:52 1993

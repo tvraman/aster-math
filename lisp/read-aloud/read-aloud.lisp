@@ -1,5 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
-
 (in-package :aster)
 
 ;;; Parameter: *MATH-SURROUND*                               Author: raman
@@ -89,12 +88,7 @@
 
 ;;{{{ punctuations
 
-;;; Variable: *READ-ALL-TEXT*                                Author: raman
-;;; Created: Wed Apr 29 08:40:46 1992
 
-(defvar *read-all-text* nil  "If true, read all the text in a document.")
-
-(setf *read-all-text* t )
 ;;; Variable: *PUNCTUATIONS*                                 Author: raman
 ;;; Created: Sat Apr 11 19:55:50 1992
 
@@ -428,26 +422,6 @@
     (read-aloud (verbatim-contents verbatim))
     )
   )
-
-;;; Function: OUTLINE                                        Author: raman
-;;; Created: Mon May 11 10:53:37 1992
-;;; No longer used.
-(defun outline (art)
-  "outline of art"
-  (setf *read-all-text* nil)
-  (read-aloud art)
-  (toggle *read-all-text*))
-
-;;; Variable: *READ-MATH-ALOUD*                              Author: raman
-;;; Created: Mon Sep 21 09:15:09 1992
-
-(defvar *read-math-aloud* t "If t read math aloud")
-
-;;; Variable: *SPEAK-MATH-IMMEDIATELY*                       Author: raman
-;;; Created: Tue Sep 29 20:27:39 1992
-(defvar *speak-math-immediately* nil
-  "If t then dectalk speaks math immediately. Set this to nil when
-reading full documents. ")
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Sep  7 13:23:37 1992

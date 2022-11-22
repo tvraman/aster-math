@@ -1,5 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
 (in-package :aster)
 
 ;;; Modified: Mon Dec 21 09:39:21 EST 1992
@@ -50,13 +49,10 @@ In addition, allow the user to mark a position while reading. "
           (afl:tts-force )
           (when  (char=
                   (or (read-char-no-hang) #\space)
-                  *mark-interactively-char*))))))
-  )
+                  *mark-interactively-char*)))))))
 
-(defvar *random-step-limit*  2.0 "Limit on random stepping. ")
-(defvar *random-speech-interval*(1-  (length
-                                      (afl:speech-dimensions)))
-  "Number of speech dimensions. ")
+
+
 
 (def-reading-rule (paragraph quick-interactive)
   "Skip out at end of sentence if requested"
