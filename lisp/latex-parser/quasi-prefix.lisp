@@ -37,18 +37,14 @@
 
 
 
-;;; Variable: *MINUS*                                        Author: raman
-;;; Created: Wed Nov  4 11:25:22 1992
 
-(defvar *minus* "-" "Minus sign")
 ;;; Method: MINUS?                                           Author: raman
 ;;; Created: Wed Nov  4 11:23:23 1992
 
 (defmethod minus? ((math-object math-object))
   "Is this  a minus sign?"
   (and (operator? math-object)
-       (equal *minus* (contents math-object )))
-  )
+       (string-equal "-" (contents math-object ))))
 
 ;;; recognize factorial symbol:
 
@@ -341,14 +337,6 @@
                            nil)
          operands )))))
   )
-
-
-
-
-;;; Variable: *INT*                                          Author: raman
-;;; Created: Tue Nov  3 13:07:15 1992
-
-(defvar *int* "int"  "Integral operator")
 
 ;;; Method: INTEGRAL-P                                       Author: raman
 ;;; Created: Tue Nov  3 13:05:48 1992

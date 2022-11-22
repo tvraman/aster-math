@@ -1,6 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -9,12 +7,10 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 (in-package :aster)
 
- 
-;;; Created: Thu Jan 30 08:52:45 EST 1992
- 
-;;; Handles tex macros.
- 
 
+;;; Created: Thu Jan 30 08:52:45 EST 1992
+
+;;; Handles tex macros.
 
 
 ;;; Function: LATEX-EXPAND                                   Author: raman
@@ -150,22 +146,16 @@
 
   ;;; Parameter: *CITATION-MUST-HAVE-A-BLOCK-ARGUMENT*         Author: raman
   ;;; Created: Sun Oct 17 16:12:16 1993
-;;; external variable:
-(defparameter *citation-must-have-a-block-argument* t
-  "If t, then \cite should be called with its argument in braces. Note:
-AMS bulletins violate this. ")
 
 ;;; Function: CITE-EXPAND                                    Author: raman
 ;;; Created: Sat Feb  1 12:00:28 1992
 
 (defun cite-expand ( citation)
   "process citation"
-  (when *citation-must-have-a-block-argument*
-    (assert
-     (is-a 'block citation) nil
-     "Assert: cite-expand: argument to citation ~a, is not a block"
-     citation))
-                                        ; do not assert that argument is a block.
+  (assert
+   (is-a 'block citation) nil
+   "Assert: cite-expand: argument to citation ~a, is not a block"
+   citation)
   (make-citation
    :label (process-argument
            citation))
@@ -245,12 +235,11 @@ bulletins violate this. ")
 
 (defun ref-expand (ref)
   "Expand \ref"
-  (when *ref-must-have-a-block-argument*
-    (assert
-     (or  (is-a 'block ref)
-          (is-a 'subformula ref))nil
-     "Assert: ref-expand: argument to label ~a, is not a block"
-     ref))
+  (assert
+   (or  (is-a 'block ref)
+        (is-a 'subformula ref))nil
+   "Assert: ref-expand: argument to label ~a, is not a block"
+   ref)
   (let
       ((contents  (rest ref )))
     (setf contents  (mapcar  #'(lambda (unit)
@@ -472,19 +461,18 @@ bulletins violate this. ")
                  :contents "dt"
                  :children (list  "t")))
 
-(define-text-object :macro-name "frac" 
+(define-text-object :macro-name "frac"
   :number-args 2
-  :processing-function frac-expand 
+  :processing-function frac-expand
   :precedence  nil
   :children-are-called (list 'numerator 'denominator )
   :object-name fraction
   :supers (math-object))
 
-
-(define-text-object :macro-name "gcd" 
+(define-text-object :macro-name "gcd"
   :number-args 2
-  :processing-function gcd-expand 
-  :precedence  nil 
+  :processing-function gcd-expand
+  :precedence  nil
   :object-name a-gcd
   :supers (math))
 (define-tex-macro "dx" 0 'dx-expand)

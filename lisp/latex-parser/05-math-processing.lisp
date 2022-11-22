@@ -1,7 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
  
- 
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
 ;;;
@@ -12,12 +10,6 @@
  
 
 ;;; processing math mode of tex.
- 
-
-;;; Variable: *CONVERT-TO-PREFIX*                            Author: raman
-;;; Created: Thu Oct 29 16:18:43 1992
-
-(defvar *convert-to-prefix* t  "If t then convert to prefix in process-math")
 
 ;;; Function: PROCESS-MATH                                   Author: raman
 ;;; Created: Sat Feb  1 12:27:35 1992

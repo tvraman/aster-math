@@ -52,11 +52,6 @@
     (create-article     
      (read in-stream nil)))
   )
-
-  ;;; Variable: *LINK-CHILDREN*                                Author: raman
-  ;;; Created: Fri Dec 25 12:38:08 1992
-
-(defvar *link-children* t "If yes call link-children-to-parent")
 ;;; Modified: Sun Apr 26 17:58:38 EDT 1992
 ;;; declaring *new-article* to be special so that title author date etc.
 ;;; can be handled cleanly. 
