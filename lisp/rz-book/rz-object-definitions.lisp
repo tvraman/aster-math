@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
  
 
-(in-package :cl-user)
+(in-package :aster)
 
 ;;; Mon Dec 21 09:23:42 EST 1992
 ;;; Contains  object definitions from Zippel's book

@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
  
 
-(in-package :cl-user)
+(in-package :aster)
 
 (def-reading-rule (boxed-equation play-sound)
   "Read aloud method for object boxed-equation "

@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
  
 
-(in-package :cl-user)
+(in-package :aster)
 
 (proclaim '(optimize (compilation-speed 3) (safety 3) (speed 2)))
 
@@ -18,8 +18,7 @@
   "Read aloud method for object pno "
   (read-aloud "end of page ")
   (read-aloud (argument pno 1))
-  (afl:tts-queue  "[_.]")
-  (afl:tts-icon *newline-cue*))
+  (afl:tts-queue  "[_.]"))
 
 (defmethod read-aloud  (( seject seject ))
   "Read aloud method for object seject "

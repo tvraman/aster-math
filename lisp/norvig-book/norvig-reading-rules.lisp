@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
  
 
-(in-package :cl-user)
+(in-package :aster)
 
 (proclaim '(optimize (compilation-speed 3) (safety 3) (speed 2)))
 

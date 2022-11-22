@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
+
+
 
 (in-package :aster)
 
@@ -11,88 +11,14 @@
   "Amount of pause around inline math in milliseconds. ")
 
 
- 
 ;;; Created: Sat Apr 11 19:20:05 EDT 1992
 ;;; Contains  read-aloud methods  and associated code.
- 
+
 ;;; Modified: Thu Aug 20 08:49:51 EDT 1992
 ;;;  Using AFL to express rendering rules.
 
-;;; variables defining what sound cues to use:
-
-;;; Variable: *ARTICLE-CUE*                                  Author: raman
-;;; Created: Sun May  3 19:04:31 1992
-
-(defvar *article-cue*
-  "article"
-  "Cue to use at the start and end of articles.")
-
-;;; Variable: *ARTICLE-OPEN-CUE*                             Author: raman
-;;; Created: Tue May 12 13:49:55 1992
-
-(defvar *article-open-cue*
-  "article-open"
-  "open an article")
-
-;;; Variable: *ARTICLE-CLOSE-CUE*                            Author: raman
-;;; Created: Tue May 12 13:50:26 1992
-
-(defvar *article-close-cue*
-  "article-close"
-  "close an article.")
-
-;;; Variable: *ABSTRACT-CUE*                                 Author: raman
-;;; Created: Thu May  7 13:00:16 1992
-
-(defvar *abstract-cue*
-
-  "abstract"
-  "cue for abstract")
-
-;;; Variable: *PARAGRAPH-CUE*                                Author: raman
-;;; Created: Sun May  3 19:06:02 1992
-
-(defvar *paragraph-cue*
-  "paragraph"
-  "cue to use at the start of a new paragraph.")
-
-;;; Variable: *SECTION-CUE*                                  Author: raman
-;;; Created: Sun May  3 19:06:33 1992
-
-(defvar *section-cue*
-  "section"
-  "cue at the beginning of sections.")
-
-;;; Variable: *ITEM-CUE*                                     Author: raman
-;;; Created: Sun May  3 19:11:11 1992
-
-(defvar *item-cue*
-  "item"
-  "Cue for items.")
-
-;;; Variable: *NEWLINE-CUE*                                  Author: raman
-;;; Created: Sun May  3 19:07:03 1992
-
-(defvar *newline-cue*
-  "newline"
-  "Cue for newlines.")
-
-  ;;; Parameter: *FIELD-SEPARATOR-CUE*                         Author: raman
-  ;;; Created: Tue Sep 28 14:27:01 1993
-
-(defparameter *field-separator-cue*
-  "quiet-beep"
-  "sound cue for field separator. ")
-
-;;; Variable: *SLIDE-CUE*                                    Author: raman
-;;; Created: Mon May  4 12:41:54 1992
-
-(defvar *slide-cue*
-  "slide"
-  "cue for slides.")
-
 ;;; end of cues section.
- 
+
 
 ;;; Generic: READ-ALOUD                                      Author: raman
 ;;; Created: Mon Apr 13 11:01:28 1992
@@ -123,7 +49,7 @@
   (with-reading-state (reading-state 'annotation-voice)
     (afl:tts-queue   " Abstract,   ")
     (afl:tts-force))
-  (afl:tts-icon *abstract-cue*  )
+  
   (afl:new-block
     (afl:local-set-state (reading-state 'abstract))
     (read-aloud (abstract-contents abstract))))
@@ -141,8 +67,6 @@
     (afl:initialize-speech-space)
     (setf (afl-state document) afl:*current-speech-state*))
   (reset-footnote-counter))
-
-
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 11:35:06 1992
@@ -302,7 +226,7 @@
 
 (defmethod read-aloud ((paragraph paragraph))
   "read aloud a paragraph."
-  (afl:tts-icon *paragraph-cue*)
+  
   (read-aloud (paragraph-contents paragraph)))
 
 ;;; The following are read-aloud methods for some parent classes.
@@ -316,7 +240,7 @@
   "read aloud a list environment."
   (afl:new-block
     (afl:local-set-state (reading-state 'list-environment-voice))
-    (afl:tts-icon "paragraph")
+    
     (read-aloud (list-environment-items list-environment))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -324,7 +248,7 @@
 
 (defmethod read-aloud ((item item))
   "read aloud an item."
-  (afl:tts-icon *item-cue*)
+  
   (when (item-marker item)
     (with-reading-state (reading-state 'annotation-voice)
       (read-aloud (item-marker item ))))
@@ -397,7 +321,7 @@
           (string-downcase (sectional-unit-name section))
           "")
       (or (sectional-unit-number section) ""))))
-  (afl:tts-icon *section-cue* )
+  
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (sectional-unit-title section)))
   (when (sectional-unit-body section)
@@ -489,12 +413,12 @@
 
 (defmethod read-aloud ((newline (eql  'newline)))
   "read aloud new lines"
-  (afl:tts-icon *newline-cue* )
+  
   (afl:tts-force))
 
 (defmethod read-aloud ((field-separator (eql  'field-separator)))
   "read aloud new lines"
-  (afl:tts-icon *field-separator-cue* )
+  
   (afl:tts-force))
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -502,7 +426,7 @@
 
 (defmethod read-aloud ((slide slide))
   "read aloud a slide"
-  (afl:tts-icon *slide-cue* )
+  
   (read-aloud (slide-contents slide)))
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -607,7 +531,6 @@ reading full documents. ")
 ;;; Function: SORTED-ATTRIBUTES                              Author: raman
 ;;; Created: Mon Oct 26 15:31:17 1992
 
-
 (defun sorted-attributes (attributes)
   "Return attributes sorted in order to be read"
   (loop for attribute in *attributes-reading-order*
@@ -661,22 +584,22 @@ reading full documents. ")
 
 (defmethod read-aloud ((math-array math-array))
   "Read math array, not fully implemented"
-  (afl:with-pronunciation-mode (:mode :math) 
+  (afl:with-pronunciation-mode (:mode :math)
     (let
         ((contents  (if *transpose-table*
                         (transpose-table (contents
                                           math-array))
                         (contents math-array ))))
-      (loop for row in   contents 
+      (loop for row in   contents
             do
                (loop for column in row
                      and
-                       col-index = 1 then (+ 1 col-index) 
+                       col-index = 1 then (+ 1 col-index)
                      do
-                        (dotimes (i col-index) 
-                          (afl:tts-icon   *column-cue*))
+                        (dotimes (i col-index)
+                          )
                         (read-aloud  column))
-               (afl:tts-icon   *row-cue*)))))
+               ))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Nov 19 15:30:15 1992
@@ -693,9 +616,9 @@ reading full documents. ")
                      col-index = 1 then (+ 1 col-index)
                    do
                       (dotimes (i col-index)
-                        (afl:tts-icon  *column-cue*))
+                        )
                       (read-aloud  column))
-             (afl:tts-icon  *row-cue*)))
+             ))
   )
 
 (defmethod read-aloud ((math-eqnarray math-eqnarray))
@@ -707,9 +630,9 @@ reading full documents. ")
                    col-index = 1 then (+ 1 col-index)
                  do
                     (dotimes (i col-index)
-                      (afl:tts-icon  *column-cue*))
+                      )
                     (read-aloud  column))
-           (afl:tts-icon  *row-cue*))
+           )
   )
 
 ;;; Method: READ-ALOUD                                       Author: raman

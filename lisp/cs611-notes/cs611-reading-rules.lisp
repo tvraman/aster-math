@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
  
 
-(in-package :cl-user)
+(in-package :aster)
 
 ;;; Reading rules for objects from cs611 notes
  
@@ -133,37 +133,28 @@
 (def-reading-rule (derivation-ii layout)
   " layout reading rule for object derivation-ii"
   (read-aloud " derivation ")
-  (afl:tts-icon *paragraph-cue*)
   (read-aloud (argument derivation-ii 1 ))
-  (afl:tts-icon   *item-cue*)
   (read-aloud (argument derivation-ii 2 ))
-  (afl:tts-icon *newline-cue*)
   (with-reading-state (reading-state 'yields)
     (read-aloud (argument derivation-ii 3 )))
   )
 
 (def-reading-rule (derivation-ii english)
   " english reading rule for object derivation-ii"
-  (afl:tts-icon *paragraph-cue*)
   (read-aloud " the assumptions ")
   (read-aloud (argument derivation-ii 1 ))
-  (afl:tts-icon *item-cue* )
   (read-aloud " and " )
   (read-aloud (argument derivation-ii 2 ))
-  (afl:tts-icon *newline-cue* )
   (read-aloud " yield ")
   (with-reading-state (reading-state 'yields)
     (read-aloud (argument derivation-ii 3 )))
   )
 (def-reading-rule (derivation-ii inverted)
   " inverted reading rule for object derivation-ii"
-  (afl:tts-icon *newline-cue* )
   (read-aloud " we have ")
   (read-aloud (argument derivation-ii 3 ))
-  (afl:tts-icon *newline-cue* )
   (read-aloud " because ")
   (read-aloud (argument derivation-ii 1 ))
-  (afl:tts-icon *item-cue* )
   (read-aloud " and ")
   (read-aloud (argument derivation-ii 2 ))
   )
@@ -172,49 +163,38 @@
 ;;; { derivation-i layout english inverted
 (def-reading-rule (derivation-i layout)
   " layout reading rule for object derivation-i"
-  (afl:tts-icon *paragraph-cue*)
   (read-aloud (argument derivation-i 1 ))
-  (afl:tts-icon *newline-cue*)
   (read-aloud (argument derivation-i 2 ))
   )
 
 (def-reading-rule (derivation-i inverted-verbose)
   " inverted-verbose reading rule for object derivation-i"
-  (afl:tts-icon *newline-cue* )
   (read-aloud " we know ")
   (read-aloud (argument derivation-i 2 ))
-  (afl:tts-icon *newline-cue* )
+  
   (read-aloud "  because ")
   (read-aloud (argument derivation-i 1 ))
-  (afl:tts-icon *newline-cue* )
   (read-aloud " is true ")
   )
 
 (def-reading-rule (derivation-i   inverted)
   " inverted reading rule for object derivation-i"
-  (afl:tts-icon *newline-cue* )
   (read-aloud (argument derivation-i 2 ))
-  (afl:tts-icon *newline-cue* )
   (read-aloud "  because ")
   (read-aloud (argument derivation-i 1 ))
-  (afl:tts-icon *newline-cue* )
   )
 
 (def-reading-rule (derivation-i english-verbose)
   " english-verbose reading rule for object derivation-i"
-  (afl:tts-icon *paragraph-cue* )
   (read-aloud "From the fact that ")
   (read-aloud (argument derivation-i 1 ))
-  (afl:tts-icon *newline-cue* )
   (read-aloud " we know that ")
   (read-aloud (argument derivation-i 2 ))
   (read-aloud " is true ")
   )
 (def-reading-rule (derivation-i english)
   " english reading rule for object derivation-i"
-  (afl:tts-icon *paragraph-cue* )
   (read-aloud (argument derivation-i 1 ))
-  (afl:tts-icon *newline-cue* )
   (read-aloud "  derives ")
   (read-aloud (argument derivation-i 2 ))
   )
@@ -263,20 +243,15 @@
 (defmethod read-aloud  (( derivation-ii derivation-ii ))
   "Read aloud method for object derivation-ii "
   (read-aloud " derivation ")
-  (afl:tts-icon *paragraph-cue*)
   (read-aloud (argument derivation-ii 1 ))
-  (afl:tts-icon   *item-cue*)
   (read-aloud (argument derivation-ii 2 ))
-  (afl:tts-icon *newline-cue*)
   (with-reading-state (reading-state 'yields)
     (read-aloud (argument derivation-ii 3 )))
   )
 
 (defmethod read-aloud  (( derivation-i derivation-i ))
   "Read aloud method for object derivation-i "
-  (afl:tts-icon *paragraph-cue*)
   (read-aloud (argument derivation-i 1 ))
-  (afl:tts-icon *newline-cue*)
   (read-aloud (argument derivation-i 2 )))
 
 (defmethod read-aloud  (( pred pred ))

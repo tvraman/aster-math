@@ -1,6 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 (in-package :aster)
 ;;; contains methods defined on objects from new-document-objects.
@@ -11,12 +9,12 @@
 ;;; the system cs611-notes.system etc.
 ;;; Eventually this file may completely go away, or just hold object
 ;;; definitions for standard Latex objects.
- 
+
 ;;; Modified: Fri Dec 11 11:38:50 EST 1992
 ;;; Modifying read-aloud methods to match new class definitions for
 ;;; user  defined objects. ie: use (argument object position) instead
 ;;; of argument-position object.
- 
+
 ;;; define some new objects using the macro define-text-object.
 ;;; define associated read methods here as well for the present.
 ;;; each fold contains a tex macro along with the associated read
@@ -86,7 +84,6 @@
   (afl:new-block
     (afl:local-set-state
      (afl:get-point-in-speech-space 'afl:paul))
-    (afl:tts-icon  *section-cue*)
     (read-aloud (argument text-frame-box 1))
     )
   )
@@ -219,13 +216,13 @@
 
 ;;}}}
 
- 
+
 (defmethod read-aloud  (( tex-logo tex-logo ))
   "Read aloud method for object tex-logo "
   (afl:tts-queue "[t`ehkhx_<10>q]")
   )
 
- 
+
 (defmethod read-aloud  (( sub-group sub-group ))
   "Read aloud method for object sub-group "
   (call-next-method)
@@ -250,7 +247,7 @@
   (read-math-child  (argument a-gcd 2 ))
   )
 
- 
+
 (defmethod read-aloud  (( no-number no-number ))
   "Read aloud method for object no-number "
   nil
@@ -289,7 +286,6 @@
   (read-aloud "page ")
   (read-aloud (argument contents-line 3 ))
   (afl:tts-force)
-  (afl:tts-icon  *newline-cue*)
   )
                                         ;(activate-rule 'contents-line 'default)
 
@@ -309,7 +305,7 @@
   nil
   )
 
- 
+
 (defmethod read-aloud  ((diagonal-dots diagonal-dots))
   "Read aloud method for object diagonal-dots "
   (afl:new-block
@@ -322,7 +318,7 @@
                                               ))))
   )
 
- 
+
 (defmethod read-aloud  (( vertical-dots vertical-dots ))
   "Read aloud method for object vertical-dots "
   (afl:tts-queue "dot, dot, dot. ")

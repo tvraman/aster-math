@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
  
 
-(in-package :cl-user)
+(in-package :aster)
 
 ;;; Mon Dec 21 10:21:44 EST 1992
 ;;; Contains reading rule definitions for objects from Vavasis' book

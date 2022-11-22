@@ -2,7 +2,7 @@
 ;;;                                                                       ;;;
  
 
-(in-package :cl-user)
+(in-package :aster)
 
 ;;; Tue May  4 12:43:05 EDT 1993
  ;;; Objects from gries book:

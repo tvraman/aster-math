@@ -1,7 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 
-
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
@@ -23,27 +21,16 @@
 ;;; eg, equations, etc.
 ;;;
 
-
 (defparameter *follow-cross-ref-wait* 0
   "Follow cross reference behaviour. ")
-
-  ;;; Parameter: *CROSS-REF-CUE*                               Author: raman
-  ;;; Created: Sat May  1 15:21:47 1993
-
-(defparameter *cross-ref-cue*
-  "multi_beep"
-  "Cue cross reference. ")
-
+  
 (defun follow-cross-reference?()
   "Prompt user for following cross reference. If yes, caller reads  cross
   referenced object and continue.
  Behaviour determined by *follow-cross-ref-wait*. If 0, do not prompt.
 If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (unless (zerop *follow-cross-ref-wait*)
-    (afl:tts-icon *cross-ref-cue*)
-    (y-or-n-p "Follow cross ref? ")
-    )
-  )
+    (y-or-n-p "Follow cross ref? ")))
 
   ;;; Method: READ-ALOUD                                       Author: raman
   ;;; Created: Mon Dec 28 15:17:11 1992
@@ -87,8 +74,7 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (afl:comma-intonation)
   (read-aloud (title  sectional-unit ))
   (afl:comma-intonation)
-  (afl:tts-force)
-  )
+  (afl:tts-force))
 
   ;;; Method: READ-CROSS-REFERENCE                             Author: raman
   ;;; Created: Mon Dec 28 16:59:39 1992
