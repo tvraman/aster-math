@@ -48,12 +48,6 @@
     (afl:local-set-state (reading-state 'abstract))
     (read-aloud (abstract-contents abstract))))
 
-;;; Variable: *PLAY-SIGNATURE-TUNE*                          Author: raman
-;;; Created: Wed Apr 29 21:45:41 1992
-
-(defvar *play-signature-tune* nil
-  "If t play a tune before and after reading document.")
-
 (defmethod read-aloud  :before ((document document ))
   "Prepare system for reading."
   (afl:tts-init)

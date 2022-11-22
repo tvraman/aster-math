@@ -48,12 +48,6 @@
   `(type-of
     (setf  *document*   ,save-variable)))
 
-  ;;; Variable: *PREVIOUS-READ-POINTER*                        Author: raman
-  ;;; Created: Sun May 16 14:18:28 1993
-
-(defvar *previous-read-pointer* nil "Previous object, ie object just read. ")
-(defun previous-read-pointer() *previous-read-pointer*)
-
 (defun move-inside-subformula-if-necessary()
   "Given that read-pointer is a  subformula with no attributes move
   inside it"

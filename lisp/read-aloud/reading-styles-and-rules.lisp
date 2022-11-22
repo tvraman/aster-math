@@ -137,7 +137,6 @@
 (defmethod read-aloud  :around ((document document))
   "Around method"
   (when document                        ; record for browsing
-    (when *read-pointer* (setf *previous-read-pointer* *read-pointer* ))
     (setf *read-pointer* document)
     (let* ((active-rule (active-rule document))
            (special-pattern (special-pattern document ))
