@@ -236,8 +236,7 @@ Value is derived from `pacmd list-sink-inputs'."
 (defun aster-cmd (sexp)
   "Run Aster command,  a sexp, after first stopping speech."
   (aster-eval
-   (a--code
-    `(progn (afl:tts-stop) ,sexp))))
+   (a--code `(progn (afl:tts-stop) ,sexp))))
 
 ;;}}}
 ;;{{{Reading Commands:
@@ -365,13 +364,13 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   "Move to   document root."
   (interactive )
   (aster-stop)
-  (aster-eval (a--code '(aster:move-to-doc-root))))
+  (aster-cmd '(aster:move-to-doc-root)))
 
 (defun aster-to-math-root ()
   "Move to   math  root."
   (interactive )
   (aster-stop)
-  (aster-eval (a--code '(aster:move-to-top-of-math))))
+  (aster-cmd '(aster:move-to-top-of-math)))
 
 ;;}}}
 ;;{{{Key Bindings:
