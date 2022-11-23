@@ -1,6 +1,6 @@
 ;;;   -*- Mode: LISP -*- ;;;
 
-;; Place etc/10-aster.conf in  ~/.config/common-lisp/source-registry.conf.d/
+;; Place ../etc/10-aster.conf in  ~/.config/common-lisp/source-registry.conf.d/
 ;; for registering and finding packages.
 
 (require "asdf")
