@@ -18,7 +18,7 @@
    move-to-contents
    move-to-subscript
    move-to-superscript
-   move-to-top-of-math move-to-doc-root
+   move-to-math-root move-to-doc-root
    move-up
    read-current read-next read-previous))
 
@@ -480,7 +480,7 @@
   (values)
   )
 
-(defun move-to-top-of-math()
+(defun move-to-math-root ()
   "Move to top of math"
   (afl:refresh)
   (loop while (typep (parent  *read-pointer*) 'math) do

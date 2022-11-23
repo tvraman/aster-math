@@ -378,7 +378,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   "Move to   math  root."
   (interactive )
   (aster-stop)
-  (aster-cmd '(aster:move-to-top-of-math)))
+  (aster-cmd '(aster:move-to-math-root)))
 
 ;;}}}
 ;;{{{Key Bindings:
@@ -389,6 +389,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
 (define-prefix-command 'aster-keymap   'aster-keymap)
 (global-set-key  (kbd "C-; SPC") 'aster-keymap)
 (global-set-key  (kbd "C-' a") 'aster-keymap)
+
 (defsubst aster-keymap-bindings-update (keymap bindings)
   "Update keymap with  list of bindings."
   (cl-loop
