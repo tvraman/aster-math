@@ -37,7 +37,7 @@
 (export
  '(tts-init tts-open tts-shutdown *tts-log*
    tts-stop tts-code tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
-   with-surrounding-pause
+   tts-beep with-surrounding-pause
    high-intonation low-intonation high-low-intonation
    comma-intonation period-intonation
    set-period-pause set-comma-pause
@@ -152,6 +152,11 @@
       (setq text (string-downcase  (format nil " ~a " text))))
     (format i "q {~a}~%" text)
     (finish-output i)))
+
+(defun tts-beep (freq duration)
+  "Produce a beep using the Dectalk."
+  (tts-code (format nil "[:tone ~a ~a]~%" freq duration))
+  (tts-force))
 
 (defun tts-force ()
   "Speak all queued text."
