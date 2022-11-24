@@ -102,8 +102,7 @@
    (title :initform nil :initarg :title :accessor  title )
    (number  :initform nil :initarg :number :accessor sectional-unit-number)
    (body :initform nil :initarg :body :accessor  body  :accessor contents )
-   (sectional-units :initform nil :initarg :sectional-units
-                    :accessor sectional-units :accessor children))
+   (sectional-units :initform nil :initarg :sectional-units :accessor children))
   (:documentation "A sectional unit, such as section, subsection etc."))
 
 ;;; Made more intelligent by adding keyword  argument :unit-name
