@@ -211,7 +211,7 @@ Value is derived from `pacmd list-sink-inputs'."
 
 (defun aster ()
   "Load and start Aster.
-Aster commands are invoked by first pressing the prefix-key  `C-; SPC'.
+Aster commands are invoked by first pressing the prefix-key  \\[aster-keymap].
 If you activate \\[repeat-mode] in newer versions of Emacs, you need
   press the prefix key only the first time when invoking a sequence of
   Aster commands.
