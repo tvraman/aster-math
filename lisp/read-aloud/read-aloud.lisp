@@ -230,7 +230,7 @@
 
 (defmethod read-aloud ((item item))
   "read aloud an item."
-
+  (afl:tts-beep 1800 100)
   (when (item-marker item)
     (with-reading-state (reading-state 'annotation-voice)
       (read-aloud (item-marker item ))))
