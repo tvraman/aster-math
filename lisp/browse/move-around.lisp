@@ -569,9 +569,9 @@
   "Move to the abstract. "
   (cond
     ((and (typep *read-pointer* 'article)
-          (article-abstract *read-pointer*))
+          (abstract *read-pointer*))
      (setf *read-pointer*
-           (article-abstract *read-pointer* )))
+           (abstract *read-pointer* )))
     (t (afl:tts-speak "No abstract. "))))
 
 (defun read-follow-cross-ref(direction-flag)

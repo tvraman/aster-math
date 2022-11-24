@@ -82,13 +82,13 @@
                                         ; abstract and any text preceeding the first section. This calls sets
                                         ; values in *new-article* which is treated as  a special variable.
         (process-initial-body! text-buffer)
-	(setf (article-sectional-units *new-article*)
+	(setf (sectional-units *new-article*)
               (number-list-sectional-units
                (get-sectional-units! text-buffer
                                      :sectional-unit-name
                                      (name-of-sectional-unit-in-front
                                       text-buffer))))
-	(setf (article-references *new-article*)
+	(setf (references *new-article*)
 	      (get-references! text-buffer))
         (link-children-to-parent *new-article*)
 	(setq *document* *new-article*)))))
@@ -142,7 +142,7 @@
 (defun process-initial-body! (text-buffer) 
   "Process initial  body of the article,  ie upto first section."
   (declare (special *new-article* ))
-  (setf (article-initial-body *new-article*)
+  (setf (contents *new-article*)
 	(delete nil (process-text  text-buffer 
                                    #'(lambda(x)
                                        (or

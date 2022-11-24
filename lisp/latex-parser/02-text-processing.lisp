@@ -196,7 +196,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
                         (rest
                          (pop-current-entry text-buffer )))))
                                         ; using special variable *new-article* declared in create-article.
-    (setf (article-abstract *new-article*) new-abstract)
+    (setf (abstract *new-article*) new-abstract)
     nil)
   )
 

@@ -8,10 +8,6 @@
 (in-package :aster)
 
 ;;; Modified: Thu Dec 24 14:08:54 EST 1992
-;;; Adding extra accessors for slots
-;;; accessors like article-title etc could just be title, for the
-;;; present defining multiple accessors to avoid making minimal
-;;; changes to working code. 
 ;;; Modified: Thu Dec 24 11:06:39 EST 1992
 ;;; Modifying predicates like <class>-p to use typep instead of eq
 ;;; class-name Note: this means that <class>-p subclass is true
@@ -78,26 +74,14 @@
 ;;; Created: Thu Apr  2 11:05:54 1992
 
 (defclass article (document)
-  ((title :initform nil :initarg :title :accessor article-title
-          :accessor title )
-   (author :initform nil :initarg :author :accessor article-author
-           :accessor author )
-   (address :initform nil :initarg :address :accessor article-address
-            :accessor address )
-   (date :initform nil :initarg :date :accessor article-date
-         :accessor date )
-   (abstract :initform nil :initarg :abstract :accessor
-             article-abstract
-             :accessor  abstract )
-   (initial-body
-    :initform nil :initarg :initial-body :accessor
-    article-initial-body :accessor contents 
-    :accessor initial-body )
-   (sectional-units :initform nil :initarg :sectional-units
-                    :accessor article-sectional-units
-                    :accessor sectional-units  :accessor children )
-   (references :initform nil :initarg :references :accessor article-references
-               :accessor references ))
+  ((title :initform nil :initarg :title :accessor title )
+   (author :initform nil :initarg :author :accessor author )
+   (address :initform nil :initarg :address :accessor address )
+   (date :initform nil :initarg :date :accessor date )
+   (abstract :initform nil :initarg :abstract :accessor  abstract )
+   (initial-body :initform nil :initarg :initial-body :accessor contents)
+   (sectional-units :initform nil :initarg :sectional-units   :accessor children )
+   (references :initform nil :initarg :references :accessor references ))
   (:documentation "A document belonging to the article class"))
 
 (defun make-article ()

@@ -89,16 +89,16 @@
   (let
       ((abstract (abstract article ))
        (parent (parent article ))
-       (initial-body (initial-body article ))
-       (sections (sectional-units article )))
+       (contents (contents article ))
+       (sections (children article )))
     (unless    (equal 'root parent )
       (unless parent                    ;mark as linked
         (setf (parent article) 'root ))
       (when abstract 
         (setf  (parent abstract) article)
         (link-children-to-parent abstract))
-      (link-siblings initial-body)
-      (loop for block  in initial-body
+      (link-siblings contents)
+      (loop for block  in contents
             do
             (unless (equal  'undefined (parent block ))
               (setf (parent block ) article)

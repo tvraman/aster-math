@@ -189,9 +189,9 @@
 (defmethod summarize ((article article))
   "Summarize an article"
   (cond
-    ((article-title article)
+    ((title article)
      (save-pointer-excursion
-       (read-aloud (article-title article ))))
+       (read-aloud (title article ))))
     (t (afl:tts-queue "article. "))))
 
 (defmethod summarize ((document document))

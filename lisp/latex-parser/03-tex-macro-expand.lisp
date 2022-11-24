@@ -273,7 +273,7 @@
    title)
                                         ; using special variable *new-article*
                                         ;   declared in create-article.
-  (setf (article-title *new-article*)
+  (setf (title *new-article*)
         (process-argument
          title)
         )
@@ -292,7 +292,7 @@
    author)
                                         ; using special variable *new-article*
                                         ; declared in create-article.
-  (setf (article-author *new-article*)
+  (setf (author *new-article*)
         (process-argument
          author)
         )
@@ -311,7 +311,7 @@
    date)
                                         ; using special variable *new-article*
                                         ; declared in create-article.
-  (setf (article-date *new-article*)
+  (setf (date *new-article*)
         (process-argument
          date)
         )
@@ -329,7 +329,7 @@
    address)
                                         ; using special variable *new-article*
                                         ; declared in create-article.
-  (setf (article-address *new-article*)
+  (setf (address *new-article*)
         (process-argument
          address)
         )
