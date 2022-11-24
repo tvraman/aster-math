@@ -455,17 +455,17 @@
         (when (can-this-be-cross-referenced? sectional-unit-name)
           (add-enclosing-referend new-sectional-unit))
 	(setf (title new-sectional-unit) (get-unit-title!  sectional-unit-buffer))
-	(setf (sectional-unit-body new-sectional-unit)
-               (make-paragraph-if-necessary 
-                     (process-text  sectional-unit-buffer 
-                                    #'(lambda(x) (or (is-a
-                                                      (child-of-sectional-unit
-                                                       sectional-unit-name)
-                                                      (lookat-current-entry
-                                                       x))
-                                                     (end-of-buffer? x))))))
+	(setf (body new-sectional-unit)
+              (make-paragraph-if-necessary 
+               (process-text  sectional-unit-buffer 
+                              #'(lambda(x) (or (is-a
+                                                (child-of-sectional-unit
+                                                 sectional-unit-name)
+                                                (lookat-current-entry
+                                                 x))
+                                               (end-of-buffer? x))))))
 	(when (exists-child-of-sectional-unit? sectional-unit-name )
-          (setf (sectional-unit-sectional-units  new-sectional-unit)
+          (setf (children  new-sectional-unit)
                 (get-sectional-units! sectional-unit-buffer
                                       :sectional-unit-name
                                       (child-of-sectional-unit
@@ -545,14 +545,12 @@ Leaves the pointer of text buffer pointing at  next unit"
   (let ((number 1))
     (dolist
         (sectional-unit list-of-sectional-units)
-      (setf (sectional-unit-number sectional-unit)
-            (generate-section-number parent
+      (setf (sectional-unit-number sectional-unit) (generate-section-number parent
                                      number))
-      (when (sectional-unit-sectional-units sectional-unit)
+      (when (children sectional-unit)
         (number-list-sectional-units
-         (sectional-unit-sectional-units sectional-unit)
-         :parent  (sectional-unit-number sectional-unit))
-        )
+         (children sectional-unit)
+         :parent  (sectional-unit-number sectional-unit)))
       
       (incf number)
       )

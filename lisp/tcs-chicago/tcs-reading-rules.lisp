@@ -21,9 +21,10 @@
       (read-aloud (absolute-number asectional-unit ))))
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (title asectional-unit )))
-  (when (sectional-unit-body asectional-unit)
+  (when (body asectional-unit)
     (afl:new-block
-      (read-aloud  (sectional-unit-body asectional-unit)))
+      (read-aloud  (body asectional-unit)))
     (afl:tts-force))
   (afl:new-block
-    (read-aloud (sectional-unit-sectional-units asectional-unit ))))
+
+    (read-aloud (children asectional-unit ))))

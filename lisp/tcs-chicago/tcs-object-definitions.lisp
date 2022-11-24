@@ -84,7 +84,7 @@
               (get-absolute-section-number!  asectional-unit-buffer ))
         (unless (eq sectional-unit-name 'apar )
           (setf (title new-asectional-unit) (get-unit-title!  asectional-unit-buffer)))
-        (setf (sectional-unit-body new-asectional-unit)
+        (setf (body new-asectional-unit)
               (make-paragraph-if-necessary
                (process-text  asectional-unit-buffer
                               #'(lambda(x) (or (is-a
@@ -94,7 +94,7 @@
                                                  x))
                                                (end-of-buffer? x))))))
         (when (exists-child-of-asectional-unit? sectional-unit-name )
-          (setf (sectional-unit-sectional-units  new-asectional-unit)
+          (setf (children  new-asectional-unit)
                 (get-sectional-units! asectional-unit-buffer
                                       :sectional-unit-name
                                       (child-of-asectional-unit

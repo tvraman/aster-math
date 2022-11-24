@@ -281,13 +281,13 @@
       (or (sectional-unit-number sectional-unit) ""))))
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (title sectional-unit )))
-  (when (sectional-unit-body sectional-unit)
+  (when (body sectional-unit)
     (afl:new-block
-      (read-aloud  (sectional-unit-body sectional-unit
+      (read-aloud  (body sectional-unit
                                         )))
     (afl:tts-force))
   (afl:new-block
-    (read-aloud (sectional-unit-sectional-units sectional-unit ))))
+    (read-aloud (children sectional-unit ))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Tue Apr 28 17:32:37 1992
@@ -306,12 +306,12 @@
 
   (with-reading-state (reading-state 'title-voice)
     (read-aloud (title section)))
-  (when (sectional-unit-body section)
+  (when (body section)
     (afl:new-block
-      (read-aloud (sectional-unit-body section )))
+      (read-aloud (body section )))
     (afl:tts-force ))
   (afl:new-block
-    (read-aloud (sectional-unit-sectional-units section ))))
+    (read-aloud (children section ))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Thu Apr 16 19:14:59 1992
