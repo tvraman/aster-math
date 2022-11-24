@@ -32,4 +32,4 @@
             :cs611-notes)))
 
 (aster)
-;(aster-books)
+(aster-books)

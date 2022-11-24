@@ -83,8 +83,7 @@
         (setf (absolute-number new-asectional-unit)
               (get-absolute-section-number!  asectional-unit-buffer ))
         (unless (eq sectional-unit-name 'apar )
-          (setf (sectional-unit-title new-asectional-unit)
-                (get-unit-title!  asectional-unit-buffer)))
+          (setf (title new-asectional-unit) (get-unit-title!  asectional-unit-buffer)))
         (setf (sectional-unit-body new-asectional-unit)
               (make-paragraph-if-necessary
                (process-text  asectional-unit-buffer

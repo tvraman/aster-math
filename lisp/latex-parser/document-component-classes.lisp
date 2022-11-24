@@ -99,8 +99,7 @@
 ;;; Section body is its contents, subsections are its children. 
 (defclass sectional-unit (document)
   ((name :initform nil :initarg :name :accessor sectional-unit-name)
-   (title :initform nil :initarg :title :accessor sectional-unit-title
-          :accessor  title )
+   (title :initform nil :initarg :title :accessor  title )
    (number  :initform nil :initarg :number :accessor sectional-unit-number)
    (body :initform nil :initarg :body :accessor sectional-unit-body
          :accessor  body  :accessor contents )

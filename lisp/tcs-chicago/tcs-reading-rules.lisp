@@ -20,7 +20,7 @@
     (when (absolute-number  asectional-unit)
       (read-aloud (absolute-number asectional-unit ))))
   (with-reading-state (reading-state 'title-voice)
-    (read-aloud (sectional-unit-title asectional-unit )))
+    (read-aloud (title asectional-unit )))
   (when (sectional-unit-body asectional-unit)
     (afl:new-block
       (read-aloud  (sectional-unit-body asectional-unit)))

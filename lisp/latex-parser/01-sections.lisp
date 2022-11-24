@@ -454,8 +454,7 @@
 	    )
         (when (can-this-be-cross-referenced? sectional-unit-name)
           (add-enclosing-referend new-sectional-unit))
-	(setf (sectional-unit-title new-sectional-unit)
-	      (get-unit-title!  sectional-unit-buffer))
+	(setf (title new-sectional-unit) (get-unit-title!  sectional-unit-buffer))
 	(setf (sectional-unit-body new-sectional-unit)
                (make-paragraph-if-necessary 
                      (process-text  sectional-unit-buffer 

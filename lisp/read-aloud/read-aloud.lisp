@@ -280,7 +280,7 @@
           "")
       (or (sectional-unit-number sectional-unit) ""))))
   (with-reading-state (reading-state 'title-voice)
-    (read-aloud (sectional-unit-title sectional-unit )))
+    (read-aloud (title sectional-unit )))
   (when (sectional-unit-body sectional-unit)
     (afl:new-block
       (read-aloud  (sectional-unit-body sectional-unit
@@ -305,7 +305,7 @@
       (or (sectional-unit-number section) ""))))
 
   (with-reading-state (reading-state 'title-voice)
-    (read-aloud (sectional-unit-title section)))
+    (read-aloud (title section)))
   (when (sectional-unit-body section)
     (afl:new-block
       (read-aloud (sectional-unit-body section )))
