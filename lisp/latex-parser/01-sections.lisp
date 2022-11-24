@@ -82,7 +82,7 @@
                                         ; abstract and any text preceeding the first section. This calls sets
                                         ; values in *new-article* which is treated as  a special variable.
         (process-initial-body! text-buffer)
-	(setf (sectional-units *new-article*)
+	(setf (children *new-article*)
               (number-list-sectional-units
                (get-sectional-units! text-buffer
                                      :sectional-unit-name
