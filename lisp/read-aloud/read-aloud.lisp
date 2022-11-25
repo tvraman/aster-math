@@ -45,7 +45,7 @@
 
   (afl:new-block
     (afl:local-set-state (reading-state 'abstract))
-    (read-aloud (abstract-contents abstract))))
+    (read-aloud (contents abstract))))
 
 (defmethod read-aloud  :before ((document document ))
   "Prepare system for reading."

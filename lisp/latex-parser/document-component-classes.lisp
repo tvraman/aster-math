@@ -197,9 +197,7 @@
 ;;; Created: Sat Apr 11 17:08:28 1992
 
 (defclass abstract (document)
-  ((contents :initform nil :initarg :contents :accessor
-             abstract-contents
-             :accessor contents ))
+  ((contents :initform nil :initarg :contents :accessor contents ))
   (:documentation "The abstract of a document"))
 
 (defun make-abstract ()

@@ -190,7 +190,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   (declare (special *new-article* ))
   (let
       ((new-abstract (make-abstract )))
-    (setf (abstract-contents new-abstract)
+    (setf (contents new-abstract)
           (process-text
            (make-buffer :contents
                         (rest
