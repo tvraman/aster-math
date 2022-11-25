@@ -30,10 +30,8 @@
   ((parent :initform nil   :initarg :parent :accessor parent)
    (next :initform  nil  :initarg :next :accessor next)
    (previous :initform nil :initarg :previous :accessor previous)
-   (weight  :initform nil :initarg weight
-            :accessor internal-weight)
-   (afl-state :initform nil :initarg :afl-state :accessor afl-state )
-   )
+   (weight  :initform nil :initarg weight :accessor internal-weight)
+   (afl-state :initform nil :initarg :afl-state :accessor afl-state ))
   (:documentation "The base class for documents."))
 
 ;;; default methods for next-read and previous-read:
@@ -46,30 +44,6 @@
 (defun document-p (self)
   (typep self  'document))
 
-  ;;; Method: CHILD                                            Author: raman
-  ;;; Created: Thu Sep 23 08:55:52 1993
-
-(defmethod child ((document document)(position integer) )
-  "Return nth child of document if any"
-  (cond
-    ((eq 'undefined (children document)) 'undefined)
-    ((not (listp (children document ))) 'undefined)
-    ((> position (length (children document ))) 'undefined)
-    (t (elt  (children document) position )))
-  )
-
-(defmethod child ((position integer)(document document) )
-  "Return nth child of document if any"
-  (cond
-    ((eq 'undefined (children document)) 'undefined)
-    ((not (listp (children document ))) 'undefined)
-    ((> position (length (children document ))) 'undefined)
-    (t (elt  (children document) position )))
-  )
-;;; The simplest list of objects is a list,
-;;; children of a list takes you to the first element?
-;;; check:
-(defmethod children ((list list )) (first list ))
 ;;; Class: ARTICLE                                           Author: raman
 ;;; Created: Thu Apr  2 11:05:54 1992
 
