@@ -240,7 +240,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
                    current-block-buffer)))
     (make-text-block
      :contents contents
-     :local-environment (buffer-local-environment current-block-buffer))
+     :local-env (buffer-local-env current-block-buffer))
     )
   )
 

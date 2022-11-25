@@ -37,9 +37,9 @@
 
 (defun it-expand (text-buffer)
   "italics macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons   '(font italic)
-                (buffer-local-environment text-buffer)))
+                (buffer-local-env text-buffer)))
   nil
   )
 
@@ -48,9 +48,9 @@
 
 (defun bf-expand (text-buffer)
   "bold face macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font bold)
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer))) nil
   )
 
@@ -59,9 +59,9 @@
 
 (defun em-expand (text-buffer)
   "emphasize macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font emphasize)
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer)))
   nil
   )
@@ -71,18 +71,18 @@
 
 (defun large-expand (text-buffer)
   "large font macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font large)
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer)))
   nil
   )
 
 (defun huge-expand (text-buffer)
   "huge font macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font huge)
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer)))
   nil
   )
@@ -92,9 +92,9 @@
 
 (defun rm-expand (text-buffer)
   "roman font macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font roman)
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer)))
   nil
   )
@@ -104,18 +104,18 @@
 
 (defun tt-expand (text-buffer)
   "tt font macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font typewriter)
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer)))
   nil
   )
 
 (defun sf-expand (text-buffer)
   "sf font macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font sans-seriph)
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer)))
   nil
   )
@@ -125,9 +125,9 @@
 
 (defun sc-expand (text-buffer)
   "sc macro: side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font smallcaps )
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer)))
   nil
   )
@@ -137,9 +137,9 @@
 
 (defun sl-expand (text-buffer)
   "sl macro side effect buffer passed as argument"
-  (setf (buffer-local-environment text-buffer)
+  (setf (buffer-local-env text-buffer)
         (cons '(font slanted  )
-              (buffer-local-environment
+              (buffer-local-env
                text-buffer)))
   nil
   )

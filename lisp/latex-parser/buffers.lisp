@@ -23,7 +23,7 @@
 ;;; Modified: Wed Jan 29 10:42:59 EST 1992
 
 
-;;; Added a slot local-environment to the buffer structure.
+;;; Added a slot local-env to the buffer structure.
 ;;; This makes passing information about the environment around easier.
 ;;; In particular avoid use of special variables for handling font changes.
 
@@ -39,13 +39,13 @@
             (:constructor make-buffer-internal ))
   (contents nil)
   (pointer  nil)
-  (local-environment nil))
+  (local-env nil))
 
-(defun make-buffer (&key (contents nil) (local-environment nil ))
+(defun make-buffer (&key (contents nil) (local-env nil ))
   (make-buffer-internal
    :contents contents
    :pointer contents
-   :local-environment local-environment ))
+   :local-env local-env ))
 
 ;;; Function: pop-next-n-entries                       Author: raman
 ;;; Created: Thu Oct 31 12:39:58 1991

@@ -179,19 +179,14 @@
 ;;; Created: Thu Apr  2 15:04:11 1992
 
 (defclass text-block (document)
-  ((contents :initform nil :initarg :contents :accessor
-             text-block-contents
-             :accessor  contents )
-   (local-environment
-    :initform nil
-    :initarg :local-environment :accessor
-    text-block-local-environment))
+  ((contents :initform nil :initarg :contents :accessor  contents )
+   (local-env :initform nil :initarg :local-env :accessor local-env))
   (:documentation "A block of text with its own local bindings"))
 
-(defun make-text-block (&key (contents nil) (local-environment nil))
+(defun make-text-block (&key (contents nil) (local-env nil))
   (let ((self (make-instance 'text-block
                              :contents contents
-                             :local-environment local-environment
+                             :local-env local-env
                              )))
     self))
 
