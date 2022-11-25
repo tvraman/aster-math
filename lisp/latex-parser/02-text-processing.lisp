@@ -207,7 +207,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   "process center"
   (let
       ((new-centered-text (make-centered-text )))
-    (setf (centered-text-contents new-centered-text)(process-text
+    (setf (contents new-centered-text)(process-text
                                                      (make-buffer
                                                       :contents
                                                       (rest
@@ -303,7 +303,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
       ((new-quoted-text (make-quoted-text
                          :quoted-text-type
                          quoted-text-type )))
-    (setf (quoted-text-contents new-quoted-text)
+    (setf (contents new-quoted-text)
           quote)
     new-quoted-text)
   )
@@ -619,8 +619,7 @@ default is enumerated list."
       ((new-list-environment
          (make-list-environment
           :list-environment-type list-environment-type )))
-    (setf (list-environment-items new-list-environment)
-          (remove-null-items list-of-items ))
+    (setf (items new-list-environment) (remove-null-items list-of-items ))
                                         ; Delete dummy item at front.
                                         ; since unnecessary lists now
                                         ; peeled,
@@ -651,7 +650,7 @@ default is enumerated list."
 (defun number-list-environment (list-environment &key (parent nil))
   "number items in a list environment. Only enumerated lists numbered. "
   (when (enumerated-list-p list-environment)
-    (number-list-of-items (list-environment-items list-environment)
+    (number-list-of-items (items list-environment)
                           :parent parent)
     list-environment)
   )

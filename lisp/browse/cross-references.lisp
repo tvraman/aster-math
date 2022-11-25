@@ -93,9 +93,7 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
   (cond
     ((label new-environment) (read-aloud
                               (label-name (label new-environment ))))
-    (t (read-aloud (new-environment-name new-environment )))
-    )
-  )
+    (t (read-aloud (name new-environment )))))
 
 (defmethod read-cross-reference ((figure figure ))
   "Read cross referenced figure"

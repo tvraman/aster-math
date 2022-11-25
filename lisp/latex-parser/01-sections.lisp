@@ -234,7 +234,7 @@
                     (if(and (typep  object 'new-environment)
                             (eql (class-name (class-of object))
                                  'new-environment))
-                       (new-environment-name object)
+                       (name object)
                        (class-name (class-of object )))))
                (format nil "~a ~a"
                        label-name 

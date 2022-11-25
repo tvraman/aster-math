@@ -223,7 +223,7 @@
   (afl:new-block
     (afl:local-set-state (reading-state 'list-environment-voice))
 
-    (read-aloud (list-environment-items list-environment))))
+    (read-aloud (items list-environment))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 19:59:49 1992
@@ -247,7 +247,7 @@
   "read aloud centered text."
   (afl:new-block
     (afl:local-set-state (reading-state 'center))
-    (read-aloud (centered-text-contents centered-text ))))
+    (read-aloud (contents centered-text ))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 20:04:26 1992
@@ -256,7 +256,7 @@
   "read quoted text"
   (afl:new-block
     (afl:local-set-state (reading-state 'quotation-voice))
-    (read-aloud (quoted-text-contents quoted-text))))
+    (read-aloud (contents quoted-text))))
 
   ;;; Method: READ-ALOUD                                       Author: raman
   ;;; Created: Tue Dec 22 14:29:34 1992
@@ -346,7 +346,7 @@
        (format nil "~a ~a. "
                (afl:dehyphenate-word
                 (if (eql 'new-environment (class-name (class-of new-environment )))
-                    (new-environment-name new-environment )
+                    (name new-environment )
                     (class-name (class-of new-environment ))))
                (anumber new-environment )
                )))

@@ -210,9 +210,7 @@
 ;;; Created: Sat Apr 11 17:09:41 1992
 
 (defclass list-environment (document)
-  ((items :initform nil :initarg :items :accessor
-          list-environment-items
-          :accessor items :accessor children ))
+  ((items :initform nil :initarg :items :accessor items :accessor children ))
   (:documentation "Super class for all list environments such as
 enumerated and itemized lists."))
 
@@ -296,8 +294,7 @@ enumerated and itemized lists."))
   ;;; Created: Mon May  3 18:36:54 1993
 
 (defclass labelled-class ()
-  ((label :initform nil :initarg :label :accessor labelled-class-label
-          :accessor label))
+  ((label :initform nil :initarg :label :accessor label))
   (:documentation "Mixin class for making things labelled. "))
 
 (defun make-labelled-class ()
@@ -323,9 +320,7 @@ enumerated and itemized lists."))
 ;;; Created: Sat Apr 11 17:17:01 1992
 
 (defclass centered-text (document)
-  ((contents :initform nil :initarg :contents
-             :accessor centered-text-contents
-             :accessor contents ))
+  ((contents :initform nil :initarg :contents :accessor contents ))
   (:documentation "Centered text"))
 
 (defun make-centered-text (&key (contents nil))
@@ -339,9 +334,7 @@ enumerated and itemized lists."))
 ;;; Created: Sat Apr 11 17:17:35 1992
 
 (defclass quoted-text (document)
-  ((contents :initform nil :initarg :contents
-             :accessor quoted-text-contents
-             :accessor contents ))
+  ((contents :initform nil :initarg :contents :accessor contents ))
   (:documentation "quotations "))
 
 (defun make-quoted-text (&key(quoted-text-type 'inline-quote))
@@ -400,9 +393,7 @@ enumerated and itemized lists."))
 ;;; Created: Thu Apr 16 19:12:24 1992
 
 (defclass comment (document)
-  ((contents :initform nil :initarg :contents :accessor
-             comment-contents
-             :accessor contents ))
+  ((contents :initform nil :initarg :contents :accessor contents ))
   (:documentation "A comment in the typesetting source. "))
 
 (defun make-comment (&key(contents nil))
@@ -416,8 +407,7 @@ enumerated and itemized lists."))
 ;;; Created: Thu Apr 16 19:26:46 1992
 
 (defclass new-environment (document labelled-class numbered-class)
-  ((name :initform nil :initarg :name :accessor new-environment-name
-         :accessor name )
+  ((name :initform nil :initarg :name :accessor name )
    (label :initform nil :initarg :label :accessor label)
    (contents :initform nil :initarg :contents :accessor
              new-environment-contents
