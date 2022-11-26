@@ -112,14 +112,6 @@
   "check if argument is a punctuation character"
   (find punct *punctuations* :test #'string=))
 
-  ;;; Method: PUNCTUATION?                                     Author: raman
-  ;;; Created: Thu Dec 31 11:49:15 1992
-
-(defmethod punctuation? ((aword aword))
-  "Check for punctuation"
-  (punctuation? (contents aword ))
-  )
-
 ;;; Variable: *END-OF-SENTENCE-MARKER*                       Author: raman
 ;;; Created: Mon Apr 13 11:16:00 1992
 
@@ -143,12 +135,6 @@
         :test #'string=)
   )
 
-;;; Method: END-OF-SENTENCE?                                 Author: raman
-  ;;; Created: Thu Dec 31 11:48:20 1992
-
-(defmethod end-of-sentence? ((aword aword))
-  "Check for end of sentence"
-  (end-of-sentence? (contents aword)))
 ;;}}}
 
 ;;; Method: READ-ALOUD                                          Author: raman
@@ -165,15 +151,6 @@
 (defmethod read-aloud ((list list ))
   "read out contents of a list"
   (mapc #'read-aloud list ))
-
-  ;;; Method: READ-ALOUD                                       Author: raman
-  ;;; Created: Sat Dec 26 07:21:06 1992
-;;; Modified: Sat Dec 26 08:49:36 EST 1992
-(defmethod read-aloud ((aword aword))
-  "Read aloud a word. "
-  (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
-  (with-slots  ((contents contents )) aword
-    (afl:tts-queue (format nil " ~a " (afl:get-pronunciation contents )))))
 
 ;;; Method: READ-ALOUD                                          Author: raman
 ;;; Created: Sat Apr 11 20:43:20 1992

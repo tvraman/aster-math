@@ -724,23 +724,7 @@ enumerated and itemized lists."))
 
 (defun math-eqnarray-p (self)
   (eq (class-name (class-of self)) 'math-eqnarray))
-  ;;; Class: WORD                                              Author: raman
-  ;;; Created: Sat Dec 26 07:19:58 1992
 
-(defclass aword (document)
-  ((contents :initform nil :initarg :contents :accessor word-contents
-             :accessor contents))
-  (:documentation "A word"))
-
-(defun make-word ()
-  (let ((self (make-instance 'aword)))
-    self))
-
-(defun word-p (self)
-  (typep self 'aword))
-
-(defun word-subtype-p (self)
-  (typep  self 'aword))
   ;;; Class: LABEL                                             Author: raman
   ;;; Created: Mon Dec 28 14:12:49 1992
 

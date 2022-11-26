@@ -141,27 +141,17 @@
           (link-siblings contents )
           (loop for block in contents
                 do
-                (unless (equal  'undefined (parent block ))
-                  (setf (parent block) current)
-                  (unless (word-p block )
-                    (link-children-to-parent block ))))))
+                   (unless (equal  'undefined (parent block ))
+                     (setf (parent block) current)
+                       (link-children-to-parent block )))))
       (unless (equal 'undefined children ) 
         (link-siblings children)
         (loop for child in children
               do
-              (unless (equal  'undefined (parent child ))
-                (setf (parent child)   current)
-                (link-children-to-parent child)))
-        ))
-    current)
-  )
-
-
-(defmethod link-children-to-parent ((aword aword ))
-  "Words do not have any children at present"
-  (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
-                                        ;do nothing
-  aword)
+                 (unless (equal  'undefined (parent child ))
+                   (setf (parent child)   current)
+                   (link-children-to-parent child)))))
+    current))
 
 ;;; Footnotes parent is currently the word that carries the footnote.
 ;;; Could also make the parent the paragraph in which the footnote

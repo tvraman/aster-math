@@ -383,32 +383,10 @@
       ((key (first (children  cross-ref ))))
     (cond
       ((stringp  key ) key)
-      ((text-block-p key)
-       (funcall  #'concatenate-words
-                 (contents key  )))
+      ((text-block-p key) (contents key  ))
       ((and (listp key)
             (text-block-p (first key  )))
-       (funcall #'concatenate-words 
-                (contents (first key  ))))
-      )
-    )
-  )
-
-
-
-  ;;; Function: CONCATENATE-WORDS                              Author: raman
-  ;;; Created: Wed Dec 30 12:42:40 1992
-
-(defun concatenate-words (list-of-words) 
-  "Concatenate words and return a string"
-  (cond
-    ((every #'word-p list-of-words )
-     (apply #'concatenate 'string
-            (mapcar #'contents list-of-words )))
-    ( (every #'stringp list-of-words)
-     (apply #'concatenate 'string list-of-words ))
-    )
-  )
+                (contents (first key  ))))))
 
   ;;; Method: FIND-CROSS-REFERENCE                             Author: raman
   ;;; Created: Mon Dec 28 15:12:12 1992
