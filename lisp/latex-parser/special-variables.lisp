@@ -228,20 +228,3 @@ the table of known tex macros "
 ;;; Set it to true for now:
 (setf *do-not-signal-error-on-unknown-tex-macro* t)
 ;;; You can toggle it by using (toggle var)
- 
-
-
-;;; Variable: *RETURN-A-DEFAULT-PARSER*                      Author: raman
-;;; Created: Sat Feb 29 13:10:37 1992
-
-(defvar *return-a-default-parser* nil
-  "switch indicating if a default parser is to be returned if none found in parse table")
-;;; Set it to true.
-(setf *return-a-default-parser* t)
-
-
-
- 
-
-
-

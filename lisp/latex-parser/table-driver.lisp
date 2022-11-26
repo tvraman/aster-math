@@ -73,20 +73,16 @@
 
 (defun get-parser (token &key  (math-flag nil)) 
   "Get the right parsing function from the global variable "
-  (let
-      ((parser 
-	(gethash (if math-flag; things classified differently in math mode.
-                     (math-what-is? token)
-                     (what-is? token))
+  (let ((parser 
+	(gethash
+         (if math-flag   ; things classified differently in math mode.
+             (math-what-is? token)
+             (what-is? token))
                  *processing-function-table* )))
     (cond
       ((null parser )
-       (if *return-a-default-parser*
-	   (gethash 'unknown-construct
-                    *processing-function-table*)
-           (error "parser for ~a not found in parse table " token )))
-      (t parser )))
-  )
+       (gethash 'unknown-construct *processing-function-table*))
+      (t parser ))))
 
  
 ;;; table for handling tex macros.
