@@ -9,7 +9,9 @@
 
 (defvar *lexer*
   (namestring
-   (merge-pathnames "lexer/lispify" (namestring    #.   *load-truename*)))
+   (merge-pathnames
+    "lexer/lispify"
+    (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))))
   "Lexical analyser.")
 
 (defvar *docs-cache* (make-hash-table :test #'eq)
