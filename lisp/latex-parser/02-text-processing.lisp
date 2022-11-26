@@ -102,59 +102,46 @@
 termination-condition is satisfied.  Upon exit, buffer-pointer points to after processed text"
   (let ((processed-text nil)
         (current-paragraph nil))
-    (loop for token = (lookat-current-entry text-buffer )
-          until
-          (funcall termination-condition?  text-buffer)
-          do
-             (cond
-               ((end-of-buffer? text-buffer)
-                (error " Processing text  end reached before close delimiter"))
-               ((eq 'parbreak token) (advance-pointer  text-buffer)
-                (push (make-paragraph
-                       :contents (delete nil  (nreverse
-                                               current-paragraph )))
-                      processed-text)
-                (setf current-paragraph nil))
-                                        ;Above  is a crude way of handling
-                                        ;paragraphs. At present only paragraphs
-                                        ; delimited by parbreak will be caught.
-               (t (push (funcall (get-parser token)
-                                 text-buffer)
-                        current-paragraph )))
-          finally
-             (return
-               (peel-off-lists
-                (nreverse
-                 (delete nil
-                         (push  (if processed-text
-                                    (make-paragraph
-                                     :contents
-                                     (nreverse
-                                      (delete nil current-paragraph )))
-                                    (nreverse (delete nil current-paragraph )))
-                                processed-text )))))
-                                        ; Above to avoid degenerate case
-                                        ; of text being made into
-                                        ; paragraphs where none exists.
-          )))
+    (loop
+      for token = (lookat-current-entry text-buffer )
+      until (funcall termination-condition?  text-buffer)
+      do
+         (cond
+           ((end-of-buffer? text-buffer)
+            (error " Processing text  end reached before close delimiter"))
+           ((eq 'parbreak token)
+            (advance-pointer  text-buffer)
+            (push
+             (make-paragraph
+              :contents
+              (delete nil  (nreverse current-paragraph )))
+                  processed-text)
+            (setf current-paragraph nil))
+           (t
+            (push (funcall (get-parser token) text-buffer) current-paragraph )))
+      finally
+         (return
+           (peel-off-lists
+            (nreverse
+             (delete
+              nil
+              (push
+               (if processed-text
+                   (make-paragraph
+                    :contents
+                    (nreverse (delete nil current-paragraph )))
+                   (nreverse (delete nil current-paragraph )))
+               processed-text ))))))))
 
 ;;; Function: PROCESS-WORD                                   Author: raman
 ;;; Created: Sun Jan 26 15:42:16 1992
-;;; Modified: Mon Apr 20 17:56:32 EDT 1992
-;;; Modified: Sat Dec 26 08:51:15 EST 1992
-;;; use variable *link-words* to decide if word object to be built.
 
-  ;;; Variable: *LINK-WORDS*                                   Author: raman
-  ;;; Created: Sat Dec 26 08:51:44 1992
 
-(defvar *link-words* nil "If t words linked so make up a word object")
- 
+
 
 (defun process-word (text-buffer )
   "Process a word "
-  (if *link-words*
-      (make-instance 'aword :contents (pop-current-entry text-buffer))
-      (pop-current-entry text-buffer)))
+      (pop-current-entry text-buffer))
 
 ;;; Function: PROCESS-COMMENT                                Author: raman
 ;;; Created: Fri Feb 28 10:52:02 1992
