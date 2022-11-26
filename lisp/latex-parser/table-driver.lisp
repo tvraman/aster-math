@@ -101,12 +101,7 @@
   "gets the entry for macro macro-name from the table"
   (or
    (gethash  macro-name *tex-macro-table*)
-   (if    *do-not-signal-error-on-unknown-tex-macro*
-	  (gethash  'default *tex-macro-table* )
-          (error "get-tex-macro: Cannot find entry for ~a in *tex-macro-table*"
-                 macro-name))
-   )
-  )
+   (gethash  'default *tex-macro-table* )))
 
 ;;; Macro: TOGGLE                                         Author: raman
 ;;; Created: Tue Feb  4 09:39:38 1992

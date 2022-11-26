@@ -224,14 +224,6 @@ the table of known tex macros "
 ;;; boolean variables.
 ;;; Affect default behaviour
 ;;; Can be toggled with (toggle *var*)
- 
-
-;;; Variable: *SIGNAL-ERROR-ON-UNKNOWN-TEX-MACRO*            Author: raman
-;;; Created: Thu Jan 30 11:54:06 1992
-;;; external variable: 
-(defvar *do-not-signal-error-on-unknown-tex-macro*  nil
-  "tell parser to signal error or continue when undefined tex macro
-  seen.")
 
 ;;; Set it to true for now:
 (setf *do-not-signal-error-on-unknown-tex-macro* t)
