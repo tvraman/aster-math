@@ -10,10 +10,6 @@
 
 (in-package :aster)
 
-(defvar *lisp-dir*
-  (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))
-  "directory under which lisp code is organized")
-
 (defun aster ()
   "Load AsTeR modules and initialize system."
   (when (uiop:getenv "ASTER_TTS")
