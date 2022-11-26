@@ -1,6 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -15,6 +13,15 @@
  
  
 ;;{{{ attributes
+
+
+;;; Variable: *ALL-ATTRIBUTES*                               Author: raman
+;;; Created: Sat Oct 31 13:46:52 1992
+
+(defvar *all-attributes*
+  '(SUBSCRIPT SUPERSCRIPT ACCENT
+    UNDERBAR LEFT-SUBSCRIPT LEFT-SUPERSCRIPT )
+  "Currently known  list of attributes")
 
 ;;; Class: ATTRIBUTE                                     Author: raman
 ;;; Created: Fri Sep 18 08:33:54 1992
@@ -33,7 +40,7 @@
   (:documentation "An attribute in math"))
 
 (defun make-attribute (&key name value parent)
-  (assert (valid-attribute? name) nil
+  (assert (member name  *all-attributes*) nil
           "~a is not a valid attribute name"
           name)
   (let ((self (make-instance name
@@ -52,22 +59,7 @@
 (defclass underbar (attribute) () )
 (defclass left-subscript (attribute) () )
 (defclass left-superscript  (attribute) () )
-;;; Variable: *ALL-ATTRIBUTES*                               Author: raman
-;;; Created: Sat Oct 31 13:46:52 1992
 
-(defvar *all-attributes*
-  '(SUBSCRIPT SUPERSCRIPT ACCENT
-    UNDERBAR LEFT-SUBSCRIPT LEFT-SUPERSCRIPT )
-  "Currently known  list of attributes")
-
-  ;;; Function: VALID-ATTRIBUTE?                               Author: raman
-  ;;; Created: Sat Dec 19 14:27:12 1992
-
-(defun valid-attribute? (attribute-name)
-  "Check if this attribute name is valid"
-  (declare (special *all-attributes* ))
-  (find attribute-name *all-attributes*)
-  )
 ;;; Function: APPEND-ATTRIBUTE-VALUE                         Author: raman
 ;;; Created: Fri Sep 18 09:47:38 1992
 
