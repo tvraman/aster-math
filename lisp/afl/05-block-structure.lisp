@@ -54,12 +54,7 @@
 ;;; all blocks should have exits.
 ;;; generate block name automatically.
 ;;; eventually do away with named-block
-
-  ;;; Variable: *AFL-BLOCK-ID*                                 Author: raman
-  ;;; Created: Tue Mar 23 10:30:14 1993
-
-(defvar *afl-block-id*  0 "used to generate name of next afl block ")
-
+  
 (defun afl-block-name()
   "Generate a afl block name"
   (gensym "afl-block-"))
