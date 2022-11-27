@@ -8,11 +8,7 @@
 (proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
 
 (export '(
-          *default-voice*
-          *reader-period-pause* *reader-comma-pause*
-          initialize-speech-space
-          re-initialize-speech-space
-          current-value))
+          initialize-speech-space re-initialize-speech-space current-value))
 
 ;;{{{ method reference-value
 (defgeneric reference-value (ref))
@@ -260,17 +256,6 @@ space."
 ;;; It then looks up the default values for this voice. These are then
 ;;; entered into the various tables. Thus when this function finishes
 ;;; its work, we have the default settings as well as a start point.
-
-;;; Variable: *READER-PERIOD-PAUSE*                          Author: raman
-;;; Created: Mon Apr 13 10:01:35 1992
-
-(defparameter  *reader-period-pause*  -380  "period pause used by reader.")
-
-;;; Variable: *READER-COMMA-PAUSE*                           Author: raman
-;;; Created: Mon Apr 13 10:04:31 1992
-
-(defparameter *reader-comma-pause*  -40  "comma pause used by reader.")
-
 ;;; Function: INITIALIZE-SPEECH-SPACE                        Author: raman
 ;;; Created: Fri Aug  7 12:44:56 1992
 (defun initialize-speech-space (&optional(voice *default-voice*))
@@ -286,9 +271,7 @@ argument to this function,  the name of a point in speech space"
   (setf *current-speech-state* (create-initial-point-in-speech-space))
   (setf *global-speech-state* (create-initial-point-in-speech-space ))
   (tts-init)
-  (set-speech-state *current-speech-state*)
-  (set-period-pause *reader-period-pause*)
-  (set-comma-pause *reader-comma-pause*))
+  (set-speech-state *current-speech-state*))
 
 ;;; Function: SETUP-GLOBALS                                  Author: raman
 ;;; Created: Sat Aug  8 10:15:54 1992
