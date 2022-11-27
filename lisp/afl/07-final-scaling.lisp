@@ -21,12 +21,6 @@
 ;;; reading being scaled. Will work with interruptions.
 
 ;;{{{ *table-of-final-scale-factors*
-
-;;; Variable: *DEFAULT-FINAL-SCALE-FACTOR*                   Author: raman
-;;; Created: Fri Aug 14 11:44:50 1992
-
-(defvar *default-final-scale-factor* 1
-  "Default scale factor along all dimensions in speech space")
 ;;; Variable: *TABLE-OF-FINAL-SCALE-FACTORS*                 Author: raman
 ;;; Created: Fri Aug 14 11:36:00 1992
 
@@ -44,27 +38,6 @@ if scale factor already defined "
     (setf (gethash dimension *table-of-final-scale-factors*)
           scale-factor))
   )
-
-;;; Function: GET-FINAL-SCALE-FACTOR                         Author: raman
-;;; Created: Fri Aug 14 11:38:46 1992
-
-(defun get-final-scale-factor (dimension)
-  "Retrieve global scale factor for dimension dimension default is unity"
-  (or
-   (gethash dimension  *table-of-final-scale-factors*)
-   *default-final-scale-factor*)
-  )
-
-;;; Function: SET-FINAL-SCALE-FACTOR                         Author: raman
-;;; Created: Fri Aug 14 11:40:44 1992
-
-(defun set-final-scale-factor (dimension scale-factor)
-  "Set scale factor for dimension"
-  (setf (gethash dimension *table-of-final-scale-factors*)
-        scale-factor)
-  (set-speech-state *current-speech-state*)
-  )
-
 ;;; Function: REFRESH                                        Author: raman
 ;;; Created: Thu Aug 20 14:04:49 1992
 

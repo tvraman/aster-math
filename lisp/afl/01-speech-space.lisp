@@ -349,8 +349,10 @@ if scale factor already defined "
   "Retrieve global scale factor for dimension dimension default is unity"
   (or
    (gethash dimension  *table-of-final-scale-factors*)
-   *default-final-scale-factor*)
-  )
+   *default-final-scale-factor*))
+
+
+
 
 ;;; Function: SET-FINAL-SCALE-FACTOR                         Author: raman
 ;;; Created: Fri Aug 14 11:40:44 1992
@@ -361,6 +363,7 @@ if scale factor already defined "
         scale-factor)
   (set-speech-state *current-speech-state*)
   )
+
 
 ;;; Function: REFRESH                                        Author: raman
 ;;; Created: Thu Aug 20 14:04:49 1992
