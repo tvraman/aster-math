@@ -32,7 +32,7 @@
   ;;; Created: Tue Feb 23 19:58:30 1993
 
 (defvar *valid-pronunciation-modes*
-  (list :text :math :lisp :french)
+  (list :text :math :french)
   "Valid pronunciation modes")
 
   ;;; Function: VALID-PRONUNCIATION-MODE?                      Author: raman
@@ -230,41 +230,10 @@ things. ")
 ;;}}}
 ;;{{{ lisp mode
 
-  ;;; Variable: *LISP-MODE-PRONUNCIATIONS*                     Author: raman
-  ;;; Created: Tue Feb 23 20:01:46 1993
-
-(defvar *lisp-mode-pronunciations*
-  (make-hash-table :test #'equal)
-  "Lisp mode pronunciations")
-
-;;; Method: DEFINE-PRONUNCIATION                           Author: raman
-;;; Created: Fri Sep 25 11:42:42 1992
-
-(defmethod  define-pronunciation  (( string string ) (pronounced-as string)
-                                   (mode (eql :lisp )))
-  " Define pronunciation for string in lisp mode  "
-  (setf (gethash string *lisp-mode-pronunciations*) pronounced-as)
-  )
-
-;;; Method: REMOVE-PRONUNCIATION                           Author: raman
-;;; Created: Tue Oct 27 15:55:18 1992
-
-(defmethod  remove-pronunciation ( (string string) (mode (eql :lisp )))
-  "Remove pronunciation for string in lisp mode "
-  (remhash string *lisp-mode-pronunciations*)
-  )
-
   ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
   ;;; Created: Wed Apr  7 12:03:12 1993
 
-(defmethod get-pronounce-internal ((string string) (mode (eql :lisp )))
-  "Internal method for getting pronunciation in lisp mode"
-  (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
-  (let ((lower-case-string (string-downcase string )))
-    (if (hyphenated-lisp-word-p string )
-        (dehyphenate-lisp-word string )
-        (or (gethash lower-case-string *lisp-mode-pronunciations*)
-            (gethash  lower-case-string *text-mode-pronunciations* )))))
+
 
 ;;}}}
 
@@ -277,28 +246,7 @@ things. ")
 (defun   get-pronunciation (string &optional (mode *pronunciation-mode*))
   "Get pronunciation for string in current pronunciation mode "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
-  (get-pronounce-internal    string mode)
-  )
-
-;;; Modified: Wed Apr  7 12:01:45 EDT 1993
-;;; since get-pronunciation has been written to use an optional
-;;; argument,  defining an internal method get-pronunciation-internal
-;;; which can despatch on the mode. If this proves too slow, then
-;;; revert to just using the original function.
-
-  ;;; Function: HYPHENATED-LISP-WORD-P                         Author: raman
-  ;;; Created: Tue Feb 23 20:14:14 1993
-(defun hyphenated-lisp-word-p (string)
-  "Is this a hyphenated lisp word, ie more than one hyphen?"
-  (> (count #\- string :test #'char=) 0)
-  )
-
-  ;;; Function: DEHYPHENATE-LISP-WORD                          Author: raman
-  ;;; Created: Tue Feb 23 20:16:25 1993
-(defun dehyphenate-lisp-word (str)
-  "Remove hyphens and replace by spaces."
-  (concatenate 'string (uiop:split-string str :separator "-" )))
-
+  (get-pronounce-internal    string mode))
   ;;; Macro: WITH-PRONUNCIATION-MODE                           Author: raman
   ;;; Created: Sun Dec 13 09:40:20 1992
 

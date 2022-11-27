@@ -395,7 +395,7 @@
 ;;}}}
 ;;{{{ lisp mode
 
-(define-pronunciation "(" " open paranth, " :lisp)
-(define-pronunciation ")"  " close paranth, " :lisp)
+
+
 
 ;;}}}
