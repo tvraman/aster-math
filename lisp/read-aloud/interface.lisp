@@ -7,19 +7,12 @@
 
 (export '(file text))
 
-(defvar *lexer*
-  (namestring
-   (merge-pathnames
-    "lexer/lispify"
-    (namestring (uiop:pathname-directory-pathname   #.   *load-truename*))))
-  "Lexical analyser.")
-
 (defvar *docs-cache* (make-hash-table :test #'eq)
   "Hash table of cached documents read in this session.")
 
 (defun doc-from-stream (input)
   "Return document parsed by reading  input stream."
-  (let ((p (run-program *lexer* nil :input input  :wait t :output  :stream)))
+  (let ((p (run-program (lexer) nil :input input  :wait t :output  :stream)))
     (create-article (read (process-output p)))))
 
 (defun insert-doc-after-current (current doc)
