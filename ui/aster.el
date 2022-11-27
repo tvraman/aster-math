@@ -266,7 +266,7 @@ The following commands are available on this prefix once aster is running:
   (interactive "fFile: ")
   (aster-check)
   (aster-cmd
-   `(aster:file ,file')))
+   `(aster:file ,file)))
 
 ;; Make sure to first setup device <snoop> via default.pa for Pulseaudio
 
