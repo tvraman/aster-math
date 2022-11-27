@@ -12,12 +12,8 @@
 
 (defun lexer ()
   "Return location of lexer."
-  (let ((lexer (namestring
-                (merge-pathnames
-                 "lexer/lispify"
-                 (namestring (uiop:pathname-directory-pathname   #.
-                                                                 *load-truename*))))))
-    lexer))
+  (let ((base (uiop:pathname-directory-pathname   #. *load-truename*)))
+    (namestring (merge-pathnames "lexer/lispify" base))))
 
 (defun aster ()
   "Load AsTeR modules and initialize system."
