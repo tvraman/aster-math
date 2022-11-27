@@ -28,5 +28,4 @@
     :depends-on ("structs"))
    (:file "pronounce")
    (:file "pronunciations" :depends-on ("pronounce"))
-   (:file "french-pronunciations" :depends-on ("pronounce" ))
    (:file  "interface-pronounce" :depends-on( "pronounce"))))

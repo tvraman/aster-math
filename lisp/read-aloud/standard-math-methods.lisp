@@ -1,6 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 (in-package :aster)
 
@@ -63,25 +61,13 @@
 
 ;;}}}
 
-;;; french is not a math object, but ...
-
-(defmethod read-aloud  (( french french ))
-  "Read aloud method for object french "
-  (afl:new-block
-    (afl:local-set-state :french)
-    (afl:local-set-state (reading-state 'annotation-voice ))
-    (read-aloud (argument french 1  )))
-  )
-
-
 (defmethod read-aloud  (( inference inference ))
   "Read aloud method for object inference "
   (afl:new-block
     (read-aloud  (argument inference 1 ))
     (read-aloud " implies ")
     (read-aloud (argument inference 2 ))
-    (afl:tts-force))
-  )
+    (afl:tts-force)))
 
 (defmethod read-aloud  (( afl afl ))
   "Read aloud method for object afl "

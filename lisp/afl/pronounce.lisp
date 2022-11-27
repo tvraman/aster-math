@@ -32,7 +32,7 @@
   ;;; Created: Tue Feb 23 19:58:30 1993
 
 (defvar *valid-pronunciation-modes*
-  (list :text :math :french)
+  (list :text :math)
   "Valid pronunciation modes")
 
   ;;; Function: VALID-PRONUNCIATION-MODE?                      Author: raman
@@ -176,53 +176,6 @@ things. ")
      (gethash (if *pronounce-ignore-case-in-math* lower-case-string
                   string)
               *math-mode-pronunciations*)
-     string  )                          ; second disjunct: default  is string
-    )
-  )
-
-;;}}}
-;;{{{ french mode
-
-;;; Variable: *FRENCH-MODE-PRONUNCIATIONS*                     Author: raman
-;;; Created: Fri Sep 25 11:40:46 1992
-
-(defvar *french-mode-pronunciations*
-  (make-hash-table :test #'equal  )
-  "Pronunciations in french mode.")
-
-;;; Method: DEFINE-PRONUNCIATION                           Author: raman
-;;; Created: Fri Sep 25 11:42:42 1992
-
-(defmethod  define-pronunciation  (( string string ) (pronounced-as string)
-                                   (mode (eql :french )))
-  " Define pronunciation for string in french mode  "
-  (setf (gethash string *french-mode-pronunciations*) pronounced-as)
-  )
-
-;;; Method: REMOVE-PRONUNCIATION                           Author: raman
-;;; Created: Tue Oct 27 15:55:18 1992
-
-(defmethod  remove-pronunciation ( (string string) (mode (eql :french )))
-  "Remove pronunciation for string in french mode "
-  (remhash string *french-mode-pronunciations*)
-  )
-
-;;; Variable: *PRONOUNCE-IGNORE-CASE-IN-FRENCH*                Author: raman
-;;; Created: Tue Nov 10 15:28:51 1992
-
-(defvar *pronounce-ignore-case-in-french* t
-  "If t case ignore in french mode when choosing pronunciation")
-
-  ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
-  ;;; Created: Wed Apr  7 12:03:12 1993
-(defmethod get-pronounce-internal ((string string) (mode (eql :french )))
-  "Internal method for getting pronunciation in french mode"
-  (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
-  (let ((lower-case-string (string-downcase string )))
-    (or                                 ; first disjunct:
-     (gethash (if *pronounce-ignore-case-in-french* lower-case-string
-                  string)
-              *french-mode-pronunciations*)
      string  )                          ; second disjunct: default  is string
     )
   )

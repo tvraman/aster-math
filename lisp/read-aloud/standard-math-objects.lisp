@@ -66,15 +66,6 @@
 
 ;;}}}
 
-;;; french is not a math object, but ...
-
-(define-text-object :macro-name "french"
-  :number-args 1
-  :processing-function french-expand
-  :precedence  nil
-  :object-name french
-  :supers (document))
-
 (define-text-object :macro-name "inference"
   :number-args 2
   :processing-function inference-expand
