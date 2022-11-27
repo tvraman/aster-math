@@ -21,7 +21,7 @@
       (setf (next doc) cache)
       (setf (previous cache) doc))))
 
-(defun file (filename &key  id)
+(defun file (filename)
   "Aster a  Latex article.
   Also create a next/previous link with document
   that is current."
