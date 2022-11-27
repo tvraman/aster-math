@@ -340,21 +340,20 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 (defun process-new-environment (text-buffer )
   "process an unknown latex environment"
-  (let* (
-         (environment-contents(rest  (pop-current-entry text-buffer)))
+  (let* ((environment-contents(rest  (pop-current-entry text-buffer)))
          (environment-name  (first  environment-contents))
-         (new-environment (create-new-environment
-                           :env-name         environment-name )))
+         (new-environment
+           (create-new-environment :env-name         environment-name )))
     (when (can-this-be-cross-referenced? 'new-environment )
       (add-enclosing-referend new-environment ))
     (when (numbered-class-p new-environment)
-      (increment-counter-value
-       (class-name (class-of new-environment )))
-      (setf (numbered-class-number new-environment) (next-counter-value
-                                                     (class-name (class-of new-environment )) )))
-    (setf (contents new-environment) (process-text
-                                      (make-buffer
-                                       :contents (rest environment-contents))))
+      
+      (setf (numbered-class-number new-environment)
+            (increment-counter-value (class-name (class-of new-environment )))))
+    (setf (contents new-environment)
+          (process-text
+           (make-buffer
+            :contents (rest environment-contents))))
     (when (can-this-be-cross-referenced? 'new-environment )
       (pop-enclosing-referend  ))
     new-environment
@@ -717,15 +716,14 @@ default is enumerated list."
     (when (can-this-be-cross-referenced? 'math-equation)
       (add-enclosing-referend math-equation))
     (when (numbered-class-p math-equation )
-      (increment-counter-value 'math-equation)
-      (setf (numbered-class-number math-equation )  (next-counter-value "MATH-EQUATION"  )))
+      (setf (numbered-class-number math-equation )
+            (increment-counter-value 'math-equation)))
     (setf  (contents math-equation )
            (list  (process-math
                    equation-buffer )))
     (when (can-this-be-cross-referenced? 'math-equation)
       (pop-enclosing-referend ))
-    math-equation)
-  )
+    math-equation))
 
 ;;; Function: PROCESS-EQNARRAY                               Author: raman
 ;;; Created: Sun Jan 26 15:27:03 1992

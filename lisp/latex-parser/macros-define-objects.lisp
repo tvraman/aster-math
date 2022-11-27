@@ -176,8 +176,8 @@ passed to automatically generated processing function")
          (add-enclosing-referend self)
                                         ; number it
          (when (numbered-class-p self )
-           (increment-counter-value  (class-name (class-of self )))
-           (setf (anumber self )  (next-counter-value (class-name (class-of self )))))
+           (setf (anumber self )
+                 (increment-counter-value  (class-name (class-of self )))))
                                         ; Now process the label,
                                         ;it will automatically point to the referend
          (if ,label-first

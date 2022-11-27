@@ -233,8 +233,7 @@
                         (class-name (class-of object )))))
                (format nil "~a ~a"
                        label-name
-                       (next-counter-value label-name )))
-             ))
+                       (increment-counter-value label-name )))))
       (setf (parent label)  (current-referend))
       (unless (eq 'undefined (label  (current-referend )))
         (setf (label (current-referend))  label ))
@@ -254,34 +253,19 @@
 
 (defun initialize-counters ()
   "Initialize table of counters"
-  (setf *counter-table* (make-hash-table :test #'equal))
-  )
-  ;;; Function: NEXT-COUNTER-VALUE                             Author: raman
-  ;;; Created: Fri Apr 30 10:46:37 1993
-;;; Modified: Sun May  2 11:16:46 EDT 1993
-;;; Since counter now incremented when an environment that can be
-;;; labelled is encountered, next-counter-value should just return the
-;;; counter, not increment.
+  (setf *counter-table* (make-hash-table :test #'equal)))
 
-(defun next-counter-value (counter-name)
-  "Get next value of this counter "
-  (let ((value (gethash counter-name *counter-table* )))
-    (cond
-      ((null value) (setf (gethash counter-name *counter-table*) 1))
-      (t value)
-      ))
-  )
-
-  ;;; Function: INCREMENT-COUNTER-VALUE                        Author: raman
-  ;;; Created: Sun May  2 09:31:29 1993
+;;; Function: INCREMENT-COUNTER-VALUE                        Author: raman
+;;; Created: Sun May  2 09:31:29 1993
 
 (defun increment-counter-value (counter-name)
   "Increment value of this counter. "
   (let ((value (gethash counter-name *counter-table* )))
     (cond
-      ((null value) (setf (gethash counter-name *counter-table*) 1))
-      (t (incf (gethash counter-name *counter-table*))
-         value))))
+      ((null value)
+       (setf (gethash counter-name *counter-table*) 1)
+       1)
+      (t (incf (gethash counter-name *counter-table*))))))
 
   ;;; Function: LABELLED-P                                     Author: raman
   ;;; Created: Fri Apr 30 09:16:04 1993
