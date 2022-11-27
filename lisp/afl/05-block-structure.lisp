@@ -152,7 +152,7 @@ scaling"
   ;;; Created: Wed Feb 10 11:47:34 1993
 ;;; Relies on representation of point-in-speech-space
 ;;; forward declaration: see 01-speech-space for real definition
-(defvar *speech-dimensions*)
+
 (defun compute-modified-dimensions (old-point new-point )
   "Return names of dimensions that are changed in new-point"
   (cond
