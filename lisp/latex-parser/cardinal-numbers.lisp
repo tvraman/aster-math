@@ -1,6 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -24,8 +22,7 @@
 
 (defun define-cardinal-number (string cardinal)
   "Define cardinal number "
-  (setf (gethash string *cardinal-numbers-table* ) cardinal)
-  )
+  (setf (gethash string *cardinal-numbers-table* ) cardinal))
 
   ;;; Method: CARDINAL-NUMBER                                Author: raman
   ;;; Created: Wed Dec 23 12:09:45 1992
@@ -34,37 +31,28 @@
   "Return cardinal number"
   (let  ((cardinal  (gethash string *cardinal-numbers-table* )))
     (or cardinal
-        (concatenate 'string
-                     string
-                     "th" ))
-    )
-  )
+        (concatenate 'string string "th" ))))
 
   ;;; Method: CARDINAL-NUMBER                                  Author: raman
   ;;; Created: Wed Dec 23 12:23:11 1992
 
 (defmethod cardinal-number ((n integer ))
   "Cardinal number for integers"
-  (cardinal-number
-   (format nil "~s" n ))
-  )
+  (cardinal-number (format nil "~s" n )))
 
 (defmethod cardinal-number ((ordinary ordinary ))
   "Return cardinal number "
-  (cardinal-number (contents  ordinary ))
-  )
+  (cardinal-number (contents  ordinary )))
 
 (defmethod cardinal-number ((math-subformula math-subformula ))
-  (cardinal-number  (contents math-subformula ))
-  )
+  (cardinal-number  (contents math-subformula )))
 
   ;;; Method: CARDINAL-NUMBER                                  Author: raman
   ;;; Created: Fri Dec 25 17:08:46 1992
 
 (defmethod cardinal-number ((math-object math-object))
   "Default method, just return math objects "
-  math-object
-  )
+  math-object)
  
 ;;; definitions:
 (define-cardinal-number "1" "first")
