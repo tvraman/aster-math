@@ -289,9 +289,7 @@
     (cond
       ((null value) (setf (gethash counter-name *counter-table*) 1))
       (t (incf (gethash counter-name *counter-table*))
-         value)
-      ))
-  )
+         value))))
 
   ;;; Function: LABELLED-P                                     Author: raman
   ;;; Created: Fri Apr 30 09:16:04 1993
