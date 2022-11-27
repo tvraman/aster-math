@@ -142,7 +142,8 @@
   ;;; Created: Sat Feb  6 16:35:59 1993
 
 (defvar *exponent-start*
-  "raised  to  " "String spoken before superscripts that are exponents. ")
+  "raised  to  "
+  "String spoken before superscripts that are exponents. ")
 
 (def-reading-rule (superscript descriptive)
     "Descriptive reading for superscripts, interprets as exponent"
