@@ -222,12 +222,9 @@ point is *current-speech-state* "
 ;;; Function: RE-INITIALIZE-SPEECH-SPACE                     Author: raman
 ;;; Created: Wed Aug 26 15:29:23 1992
 
-(defun re-initialize-speech-space (&optional (voice *default-voice*))
-  "reinitialize speech space with voice, the name of a point in speech
-space."
-  (declare (special *default-voice* ))
-  (let
-      ((new-voice (get-point-in-speech-space voice)))
+(defun re-initialize-speech-space (&optional (voice 'paul))
+  "re-initialize speech space with voice,  a point in speech space."
+  (let ((new-voice (get-point-in-speech-space voice)))
     (dolist
         (dimension (speech-dimensions))
       (set-global-value dimension
@@ -258,7 +255,7 @@ space."
 ;;; its work, we have the default settings as well as a start point.
 ;;; Function: INITIALIZE-SPEECH-SPACE                        Author: raman
 ;;; Created: Fri Aug  7 12:44:56 1992
-(defun initialize-speech-space (&optional(voice *default-voice*))
+(defun initialize-speech-space (&optional(voice 'paul))
   "Initialize speech space by setting up current state and global state
 based on the default settings specified for the various dimensions.
 Default settings are overridden by settings specified by  the optional

@@ -32,11 +32,6 @@
 ;;{{{ dimension
 
 ;;;  Structure: DIMENSION                                     Author: raman
-;;; Constant: *DEFAULT-VOICE*                                Author: raman
-;;; Created: Sun Aug 30 19:11:20 1992
-;;; external variable:
-(defvar *default-voice* 'paul  "default voice")
-
 ;;; note: the dimension voice is in a sense redundant. The other
 ;;; dimensions that occur in the speech space are independent of one
 ;;; another, they together determine the voice.
