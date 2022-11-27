@@ -284,7 +284,7 @@
   ;;; Parameter: *INDEX-VARIABLES*                             Author: raman
   ;;; Created: Fri Dec 25 17:05:46 1992
 
-(defparameter *index-variables*
+(defvar *index-variables*
   '("i" "j" "k""l" "m" "n")
   "These are usually index variables. ")
   ;;; Function: INDEX-VARIABLE-P                               Author: raman

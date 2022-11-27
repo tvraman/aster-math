@@ -16,7 +16,7 @@
   ;;; Parameter: *CAN-THIS-HAVE-FLOATS*                        Author: raman
   ;;; Created: Mon Oct 25 13:37:38 1993
 
-(defparameter *can-this-have-floats*
+(defvar *can-this-have-floats*
   (list 'article  'part  'chapter 'section  'subsection 'subsubsection  'paragraph )
   "These document objects may have  readings float to their end.
  This variable is introduced to make function

@@ -25,7 +25,7 @@
 ;;; Parameter: *PRECEDENCE-TABLE*                             Author: raman
 ;;; Created: Wed Oct 28 12:06:35 1992
 
-(defparameter    *precedence-table*
+(defvar    *precedence-table*
   '(
     ("+" "-" addition)
     ("*" "/" multiplication)

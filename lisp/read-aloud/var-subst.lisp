@@ -104,7 +104,7 @@
   ;;; Parameter: *WAIT-BEFORE-READING-SUBSTITUTIONS*           Author: raman
   ;;; Created: Sun Sep 26 10:51:33 1993
 
-(defparameter *wait-before-reading-substitutions* t
+(defvar *wait-before-reading-substitutions* t
   "If t, wait before speaking the substitutions when using the variable
 substitution reading style.
 If set to an integer, this is used as a timeout, i.e. reading
