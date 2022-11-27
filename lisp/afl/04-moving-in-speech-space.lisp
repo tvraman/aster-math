@@ -408,7 +408,6 @@ dimension value pairs"
 
 (defun valid-operator? (operator)
   "validate afl operator"
-  (find operator *valid-moves*)
-  )
+  (member operator *valid-moves*))
 
 ;;}}}
