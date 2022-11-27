@@ -21,12 +21,6 @@
 ;;; reading being scaled. Will work with interruptions.
 
 ;;{{{ *table-of-final-scale-factors*
-;;; Variable: *TABLE-OF-FINAL-SCALE-FACTORS*                 Author: raman
-;;; Created: Fri Aug 14 11:36:00 1992
-
-(defvar *table-of-final-scale-factors*
-  (make-hash-table   :test #'equal)
-  " Table containing global scale factors")
 
 ;;; Function: DEFINE-FINAL-SCALE-FACTOR                      Author: raman
 ;;; Created: Fri Aug 14 11:37:43 1992
