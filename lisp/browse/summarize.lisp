@@ -1,7 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 
-
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
@@ -11,7 +9,6 @@
 ;;; Tue Jan 12 08:57:40 EST 1993
 ;;; Code to summarize an object
 
-
   ;;; Method: SUMMARIZE                                        Author: raman
   ;;; Created: Tue Jan 12 08:57:51 1993
 
@@ -19,8 +16,7 @@
   "Read object succinctly. "
   (if (substitution object)
       (read-aloud (substitution object ))
-      (read-aloud (type-of object  )))
-  )
+      (read-aloud (type-of object  ))))
 
   ;;; Method: SUMMARIZE                                        Author: raman
   ;;; Created: Mon Sep 27 20:32:35 1993
