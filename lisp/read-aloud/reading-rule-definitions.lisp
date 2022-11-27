@@ -31,28 +31,7 @@
       (loop for item in contents do
         (read-aloud  item)
         (when  (end-of-sentence? item)
-          (afl:tts-force )))))
-  )
-
-(defvar *mark-interactively-char* #\m
-  "Char to be read when marking interactively. ")
-
-(def-reading-rule (paragraph allow-interactive-marks)
-  "Skip out at end of sentence if requested.
-In addition, allow the user to mark a position while reading. "
-  (afl:new-block
-    (afl:local-set-state :text)
-    (with-slots  ((contents contents )) paragraph
-      (loop for item in contents do
-        (read-aloud  item)
-        (when  (end-of-sentence? item)
-          (afl:tts-force )
-          (when  (char=
-                  (or (read-char-no-hang) #\space)
-                  *mark-interactively-char*)))))))
-
-
-
+          (afl:tts-force ))))))
 
 (def-reading-rule (paragraph quick-interactive)
   "Skip out at end of sentence if requested"
