@@ -1,12 +1,14 @@
+(in-package :aster)
+
 (afl:tts-init)
   (unless afl:*current-speech-state*
     (afl:initialize-speech-space))
 ;; configure rules and  styles:
+;;; active-styles is a stack:
+;;; And earlier members take precedence
+(setf *current-reading-style* '(descriptive use-special-pattern simple))
 
-(in-package :aster)
-(activate-style  'use-special-pattern)
-(activate-style 'descriptive)
-(activate-style 'simple)
+
 (activate-rule 'footnote 'float)
 (activate-rule 'log 'read-base-first)
 

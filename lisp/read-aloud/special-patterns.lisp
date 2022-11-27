@@ -1,9 +1,8 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
+
+
 
 (in-package :aster)
-
 
 ;;; Sun Dec 27 07:56:14 EST 1992
 ;;; Implements code to allow the user to specify special patterns.
@@ -16,7 +15,6 @@
 ;;; has been defined for this object type, then that rule is called.
 ;;; Work out a clean way for specifying a number of special patterns
 ;;; to check for:
- 
 
 
 ;;;
@@ -25,8 +23,7 @@
 ;;; Instead introduce a generic method special-pattern which gets
 ;;; called before the object is read, in the around method for
 ;;; read-aloud. If special-pattern returns a special pattern, then
-;;; read-aloud will invoke the reading rule of that name. 
- 
+;;; read-aloud will invoke the reading rule of that name.
 
 
 ;;; Only math objects have special patterns for now:
@@ -34,13 +31,11 @@
 ;;; math-object. If later on other document objects  also need special
 ;;; patterns, then move this slot to the appropriate super class, and
 ;;; define the around method for that super class.
- 
 
-;;; Do nothing in the case of ordinary objects, just return nil. 
+
+;;; Do nothing in the case of ordinary objects, just return nil.
 ;;; around method not defined  in this case
 ;;; Moved to math-classes.lisp to avoid warning.
-
-
 
 ;;; Memoizing special-pattern
 ;;; Sun Feb  7 18:22:23 EST 1993
@@ -52,7 +47,6 @@
 ;;; The hash table will hold the class name of the class for which the
 ;;; special pattern is being activated.
 
-
   ;;; Variable: *ACTIVE-SPECIAL-PATTERN*                       Author: raman
   ;;; Created: Sun Feb  7 18:24:21 1993
 
@@ -60,7 +54,6 @@
   (make-hash-table :test #'equal)
   "Holds class names of classes for which special pattern matching is
 active")
-
 
   ;;; Function: TURN-ON-SPECIAL-PATTERN                        Author: raman
   ;;; Created: Sun Feb  7 18:25:42 1993
@@ -78,11 +71,10 @@ active")
   (setf (gethash class-name *active-special-pattern* ) nil)
   )
 
-
   ;;; Function: ACTIVE-SPECIAL-PATTERN-P                       Author: raman
   ;;; Created: Sun Feb  7 18:32:05 1993
 
-(defun active-special-pattern-p (object) 
+(defun active-special-pattern-p (object)
   "Check if special patterns active for this object"
   (let ((class-name (class-name (class-of object ))))
     (gethash class-name *active-special-pattern* )
@@ -93,48 +85,46 @@ active")
 ;;; Check for special patterns only if activated
 
 (defmethod special-pattern :around ((math-object math-object ))
-           "Memoizing special pattern "
-           (when (active-special-pattern-p math-object )
-             (let ((pattern (pattern math-object )))
-               (or pattern                ;already known
-                   (setf  (pattern math-object )
-                          (when (compute-applicable-methods
-                                 #'special-pattern
-                                 (list math-object ))
-                            (call-next-method )) ; compute it
-                          ) 
-                   )
-               ))
-           )
+  "Memoizing special pattern "
+  (when (active-special-pattern-p math-object )
+    (let ((pattern (pattern math-object )))
+      (or pattern                ;already known
+          (setf  (pattern math-object )
+                 (when (compute-applicable-methods
+                        #'special-pattern
+                        (list math-object ))
+                   (call-next-method )) ; compute it
+                 )
+          )
+      ))
+  )
 
 ;;; attributes have special pattern as well:
 
 (defmethod special-pattern :around ((attribute attribute ))
-           "Memoizing special pattern "
-           (when (active-special-pattern-p attribute )
-             (let ((pattern (pattern attribute )))
-               (or pattern                ;already known
-                   (setf  (pattern attribute )
-                          (when (compute-applicable-methods
-                                 #'special-pattern
-                                 (list attribute ))
-                            (call-next-method )) ; compute it
-                          ) 
-                   )
-               ))
-           )
+  "Memoizing special pattern "
+  (when (active-special-pattern-p attribute )
+    (let ((pattern (pattern attribute )))
+      (or pattern                ;already known
+          (setf  (pattern attribute )
+                 (when (compute-applicable-methods
+                        #'special-pattern
+                        (list attribute ))
+                   (call-next-method )) ; compute it
+                 )
+          )
+      ))
+  )
 
 ;;; def-special-pattern is more cumbersome than writing the defmethod
 ;;; directly, so not using it for the present.
-
-
 
 (defmethod  special-pattern ((fraction fraction ))
   "Check for special fractions"
   (let ((numerator (numerator-of fraction ))
         (denominator (denominator-of fraction )))
     (cond
-      ((and 
+      ((and
         (number-1-p  numerator )
         (number-2-p  denominator))
        'half)
@@ -153,12 +143,12 @@ active")
 (turn-on-special-pattern 'fraction )
 
 (def-reading-rule (fraction half)
-    "read one half"
+  "read one half"
   (read-aloud "half")
   )
 
 (def-reading-rule (fraction one-over-n)
-    "Read as one <cardinal-number n>"
+  "Read as one <cardinal-number n>"
   (read-aloud "one")
   (read-aloud (cardinal-number (denominator-of fraction )))
   (afl:tts-queue "[_,]")
@@ -166,13 +156,11 @@ active")
     (read-aloud (numerator-of fraction )))
   )
 
-
 (def-reading-rule (fraction one-half-of)
-    (read-aloud "one half ")
+  (read-aloud "one half ")
   (afl:tts-queue "[_,]")
   (read-aloud (numerator-of fraction ))
   )
-
 
 ;;; Interpreting special notation like D_x^1 as a derivative can be
 ;;; done either by writing a descriptive reading rule for ordinary
@@ -220,7 +208,6 @@ active")
    (equal "T" (contents ordinary  )))
   )
 
-
   ;;; Method: CAPITAL-T-P                                      Author: raman
   ;;; Created: Mon Dec 21 17:51:32 1992
 
@@ -229,9 +216,7 @@ active")
   (and
    (null (attributes math-subformula ))
    (leaf-p (contents math-subformula ))
-   (capital-t-p (contents math-subformula )))
-  )
-
+   (capital-t-p (contents math-subformula ))))
 
   ;;; Method: NUMBER-2-P                                       Author: raman
   ;;; Created: Mon Dec 21 18:27:27 1992
@@ -242,8 +227,6 @@ active")
    (null (attributes ordinary ))
    (equal "2" (contents ordinary  )))
   )
-
-
 
   ;;; Method: NUMBER-2-P                                       Author: raman
   ;;; Created: Mon Dec 21 18:28:39 1992
@@ -256,7 +239,6 @@ active")
    (number-2-p (contents math-subformula )))
   )
 
-
   ;;; Method: NUMBER-3-P                                       Author: raman
   ;;; Created: Mon Dec 31 18:37:37 1993
 
@@ -266,8 +248,6 @@ active")
    (null (attributes ordinary ))
    (equal "3" (contents ordinary  )))
   )
-
-
 
   ;;; Method: NUMBER-3-P                                       Author: raman
   ;;; Created: Mon Dec 31 18:38:39 1993
@@ -280,8 +260,6 @@ active")
    (number-3-p (contents math-subformula )))
   )
 
-
-
 (defmethod capital-t-p ((object t))
   nil)
 
@@ -290,7 +268,6 @@ active")
 
 (defmethod number-3-p ((object t))
   nil)
-
 
   ;;; Method: MATH-COMMA-P                                     Author: raman
   ;;; Created: Fri Feb  5 12:07:49 1993
@@ -331,9 +308,7 @@ active")
   (cond
     ((balanced-tree-p math-object) 'balanced-tree)))
 
-
 ;;; Detect inverse of functions:
-
 
   ;;; Method: UNARY-MINUS?                                     Author: raman
   ;;; Created: Sat Jan  2 09:56:17 1993
@@ -341,7 +316,6 @@ active")
 (defmethod unary-minus? ((unary-minus unary-minus))
   "Unary minus is clearly a unary minus!"
   t)
-
 
 (defmethod unary-minus? ((object t))
   "Most things are not unary minuses"
@@ -354,7 +328,6 @@ active")
    (null (attributes math-subformula )))
   )
 
-
   ;;; Method: NEGATED-OBJECT                                   Author: raman
   ;;; Created: Sat Jan  2 10:20:31 1993
 
@@ -362,8 +335,6 @@ active")
   "Return object that is being negated "
   (first (children unary-minus))
   )
-
-
 
   ;;; Method: NEGATED-OBJECT                                   Author: raman
   ;;; Created: Sat Jan  2 10:21:12 1993
@@ -388,37 +359,28 @@ active")
            (capital-t-p contents )) 'transpose )
       ((and (expression-p parent)
             (number-2-p contents )) 'square)
-      ((and (expression-p parent)
-            (number-3-p  contents )) 'cube)
+      ((and (expression-p parent) (number-3-p  contents )) 'cube)
       ((and (mathematical-function-name-p parent)
             (unary-minus?  contents )
             (number-1-p (negated-object contents ))) 'function-inverse)
       ((and (expression-p parent)
-            (exponent-p contents)) 'exponent )
-      )                                 ; end cond
-    
-    )
-  )
+            (exponent-p contents)) 'exponent ))))
+
 (turn-on-special-pattern 'superscript )
 
 (def-reading-rule (superscript  function-inverse )
-    (read-aloud "inverse ")
+  (read-aloud "inverse ")
   )
 
-
 (def-reading-rule (superscript  transpose )
-    (read-aloud "transpose "))
+  (read-aloud "transpose "))
 
 (def-reading-rule (superscript square)
-    (read-aloud "sqquare")
+  (read-aloud "sqquare")
   )
 
 (def-reading-rule (superscript cube )
-    (read-aloud "cube" ))
-
-
-
-
+  (read-aloud "cube" ))
 
   ;;; Method: SPECIAL-PATTERN                                  Author: raman
   ;;; Created: Sun Sep  5 15:51:56 1993
@@ -452,15 +414,12 @@ active")
              (parenthesis-p (second children ))) 'function-application)
       ((and (every #'expression-p children )
             (notany #'math-comma-p children ))
-       'product)
-      )
-    )
-  )
+       'product))))
 (turn-on-special-pattern 'juxtaposition )
 
 (def-reading-rule (juxtaposition product)
-    "read a juxtaposition that is a product"
-  (let* 
+  "read a juxtaposition that is a product"
+  (let*
       ((children (children juxtaposition ))
        (count (length children  )))
     (cond
@@ -480,5 +439,3 @@ active")
       )
     )
   )
-
-

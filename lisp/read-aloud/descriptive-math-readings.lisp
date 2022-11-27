@@ -242,17 +242,12 @@
   (let
       ((contents (contents ordinary ))
        (subscript (subscript ordinary ))
-       (superscript (superscript ordinary))
-       )
+       (superscript (superscript ordinary)))
     (cond
-      ((and  subscript
-             superscript 
+      ((and  subscript superscript 
              (equal contents "D" ))
        (reading-rule ordinary 'derivative ))
-      (t  (reading-rule ordinary 'simple ))
-      )
-    )
-  )
+      (t  (reading-rule ordinary 'simple )))))
 
 
 (def-reading-rule (ordinary derivative )
@@ -264,23 +259,19 @@
     (cond
       ((index-variable-p subscript)
        (reading-rule ordinary 'simple))
-      (t (when
-             (= 2 (length (children (parent ordinary ))))
-           (setf (pattern (parent ordinary )) 'derivative ))
+      (t
+       (when
+           (= 2 (length (children (parent ordinary ))))
+         (setf (pattern (parent ordinary )) 'derivative ))
          (afl:with-surrounding-pause pause-amount 
-           (when  superscript  (read-aloud
-                                (cardinal-number superscript )))
+           (when  superscript
+             (read-aloud (cardinal-number superscript )))
            (read-aloud "derivative ")
            (when subscript
              (read-aloud  "with respect  to ")
              (afl:tts-queue "[_,]")
              (read-aloud subscript )
-             (read-aloud "[']of"))
-           ))
-      ))
-  )
-
-
+             (read-aloud "[']of")))))))
 
   ;;; Parameter: *INDEX-VARIABLES*                             Author: raman
   ;;; Created: Fri Dec 25 17:05:46 1992
