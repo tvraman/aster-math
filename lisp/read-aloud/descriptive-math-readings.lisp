@@ -256,7 +256,7 @@
 
 
 (def-reading-rule (ordinary derivative )
-    "This is a derivative read it"
+    "This is a derivative, read it"
   (let
       ((pause-amount (compute-pause ordinary ))
        (superscript (superscript ordinary ))
