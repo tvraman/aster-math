@@ -42,10 +42,6 @@
 ;;; Phasing out named-block. new-block now allows exits.
 ;;; eventually should be renamed to afl-block.
 
-;;; Variable: *CURRENT-EXIT*                                 Author: raman
-;;; Created: Fri Aug 28 08:55:08 1992
-
-(defvar *current-exit* nil "special variable to hold exit for blocks")
 ;;; Modified: Wed Feb 10 15:44:59 EST 1993
 ;;; <(Modifying to stop using *modified-dimensions*)>
 ;;; Macro: NAMED-BLOCK                                       Author: raman
@@ -70,11 +66,11 @@
 (defmacro new-block (   &body body)
   "sets up a new block in afl"
   (let ((name (afl-block-name )))
-    `(block ,name
+    `(block
+         ,name
        (let* ((previous-speech-state *current-speech-state*)
               (*current-speech-state* (copy-point-in-speech-space *current-speech-state* ))
-              (previous-pronunciation-mode *pronunciation-mode*)
-              (*current-exit* #'(lambda() (return-from   ,name nil))))
+              (previous-pronunciation-mode *pronunciation-mode*))
          (unwind-protect
               (progn ,@body)
 ;;; reset state
@@ -84,10 +80,6 @@
 
 ;;; Function: EXIT-BLOCK                                     Author: raman
 ;;; Created: Fri Aug 28 08:55:43 1992
-
-(defun exit-block ()
-  "exit current block"
-  (when *current-exit* (funcall *current-exit*)))
 
 ;;}}}
 ;;{{{ assignments
