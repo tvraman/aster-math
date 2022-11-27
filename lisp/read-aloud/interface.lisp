@@ -7,9 +7,6 @@
 
 (export '(file text))
 
-(defvar *docs-cache* (make-hash-table :test #'eq)
-  "Hash table of cached documents read in this session.")
-
 (defun doc-from-stream (input)
   "Return document parsed by reading  input stream."
   (let ((p (run-program (lexer) nil :input input  :wait t :output  :stream)))
@@ -26,11 +23,10 @@
 
 (defun file (filename &key  id)
   "Aster a  Latex article.
- Cache result using id. Also create a next/previous link with document
+  Also create a next/previous link with document
   that is current."
   (let ((current *document*)
         (doc (doc-from-stream (open filename))))
-    (when id (setf (gethash id *docs-cache* ) doc))
     (when current (insert-doc-after-current current doc))
     (read-aloud doc)))
 
@@ -38,7 +34,6 @@
   "Aster  a Latex article passed as a string."
   (let ((current *document*)
         (doc (doc-from-stream (make-string-input-stream latex))))
-    (when id (setf (gethash id *docs-cache* ) doc))
     (when title
       (setf (title doc) (format nil "~a: ~a"
                                 title (or id id ""))))
