@@ -63,34 +63,17 @@
 (defvar *inf-read-threshold* 3
   "If more than this many children read as prefix")
 
- ;;; Function: READ-AS-INFIX                                  Author: raman
- ;;; Created: Tue Nov 24 15:41:34 1992
-
-(defvar *use-comma-intonation-for-lists* nil
-  "if t use comma intonation when reading long lists")
-
 (defmethod  read-as-infix ((math-object math-object ))
   "Read as infix"
-  (flet
-      ((all-have-same-weight (list)
-         (let ((first-weight (weight (first list  ))))
-           (loop for item in (rest list)
-                 always (= first-weight
-                           (weight item ))))))
-    (let*  ((children (children math-object ))
-            (comma-flag(and *use-comma-intonation-for-lists*
-                            (> (length children ) 2)
-                            (all-have-same-weight children ))))
-      (read-math-child   (first children))
-      (afl:tts-queue " ")
-      (unless (rest children )
-        (read-math-object-and-attributes math-object))
-      (loop for child in (rest children)
-            do
-               (when comma-flag (afl:tts-speak "[_,]"))
-               (read-math-object-and-attributes math-object)
-               (read-math-child  child ))))
-  )
+  (let*  ((children (children math-object )))
+    (read-math-child   (first children))
+    (afl:tts-queue " ")
+    (unless (rest children )
+      (read-math-object-and-attributes math-object))
+    (loop for child in (rest children)
+          do
+             (read-math-object-and-attributes math-object)
+             (read-math-child  child ))))
 
  ;;; Parameter: *PAUSE-AROUND-CHILD*                            Author: raman
  ;;; Created: Thu Nov 26 15:52:33 1992
