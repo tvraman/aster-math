@@ -389,9 +389,8 @@ dimension value pairs"
     (dolist (setting settings)
       (let
           ((operator (first setting )))
-        (assert  (valid-operator? operator) nil
-                 "~a is not a valid operator"
-                 operator)
+        (assert  (member  operator *valid-moves*) nil
+                 "~a is not a valid operator" operator)
         (setf new-point
               (apply operator
                      new-point
@@ -402,12 +401,5 @@ dimension value pairs"
             (mapcar #'(lambda(x) (second x)) settings))
     )
   )
-
-;;; Function: VALID-OPERATOR?                                Author: raman
-;;; Created: Mon Sep  7 19:49:07 1992
-
-(defun valid-operator? (operator)
-  "validate afl operator"
-  (member operator *valid-moves*))
 
 ;;}}}
