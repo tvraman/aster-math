@@ -402,35 +402,7 @@
      (setf *read-pointer* (contents
                            *read-pointer* ))
      (summarize *read-pointer*))
-    (t (afl:tts-speak "No contents. "))
-    )
-  )
-
-  ;;; Method: READ-NODE                                        Author: raman
-  ;;; Created: Mon Mar 29 08:35:57 1993
-
-(defmethod read-node ((math-object math-object))
-  "Read this node"
-  (save-pointer-excursion
-    (read-math-object-and-attributes *read-pointer*))
-  )
-
-(defmethod read-node((object t))
-  "Default method for read node"
-  (when (contents *read-pointer*)
-    (save-pointer-excursion (read-aloud (contents *read-pointer* ))))
-  )
-
-(defun read-just-the-node()
-  "Just read this node"
-  (afl:refresh)
-  (let ((save-children (children *read-pointer*)))
-    (unwind-protect
-         (save-pointer-excursion
-           (setf (children *read-pointer*) nil)
-           (read-aloud *read-pointer*))
-      (setf (children *read-pointer*) save-children ))
-    (afl:tts-force)))
+    (t (afl:tts-speak "No contents. "))))
 
 (defun move-to-next-in-order()
   "Move to next in reading order"
