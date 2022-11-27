@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
+
+
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -12,17 +12,6 @@
 ;;; synthesizer.
 
 ;;{{{ Start and end markers
-
-;;; Variable: *BEGIN-COMMAND*                                Author: raman
-;;; Created: Tue Aug 11 13:40:16 1992
-
-(defvar *begin-command* "[" " string that begins a synthesizer command")
-
-;;; Variable: *END-COMMAND*                                  Author: raman
-;;; Created: Tue Aug 11 13:40:44 1992
-
-(defvar *end-command* "]" "string that ends a synthesizer command")
-
 ;;}}}
 ;;{{{ generate-synthesizer-command
 
@@ -44,13 +33,13 @@
       (setf value (get-voice-code value)))
     (concatenate
      'string
-     *begin-command*
+     "["
      (get-synthesizer-code dimension)
      (if (stringp value)
          value
          (prin1-to-string
           (bound-in-interval dimension (round value))))
-     *end-command*)))
+     "]")))
 
 ;;}}}
 ;;{{{ *voice-codes-table*
