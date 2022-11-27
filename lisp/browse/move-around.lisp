@@ -404,54 +404,6 @@
      (summarize *read-pointer*))
     (t (afl:tts-speak "No contents. "))))
 
-(defun move-to-next-in-order()
-  "Move to next in reading order"
-  (afl:refresh)
-  (cond
-    ((next-read  *read-pointer* )
-     (setf *read-pointer* (next-read *read-pointer* ))
-     (summarize *read-pointer*) )
-    (t (afl:tts-queue "Reading order undefined. "))
-    )
-  (values)
-  )
-
-(defun move-to-previous-in-order()
-  "Move to previous in reading order"
-  (afl:refresh)
-  (cond
-    ((previous-read  *read-pointer* )
-     (setf *read-pointer* (previous-read *read-pointer* ))
-     (summarize *read-pointer*) )
-    (t (afl:tts-queue "Reading order undefined. "))
-    )
-  (values)
-  )
-
-(defun read-next-in-order()
-  "Read next in reading order"
-  (afl:refresh)
-  (cond
-    ((next-read  *read-pointer* )
-     (setf *read-pointer* (next-read *read-pointer* ))
-     (read-current) )
-    (t (afl:tts-queue "Reading order undefined. "))
-    )
-  (values)
-  )
-
-(defun read-previous-in-order()
-  "Read previous  in reading order"
-  (afl:refresh)
-  (cond
-    ((previous-read  *read-pointer* )
-     (setf *read-pointer* (previous-read *read-pointer* ))
-     (read-current) )
-    (t (afl:tts-queue "Reading order undefined. "))
-    )
-  (values)
-  )
-
 (defun move-to-math-root ()
   "Move to top of math"
   (afl:refresh)

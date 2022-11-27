@@ -27,11 +27,6 @@
    (weight  :initform nil :initarg weight :accessor internal-weight)
    (afl-state :initform nil :initarg :afl-state :accessor afl-state ))
   (:documentation "The base class for documents."))
-;;; default methods for next-read and previous-read:
-
-(defmethod next-read ((object t)) 'undefined)
-
-(defmethod previous-read ((object t)) 'undefined)
 
 (defun make-document ()
   (let ((self (make-instance 'document)))
