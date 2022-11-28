@@ -1,9 +1,10 @@
 ;;;   -*- Mode: LISP -*- ;;;
 (require "asdf")
+
 (asdf:initialize-source-registry
-  `(:source-registry
-     (:tree "/home/raman/emacs/lisp/aster-math/lisp")
-     :inherit-configuration))
+ `(:source-registry
+   (:tree ,(uiop:pathname-directory-pathname   #. *load-truename*))
+   :inherit-configuration))
 
 (unless (find-package :aster)
   (make-package :aster :use '(:common-lisp :sb-ext )))
