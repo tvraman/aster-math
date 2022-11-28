@@ -5,6 +5,7 @@
 
 See [[./ui/design.html][Design Overview]]
 for detailed setup and usage instructions.
+
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
 #+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
