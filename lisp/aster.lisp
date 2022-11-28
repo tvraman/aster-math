@@ -1,10 +1,10 @@
 ;;;   -*- Mode: LISP -*- ;;;
-
-;; Place ../etc/10-aster.conf in  ~/.config/common-lisp/source-registry.conf.d/
-;; for registering and finding packages.
-
 (require "asdf")
-(asdf:clear-source-registry)
+(asdf:initialize-source-registry
+  `(:source-registry
+     (:tree "/home/raman/emacs/lisp/aster-math/lisp")
+     :inherit-configuration))
+
 (unless (find-package :aster)
   (make-package :aster :use '(:common-lisp :sb-ext )))
 
