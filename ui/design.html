@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-11-22 Tue 11:40 -->
+<!-- 2022-11-28 Mon 14:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Design Overview: Connecting Emacs And AsTeR Via Slime and Swank</title>
@@ -197,8 +197,8 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">Design Overview: Connecting Emacs And AsTeR Via Slime and Swank</h1>
-<div id="outline-container-org8b12d72" class="outline-2">
-<h2 id="org8b12d72"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-org60f62f6" class="outline-2">
+<h2 id="org60f62f6"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Audio System For Technical Readings (AsTeR) is implemented in
@@ -214,8 +214,8 @@ interpreter to control Aster.</li>
 </div>
 
 
-<div id="outline-container-org53222e9" class="outline-2">
-<h2 id="org53222e9"><span class="section-number-2">2.</span> Pre-requisites</h2>
+<div id="outline-container-org13baa20" class="outline-2">
+<h2 id="org13baa20"><span class="section-number-2">2.</span> Pre-requisites</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>Install package <i>slime</i> using M-x package-install</li>
@@ -223,15 +223,16 @@ interpreter to control Aster.</li>
 <li>Install Software DECTalk from Github.</li>
 <li>Install Emacspeak from Github &#x2014; Aster uses the Emacspeak
 <i>dtk-soft</i> speech-server to communicate with the DECTalk.</li>
-<li>By default, Aster launches the TTS server to send output to the
-left ear; See the Emacspeak distribution for setting up left and
-right channels under Pulseaudio.</li>
+<li>Set <span class="underline">environment variable</span> <code>EMACSPEAK_DIR</code> to point at the root of
+your Emacspeak install if not running emacspeak; Emacspeak does
+this for yu automatically. This setting is needed by the Common
+Lisp layer in order to find and launch the TTS Server.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org35b1d79" class="outline-2">
-<h2 id="org35b1d79"><span class="section-number-2">3.</span> Usage</h2>
+<div id="outline-container-org1f8d8fb" class="outline-2">
+<h2 id="org1f8d8fb"><span class="section-number-2">3.</span> Usage</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>The user-interface to AsTeR is implemented in Emacs.</li>
@@ -256,7 +257,7 @@ navigation commands to move around in the content being read.</li>
 <div id="postamble" class="status">
 <p class="date">Date: 2022-11-01 Tue 00:00</p>
 <p class="author">Author: T.V Raman</p>
-<p class="date">Created: 2022-11-22 Tue 11:40</p>
+<p class="date">Created: 2022-11-28 Mon 14:51</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
