@@ -1,5 +1,5 @@
 all:
-	sbcl --non-interactive  --eval '(require :asdf)' --load ./aster.lisp --eval '(uiop:quit)'
+	sbcl --script aster.lisp
 	cd lexer && make
 clean:
 	find . -name '*.fasl' -exec \rm {} \;
