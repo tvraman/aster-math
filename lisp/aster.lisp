@@ -17,7 +17,8 @@
     (merge-pathnames "lexer/lispify" base)))
 
 (defun aster ()
-  "Load AsTeR modules and initialize system."
+  "Load AsTeR modules.
+Use audio-device ASTER_TTS if set in the environment."
   (when (uiop:getenv "ASTER_TTS")
     (setf (uiop:getenv "PULSE_SINK") (uiop:getenv "ASTER_TTS")))
   (let ((*print-case* :downcase))
