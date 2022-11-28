@@ -21,8 +21,7 @@
   (when (uiop:getenv "ASTER_TTS")
     (setf (uiop:getenv "PULSE_SINK") (uiop:getenv "ASTER_TTS")))
   (let ((*print-case* :downcase))
-    (mapc #'asdf:load-system '(:parser :afl  :read-aloud :browse))
-    (format nil "Ready to talk")))
+    (mapc #'asdf:load-system '(:parser :afl  :read-aloud :browse))))
 
 (defun aster-books ()
   "Modules for reading books I used at Cornell."
