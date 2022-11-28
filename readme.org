@@ -1,0 +1,21 @@
+* Overview 
+
+  1. Get source via git checkout [[https://github.com/tvraman/aster-math]]
+  2. _cd aster-math/lisp  && make_
+
+See [[./ui/design.html][Design Overview]]
+for detailed setup and usage instructions.
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:nil todo:t |:t
+#+title: Setting Up AsTeR
+#+date: <2022-11-28 Mon>
+#+author: T.V Raman
+#+email: raman@google.com
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 29.0.50 (Org mode 9.5.5)
+#+cite_export:
