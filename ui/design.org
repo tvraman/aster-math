@@ -17,9 +17,10 @@
   - Install Software DECTalk from Github.
   - Install Emacspeak from Github --- Aster uses the Emacspeak
     /dtk-soft/ speech-server to communicate with the DECTalk.
-  - By default, Aster launches the TTS server to send output to the
-    left ear; See the Emacspeak distribution for setting up left and
-    right channels under Pulseaudio.
+  - Set _environment variable_ ~EMACSPEAK_DIR~ to point at the root of
+    your Emacspeak install if not running emacspeak; Emacspeak does
+    this for yu automatically. This setting is needed by the Common
+    Lisp layer in order to find and launch the TTS Server.
 
 * Usage 
 
