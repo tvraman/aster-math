@@ -11,7 +11,7 @@
 (in-package :aster)
 
 (defun lexer ()
-  "Return location of lexer."
+  "Return pathname of lexer."
   (let ((base (uiop:pathname-directory-pathname   #. *load-truename*)))
     (merge-pathnames "lexer/lispify" base)))
 
