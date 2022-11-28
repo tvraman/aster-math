@@ -96,14 +96,14 @@
 ;;; arriving when the multivoice has received part of a control
 ;;; string, leaving it in phoenetic mode.
 ;;; Modified: Sat Oct 17 11:54:10 EDT 1992
-;;; Inserted call to remove-duplicates so that each dimension set only
-;;; once.
-;;; Modified: Thu Dec 17 11:39:52 EST 1992
-;;; When directional audio used, set state should wait till the device
-;;; has stopped speaking before setting the device. If set-speech-state made
-;;; to await silence before doing all settings, this screws up the
-;;; intonation and causes unnecessary pauses. Hence using predicate
-;;; directional-audio-change-p below.
+
+
+
+
+
+
+
+
 ;;; Function: SET-speech-STATE                                      Author: raman
 ;;; Created: Mon Aug 10 13:43:53 1992
 
