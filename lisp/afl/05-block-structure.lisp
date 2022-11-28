@@ -182,18 +182,7 @@ scaling"
    (reference-value (dimension-value dimension-2  )))
   )
 
-  ;;; Function: DIRECTIONAL-AUDIO-CHANGE-P                     Author: raman
-  ;;; Created: Thu Dec 17 11:41:23 1992
 
-(defun directional-audio-change-p (dimension-list)
-  "Check if either of the left or right channels is in the
-dimension-list"
-  (or
-   (find 'left-volume dimension-list)
-   (find 'right-volume dimension-list))
-  )
-
-;;; <(old versions and comments backed up)>
 
 ;;; Wed Feb 10 12:11:45 EST 1993
 ;;; uses set-speech-state.
