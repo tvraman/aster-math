@@ -71,7 +71,8 @@
 (defun counter-value (name)
   "Return counter value."
   (declare (special *counter-table*))
-  (gethash name *counter-table*))
+  (or (gethash name *counter-table*)
+      (setf (gethash name *counter-table*) 1)))
 
 
 (defun create-article (text-article)
