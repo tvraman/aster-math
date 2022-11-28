@@ -31,4 +31,3 @@
      :norvig-book :gries-book :dennis-math-books :cs611-notes)))
 
 (aster)
-;(aster-books)
