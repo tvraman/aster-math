@@ -49,16 +49,13 @@
 
 (defstruct tts engine process input output )
 
-(defvar *emacspeak*
-  (uiop:getenv "EMACSPEAK_DIR")
-  "Root of Emacspeak installation.")
-
 (defun tts-location (engine)
   "Return location of specified engine."
-  (declare (special *emacspeak* *tts-log*))
+  (declare (special *tts-log*))
   (concatenate
    'string
-   *emacspeak* "servers/"
+   (uiop:getenv "EMACSPEAK_DIR")
+   "servers/"
    (if *tts-log* "log-"   "")
    engine))
 
