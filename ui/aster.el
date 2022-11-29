@@ -274,9 +274,9 @@ The following commands are available on this prefix once aster is running:
 
 (defun aster-record ()
   "Record Aster's reading of current node.
-Output is found in aster-rootp/tests/aster.ogg which will be
-  overwritten.
-Calling aster-top bound to \\[aster-stop]stops the recording."
+  Output is found in aster-rootp/tests/aster.ogg which will be
+  overwritten.  Calling aster-top bound to \\[aster-stop]stops
+  the recording."
   (interactive )
   (cl-declare (special aster-recording-p))
   (let ((index "")
