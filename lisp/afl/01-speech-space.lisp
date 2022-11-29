@@ -213,13 +213,7 @@ point is *current-speech-state* "
 
 (defun current-step-size (dimension &optional (point *current-speech-state*))
   "Return step size assigned to this dimension "
-  (reference-value (dimension-step-size  (point-accessor   dimension point )))
-
-  )
-
-;;; Function: RE-INITIALIZE-SPEECH-SPACE                     Author: raman
-;;; Created: Wed Aug 26 15:29:23 1992
-
+  (reference-value (dimension-step-size  (point-accessor   dimension point ))))
 ;;}}}
 ;;{{{ initialize-speech-space
 
