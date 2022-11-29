@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :afl)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 
 ;;; first define points in speech space
 

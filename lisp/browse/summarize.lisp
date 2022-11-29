@@ -4,7 +4,7 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :aster)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 
 ;;; Tue Jan 12 08:57:40 EST 1993
 ;;; Code to summarize an object

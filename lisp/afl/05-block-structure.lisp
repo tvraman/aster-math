@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :afl)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (export '(
           *current-speech-state* *global-speech-state*
                                         ;*await-silence-when-using-stereo*

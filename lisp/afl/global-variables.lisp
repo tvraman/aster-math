@@ -3,7 +3,7 @@
  
 
 (in-package :afl)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 
 
 

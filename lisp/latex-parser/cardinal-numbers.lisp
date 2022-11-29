@@ -4,7 +4,7 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :cl-user)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (in-package :aster)
 ;;; Wed Dec 23 12:07:24 EST 1992
 ;;; Simple hack to convert digits to cardinal numbers.

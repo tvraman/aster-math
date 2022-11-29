@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :aster)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (in-package :aster)
 
 ;;; Contains the representation and accessors for mapping reading

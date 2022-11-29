@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :afl)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 
 ;;; Thu Mar 25 09:09:43 EST 1993
 ;;; External interface to pronunciation module.

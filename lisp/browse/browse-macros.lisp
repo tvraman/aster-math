@@ -4,7 +4,7 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :aster)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 
 ;;; Sun Mar 28 14:35:44 EST 1993;;; Macros used by browser
  

@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (in-package :aster)
 ;;; Modified: Fri Dec 11 11:00:28 EST 1992
 ;;; Instead of having a separate slot for each argument, create a

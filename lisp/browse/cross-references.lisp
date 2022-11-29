@@ -4,7 +4,7 @@
 ;;; All Rights Reserved
 ;;;
 (in-package :aster)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 
 ;;; Mon Dec 28 14:02:10 EST 1992
 ;;; Cross references.

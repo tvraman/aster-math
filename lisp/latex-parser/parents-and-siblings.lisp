@@ -6,7 +6,7 @@
 ;;; All Rights Reserved
 ;;;
 
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (in-package :aster)
 ;;; Thu Dec 24 08:33:36 EST 1992
 ;;; Parents and siblings for document objects

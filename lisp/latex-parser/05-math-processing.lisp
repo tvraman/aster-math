@@ -5,7 +5,7 @@
 ;;;
 
 ;;; Modified: Thu Mar 18 22:13:18 EST 1993
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (in-package :aster)
  
 

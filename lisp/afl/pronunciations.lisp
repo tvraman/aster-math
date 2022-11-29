@@ -3,7 +3,7 @@
  
 
 (in-package :afl)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 ;;; Modified: Wed Mar 24 15:15:37 EST 1993
 ;;; Moving to afl package 
 

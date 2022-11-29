@@ -2,7 +2,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (in-package :aster)
 ;;; Modified: Thu Dec 24 14:08:54 EST 1992
 ;;; Modified: Thu Dec 24 11:06:39 EST 1992

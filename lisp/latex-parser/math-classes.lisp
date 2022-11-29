@@ -4,7 +4,7 @@
 ;;; All Rights Reserved
 ;;;
 
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (in-package :aster)
 
 ;;; Modified: Thu Dec 24 11:00:35 EST 1992

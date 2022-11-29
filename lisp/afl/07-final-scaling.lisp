@@ -4,7 +4,7 @@
  
 
 (in-package :afl)
-(proclaim '(optimize (compilation-speed 0) (safety 1) (speed 3)))
+
 (export '(
           define-final-scale-factor
           set-final-scale-factor
