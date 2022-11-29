@@ -1,5 +1,5 @@
 all:
-	@sbcl --script aster.lisp 2>&1 > /dev/null
+	@sbcl --script aster.lisp 
 	@echo "Compiled lisp"
 	@cd lexer && make --no-print-directory
 	@echo "Setup Slime in Emacs, then load  ui/aster.el and run M-x aster"
