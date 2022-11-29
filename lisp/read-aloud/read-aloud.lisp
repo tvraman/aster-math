@@ -59,7 +59,6 @@
 
 (defmethod read-aloud ((article article))
   "read aloud an article"
-  (afl:tts-init)
   (unless afl:*current-speech-state*
     (afl:initialize-speech-space))
   (setf *document* article)
