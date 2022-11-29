@@ -49,7 +49,6 @@
 
 (defmethod read-aloud  :before ((document document ))
   "Prepare system for reading."
-  (afl:tts-init)
   (unless afl:*current-speech-state*
     (afl:initialize-speech-space)
     (setf (afl-state document) afl:*current-speech-state*))
