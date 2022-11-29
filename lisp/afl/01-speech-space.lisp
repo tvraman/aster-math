@@ -1,11 +1,9 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :afl)
-
 
 (export '(
           initialize-speech-space re-initialize-speech-space current-value))
@@ -267,7 +265,7 @@ argument to this function,  the name of a point in speech space"
   (setf *speech-hardware-state* nil )
   (setf *current-speech-state* (create-initial-point-in-speech-space))
   (setf *global-speech-state* (create-initial-point-in-speech-space ))
-  ;(tts-init)
+                                        ;(tts-init)
   (set-speech-state *current-speech-state*))
 
 ;;; Function: SETUP-GLOBALS                                  Author: raman
@@ -348,9 +346,6 @@ if scale factor already defined "
    (gethash dimension  *table-of-final-scale-factors*)
    *default-final-scale-factor*))
 
-
-
-
 ;;; Function: SET-FINAL-SCALE-FACTOR                         Author: raman
 ;;; Created: Fri Aug 14 11:40:44 1992
 
@@ -361,7 +356,6 @@ if scale factor already defined "
   (set-speech-state *current-speech-state*)
   )
 
-
 ;;; Function: REFRESH                                        Author: raman
 ;;; Created: Thu Aug 20 14:04:49 1992
 
@@ -369,8 +363,7 @@ if scale factor already defined "
   "Call this function if the hardware gets out of synch with the current
 state as recorded by afl"
   (tts-queue "[:punc some]")
-  (set-speech-state *current-speech-state*)
-  )
+  (set-speech-state *current-speech-state*))
 
 ;;}}}
 
