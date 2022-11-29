@@ -269,11 +269,16 @@ The following commands are available on this prefix once aster is running:
    `(aster:file ,file)))
 
 ;; Make sure to first setup device <snoop> via default.pa for Pulseaudio
+(defvar-local aster-recording-p nil
+  "Flag that says if we're recording.")
 
 (defun aster-record ()
   "Record Aster's reading of current node.
-Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
+Output is found in aster-rootp/tests/aster.ogg which will be
+  overwritten.
+Calling aster-top bound to \\[aster-stop]stops the recording."
   (interactive )
+  (cl-declare (special aster-recording-p))
   (let ((index "")
         (output (expand-file-name "tests/aster.ogg" aster-root))
         (move "pacmd move-sink-input %s snoop; ")
@@ -287,7 +292,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
        (concat
         (format move index )
         (format record output)))
-      (message "Recording. Remember to kill parec"))))
+      (setq aster-recording-p t))))
 
 (defun aster-region (start end)
   "Read region using Aster."
@@ -366,9 +371,13 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (aster-cmd '(aster:read-next )))
 
 (defun aster-stop ()
-  "Stop speech"
+  "Stop speech. Stops recording if we were recording."
   (interactive)
-  (aster-cmd '(afl:tts-stop )))
+  (cl-declare (special aster-recording-p))
+  (aster-cmd '(afl:tts-stop ))
+  (when aster-recording-p
+    (shell-command "pidof parec && pkill parec"))
+  (setq aster-recording-p nil))
 
 (defun aster-to-document-root ()
   "Move to   document root."
