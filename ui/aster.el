@@ -280,7 +280,7 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
         (record "parec -d snoop.monitor | oggenc -o %s -r - &"))
     (aster-check)
     (aster-current)
-    (sit-for 0.4)
+    (sit-for 0.1)
     (setq index (a--pa-index "DEC"))
     (unless (zerop (length index))
       (shell-command (format move index ))
