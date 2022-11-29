@@ -1,6 +1,4 @@
 (in-package :aster)
-  (unless afl:*current-speech-state*
-    (afl:initialize-speech-space))
 ;; configure rules and  styles:
 ;;; active-styles is a stack:
 ;;; And earlier members take precedence
