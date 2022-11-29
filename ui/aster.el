@@ -276,15 +276,17 @@ Output is found in aster-rootp/tests/aster.ogg which will be overwritten"
   (interactive )
   (let ((index "")
         (output (expand-file-name "tests/aster.ogg" aster-root))
-        (move "pacmd move-sink-input %s snoop ")
+        (move "pacmd move-sink-input %s snoop; ")
         (record "parec -d snoop.monitor | oggenc -o %s -r - &"))
     (aster-check)
     (aster-current)
     (sit-for 0.1)
     (setq index (a--pa-index "DEC"))
     (unless (zerop (length index))
-      (shell-command (format move index ))
-      (shell-command (format record output))
+      (shell-command
+       (concat
+        (format move index )
+        (format record output)))
       (message "Recording. Remember to kill parec"))))
 
 (defun aster-region (start end)
