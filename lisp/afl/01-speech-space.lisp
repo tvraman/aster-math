@@ -6,7 +6,7 @@
 (in-package :afl)
 
 (export '(
-          initialize-speech-space re-initialize-speech-space current-value))
+          initialize-speech-space current-value))
 
 ;;{{{ method reference-value
 (defgeneric reference-value (ref))
@@ -219,21 +219,6 @@ point is *current-speech-state* "
 
 ;;; Function: RE-INITIALIZE-SPEECH-SPACE                     Author: raman
 ;;; Created: Wed Aug 26 15:29:23 1992
-
-(defun re-initialize-speech-space (&optional (voice 'paul))
-  "re-initialize speech space with voice,  a point in speech space."
-  (let ((new-voice (get-point-in-speech-space voice)))
-    (dolist
-        (dimension (speech-dimensions))
-      (set-global-value dimension
-                        (current-value dimension new-voice))
-      (set-step-size dimension
-                     (current-step-size dimension new-voice))
-      )
-    (set-speech-state  *current-speech-state*)
-
-    )
-  )
 
 ;;}}}
 ;;{{{ initialize-speech-space
