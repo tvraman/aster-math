@@ -239,7 +239,6 @@
 
 ;;; local variables:
 ;;; folded-file: t
-
 ;;; end:
 
 ;;}}}

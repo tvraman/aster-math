@@ -10,16 +10,11 @@
 
 (export
  '(
-   move-back
-   move-forward
-   move-to-abstract
-   move-to-attributes
-   move-to-children
-   move-to-contents
-   move-to-subscript
-   move-to-superscript
+   move-back move-forward move-up
+   move-to-abstract move-to-attributes
+   move-to-children move-to-contents
+   move-to-subscript move-to-superscript
    move-to-math-root move-to-doc-root
-   move-up
    read-current read-next read-previous))
 
 ;;; Sun Jan 10 15:47:28 EST 1993

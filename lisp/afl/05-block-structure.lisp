@@ -7,10 +7,10 @@
 ;;;
 (in-package :afl)
 
-(export '(
-          *current-speech-state* *global-speech-state*
-          local-set-state 
-          new-block exit-block))
+(export
+ '(*current-speech-state* *global-speech-state*
+   local-set-state new-block))
+
 ;;;  Contains definition of new-block as a macro.
 ;;; and associated assignment operators.
 

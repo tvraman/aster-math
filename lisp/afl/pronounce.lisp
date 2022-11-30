@@ -5,9 +5,10 @@
 (in-package :afl)
 
 
-(export '( get-pronunciation define-pronunciation
-          with-pronunciation-mode current-pronunciation-mode
-          *pronunciation-mode* dehyphenate-word))
+(export
+ '( get-pronunciation define-pronunciation
+   with-pronunciation-mode current-pronunciation-mode
+   *pronunciation-mode* dehyphenate-word))
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
 ;;; Pronunciation tables for dectalk.
 ;;; Separate tables for text and math mode.
