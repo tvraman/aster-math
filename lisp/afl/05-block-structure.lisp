@@ -9,8 +9,7 @@
 
 (export '(
           *current-speech-state* *global-speech-state*
-                                        ;*await-silence-when-using-stereo*
-          local-set-state global-set-state
+          local-set-state 
           new-block exit-block))
 ;;;  Contains definition of new-block as a macro.
 ;;; and associated assignment operators.

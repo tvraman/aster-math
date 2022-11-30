@@ -5,11 +5,7 @@
 
 (in-package :afl)
 
-(export '(
-          set-final-scale-factor
-          get-final-scale-factor
-          refresh
-          ))
+(export '(refresh))
 
 ;;; Implements a scaling operation to the current state.
 ;;; Allows for cleanly speeding up an entire rendering etc.
