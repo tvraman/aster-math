@@ -14,15 +14,6 @@
  
 ;;{{{ attributes
 
-
-;;; Variable: *ALL-ATTRIBUTES*                               Author: raman
-;;; Created: Sat Oct 31 13:46:52 1992
-
-(defvar *all-attributes*
-  '(SUBSCRIPT SUPERSCRIPT ACCENT
-    UNDERBAR LEFT-SUBSCRIPT LEFT-SUPERSCRIPT )
-  "Currently known  list of attributes")
-
 ;;; Class: ATTRIBUTE                                     Author: raman
 ;;; Created: Fri Sep 18 08:33:54 1992
 ;;; <(Modified:)> Sat Dec 19 14:07:36 EST 1992
@@ -40,9 +31,11 @@
   (:documentation "An attribute in math"))
 
 (defun make-attribute (&key name value parent)
-  (assert (member name  *all-attributes*) nil
-          "~a is not a valid attribute name"
-          name)
+  (assert
+   (member name
+           '(SUBSCRIPT SUPERSCRIPT ACCENT UNDERBAR
+             LEFT-SUBSCRIPT LEFT-SUPERSCRIPT )) nil
+          "~a is not a valid attribute name" name)
   (let ((self (make-instance name
                              :name name
                              :parent parent

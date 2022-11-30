@@ -550,7 +550,9 @@
       (= (length attr-list-1 )
          (length attr-list-2))
     
-    (loop for attr in *all-attributes*
+    (loop for attr in
+          '(SUBSCRIPT SUPERSCRIPT ACCENT
+    UNDERBAR LEFT-SUBSCRIPT LEFT-SUPERSCRIPT )
           always  (same-attribute?
                    (find attr attr-list-1 :key  #'attribute-name)
                    (find attr attr-list-2 :key #'attribute-name))
