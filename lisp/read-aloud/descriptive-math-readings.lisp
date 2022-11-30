@@ -273,20 +273,13 @@
              (read-aloud subscript )
              (read-aloud "[']of")))))))
 
-  ;;; Parameter: *INDEX-VARIABLES*                             Author: raman
-  ;;; Created: Fri Dec 25 17:05:46 1992
-
-(defvar *index-variables*
-  '("i" "j" "k""l" "m" "n")
-  "These are usually index variables. ")
   ;;; Function: INDEX-VARIABLE-P                               Author: raman
   ;;; Created: Fri Dec 25 17:04:44 1992
 
 (defun index-variable-p (ordinary) 
   "Is this an index variable?"
   (and (ordinary-p ordinary)
-       (find (contents ordinary) *index-variables* :test #'equal))
-  )
+       (member (contents ordinary) '("i" "j" "k""l" "m" "n"))))
 
 (def-reading-rule  (subscript descriptive) 
     "Descriptive reading rule for subscript "
