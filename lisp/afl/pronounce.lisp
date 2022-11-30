@@ -7,8 +7,7 @@
 
 (export '( get-pronunciation define-pronunciation
           with-pronunciation-mode current-pronunciation-mode
-          *pronunciation-mode* *global-pronunciation-mode*
-          dehyphenate-word))
+          *pronunciation-mode* dehyphenate-word))
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
 ;;; Pronunciation tables for dectalk.
 ;;; Separate tables for text and math mode.
@@ -18,12 +17,6 @@
 ;;; Created: Fri Sep 25 11:37:16 1992
 
 (defvar *pronunciation-mode*  :text " Current pronunciation mode")
-
-  ;;; Variable: *GLOBAL-PRONUNCIATION-MODE*                    Author: raman
-  ;;; Created: Thu Mar 25 09:14:35 1993
-
-(defvar *global-pronunciation-mode*  *pronunciation-mode*
-  "Global state  for pronunciation")
 
   ;;; Variable: *VALID-PRONUNCIATION-MODES*                    Author: raman
   ;;; Created: Tue Feb 23 19:58:30 1993

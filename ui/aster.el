@@ -224,6 +224,12 @@ The following commands are available on this prefix once aster is running:
          (slime)
          (sit-for 1)))
 
+
+(defun aster-restart  ()
+  "Restart lisp and load Aster. "
+  (slime-quit-lisp)
+  (aster))
+
 (defun aster-post-startup ()
   "Prepare Aster once slime is ready."
   (cl-declare (special aster-setup aster-ready))

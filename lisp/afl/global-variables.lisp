@@ -4,29 +4,7 @@
 
 (in-package :afl)
 
-
-
-
-(export '(
-          define-default-value
-          define-unit-size
-          define-synthesizer-code
-          define-step-size
-          set-step-size
-          define-standard-voice
-          save-point-in-speech-space
-          get-point-in-speech-space
-          speech-dimensions
-          get-step-size
-          define-minimum-value
-          define-maximum-value
-          minimum-value
-          maximum-value
-          dimension-range
-          compute-range
-          length-of-subinterval
-          ))
-
+(export '(get-point-in-speech-space))
 ;;; Each fold  contains a variable and its associated accessors and
 ;;; modifiers.
 ;;; Only the modifiers exported. 
