@@ -8,10 +8,7 @@
 (export '( get-pronunciation define-pronunciation
           with-pronunciation-mode current-pronunciation-mode
           *pronunciation-mode* *global-pronunciation-mode*
-          *pronounce-ignore-case-in-text*
-          *always-dehyphenate*
-          dehyphenate-word
-          ))
+          dehyphenate-word))
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
 ;;; Pronunciation tables for dectalk.
 ;;; Separate tables for text and math mode.
@@ -97,20 +94,6 @@
   "Remove pronunciation for string in text mode "
   (remhash string *text-mode-pronunciations*)
   )
-
-;;; Variable: *PRONOUNCE-IGNORE-CASE-IN-TEXT*                Author: raman
-;;; Created: Tue Nov 10 15:28:51 1992
-;;; external variable:
-(defvar *pronounce-ignore-case-in-text* t
-  "If t case ignore in text mode when choosing pronunciation")
-
-  ;;; Variable: *ALWAYS-DEHYPHENATE*                           Author: raman
-  ;;; Created: Wed May  5 09:34:26 1993
-;;; external variable:
-(defvar *always-dehyphenate* t
-  "Always dehyphenate words. Avoids the dectalk spelling out
-things. ")
-
 (defun dehyphenate-word (str)
   "Remove hyphens and replace by spaces."
   (let ((result " "))
@@ -125,13 +108,10 @@ things. ")
 
 (defmethod get-pronounce-internal ((string string) (mode (eql :text )))
   "Internal method for getting pronunciation in text mode"
-  (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
   (let ((lcs (string-downcase string )))
     (or
-     (gethash
-      (if *pronounce-ignore-case-in-text* lcs string)
-      *text-mode-pronunciations*)
-     (if *always-dehyphenate* (dehyphenate-word string) string))))
+     (gethash lcs *text-mode-pronunciations*)
+       (dehyphenate-word string))))
 
 ;;}}}
 ;;{{{ math mode
