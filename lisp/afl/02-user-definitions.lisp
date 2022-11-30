@@ -151,6 +151,18 @@
 
 ;;{{{ define scale factors for final scaling
 
+;;; Function: DEFINE-FINAL-SCALE-FACTOR                      Author: raman
+;;; Created: Fri Aug 14 11:37:43 1992
+
+(defun define-final-scale-factor (dimension scale-factor)
+  "Define global scale factor to be applied to dimension Does nothing
+if scale factor already defined "
+  (unless (gethash dimension *table-of-final-scale-factors*)
+    (setf (gethash dimension *table-of-final-scale-factors*)
+          scale-factor)))
+
+
+
 (define-final-scale-factor 'voice 'undefined)
 
 ;;}}}

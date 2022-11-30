@@ -5,8 +5,7 @@
 ;;;
 (in-package :afl)
 
-(export '(
-          initialize-speech-space current-value))
+(export '(initialize-speech-space ))
 
 ;;{{{ method reference-value
 (defgeneric reference-value (ref))
@@ -277,8 +276,7 @@ argument which is an object of type dimension. "
 ;;; Include 07-final-scaling here
 
 (export
- '(define-final-scale-factor
-   set-final-scale-factor
+ '(set-final-scale-factor
    get-final-scale-factor
    refresh
    ))
@@ -304,17 +302,6 @@ argument which is an object of type dimension. "
 (defvar *table-of-final-scale-factors*
   (make-hash-table   :test #'equal)
   " Table containing global scale factors")
-
-;;; Function: DEFINE-FINAL-SCALE-FACTOR                      Author: raman
-;;; Created: Fri Aug 14 11:37:43 1992
-
-(defun define-final-scale-factor (dimension scale-factor)
-  "Define global scale factor to be applied to dimension Does nothing
-if scale factor already defined "
-  (unless (gethash dimension *table-of-final-scale-factors*)
-    (setf (gethash dimension *table-of-final-scale-factors*)
-          scale-factor))
-  )
 
 ;;; Function: GET-FINAL-SCALE-FACTOR                         Author: raman
 ;;; Created: Fri Aug 14 11:38:46 1992
