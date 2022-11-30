@@ -9,6 +9,8 @@
    Common Lisp.
   - We use SBCL for the Common Lisp implementation
   - AsTeR accepts TeX/LaTeX markup and produces audio-formatted spoken renderings.
+  - We use the Emacspeak ~dtk-soft~ TTS server to interface with the
+    software DECTalk.
   - UI is implemented in Emacs and integrated with Emacspeak.
   - We use package /slime/ to connect Emacs and Common Lisp.
   - Emacs commands send snippets of Lisp to a running Common-Lisp
@@ -20,7 +22,7 @@
   - Install package /slime/ using M-x package-install
   - Install /SBCL/  and /cl-asdf/using  your linux system's package manager.
   - Install Software DECTalk from Github.
-  - Install Emacspeak from Github --- Aster uses the Emacspeak
+  - Install Emacspeak 57.0 or later from Github --- Aster uses the Emacspeak
     /dtk-soft/ speech-server to communicate with the DECTalk.
   - Set _environment variable_ ~EMACSPEAK_DIR~ to point at the root of
     your Emacspeak install if not running emacspeak; Emacspeak does
