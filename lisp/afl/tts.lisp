@@ -35,15 +35,12 @@
 (in-package :afl)
 
 (export
- '(tts-init tts-open tts-shutdown 
-   tts-stop tts-code tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
-   tts-beep with-surrounding-pause
-   high-intonation low-intonation high-low-intonation
-   comma-intonation period-intonation
-   set-period-pause set-comma-pause
-   interrogative exclamation
-   primary-stress secondary-stress exclamatory-stress
-   subclause-boundary))
+ '(tts-init tts-stop tts-code tts-icon tts-speak tts-force tts-queue  tts-say
+   tts-pause tts-beep with-surrounding-pause
+   high-intonation low-intonation high-low-intonation subclause-boundary
+   comma-intonation period-intonation set-period-pause set-comma-pause
+   interrogative exclamation primary-stress secondary-stress
+   exclamatory-stress))
 ;; A TTS structure holds:
 ;; the engine name, process handle, and input/output streams.
 
@@ -51,7 +48,6 @@
 
 (defvar *tts-log* nil
   "Flag to toggle TTS logging.")
-
 
 (defun tts-location (engine)
   "Return location of specified engine."
@@ -62,8 +58,6 @@
    "servers/"
    (if *tts-log* "log-"   "")
    engine))
-
-
 
 (defvar *tts* nil
   "Handle to tts server connection.")
@@ -112,7 +106,7 @@
            (tts-engine handle) nil :wait nil :input :stream))
     (setf (tts-input handle) (process-input (tts-process handle)))
     (write-line (format nil "tts_set_punctuations some") (tts-input handle))
-    
+
     (force-output (tts-input handle))))
 
 (defun icon-file (icon)
@@ -139,10 +133,10 @@
 
 (defun tts-icon (icon)
   "play icon"
-    (let ((i (tts-input (tts))))
-      (unless i (setq i (tts-open)))
-      (format i "a {~a}~%" (icon-file icon))
-      (finish-output i)))
+  (let ((i (tts-input (tts))))
+    (unless i (setq i (tts-open)))
+    (format i "a {~a}~%" (icon-file icon))
+    (finish-output i)))
 
 (defun tts-queue (text)
   "Queue text to speak."
