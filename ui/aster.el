@@ -349,17 +349,17 @@ The following commands are available on this prefix once aster is running:
   (interactive)
   (aster-cmd '(aster:move-to-superscript )))
 
-(defun aster-to-left ()
+(defun aster-move-left ()
   "Move left"
   (interactive)
   (aster-cmd '(aster:move-back )))
 
-(defun aster-to-right ()
+(defun aster-move-right ()
   "Move right"
   (interactive)
   (aster-cmd '(aster:move-forward )))
 
-(defun aster-to-up ()
+(defun aster-to-parent ()
   "Move up"
   (interactive)
   (aster-cmd '(aster:move-up )))
@@ -426,11 +426,11 @@ The following commands are available on this prefix once aster is running:
     ("^" aster-to-superscript )
     ("_" aster-to-subscript)
     ("f"aster-file)
-    ("h" aster-to-left)
+    ("h" aster-move-left)
     ("i" aster-to-contents)
     ("j" aster-to-children )
-    ("k" aster-to-up)
-    ("l" aster-to-right)
+    ("k" aster-to-parent)
+    ("l" aster-move-right)
     ("m" aster-math)
     ("n" aster-next)
     ("p" aster-previous)
@@ -460,9 +460,9 @@ The following commands are available on this prefix once aster is running:
   (cl-loop
    for b in
    '(("<down>" aster-to-children )
-     ("<left>" aster-to-left)
-     ("<right>" aster-to-right)
-     ("<up>" aster-to-up))
+     ("<left>" aster-move-left)
+     ("<right>" aster-move-right)
+     ("<up>" aster-to-parent))
    do
    (define-key aster-keymap  (cl-first b) (cl-second b))))
 
