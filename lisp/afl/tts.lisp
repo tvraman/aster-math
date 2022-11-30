@@ -131,7 +131,7 @@
     (setf (tts-input handle) nil)))
 
 (defun tts-code (cmd)
-  "Queue TTS code  to engine."
+  "Queue TTS code."
   (let ((i (tts-input (tts))))
     (unless i (setq i (tts-open)))
     (format i "c {~a}~%" cmd)
