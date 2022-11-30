@@ -1,10 +1,47 @@
-* Overview 
+* Quick Start  
 
   1. Get source via git checkout [[https://github.com/tvraman/aster-math]]
   2. _cd aster-math/lisp  && make_
 
-See [[./ui/design.html][Design Overview]]
-for detailed setup and usage instructions.
+* Overview 
+
+  - Audio System For Technical Readings (AsTeR) is implemented in
+   Common Lisp.
+  - We use SBCL for the Common Lisp implementation
+  - AsTeR accepts TeX/LaTeX markup and produces audio-formatted spoken renderings.
+  - UI is implemented in Emacs and integrated with Emacspeak.
+  - We use package /slime/ to connect Emacs and Common Lisp.
+  - Emacs commands send snippets of Lisp to a running Common-Lisp
+    interpreter to control Aster.
+  
+
+* Pre-requisites 
+
+  - Install package /slime/ using M-x package-install
+  - Install /SBCL/  and /cl-asdf/using  your linux system's package manager.
+  - Install Software DECTalk from Github.
+  - Install Emacspeak from Github --- Aster uses the Emacspeak
+    /dtk-soft/ speech-server to communicate with the DECTalk.
+  - Set _environment variable_ ~EMACSPEAK_DIR~ to point at the root of
+    your Emacspeak install if not running emacspeak; Emacspeak does
+    this for yu automatically. This setting is needed by the Common
+    Lisp layer in order to find and launch the TTS Server.
+
+* Usage 
+
+  - The user-interface to AsTeR is implemented in Emacs.
+  - Load emacs library /aster.el/ and run  _M-x aster RET_.
+  - From here on, all Aster commands are found under Emacs prefix-key
+    _C-; SPC_.
+  - M-x describe-function aster gives a list of keybindings.
+  - You can select  content to send to AsTeR for processing in a
+   number of ways:
+    - By sending an entire  LaTeX file.
+    - By sending math content from any Emacs buffer.
+    - From Emacs  Calculator (calc).
+    - From the Emacs interface to Sage --- a symbolic algebra system.
+  -  Once Aster starts reading the content, you can use Aster's
+    navigation commands to move around in the content being read.
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
