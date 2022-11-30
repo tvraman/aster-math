@@ -15,7 +15,7 @@
    move-to-children move-to-contents
    move-to-subscript move-to-superscript
    move-to-math-root move-to-doc-root
-   read-current read-next read-previous))
+   read-current read-next read-previous read-parent))
 
 ;;; Sun Jan 10 15:47:28 EST 1993
 ;;; initial attempt at browsing.
