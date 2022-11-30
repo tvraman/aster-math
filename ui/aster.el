@@ -229,6 +229,7 @@ The following commands are available on this prefix once aster is running:
   "Restart lisp and load Aster. "
   (interactive)
   (slime-quit-lisp)
+  (sit-for 1)
   (aster))
 
 (defun aster-post-startup ()
