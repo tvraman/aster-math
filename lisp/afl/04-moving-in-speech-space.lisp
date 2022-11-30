@@ -9,11 +9,12 @@
 (in-package :afl)
 
 
-(export '(
-          value step-size ;;;slots
-          move-to move-by scale-by step-by
-          multi-move-by multi-move-to multi-scale-by multi-step-by
-          generalized-afl-operator))
+(export
+ '(
+   step-size 
+   move-to move-by scale-by step-by
+   multi-move-by multi-move-to multi-scale-by multi-step-by
+   generalized-afl-operator))
 ;;; Modified: Wed Mar 24 17:17:27 EST 1993
 ;;; turning all the move operators into methods makes them too slow
 ;;; resulting in undesirable pauses. For the present leaving move-to
