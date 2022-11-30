@@ -34,10 +34,10 @@
            (read-aloud (children variable-of-integration))
            (read-aloud " equals" ))
          (read-aloud lower-limit)
-         (afl:tts-pause 1)
+         (afl:tts-silence 1)
          (read-aloud " to ")
          (read-aloud upper-limit)
-         (afl:tts-pause 1))
+         (afl:tts-silence 1))
         (lower-limit
          (when variable-of-integration
            (read-aloud " with respect to ")
@@ -155,7 +155,7 @@
             (exponent-p contents))
        (afl:tts-queue "[_,]")
        (afl:low-intonation)
-       (afl:tts-pause 5 )
+       (afl:tts-silence 5 )
        (read-aloud *exponent-start* )
        (afl:tts-queue "[_,]")
        (if (and
@@ -335,7 +335,7 @@
             do (read-math-child  child ))
       (when subscript
         (afl:tts-queue "[_,]")
-        (afl:tts-pause 1)
+        (afl:tts-silence 1)
         (read-aloud "to the base ")
         (afl:comma-intonation)
         (read-aloud subscript ))
@@ -363,7 +363,7 @@
     (when  remaining-attributes
       (when subscript
         (afl:comma-intonation)
-        (afl:tts-pause 1)
+        (afl:tts-silence 1)
         (afl:tts-queue "to the base ")
         (afl:comma-intonation)
         (read-aloud subscript )))))
@@ -380,7 +380,7 @@
          (read-aloud "log")
          (when subscript
            (afl:tts-queue "[_,]")
-                                        ;           (afl:tts-pause 1)
+                                        ;           (afl:tts-silence 1)
            (read-aloud " to the base ")
            (afl:low-intonation)
            (afl:tts-queue "[_,]")
@@ -394,7 +394,7 @@
                  do (read-math-child  child ))
            (when subscript
              (afl:tts-queue "[_,]")
-             (afl:tts-pause 1)
+             (afl:tts-silence 1)
              (read-aloud "to the base ")
              (afl:tts-queue "[_,]")
              (read-aloud subscript )))

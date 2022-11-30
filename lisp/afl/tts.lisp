@@ -36,7 +36,7 @@
 
 (export
  '(tts-init tts-stop tts-speak tts-force tts-queue  tts-say
-   tts-pause tts-beep with-surrounding-pause
+   tts-silence tts-beep with-surrounding-pause
    high-intonation low-intonation high-low-intonation subclause-boundary
    comma-intonation period-intonation set-period-pause set-comma-pause
    interrogative exclamation primary-stress secondary-stress
@@ -82,7 +82,7 @@
 ;;}}}
 ;;{{{macros:
 
-(defun tts-pause (ms)
+(defun tts-silence (ms)
   "Send silence"
   (when (> ms 0)
     (let ((i (tts-input (tts))))
@@ -92,9 +92,9 @@
 (defmacro with-surrounding-pause (pause-amount &body body)
   "Execute body with surrounding pause specified by pause-amount"
   `(progn
-     (tts-pause ,pause-amount)
+     (tts-silence ,pause-amount)
      ,@body
-     (tts-pause ,pause-amount)))
+     (tts-silence ,pause-amount)))
 ;;}}}
 ;;{{{Internal Functions
 

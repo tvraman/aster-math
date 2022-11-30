@@ -12,7 +12,7 @@
         (read-aloud (format nil "~a  ~a. "
                             (contents boxed-equation)
                             (anumber boxed-equation ))))
-    (afl:tts-pause 5)
+    (afl:tts-silence 5)
     (read-aloud (argument boxed-equation 1))))
 
 (activate-rule 'boxed-equation 'play-sound)
@@ -29,7 +29,7 @@
         (read-aloud (format nil "~a  ~a. "
                             (contents defined-text-object-with-label)
                             (anumber defined-text-object-with-label ))))
-    (afl:tts-pause 5)
+    (afl:tts-silence 5)
     (read-aloud (argument defined-text-object-with-label 1))
     (relabel-if-necessary (label defined-text-object-with-label ))))
 

@@ -45,11 +45,11 @@
 
 (defmethod read-aloud  (( quad quad ))
   "Read aloud method for object quad "
-  (afl:tts-pause 10))
+  (afl:tts-silence 10))
 
 (defmethod read-aloud  (( qquad qquad ))
   "Read aloud method for object qquad "
-  (afl:tts-pause 10))
+  (afl:tts-silence 10))
 
 (defmethod read-aloud  (( two-by-two-matrix two-by-two-matrix ))
   "Read aloud method for object two-by-two-matrix "

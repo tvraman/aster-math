@@ -411,7 +411,7 @@
       (read-aloud args))
     (afl:period-intonation)
     (afl:tts-force)
-    (afl:tts-pause 1)
+    (afl:tts-silence 1)
     (read-aloud doc)
     (afl:tts-force)))
 
@@ -519,20 +519,20 @@
 
 (def-reading-rule (copyright-page  simple)
   "Read aloud a  copyright page ."
-  (afl:tts-pause 1)
+  (afl:tts-silence 1)
   (read-aloud "Copyright, 1994, T V Raman. ")
   (read-aloud "All rights reserved. ")
   )
 (def-reading-rule (dedication simple)
   "Render the dedication page. "
   (read-aloud "dedication. ")
-  (afl:tts-pause 5)
+  (afl:tts-silence 5)
   (read-aloud (contents dedication )))
 
 (def-reading-rule (biographical-sketch simple)
   "Read aloud a  biographical sketch. "
   (read-aloud " Biographical sketch. ")
-  (afl:tts-pause 1)
+  (afl:tts-silence 1)
   (read-aloud (contents biographical-sketch))
   )
 (define-text-object :macro-name "makecopyright"

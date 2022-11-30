@@ -200,7 +200,7 @@
       (afl:local-set-state :math)
       (afl:local-set-state (reading-state 'math ))
       (read-aloud equation )
-      (afl:tts-pause 5)
+      (afl:tts-silence 5)
       (if label-name
           (read-aloud label-name)
           (read-aloud  (format nil "math equation ~a" number  )))

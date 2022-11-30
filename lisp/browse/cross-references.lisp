@@ -101,7 +101,7 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
     ((label figure) (read-aloud
                      (label-name (label figure )))
      (afl:tts-force)
-     (afl:tts-pause 1)
+     (afl:tts-silence 1)
      (read-aloud (caption figure)))
     (t (read-aloud "figure captioned, ")
        (read-aloud (caption  figure )))
@@ -114,7 +114,7 @@ If non-zero, prompt, waiting for *follow-cross-ref-wait* seconds. "
     ((label table) (read-aloud
                     (label-name (label table )))
      (afl:tts-force)
-     (afl:tts-pause 1)
+     (afl:tts-silence 1)
      (read-aloud (caption table)))
     (t (read-aloud "table captioned, ")
        (read-aloud (caption  table )))
