@@ -35,7 +35,7 @@
 (in-package :afl)
 
 (export
- '(tts-init tts-stop tts-code tts-icon tts-speak tts-force tts-queue  tts-say
+ '(tts-init tts-stop tts-speak tts-force tts-queue  tts-say
    tts-pause tts-beep with-surrounding-pause
    high-intonation low-intonation high-low-intonation subclause-boundary
    comma-intonation period-intonation set-period-pause set-comma-pause
