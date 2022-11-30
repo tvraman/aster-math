@@ -185,13 +185,6 @@
   (mapc 'tts-queue lines)
   (tts-force))
 
-(defun tts-letter (text)
-  "Speak letter."
-  (unless (tts-input (tts)) (tts-open))
-  (let ((i (tts-input (tts))))
-    (format i "l ~a~%" text)
-    (finish-output i)))
-
 ;;}}}
 ;;{{{Various: Intonation Functions:
 
