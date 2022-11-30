@@ -1,12 +1,9 @@
 ;;;   -*- Syntax-Lisp;  Base: 10; Mode: LISP -*-    ;;;
 
-
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :aster)
-
 
 (export
  '(
@@ -19,7 +16,6 @@
 
 ;;; Sun Jan 10 15:47:28 EST 1993
 ;;; initial attempt at browsing.
-
 
 ;;; Record display math objects  as they are read
 
@@ -63,8 +59,7 @@
   (afl:refresh)
   (let ((math-flag (and  (typep *read-pointer* 'math )
                          (not (or (display-math-p *read-pointer*)
-                                  (inline-math-p *read-pointer* )))))
-        )
+                                  (inline-math-p *read-pointer* ))))))
     (save-pointer-excursion
       (afl:new-block
         (afl:local-set-state afl:*global-speech-state*)
@@ -73,10 +68,7 @@
                (afl:local-set-state :math)
                (read-aloud  *read-pointer* ))
              (read-aloud *read-pointer*))
-        (afl:tts-force))
-      )
-    )
-  )
+        (afl:tts-force)))))
 
 (defun read-current-relatively()
   "read current relatively"
