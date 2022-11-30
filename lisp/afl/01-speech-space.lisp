@@ -5,7 +5,7 @@
 ;;;
 (in-package :afl)
 
-(export '(initialize-speech-space ))
+(export '(initialize-speech-space refresh ))
 
 ;;{{{ method reference-value
 (defgeneric reference-value (ref))
@@ -275,11 +275,8 @@ argument which is an object of type dimension. "
 ;;}}}
 ;;; Include 07-final-scaling here
 
-(export
- '(set-final-scale-factor
-   get-final-scale-factor
-   refresh
-   ))
+
+ 
 
 ;;; Implements a scaling operation to the current state.
 ;;; Allows for cleanly speeding up an entire rendering etc.
