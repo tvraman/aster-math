@@ -35,7 +35,7 @@
 (in-package :afl)
 
 (export
- '(tts-init tts-open tts-shutdown *tts-log*
+ '(tts-init tts-open tts-shutdown 
    tts-stop tts-code tts-icon tts-speak tts-force tts-queue  tts-say tts-pause
    tts-beep with-surrounding-pause
    high-intonation low-intonation high-low-intonation
@@ -49,6 +49,10 @@
 
 (defstruct tts engine process input output )
 
+(defvar *tts-log* nil
+  "Flag to toggle TTS logging.")
+
+
 (defun tts-location (engine)
   "Return location of specified engine."
   (declare (special *tts-log*))
@@ -59,8 +63,7 @@
    (if *tts-log* "log-"   "")
    engine))
 
-(defvar *tts-log* nil
-  "Global flag to turn on TTS logging.")
+
 
 (defvar *tts* nil
   "Handle to tts server connection.")
