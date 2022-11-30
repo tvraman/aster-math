@@ -268,7 +268,13 @@ The following commands are available on this prefix once aster is running:
   (aster-cmd
    `(aster:file ,file)))
 
-;; Make sure to first setup device <snoop> via default.pa for Pulseaudio
+;; Make sure to first setup device <snoop> via default.pa for
+;; Pulseaudio
+
+(defsubst a--snoop-p ()
+  "Check if snoop device is present."
+  (zerop (shell-command "pacmd list-sinks | grep snoop ")))
+
 (defvar-local aster-recording-p nil
   "Flag that says if we're recording.")
 
@@ -276,9 +282,12 @@ The following commands are available on this prefix once aster is running:
   "Record Aster's reading of current node.
   Output is found in aster-rootp/tests/aster.ogg which will be
   overwritten.  Calling aster-top bound to \\[aster-stop]stops
-  the recording."
+  the recording. See
+  https://github.com/tvraman/emacspeak/blob/master/etc/pulse/default.pa#L19
+  for setting up device <snoop>."
   (interactive )
   (cl-declare (special aster-recording-p))
+  (cl-assert (a--snoop-p) t "First set up snoop device." )
   (let ((index "")
         (output (expand-file-name "tests/aster.ogg" aster-root))
         (move "pacmd move-sink-input %s snoop; ")
