@@ -7,6 +7,3 @@
 
 (activate-rule 'footnote 'float)
 (activate-rule 'log 'read-base-first)
-
-(setf *follow-cross-ref-wait* 0
-      *get-label-wait* 0)
