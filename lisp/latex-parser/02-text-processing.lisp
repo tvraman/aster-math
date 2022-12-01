@@ -224,29 +224,27 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 ;;; Function: PROCESS-INLINE-MATH                            Author: raman
 ;;; Created: Wed Nov  6 16:11:44 1991
-;;; No change made here from jan-24-version.
 
 (defun process-inline-math (text-buffer )
   "Process in line math"
   (make-instance 'inline-math
-                 :contents (list ( process-math
-                                   (make-buffer :contents
-                                                (rest
-                                                 (pop-current-entry text-buffer ))))))
-  )
+                 :contents
+                 (list
+                  ( process-math
+                    (make-buffer
+                     :contents (rest (pop-current-entry text-buffer )))))))
 
 ;;; Function: PROCESS-DISPLAY-MATH                           Author: raman
 ;;; Created: Wed Nov  6 16:12:35 1991
-;;; No change made here from jan-24-version.
 
 (defun process-display-math (text-buffer )
   "Process display math"
-  (make-instance  'display-math
-                  :contents (list  (process-math
-                                    (make-buffer :contents
-                                                 (rest
-                                                  (pop-current-entry text-buffer ))))))
-  )
+  (make-instance
+   'display-math
+   :contents
+   (list
+    (process-math
+     (make-buffer :contents (rest (pop-current-entry text-buffer )))))))
 
 ;;; Function: PROCESS-CS                                     Author: raman
 ;;; Created: Tue Nov  5 20:30:06 1991
