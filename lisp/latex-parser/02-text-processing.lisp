@@ -388,14 +388,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 ;;; Function: CREATE-LIST-ENVIRONMENT                        Author: raman
 ;;; Created: Sat Apr 11 17:37:43 1992
-;;; Deletes the dummy item at the front of the list of items.
-;;; If lexer fixed to stop generating dummy item,
-;;; then this function should be fixed by
-;;; replacing  "(rest list-of-items)" by "list-of-items
-;;; Modified: Sun Nov 29 11:33:36 EST 1992
-;;; replaced (rest (first ...) by (rest ...)
-;;; since process-text now peels off unnecessary lists before
-;;; returning.
+
 (defun create-list-environment (list-of-items
                                 &key (list-environment-type 'enumerated-list))
   "Create a list environment of specified type,
@@ -411,8 +404,7 @@ default is enumerated list."
                                         ;call to first removed in
                                         ; above form. cleanup and stabilize
     (number-list-environment new-list-environment) ; side-effect:items numbered
-    new-list-environment)
-  )
+    new-list-environment))
 
   ;;; Function: REMOVE-NULL-ITEM                               Author: raman
   ;;; Created: Sat Jan 30 15:33:46 1993
@@ -420,14 +412,11 @@ default is enumerated list."
 (defun remove-null-items (list-of-items)
   "Remove null item from list"
   (cond
-    ((listp  list-of-items )(remove-if
-                             #'(lambda(item)
-                                 (and (item-p item)
-                                      (null (item-contents item ))))
-                             list-of-items))
-    (t list-of-items )
-    )
-  )
+    ((listp  list-of-items )
+     (remove-if
+      #'(lambda(item) (and (item-p item) (null (item-contents item ))))
+      list-of-items))
+    (t list-of-items )))
 
 ;;; Function: NUMBER-LIST-ENVIRONMENT                        Author: raman
 ;;; Created: Thu Sep  3 20:50:08 1992
@@ -435,10 +424,10 @@ default is enumerated list."
 (defun number-list-environment (list-environment &key (parent nil))
   "number items in a list environment. Only enumerated lists numbered. "
   (when (enumerated-list-p list-environment)
-    (number-list-of-items (items list-environment)
-                          :parent parent)
-    list-environment)
-  )
+    (number-list-of-items
+     (items list-environment)
+     :parent parent)
+    list-environment))
 
 ;;; Function: PROCESS-ENUMERATE                              Author: raman
 ;;; Created: Sun Jan 26 15:26:48 1992
@@ -447,11 +436,8 @@ default is enumerated list."
   "Process enumerated list of items "
   (create-list-environment
    (process-text
-    (make-buffer :contents
-                 (rest
-                  (pop-current-entry text-buffer ))))
-   :list-environment-type 'enumerated-list)
-  )
+    (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+   :list-environment-type 'enumerated-list))
 
 ;;; Function: PROCESS-DESCRIPTION                            Author: raman
 ;;; Created: Sun Jan 26 15:26:51 1992
@@ -460,11 +446,8 @@ default is enumerated list."
   "process a latex description environment "
   (create-list-environment
    (process-text
-    (make-buffer :contents
-                 (rest
-                  (pop-current-entry text-buffer ))))
-   :list-environment-type 'description-list)
-  )
+    (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+   :list-environment-type 'description-list))
 
 ;;; Function: PROCESS-ITEMIZE                                Author: raman
 ;;; Created: Sun Jan 26 15:26:54 1992
@@ -473,31 +456,24 @@ default is enumerated list."
   "process a latex   itemize environment "
   (create-list-environment
    (process-text
-    (make-buffer :contents
-                 (rest
-                  (pop-current-entry text-buffer ))))
-   :list-environment-type 'itemized-list)
-  )
+    (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+   :list-environment-type 'itemized-list))
 
 ;;; Function: PROCESS-ITEM                                   Author: raman
 ;;; Created: Sun Jan 26 15:26:57 1992
 
 (defun process-item (text-buffer )
   "process a latex   item environment "
-  (let
-      ((new-item (make-item )))
+  (let ((new-item (make-item )))
     (when (can-this-be-cross-referenced? 'item)
       (add-enclosing-referend new-item))
     (setf (item-contents  new-item)
           (process-text
-           (make-buffer :contents
-                        (rest
-                         (pop-current-entry text-buffer )))))
+           (make-buffer :contents (rest (pop-current-entry text-buffer )))))
     (when (can-this-be-cross-referenced? 'item)
       (increment-counter-value 'item)
       (pop-enclosing-referend))
-    new-item)
-  )
+    new-item))
 
 ;;; Function: PROCESS-EQUATION                               Author: raman
 ;;; Created: Sun Jan 26 15:27:00 1992
