@@ -252,8 +252,7 @@
 
 (def-reading-rule (ordinary derivative )
   "This is a derivative, read it"
-  (let
-      ((pause-amount (compute-pause ordinary ))
+  (let ((pause-amount (compute-pause ordinary ))
        (superscript (superscript ordinary ))
        (subscript (subscript ordinary )))
     (cond
@@ -263,7 +262,7 @@
        (when
            (= 2 (length (children (parent ordinary ))))
          (setf (pattern (parent ordinary )) 'derivative ))
-       (afl:with-surrounding-pause pause-amount 
+       (afl:with-surrounding-pause 0; pause-amount 
          (when  superscript
            (read-aloud (cardinal-number superscript )))
          (afl:tts-queue "derivative ")
