@@ -77,7 +77,10 @@
 (defun counter-value (name)
   "Return counter value."
   (declare (special *counter-table*))
-  (or (gethash name *counter-table*) (setf (gethash name *counter-table*) 1)))
+  (or (gethash name *counter-table*) (setf (gethash name
+                                                    *counter-table*)
+                                           1)))
+
 ;;; Function: NAME-OF-SECTIONAL-UNIT-IN-FRONT                Author: raman
 ;;; Created: Fri Oct  9 13:08:11 1992
 
