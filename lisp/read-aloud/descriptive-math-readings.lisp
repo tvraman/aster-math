@@ -251,7 +251,7 @@
 
 
 (def-reading-rule (ordinary derivative )
-    "This is a derivative, read it"
+  "This is a derivative, read it"
   (let
       ((pause-amount (compute-pause ordinary ))
        (superscript (superscript ordinary ))
@@ -263,15 +263,15 @@
        (when
            (= 2 (length (children (parent ordinary ))))
          (setf (pattern (parent ordinary )) 'derivative ))
-         (afl:with-surrounding-pause pause-amount 
-           (when  superscript
-             (read-aloud (cardinal-number superscript )))
-           (afl:tts-queue "derivative ")
-           (when subscript
-             (afl:tts-queue  "with respect  to ")
-             (read-aloud subscript )
-             (afl:tts-queue "of")
-             (afl:comma-intonation)))))))
+       (afl:with-surrounding-pause pause-amount 
+         (when  superscript
+           (read-aloud (cardinal-number superscript )))
+         (afl:tts-queue "derivative ")
+         (when subscript
+           (afl:tts-queue  "with respect  to ")
+           (read-aloud subscript )
+           (afl:tts-queue "of")
+           (afl:comma-intonation)))))))
 
   ;;; Function: INDEX-VARIABLE-P                               Author: raman
   ;;; Created: Fri Dec 25 17:04:44 1992
