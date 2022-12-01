@@ -122,82 +122,40 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
                                                       text-buffer )))))
     new-centered-text))
 
-;;; Modified: Thu Apr  2 15:47:35 EST 1992
-;;; Modified to work with classes.
-
 ;;; Function: PROCESS-TEXT-BLOCK                                  Author: raman
 ;;; Created: Wed Nov 13 21:31:01 1991
-;;; Modified: Wed Jan 29 10:46:22 EST 1992
-;;; set local environment in the buffer structure
-;;; and stop using special variables.
-
 (defun process-text-block (text-buffer )
-  "a first implementation"
-  (let*
-      (
-       (contents nil)
+  "Process text blocks."
+  (let* ((contents nil)
        (current-block (pop-current-entry text-buffer))
-       (current-block-buffer (make-buffer :contents
-                                          (rest current-block)))
-       )
+       (current-block-buffer (make-buffer :contents (rest current-block))))
     (setf contents
-          (delete nil
-                  (process-text
-                   current-block-buffer)))
-    (make-text-block
-     :contents contents
-     :local-env (buffer-local-env current-block-buffer))
-    )
-  )
+          (delete nil (process-text current-block-buffer)))
+    (make-text-block :contents contents
+     :local-env (buffer-local-env current-block-buffer))))
 
 ;;; Function: PROCESS-INLINE-QUOTE                           Author: raman
 ;;; Created: Thu Feb 13 20:03:11 1992
 
 (defun process-inline-quote (text-buffer )
   "process inline quotation"
-  (let
-      ((inline-quote-buffer(make-buffer :contents
-                                        (rest
-                                         (pop-current-entry text-buffer ))))
-       (inline-quote nil)
-       )
+  (let ((inline-quote-buffer
+          (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+       (inline-quote nil))
     (setf inline-quote
-          (process-text
-           inline-quote-buffer
+          (process-text inline-quote-buffer
            #'(lambda(x)
-               (or
-                (equal "''" (lookat-current-entry x))
-                (end-of-buffer? x))
-               )
-           ))
-    (if
-     (end-of-buffer? inline-quote-buffer)
-     (cons ' mismatched-quote
-             inline-quote)
-     (create-QUOTED-TEXT
-      inline-quote
-      :QUOTED-TEXT-TYPE 'inline-quote))
-    )
-  )
-
-;;; Variable: *VALID-QUOTED-TEXT-TYPES*                      Author: raman
-;;; Created: Mon Apr 13 19:26:19 1992
-
-(defvar *valid-quoted-text-types* nil "list of known quotation types.")
-
-(setf *valid-quoted-text-types*
-      (list
-       'quote-environment
-       'quotation-environment
-       'inline-quote
-       ))
-
+               (or (equal "''" (lookat-current-entry x))
+                (end-of-buffer? x)))))
+    (if (end-of-buffer? inline-quote-buffer)
+     (cons ' mismatched-quote inline-quote)
+     (create-QUOTED-TEXT inline-quote :QUOTED-TEXT-TYPE 'inline-quote))))
 ;;; Function: VALIDATE-QUOTED-TEXT-TYPE                      Author: raman
 ;;; Created: Mon Apr 13 19:27:21 1992
 
 (defun validate-quoted-text-type (quoted-text-type)
   "validate quoted-text-type"
-  (find quoted-text-type *valid-quoted-text-types*)
+  (find quoted-text-type '(quote-environment quotation-environment inline-quote))
   )
 
 ;;; Function: CREATE-QUOTED-TEXT                             Author: raman
@@ -205,14 +163,10 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 (defun create-quoted-text (quote &key(quoted-text-type 'inline-quote) )
   "Create a quoted text object"
-  (let
-      ((new-quoted-text (make-quoted-text
-                         :quoted-text-type
-                         quoted-text-type )))
-    (setf (contents new-quoted-text)
-          quote)
-    new-quoted-text)
-  )
+  (let ((new-quoted-text
+          (make-quoted-text :quoted-text-type quoted-text-type )))
+    (setf (contents new-quoted-text) quote)
+    new-quoted-text))
 
 ;;; Function: PROCESS-QUOTE                                  Author: raman
 ;;; Created: Sun Jan 26 15:42:29 1992
@@ -221,11 +175,8 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   "process   quote"
   (create-quoted-text
    (process-text
-    (make-buffer :contents
-                 (rest
-                  (pop-current-entry text-buffer ))))
-   :quoted-text-type 'quote-environment)
-  )
+    (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+   :quoted-text-type 'quote-environment))
 
   ;;; Function: PROCESS-TEXT-NUMBER                            Author: raman
   ;;; Created: Tue Dec 22 14:19:58 1992
@@ -233,14 +184,13 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 (defun process-text-number (text-buffer)
   "Process a number string in text"
   (make-instance 'text-number
-                 :contents (list  (second (pop-current-entry text-buffer ))))
-  )
+                 :contents (list  (second (pop-current-entry text-buffer )))))
 
 (defun process-math-number (math-buffer)
   "Process a number string in math"
   (make-instance 'math-number
-                 :contents (second (pop-current-entry math-buffer )))
-  )
+                 :contents (second (pop-current-entry math-buffer ))))
+
 ;;; Function: PROCESS-QUOTATION                              Author: raman
 ;;; Created: Sun Jan 26 15:42:33 1992
 
@@ -248,11 +198,8 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   "process   quotation"
   (create-quoted-text
    (process-text
-    (make-buffer :contents
-                 (rest
-                  (pop-current-entry text-buffer ))))
-   :quoted-text-type 'quotation-environment )
-  )
+    (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+   :quoted-text-type 'quotation-environment ))
 
 ;;; Function: PROCESS-NEW-ENVIRONMENT                        Author: raman
 ;;; Created: Sat Feb 15 12:40:11 1992
@@ -266,18 +213,14 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
     (when (can-this-be-cross-referenced? 'new-environment )
       (add-enclosing-referend new-environment ))
     (when (numbered-class-p new-environment)
-      
       (setf (numbered-class-number new-environment)
             (increment-counter-value (class-name (class-of new-environment )))))
     (setf (contents new-environment)
           (process-text
-           (make-buffer
-            :contents (rest environment-contents))))
+           (make-buffer :contents (rest environment-contents))))
     (when (can-this-be-cross-referenced? 'new-environment )
       (pop-enclosing-referend  ))
-    new-environment
-    )
-  )
+    new-environment))
 
 ;;; Function: PROCESS-INLINE-MATH                            Author: raman
 ;;; Created: Wed Nov  6 16:11:44 1991
