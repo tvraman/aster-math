@@ -10,7 +10,7 @@
   "Cache document pointer used in browser.")
 
 
-;;; Variable: *VALID-SECTIONAL-UNIT-NAMES*                   Author: raman
+;;; Variable: *valid-section-names*                   Author: raman
 ;;; Created: Thu Apr  9 15:50:50 1992
 
 (defvar *valid-sectional-unit-names*
