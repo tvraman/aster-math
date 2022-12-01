@@ -9,6 +9,15 @@
 (defvar *document* nil
   "Cache document pointer used in browser.")
 
+
+;;; Variable: *VALID-SECTIONAL-UNIT-NAMES*                   Author: raman
+;;; Created: Thu Apr  9 15:50:50 1992
+
+(defvar *valid-sectional-unit-names*
+  '(part chapter section subsection subsubsection)
+  "list of valid sectioning units")
+
+
 ;;; Modified: Thu Apr  9 19:49:28 EDT 1992
 ;;; Introduced two new functions:
 ;;; create-sectional-unit and get-sectional-units!
@@ -36,15 +45,6 @@
 ;;; Predicates have names ending  in ? mark.
 ;;; Functions which expect a buffer as an argument have their arg names
 ;;; ending in buffer, eg: text-buffer.
-
-;;; Modified: Sun Apr 26 17:58:38 EDT 1992
-;;; declaring *new-article* to be special so that title author date etc.
-;;; can be handled cleanly.
-;;; Modified: Thu Apr  2 15:41:46 EST 1992
-;;; Modified to use class article
-;;; Modified: Fri Oct  9 13:33:12 EDT 1992
-;;; Made call to get-sectional-units! smarter so that partial documents
-;;; ie: those that have just a subsection can be correctly recognized.
 ;;; Function: CREATE-ARTICLE                                Author: raman
 ;;; Created: Fri Oct 11 10:02:00 1991
 
@@ -78,14 +78,6 @@
   "Return counter value."
   (declare (special *counter-table*))
   (or (gethash name *counter-table*) (setf (gethash name *counter-table*) 1)))
-
-;;; Variable: *VALID-SECTIONAL-UNIT-NAMES*                   Author: raman
-;;; Created: Thu Apr  9 15:50:50 1992
-
-(defvar *valid-sectional-unit-names*
-  '(part chapter section subsection subsubsection)
-  "list of valid sectioning units")
-
 ;;; Function: NAME-OF-SECTIONAL-UNIT-IN-FRONT                Author: raman
 ;;; Created: Fri Oct  9 13:08:11 1992
 
