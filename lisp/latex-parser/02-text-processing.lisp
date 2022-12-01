@@ -1,21 +1,8 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
  
-
- 
-;;; Modified: Sat Apr 11 18:12:09 EDT 1992
-;;; All the process environment functions now work with classes.
-;;; Modified: Sun Jan 26 10:20:44 EST 1992
-;;; An older version which relied on a very simple lexer is in jan-24-version.
-;;; The lexer has now been made powerful so that the tokens
-;;; returned are easier to parse.
-;;; At the same time the functions here are being made table driven.
- 
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
-
-;;; Modified: Thu Mar 18 22:12:24 EST 1993
 
 (in-package :aster)
  
@@ -24,51 +11,6 @@
 ;;; This file handles Latex environments, and the next file will specifically
 ;;; handle mathematical constructs.
 ;;; The next file also handles control sequences.
- 
-
-;;; Some explanations from the older version:
-;;; This file uses special variables in  three situations.
-;;; The use of special variables for  modifying the environment
-;;; of a block still needs to be modified.
-;;; the special variables  *enum-environment-type* and *table-environment-name* are required because
-;;; LaTeX economizes on end markers.
-;;; This means that the end of the last item in an enumerated list
-;;; is signalled by the end of the enumerate environment.
-;;; Hence when the parser is trying to determine the end of an item,
-;;; it needs to know the name of the enumerate environment in which the
-;;; item occurs. Things are now complicated since there are three environments
-;;; in LaTeX which can contain items.  ie. the enumerate, itemize, and
-;;; descriptionenvironments all of which can nest.  Using a special variable
-;;; seems to be a good way of solving this mess.
-;;; The same situation arises in determining the end of an array element,
-;;; as well as when trying to determine
-;;; the end of the final row.
-;;; Thus the end of the final element of the final row of the array
-;;; is signalled by the end marker of the array environment!
-;;; Again this mess is solved by
-;;; using the special variable *table-environment-name* which gets set by the calling function.
-;;; Thus when the end of an item or element of an array is being sought
-;;; the environment name as set up by the most recent call to an env function
-;;; ie the name of the enclosing environment is used.
-;;; This handles nestings well,  and allows for
-;;; nesting enumerate inside itemize, and then nest the whole thing
-;;; inside a description.
-;;; Similarly,  arrays and tables can also be nested.
- 
-
-;;; Sun Jan 26 10:22:05 EST 1992
-;;; In the light of the above,  the lexer has been made more intelligent.
-;;; Since there was no apparent gain by handling \begin as a general macro,
-;;; the lexer now replaces "\begin{env}" with (env
-;;; and just puts a closing paranthesis when it sees "\end{env}"
-;;; This means that the parser cannot do the same amount of validation
-;;; but it also makes the parser a lot cleaner, and obviates some of the
-;;; special variables  from the older version.
- 
-
-
-
- 
 
 ;;; Function: PEEL-OFF-LISTS                                 Author: raman
 ;;; Created: Fri Nov 27 10:49:25 1992
@@ -89,13 +31,6 @@
 ;;; Function: PROCESS-TEXT                                   Author: raman
 ;;; Created: Tue Nov  5 15:47:44 1991
 
-;;; Modified: Thu Mar 18 20:54:30 EST 1993
-;;; improved by replacing nconc by cons plus nreverse.
-;;; <(old  version using nconc backed up. )>
-;;; Modified: Thu Mar 18 21:19:31 EST 1993
-;;; switching from do to loop.
-;;; <(version using do backed up. )>
-;;; <(using cons instead of push backed up old version)>
 (defun process-text (text-buffer
                      &optional (termination-condition? #'end-of-buffer?))
   "Takes a buffer  containing text, and  processes it until
@@ -136,36 +71,28 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 ;;; Function: PROCESS-WORD                                   Author: raman
 ;;; Created: Sun Jan 26 15:42:16 1992
 
-
-
-
 (defun process-word (text-buffer )
   "Process a word "
       (pop-current-entry text-buffer))
 
 ;;; Function: PROCESS-COMMENT                                Author: raman
 ;;; Created: Fri Feb 28 10:52:02 1992
-;;; Modified: Sun Jan 10 16:15:25 EST 1993
-;;; Just return nil for comments, no point in keeping it in the high
-;;; level structure for the present.
 
 (defun process-comment (text-buffer)
   "Process a comment"
   (advance-pointer text-buffer )
-  nil
-  )
+  nil)
 
 ;;; Function: PROCESS-NEWLINE                                Author: raman
 ;;; Created: Thu Feb 27 20:55:28 1992
 
 (defun process-newline (text-buffer)
   "process newlines "
-  (pop-current-entry text-buffer)
-  )
+  (pop-current-entry text-buffer))
+
 (defun process-field-separator (text-buffer)
   "process field-separators "
-  (pop-current-entry text-buffer)
-  )
+  (pop-current-entry text-buffer))
 
 (defvar *new-article* nil )
 
@@ -175,33 +102,25 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 (defun process-abstract (text-buffer )
   "Process abstract "
   (declare (special *new-article* ))
-  (let
-      ((new-abstract (make-abstract )))
+  (let ((new-abstract (make-abstract )))
     (setf (contents new-abstract)
           (process-text
            (make-buffer :contents
-                        (rest
-                         (pop-current-entry text-buffer )))))
+                        (rest (pop-current-entry text-buffer )))))
                                         ; using special variable *new-article* declared in create-article.
     (setf (abstract *new-article*) new-abstract)
-    nil)
-  )
+    nil))
 
 ;;; Function: PROCESS-CENTER                                 Author: raman
 ;;; Created: Sun Jan 26 15:42:23 1992
 
 (defun process-center (text-buffer )
   "process center"
-  (let
-      ((new-centered-text (make-centered-text )))
-    (setf (contents new-centered-text)(process-text
-                                                     (make-buffer
-                                                      :contents
-                                                      (rest
-                                                       (pop-current-entry
-                                                        text-buffer )))))
-    new-centered-text)
-  )
+  (let ((new-centered-text (make-centered-text )))
+    (setf (contents new-centered-text)
+          (process-text (make-buffer :contents (rest (pop-current-entry
+                                                      text-buffer )))))
+    new-centered-text))
 
 ;;; Modified: Thu Apr  2 15:47:35 EST 1992
 ;;; Modified to work with classes.
