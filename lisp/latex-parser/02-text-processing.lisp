@@ -258,120 +258,66 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 (defun defined-tex-macro-p (macro-name)
   "See if this has been defined as a tex macro"
-  (let
-      ((macro-table-entry (get-tex-macro macro-name )))
-    (not (equal (tex-macro-name macro-table-entry) 'default )))
-  )
+  (let ((macro-table-entry (get-tex-macro macro-name )))
+    (not (equal (tex-macro-name macro-table-entry) 'default ))))
 
 ;;; Function: EXPAND-TEX-MACRO                               Author: raman
 ;;; Created: Thu Feb  6 11:52:43 1992
 
-;;; this function is untidy  at present.
-;;; Make the tex-macro-expand which is called do the clipping off of arguments,
-;;; rather than doing it here.
-;;; clean up when changing to classes?
-
 (defun expand-tex-macro ( text-buffer)
   "process tex macro"
-  (let*
-      (
-       (token (pop-current-entry text-buffer ))
+  (let* ((token (pop-current-entry text-buffer ))
        (macro-name(or  (cs-name token )
                        (math-cs-name token )))
        (macro-table-entry (get-tex-macro macro-name ))
-       (n-args (tex-macro-number-of-args macro-table-entry))
-       )
+       (n-args (tex-macro-number-of-args macro-table-entry)))
     (cond
       (( eq  (tex-macro-name macro-table-entry) 'default)
-       (make-tex-defined-macro
-        :tex-defined-macro-name macro-name))
+       (make-tex-defined-macro :tex-defined-macro-name macro-name))
       ((equal "label" (tex-macro-name macro-table-entry ))
        (apply
         (tex-macro-expand macro-table-entry)
-        (pop-next-n-entries
-         text-buffer
-         n-args))
+        (pop-next-n-entries text-buffer n-args))
        (values)) ;do not return processed label
                                         ; processing label only causes a side-effect
       ((= 0 n-args )
-       (funcall (tex-macro-expand macro-table-entry)
-                text-buffer))
+       (funcall (tex-macro-expand macro-table-entry) text-buffer))
       ((>  n-args 0)
        (apply
         (tex-macro-expand macro-table-entry)
-        (pop-next-n-entries
-         text-buffer
-         n-args)))
-      (t (error "macro ~a expects ~a arguments,a negative number of arguments!"
-                macro-name
-                n-args))
-      )
-    )
-  )
+        (pop-next-n-entries text-buffer n-args)))
+      (t
+       (error "~a expects ~a arguments!" macro-name n-args)))))
 
 ;;; Function: PROCESS-ARRAY                                  Author: raman
 ;;; Created: Sun Jan 26 15:26:42 1992
-;;; Modified: Mon Mar  2 12:34:38 EST 1992
-;;; Do not try to create a lisp array.
-;;; Modified: Tue Jan 12 15:06:05 EST 1993
-;;; process-array links array  elements
+
 (defun process-array (text-buffer )
   "Process an array "
-  (let
-      (
-       ( array-contents (rest (pop-current-entry text-buffer)))
-       )
-    (make-instance 'math-array
-                   :contents   (map2-nested-list
-                                #'process-array-element
-                                array-contents ))
-    )
-  )
+  (let (( array-contents (rest (pop-current-entry text-buffer))))
+    (make-instance
+     'math-array
+     :contents   (map2-nested-list #'process-array-element array-contents ))))
 
 ;;; Function: PROCESS-TABULAR                                Author: raman
 ;;; Created: Sun Jan 26 15:26:45 1992
-;;; Modified: Mon Mar  2 12:41:01 EST 1992
-;;; Do not construct lisp arrays.
 
 (defun process-tabular (text-buffer )
   "Process a table "
-  (let
-      (
-       (table-contents (rest (pop-current-entry text-buffer)))
-       )
-    (make-instance 'tabular
-                   :contents  (map2-nested-list
-                               #'process-table-element
-                               table-contents))
-    )
-  )
+  (let ((table-contents (rest (pop-current-entry text-buffer))))
+    (make-instance
+     'tabular
+     :contents  (map2-nested-list #'process-table-element table-contents))))
 
 ;;; case environment handled like tabular.
 ;;; Modified: Sat Oct  3 19:32:24 EDT 1992
 
 (defun process-cases (text-buffer )
   "Process a cases environment  "
-  (let
-      (
-       (table-contents (rest (pop-current-entry text-buffer)))
-       )
-    (cons 'cases  (map2-nested-list
-                   #'process-table-element
-                   table-contents))
-    )
-  )
-
-;;; Variable: *VALID-LIST-ENVIRONMENT-TYPES*                 Author: raman
-;;; Created: Sat Apr 11 17:47:34 1992
-
-(defvar *valid-list-environment-types* nil "valid types of list environments ")
-
-(setf *valid-list-environment-types*
-      (list
-       'enumerated-list
-       'itemized-list
-       'description-list)
-      )
+  (let ((table-contents (rest (pop-current-entry text-buffer))))
+    (cons
+     'cases
+     (map2-nested-list #'process-table-element table-contents))))
 
 ;;; Function: VALIDATE-LIST-ENVIRONMENT-TYPE                 Author: raman
 ;;; Created: Sat Apr 11 17:48:47 1992
@@ -380,10 +326,9 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   "validate list environment type"
   (or
    (find list-environment-type
-         *valid-list-environment-types*)
+         '(enumerated-list itemized-list description-list))
    (error "~a is not a valid list environment type"
-          list-environment-type))
-  )
+          list-environment-type)))
 
 ;;; numbering items:
 
