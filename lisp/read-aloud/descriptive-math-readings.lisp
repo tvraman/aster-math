@@ -262,7 +262,7 @@
        (when
            (= 2 (length (children (parent ordinary ))))
          (setf (pattern (parent ordinary )) 'derivative ))
-       (afl:with-surrounding-pause 0; pause-amount 
+       (afl:with-surrounding-pause  pause-amount 
          (when  superscript
            (read-aloud (cardinal-number superscript )))
          (afl:tts-queue "derivative ")
