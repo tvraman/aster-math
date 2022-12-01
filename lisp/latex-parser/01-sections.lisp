@@ -349,9 +349,7 @@
                                        sectional-unit-name)
                                       )))
         (pop-enclosing-referend)
-        new-sectional-unit)
-      ))
-  )
+        new-sectional-unit))))
 
 ;;; Function: GET-SECTIONAL-UNITS!                           Author: raman
 ;;; Created: Thu Apr  9 17:38:48 1992
@@ -369,9 +367,8 @@ Leaves the pointer of text buffer pointing at  next unit"
               )
           (pop-while-true text-buffer
                           #'(lambda(x)
-                              (is-a sectional-unit-name  x))
-                          ))
-  )
+                              (is-a sectional-unit-name  x)))))
+
 (define-parsing-function 'part
     #'(lambda(x )
         (create-sectional-unit  (pop-current-entry x )
