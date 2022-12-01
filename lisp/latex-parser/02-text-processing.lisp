@@ -248,16 +248,10 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 ;;; Function: PROCESS-CS                                     Author: raman
 ;;; Created: Tue Nov  5 20:30:06 1991
-;;; Modified: Sun Jan 26 09:46:33 EST 1992
-;;; begin no longer handled here.
-;;; This function will also become  table driven.
-;;; Eventually do away with the use of special variable
-;;; for handling font changing by passing parse state
-;;; along with the text buffer.
+
 (defun process-cs (text-buffer )
   "Process cs found in  current position in buffer"
-  (expand-tex-macro text-buffer)
-  )
+  (expand-tex-macro text-buffer))
 
   ;;; Function: DEFINED-TEX-MACRO-P                            Author: raman
   ;;; Created: Wed Dec 16 12:17:34 1992
