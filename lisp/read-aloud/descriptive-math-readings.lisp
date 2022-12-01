@@ -266,12 +266,12 @@
          (afl:with-surrounding-pause pause-amount 
            (when  superscript
              (read-aloud (cardinal-number superscript )))
-           (read-aloud "derivative ")
+           (afl:tts-queue "derivative ")
            (when subscript
-             (read-aloud  "with respect  to ")
-             (afl:tts-queue "[_,]")
+             (afl:tts-queue  "with respect  to ")
              (read-aloud subscript )
-             (read-aloud "[']of")))))))
+             (afl:tts-queue "of")
+             (afl:comma-intonation)))))))
 
   ;;; Function: INDEX-VARIABLE-P                               Author: raman
   ;;; Created: Fri Dec 25 17:04:44 1992
