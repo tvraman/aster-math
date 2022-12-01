@@ -383,6 +383,7 @@ Leaves the pointer of text buffer pointing at  next unit"
     #'(lambda(x )
         (create-sectional-unit  (pop-current-entry x )
                                 :sectional-unit-name 'section)))
+
 (define-parsing-function 'subsection
     #'(lambda(x )
         (create-sectional-unit  (pop-current-entry x )
@@ -393,8 +394,6 @@ Leaves the pointer of text buffer pointing at  next unit"
         (create-sectional-unit  (pop-current-entry x )
                                 :sectional-unit-name 'subsubsection)))
 
-;;; numbering sections:
-;;; section numbers stored as strings
 ;;; Function: GENERATE-SECTION-NUMBER                        Author: raman
 ;;; Created: Tue Sep  1 13:04:05 1992
 
