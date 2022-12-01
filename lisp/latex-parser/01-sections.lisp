@@ -401,9 +401,7 @@ Leaves the pointer of text buffer pointing at  next unit"
   "Generate section number of the form parent.child"
   (if (null parent)
       (format nil  "~a" child)
-      (format   nil "~a.~a" parent child)
-      )
-  )
+      (format   nil "~a.~a" parent child)))
 
 ;;; Function: NUMBER-LIST-SECTIONAL-UNITS                    Author: raman
 ;;; Created: Tue Sep  1 13:11:02 1992
@@ -414,57 +412,40 @@ Leaves the pointer of text buffer pointing at  next unit"
   (let ((number 1))
     (dolist
         (sectional-unit list-of-sectional-units)
-      (setf (sectional-unit-number sectional-unit) (generate-section-number parent
-                                                                            number))
+      (setf
+       (sectional-unit-number sectional-unit)
+       (generate-section-number parent number))
       (when (children sectional-unit)
         (number-list-sectional-units
          (children sectional-unit)
          :parent  (sectional-unit-number sectional-unit)))
-
-      (incf number)
-      )
-    list-of-sectional-units
-    )
-  )
-
-;;; Modified: Thu Apr  2 15:45:32 EST 1992
-;;; No change made while moving to clos
+      (incf number))
+    list-of-sectional-units))
 
 ;;; Function: GET-UNIT-TITLE!                                Author: raman
 ;;; Created: Fri Nov  1 15:37:36 1991
-;;; No change made here from jan-24-version.
+
 
 (defun get-unit-title! (text-buffer)
   "Return first item in buffer and advance pointer if it is a block."
   (process-text-block
-   (make-buffer :contents
-                (list (pop-when-true text-buffer
-                                     #'(lambda(x) (is-a 'block x))))))
-  )
+   (make-buffer
+    :contents
+    (list (pop-when-true text-buffer #'(lambda(x) (is-a 'block x)))))))
 
-;;; Modified: Thu Apr  2 15:45:32 EST 1992
-;;; No change made while moving to clos
+
 ;;; Function: GET-LABEL!                                     Author: raman
 ;;; Created: Fri Nov  1 15:40:29 1991
-;;; No change made here from jan-24-version.
-;;; Eventually modify to work by looking at a table
-;;; which contains functions that process macros.
 
 (defun get-label! (text-buffer)
   "Return argument to \label if found and advance pointer "
   (let ((token (lookat-current-entry text-buffer )))
     (cond
       ((and
-        (or
-         (is-a 'cs token)
-         (is-a 'math-cs token))
-        (or
-         (string=  "label" (cs-name token ))
+        (or (is-a 'cs token) (is-a 'math-cs token))
+        (or (string=  "label" (cs-name token ))
          (string=  "label" (math-cs-name token ))))
        (advance-pointer text-buffer)
-       (label-expand  (pop-current-entry text-buffer ))
-       )
-      ))
-  )
+       (label-expand  (pop-current-entry text-buffer ))))))
 
 ;;; end of file ;;;
