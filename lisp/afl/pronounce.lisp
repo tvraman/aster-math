@@ -153,19 +153,12 @@
 
 ;;; Function: get-PRONUNCIATION                              Author: raman
 ;;; Created: Fri Sep 25 11:48:28 1992
-;;; Modified: Thu Dec 10 11:01:23 EST 1992
-;;; Need to fix it to handle ignore-case, feeling too lazy to do it.
-;;; To get the right thing, separate out clauses in the conditional
-
 (defun   get-pronunciation (string &optional (mode *pronunciation-mode*))
   "Get pronunciation for string in current pronunciation mode "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
   (get-pronounce-internal    string mode))
   ;;; Macro: WITH-PRONUNCIATION-MODE                           Author: raman
   ;;; Created: Sun Dec 13 09:40:20 1992
-
-;;; Modified: Thu Mar 25 09:39:59 EST 1993
-;;; Use afl blocks.
 
 (defmacro with-pronunciation-mode  ((&key mode ) &body body)
   "Execute body in this pronunciation mode. "

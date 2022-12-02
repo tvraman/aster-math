@@ -54,13 +54,6 @@
 ;;{{{Dimension:
 
 ;;;
-
-;;; function create-dimension takes a name and creates a structure of
-;;; type dimension with the values set to their initial defaults. It
-;;; does this by doing a table look up for the various fields.
-;;; Modified: Tue Aug 18 14:41:37 EDT 1992
-;;; Dereference global values if used as defaults when creating a new
-;;; dimension.
 ;;; Function: CREATE-DIMENSION                               Author: raman
 ;;; Created: Fri Aug  7 18:10:21 1992
 
@@ -137,27 +130,12 @@
       ((index
                                         ;1+
          (position dimension  (speech-dimensions) )))
-    (elt point (1+ index))
-    )
-  )
-;;; Modified: Tue Aug 11 09:52:58 EDT 1992
-
-;;; defsetf form for updating points
-;;; Could be sued as an alternative to update-point-in-speech-space
-;;; Also relies on the list representation of point-in-speech-space
-;;; Usage:
-;;; (setf (point-accessor dimension point) value)
+    (elt point (1+ index))))
 
 (defsetf  point-accessor (dimension point) (value)
   `(setf
-     (elt ,point
-       (1+ (position ,dimension (speech-dimensions) )))
+     (elt ,point (1+ (position ,dimension (speech-dimensions) )))
      ,value))
-
-;;; Modified: Tue Aug 18 15:55:04 EDT 1992
-;;; creates a point in the speech space at global scope, ie: global
-;;; sets will affect the settings of this point. To be used by the
-;;; function that initializes the speech space.
 
 ;;; Function: CREATE-initial-POINT-IN-SPEECH-SPACE                   Author: raman
 ;;; Created: Fri Aug  7 18:18:07 1992
