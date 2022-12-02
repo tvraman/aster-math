@@ -482,7 +482,8 @@
     ((and (typep *read-pointer* 'article)
           (abstract *read-pointer*))
      (setf *read-pointer*
-           (abstract *read-pointer* )))
+           (abstract *read-pointer* ))
+     (summarize *read-pointer*))
     (t (afl:tts-speak "No abstract. "))))
 
 (defun read-follow-cross-ref(direction-flag)
