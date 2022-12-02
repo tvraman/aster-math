@@ -19,18 +19,6 @@
 ;;; used by TeX and hence not nemonic.
 ;;; eg: int should have its class called integral etc.
 ;;; Generate this mapping from the pronunciation table.
- 
-
-
-
-
-
-;;; Variable: *OPERATORS-IN-CLASSIFICATION*                  Author: raman
-;;; Created: Wed Dec  9 11:46:00 1992
-
-(defvar *operators-in-classification*
-  '(big-operator )
-  "List of classifications that are operators. ")
 
 ;;; Variable: *OPERATOR-CLASS-NAMES*                         Author: raman
 ;;; Created: Wed Dec  9 11:44:16 1992
