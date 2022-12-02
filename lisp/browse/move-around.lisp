@@ -55,7 +55,7 @@
   )
 
 (defun read-current()
-  "Read the current selection as specified by the read pointer."
+  "Read the current selection."
   (afl:refresh)
   (let ((math-flag (and  (typep *read-pointer* 'math )
                          (not (or (display-math-p *read-pointer*)
@@ -96,11 +96,9 @@
   )
 
 ;;; Modified: Thu Feb 25 12:06:08 EST 1993
-;;; Added optional arg n
-;;; <(backed up old version)>
 
 (defun read-previous (&optional(n 1))
-  "read previous nth object"
+  "read previous sibling."
   (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
@@ -122,12 +120,8 @@
     (afl:tts-force))
   )
 
-;;; Modified: Thu Feb 25 12:08:24 EST 1993
-;;; Added optional arg n
-;;; <( Backed up old version:2)>
-
 (defun read-next (&optional (n 1 ))
-  "Speak the next sibling."
+  "Read next sibling."
   (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
@@ -378,7 +372,7 @@
     ))
 
 (defun move-to-contents()
-  "Move read pointer to contents"
+  "Move to contents"
   (afl:refresh)
   (cond
     ((listp (contents  *read-pointer*))
