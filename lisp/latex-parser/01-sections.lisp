@@ -10,10 +10,10 @@
   "Cache document pointer used in browser.")
 
 
-;;; Variable: *valid-section-names*                   Author: raman
+;;; Variable: *section-names*                   Author: raman
 ;;; Created: Thu Apr  9 15:50:50 1992
 
-(defvar *valid-sectional-unit-names*
+(defvar *section-names*
   '(part chapter section subsection subsubsection)
   "list of valid sectioning units")
 
@@ -90,7 +90,7 @@
    (listp (lookat-current-entry text-buffer))
    (find
     (what-is?  (lookat-current-entry text-buffer))
-    *valid-sectional-unit-names*)))
+    *section-names*)))
 ;;; Function: process-INITIAL-BODY!                             Author: raman
 ;;; Created: Tue Jan 28 12:16:33 1992
 
@@ -119,16 +119,16 @@
 (defun child-of-sectional-unit (sectional-unit-name)
   "return name of the child of this unit"
   (when (exists-child-of-sectional-unit? sectional-unit-name)
-    (elt *valid-sectional-unit-names*
-         (1+ (position sectional-unit-name *valid-sectional-unit-names*)))))
+    (elt *section-names*
+         (1+ (position sectional-unit-name *section-names*)))))
 
 ;;; Function: EXISTS-CHILD-OF-SECTIONAL-UNIT?                Author: raman
 ;;; Created: Thu Apr  9 20:06:38 1992
 
 (defun exists-child-of-sectional-unit? (sectional-unit-name)
   "Sees if child posible "
-  (< (1+ (position sectional-unit-name *valid-sectional-unit-names*))
-     (length *valid-sectional-unit-names*)))
+  (< (1+ (position sectional-unit-name *section-names*))
+     (length *section-names*)))
 
 ;;; Function: VALIDATE-SECTIONAL-UNIT-NAME Author: raman
 ;;; Created: Thu Apr  9 15:48:21 1992
@@ -136,7 +136,7 @@
 (defun validate-sectional-unit-name (unit-name)
   "check if unit-name is a valid sectional unit"
   (or
-   (find unit-name *valid-sectional-unit-names* )
+   (find unit-name *section-names* )
    (error "~a is not a valid  sectional unit name" unit-name)))
 
   ;;; Variable: *CROSS-REFERENCES*                             Author: raman
