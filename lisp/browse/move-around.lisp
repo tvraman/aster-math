@@ -390,7 +390,7 @@
 (defun move-to-doc-root ()
   "Move to document root."
   (setf *read-pointer* *document*)
-  (summarize *document*)
+  (summarize *read-pointer*)
   (afl:tts-force))
 
 (defun move-to-subscript ()
