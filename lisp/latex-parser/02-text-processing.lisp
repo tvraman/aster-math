@@ -393,17 +393,9 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
                                 &key (list-environment-type 'enumerated-list))
   "Create a list environment of specified type,
 default is enumerated list."
-  (let
-      ((new-list-environment
-         (make-list-environment
-          :list-environment-type list-environment-type )))
+  (let ((new-list-environment (make-list-environment :list-environment-type list-environment-type )))
     (setf (items new-list-environment) (remove-null-items list-of-items ))
-                                        ; Delete dummy item at front.
-                                        ; since unnecessary lists now
-                                        ; peeled,
-                                        ;call to first removed in
-                                        ; above form. cleanup and stabilize
-    (number-list-environment new-list-environment) ; side-effect:items numbered
+    (number-list-environment new-list-environment)
     new-list-environment))
 
   ;;; Function: REMOVE-NULL-ITEM                               Author: raman
