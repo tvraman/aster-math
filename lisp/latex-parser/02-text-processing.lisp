@@ -489,48 +489,36 @@ default is enumerated list."
           (map2-nested-list #'process-array-element eqnarray-contents))
     (pop-enclosing-referend)
     self))
-
-;;; process-eqnarray and process-eqalign should be made smarter.
-
 ;;; Function: PROCESS-EQALIGN                                Author: raman
 ;;; Created: Sat Oct  3 17:14:44 1992
 
 (defun process-eqalign (text-buffer)
   "Process eqalign. "
-  (let
-      (
-       ( eqalign-contents (rest (pop-current-entry text-buffer)))
-       )
-    (make-instance 'math-eqnarray
-                   :contents    (map2-nested-list
-                                 #'process-array-element
-                                 eqalign-contents))
-    )
-  )
+  (let (( eqalign-contents (rest (pop-current-entry text-buffer))))
+    (make-instance
+     'math-eqnarray
+     :contents
+     (map2-nested-list #'process-array-element eqalign-contents))))
 
 ;;; Function: PROCESS-SLIDE                                  Author: raman
 ;;; Created: Mon May  4 12:26:00 1992
 
 (defun process-slide (text-buffer)
   "process a slide"
-  (make-slide :contents
-              (process-text
-               (make-buffer :contents
-                            (rest
-                             (pop-current-entry text-buffer )))))
-  )
+  (make-slide
+   :contents
+   (process-text
+    (make-buffer :contents (rest (pop-current-entry text-buffer ))))))
 
 ;;; Function: PROCESS-VERBATIM                               Author: raman
 ;;; Created: Fri Aug 28 14:32:14 1992
 
 (defun process-verbatim (text-buffer)
   "Process a latex verbatim environment"
-  (make-verbatim :contents
-                 (process-text
-                  (make-buffer :contents
-                               (rest
-                                (pop-current-entry text-buffer )))))
-  )
+  (make-verbatim
+   :contents
+   (process-text
+    (make-buffer :contents (rest (pop-current-entry text-buffer ))))))
 
 ;;; Function: BLOCK-CONTENTS                                    Author: raman
 ;;; Created: Thu Nov  7 16:24:15 1991
