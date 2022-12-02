@@ -6,19 +6,11 @@
 
 
 (in-package :aster)
-
-;;; Modified: Thu Dec 24 11:00:35 EST 1992
-;;; Changing predicates like math-object-p to use typep instead of
-;;; checking the class name. This means that subtypes are also true
- 
  
 ;;{{{ attributes
 
 ;;; Class: ATTRIBUTE                                     Author: raman
 ;;; Created: Fri Sep 18 08:33:54 1992
-;;; <(Modified:)> Sat Dec 19 14:07:36 EST 1992
-;;; Converting to a class so subscript etc can be made subclasses.
-
 ;;; Class: ATTRIBUTE                                         Author: raman
 ;;; Created: Sat Dec 19 14:10:53 1992
 
@@ -66,12 +58,6 @@
 
 ;;}}}
 ;;{{{ math object
-
-;;; Modified: Fri Sep 18 08:29:52 EDT 1992
-;;; Introducing single attribute slot instead of having each attribute
-;;; in a separate slot.
-;;; Class: MATH-VARIABLE                                     Author: raman
-;;; Created: Mon Feb 17 09:34:33 1992
 
 (defclass math-object (math)
   ((contents :initform nil :initarg  :contents
@@ -121,12 +107,6 @@
 
 ;;; Method: ADD-ATTRIBUTE                                    Author: raman
 ;;; Created: Fri Sep 18 08:44:18 1992
-;;; Modified: Mon Dec 21 12:23:22 EST 1992
-;;; Attributes now remember the object being attributed.
-;;; Introduced a parent slot in attribute class and modified following
-;;; function.
-;;; Parent slot set only when a new attribute is being added.
-
 (defmethod add-attribute (attribute-name attribute-value
                           (math-object math-object))
   "add attribute to math object"
@@ -252,13 +232,6 @@
 ;;; default method:
 
 (defmethod special-pattern ((object t)) nil)
-
-;;; accessors for patterns on attributes.
-;;; since the accessor superscript returns the value of the attribute,
-;;; we cannot apply the pattern method directly to the result to get
-;;; the pattern of the superscript.
-;;; Modified: Sat Feb  6 08:43:44 EST 1993
-
 (defmethod superscript-pattern ((math-object math-object))
   "Return  pattern for superscript if any "
   (let ((superscript (find 'superscript (attributes math-object )

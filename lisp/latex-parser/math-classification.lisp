@@ -1,18 +1,17 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+
+
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 
-
 (in-package :aster)
 ;;; Created: Tue Feb 25 16:46:13 EST 1992
- 
+
 
 ;;; Contains the classification of symbols in math mode.
- 
+
 
 ;;; Variable: *MATH-CLASSIFICATION-TABLE*                    Author: raman
 ;;; Created: Tue Feb 25 14:51:57 1992
@@ -20,20 +19,17 @@
 (defvar *math-classification-table* (make-hash-table   :test #'equal )
   "Hash table holding classification of symbols in math mode.")
 
-;;; Modified: Wed Sep 16 08:50:11 EDT 1992
- 
 ;;; Function: LOOKUP-MATH-CLASSIFICATION                     Author: raman
 ;;; Created: Tue Feb 25 14:53:02 1992
 
-(defun lookup-math-classification (token) 
+(defun lookup-math-classification (token)
   "lookup classification in hash table."
   (gethash token *math-classification-table*)
   )
 
-
 ;;; Function: DEFINE-MATH-SYMBOL-CLASSIFICATION                      Author: raman
 ;;; Created: Tue Feb 25 14:55:33 1992
-(defun  define-math-symbol-classification (symbol classification) 
+(defun  define-math-symbol-classification (symbol classification)
   "Classify symbol as of type classification for math mode"
   (setf (gethash symbol *math-classification-table*)
         classification)
@@ -42,7 +38,7 @@
 ;;; Function: REMOVE-MATH-SYMBOL-CLASSIFICATION              Author: raman
 ;;; Created: Sun Nov  8 10:46:34 1992
 
-(defun remove-math-symbol-classification (symbol) 
+(defun remove-math-symbol-classification (symbol)
   "Remove current classification"
   (remhash symbol *math-classification-table*)
   )
@@ -50,19 +46,19 @@
 ;;; Function: REDEFINE-MATH-SYMBOL-CLASSIFICATION            Author: raman
 ;;; Created: Sun Nov  8 10:47:17 1992
 
-(defun redefine-math-symbol-classification (symbol classification) 
+(defun redefine-math-symbol-classification (symbol classification)
   "Redefine classification"
   (remove-math-symbol-classification symbol)
   (define-math-symbol-classification symbol classification )
   )
 
- 
+
 
 ;;; Classification of symbols in math mode:
 ;;; This classification is taken from Appendix F of the tex book.
 ;;; Refer to the file "~raman/books/texdocs/tex3.0/ch35"
 ;;; <( link to appendix f of tex book)>
- 
+
 ;;; Current classification types:
 ;;; ordinary
 ;;; large-operator
@@ -213,9 +209,9 @@
 (define-math-symbol-classification "backslash"  'ordinary)
 (define-math-symbol-classification "spadesuit"  'ordinary)
 
- 
+
 ;;; Large operators.
- 
+
 
 (define-math-symbol-classification "sum" 'big-operator)
 (define-math-symbol-classification "bigcap" 'big-operator)
@@ -233,7 +229,6 @@
 (define-math-symbol-classification "bigwedge" 'big-operator)
 
 
- 
 ;;; binary operators: These are rarely subscripted
 ;;; as opposed to the  big operators above.
 ;;; The above comment is misleading. The big operators are considered
@@ -245,7 +240,7 @@
 ;;; operators, the subscript is merely used to distinguish the
 ;;; operator eg the subscripted '+' sign in modulo arithmetic.
 
- 
+
 
 (define-math-symbol-classification "+" 'binary-operator)
 (define-math-symbol-classification "-" 'binary-operator)
@@ -295,7 +290,7 @@
 (define-math-symbol-classification "choose" 'special-binary-operator)
 
 ;;; above are special because tex treats them for all practical
-;;; purposes like binary operators with lowest  precedence. 
+;;; purposes like binary operators with lowest  precedence.
 ;;; The following four binary operators from the Latex book man3.tex
 ;;; do not appear in the tex book.
 (define-math-symbol-classification "unlhd" 'binary-operator)
@@ -303,10 +298,10 @@
 (define-math-symbol-classification "rhd" 'binary-operator)
 (define-math-symbol-classification "unrhd" 'binary-operator)
 (define-math-symbol-classification "bmod" 'binary-operator)
- 
+
 (define-math-symbol-classification "pmod" 'binary-operator)
 ;;; relations
- 
+
 
 (define-math-symbol-classification "=" 'relational-operator)
 (define-math-symbol-classification "<" 'relational-operator)
@@ -350,13 +345,13 @@
 (define-math-symbol-classification "owns" 'relational-operator)
 (define-math-symbol-classification "vert" 'ordinary)
 (define-math-symbol-classification "iff" 'relational-operator)
- 
+
 ;;; handle negation carefully.
 (define-math-symbol-classification "not" 'negation-operator)
 
- 
+
 ;;; arrows: relations?
- 
+
 (define-math-symbol-classification "leftarrow" 'arrow-operator)
 (define-math-symbol-classification "longleftarrow" 'arrow-operator)
 (define-math-symbol-classification "uparrow" 'arrow-operator)
@@ -391,9 +386,9 @@
 (define-math-symbol-classification "to" 'arrow-operator)
 (define-math-symbol-classification "gets" 'arrow-operator)
 
- 
+
 ;;; opening delimiters.
- 
+
 
 (define-math-symbol-classification "lbrack" 'open-delimiter)
 (define-math-symbol-classification "lbrace" 'open-delimiter)
@@ -405,7 +400,7 @@
 (define-math-symbol-classification "{" 'open-delimiter)
 (define-math-symbol-classification "left" 'ordinary)
 
-;;; fix how \left handled. 
+;;; fix how \left handled.
 ;;; corresponding closing delimiters:
 (define-math-symbol-classification "rbrack" 'close-delimiter)
 (define-math-symbol-classification "rbrace" 'close-delimiter)
@@ -423,24 +418,23 @@
 ;;; following need to be reclassified.
 (define-math-symbol-classification "^" 'superscript)
 (define-math-symbol-classification "_" 'subscript)
-;;; misc. 
+;;; misc.
 (define-math-symbol-classification "!" 'ordinary)
 (define-math-symbol-classification "." 'ordinary)
-(define-math-symbol-classification "," 'ordinary) 
+(define-math-symbol-classification "," 'ordinary)
 (define-math-symbol-classification "'" 'ordinary)
 (define-math-symbol-classification ":" 'binary-operator)
 (define-math-symbol-classification "''" 'ordinary)
-(define-math-symbol-classification "'' " 'ordinary) 
+(define-math-symbol-classification "'' " 'ordinary)
 (define-math-symbol-classification ";" 'ordinary)
 (define-math-symbol-classification "cdots" 'ordinary)
 (define-math-symbol-classification "ldots" 'ordinary)
 (define-math-symbol-classification "\"" 'ordinary)
 (define-math-symbol-classification "|" 'ordinary)
 (define-math-symbol-classification "qquad" 'ordinary)
- 
+
 ;;; mathematical function names taken from the latex book:
 ;;; <(math functions in man3.tex)>
-
 
 (define-math-symbol-classification "arccos" 'mathematical-function-name)
 (define-math-symbol-classification "cos" 'mathematical-function-name)
@@ -476,7 +470,7 @@
 (define-math-symbol-classification "sin" 'mathematical-function-name)
 (define-math-symbol-classification "tanh" 'mathematical-function-name)
                                         ;(define-math-symbol-classification "sqrt" 'mathematical-function-name)
- 
+
 ;;; Tex treats accents as a macro taking one argument.
 ;;; instead model it as a math char which is classified as an accent,
 ;;; and make process-accent pick up the object being accented.
@@ -486,8 +480,8 @@
 ;;; function with one or possibly two arguments.
 ;;; for the present classified sqrt as a mathematical-function-name so
 ;;; the latex kluge of supplying an optional argument to sqrt will not
-;;; be caught. 
- 
+;;; be caught.
+
 
 (define-math-symbol-classification "hat" 'accent)
 (define-math-symbol-classification "grave" 'accent)
@@ -506,4 +500,3 @@
 ;;; Things that go under the math object
                                         ;(define-math-symbol-classification "underline" 'underbar)
                                         ;(define-math-symbol-classification "underbrace" 'underbar)
-

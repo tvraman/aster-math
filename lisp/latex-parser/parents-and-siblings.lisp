@@ -149,21 +149,6 @@
                    (link-children-to-parent child)))))
     current))
 
-;;; Footnotes parent is currently the word that carries the footnote.
-;;; Could also make the parent the paragraph in which the footnote
-;;; occurs, this might be more reasonable.
-;;; Writing an after method on link-children-to-parent for footnotes
-;;; which will get called after the footnote has been linked in and
-;;; all its contents linked.  At this stage footnote has its next and
-;;; previous links pointing to the words appearing adjacent to it in
-;;; the text. This after method makes the adjacent words point to  one
-;;; another thus unlinking the footnote from the running text.
-;;;
-;;; Modified: Tue Oct 26 12:08:29 EDT 1993
-;;; Now that floating objects cleanly implemented, the footnotes are
-;;; being linked in the text, i.e. the footnote has its next and
-;;; previous links set to the words around it.
-
 (defmethod link-children-to-parent :after ((footnote footnote ))
   "Clean up links around footnote"
   (setf (parent footnote)  (previous footnote ))

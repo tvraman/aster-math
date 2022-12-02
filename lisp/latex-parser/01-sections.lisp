@@ -17,15 +17,6 @@
   '(part chapter section subsection subsubsection)
   "list of valid sectioning units")
 
-
-;;; Modified: Thu Apr  9 19:49:28 EDT 1992
-;;; Introduced two new functions:
-;;; create-sectional-unit and get-sectional-units!
-;;; which make all the different create-[sub]section functions obselete.
-;;; Modified: Thu Apr  2 15:40:22 EST 1992
-;;; Modifying to use classes for document components instead of
-;;; structures.
-
 ;;; New version:  Sun Jan 26 09:37:20 EST 1992
 ;;; Made to work with a more intelligent lexer.
 ;;; The tokenizer does more work,
@@ -202,10 +193,6 @@
 
   ;;; Function: LABELLED-P                                     Author: raman
   ;;; Created: Fri Apr 30 09:16:04 1993
-;;; Modified: Fri Apr 30 11:18:13 EDT 1993
-;;; Since objects that can be labelled have a label slot now, use
-;;; this.
-
 (defun labelled-p (object)
   "Has this object been labelled?"
   (cond
