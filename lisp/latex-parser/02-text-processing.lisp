@@ -322,10 +322,10 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   )
 
 ;;; numbering items works by side-effecting argument.
-;;; Function: NUMBER-LIST-OF-ITEMS                           Author: raman
+;;; Function: NUMBER-ITEMS                           Author: raman
 ;;; Created: Thu Sep  3 18:33:07 1992
 
-(defun number-list-of-items (list-of-items &key(parent nil))
+(defun number-items (list-of-items &key(parent nil))
   "Number list of items"
   (let ((number 1))
     (dolist
@@ -394,7 +394,7 @@ default is enumerated list."
 (defun number-list-environment (list-environment &key (parent nil))
   "number items in a list environment. Only enumerated lists numbered. "
   (when (enumerated-list-p list-environment)
-    (number-list-of-items (items list-environment)
+    (number-items (items list-environment)
                           :parent parent)
     list-environment))
 
