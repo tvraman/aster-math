@@ -7,7 +7,7 @@
 (in-package :aster)
 
 (defvar *document* nil
-  "Cache document pointer used in browser.")
+  "Pointer to currently processing document.")
 
 
 ;;; Variable: *section-names*                   Author: raman
