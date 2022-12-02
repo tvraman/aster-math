@@ -297,15 +297,6 @@ argument which is an object of type dimension. "
   (set-speech-state *current-speech-state*)
   )
 
-;;; Function: REFRESH                                        Author: raman
-;;; Created: Thu Aug 20 14:04:49 1992
-
-(defun refresh ()
-  "Call this function if the hardware gets out of synch with the current
-state as recorded by afl"
-  (tts-queue "[:punc some]")
-  (set-speech-state *current-speech-state*))
-
 ;;}}}
 
 ;;; Relies on the list representation of point-in-speech-space

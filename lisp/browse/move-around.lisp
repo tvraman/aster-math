@@ -50,7 +50,6 @@
 
 (defun read-current()
   "Read the current selection."
-  (afl:refresh)
   (let ((math-flag (and  (typep *read-pointer* 'math )
                          (not (or (display-math-p *read-pointer*)
                                   (inline-math-p *read-pointer* ))))))
@@ -66,7 +65,6 @@
 
 (defun read-current-relatively()
   "read current relatively"
-  (afl:refresh)
   (save-pointer-excursion
     (cond
       ((afl-state *read-pointer*)
@@ -91,7 +89,6 @@
 
 (defun read-previous (&optional(n 1))
   "read previous sibling."
-  (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
@@ -114,7 +111,6 @@
 
 (defun read-next (&optional (n 1 ))
   "Read next sibling."
-  (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
@@ -137,7 +133,6 @@
   )
 (defun read-parent (&optional(n 1))
   "Speak the parent."
-  (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
@@ -158,7 +153,6 @@
 
 (defun read-rest (start-position &optional (read-this-node t))
   "Read rest of document. "
-  (afl:refresh)
   (when read-this-node
     (read-aloud start-position))
   (cond
@@ -172,7 +166,6 @@
 
 (defun move-up (&optional(n 1))
   "Move to parent."
-  (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
@@ -192,7 +185,6 @@
 
 (defun move-forward (&optional(n 1))
   "Move to next sibling."
-  (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
@@ -211,7 +203,6 @@
 
 (defun move-back(&optional(n 1))
   "Move to previous sibling."
-  (afl:refresh)
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
@@ -241,7 +232,6 @@
 
 (defmethod  read-element-above ((table-element table-element ))
   "Read element above if present "
-  (afl:refresh)
   (cond
     ((table-element-above table-element )
      (setf *read-pointer*  (table-element-above table-element  ))
@@ -252,14 +242,12 @@
 
 (defun read-below ()
   "Read what is below"
-  (afl:refresh)
   (read-element-below  *read-pointer* )
   (afl:tts-force )
   )
 
 (defmethod read-element-below ((table-element table-element ))
   "Read element below if present "
-  (afl:refresh)
   (cond
     ((table-element-below table-element )
      (setf *read-pointer*  (table-element-below table-element  ))
@@ -274,7 +262,6 @@
 
 (defmethod read-element-below ((ordinary t ))
   "Not a table element "
-  (afl:refresh)
   (afl:tts-speak "not a table element. ")
   )
 
@@ -317,7 +304,6 @@
 
 (defun read-children ()
   "Read children"
-  (afl:refresh)
   (cond
     ((or  (equal 'undefined (children *read-pointer* ))
           (null (children *read-pointer*  )))
@@ -330,7 +316,6 @@
 
 (defun move-to-attributes()
   "Move to attributes"
-  (afl:refresh)
   (cond
     ((and (typep *read-pointer* 'math-object)
           (attributes *read-pointer*))
@@ -342,7 +327,6 @@
 
 (defun move-to-children ()
   "Move to children "
-  (afl:refresh)
   (cond
     ((or  (equal 'undefined (children *read-pointer* ))
           (null (children *read-pointer*  )))
@@ -361,7 +345,6 @@
 
 (defun move-to-contents()
   "Move to contents"
-  (afl:refresh)
   (cond
     ((listp (contents  *read-pointer*))
      (setf *read-pointer* (first (contents  *read-pointer* )))
@@ -375,7 +358,6 @@
 
 (defun move-to-math-root ()
   "Move to top of math"
-  (afl:refresh)
   (loop while (typep (parent  *read-pointer*) 'math) do
     (setf *read-pointer* (parent *read-pointer* )))
   (summarize *read-pointer*)
@@ -389,7 +371,6 @@
 
 (defun move-to-subscript ()
   "move to subscript. "
-  (afl:refresh)
   (cond
     ((subscript *read-pointer* )
      (setf *read-pointer* (parent ( subscript *read-pointer* )))
@@ -401,7 +382,6 @@
 
 (defun move-to-superscript ()
   "move to superscript. "
-  (afl:refresh)
   (cond
     ((superscript *read-pointer* )
      (setf *read-pointer* (parent  (superscript *read-pointer* )))
@@ -413,7 +393,6 @@
 
 (defun move-to-accent ()
   "move to accent. "
-  (afl:refresh)
   (cond
     ((accent *read-pointer* )
      (setf *read-pointer* (parent  (accent *read-pointer* )))
@@ -425,7 +404,6 @@
 
 (defun move-to-underbar ()
   "move to underbar. "
-  (afl:refresh)
   (cond
     ((underbar *read-pointer* )
      (setf *read-pointer* (parent  (underbar *read-pointer* )))
@@ -437,7 +415,6 @@
 
 (defun move-to-left-superscript ()
   "move to left-superscript. "
-  (afl:refresh)
   (cond
     ((left-superscript *read-pointer* )
      (setf *read-pointer* (parent  (left-superscript *read-pointer* )))
@@ -448,7 +425,6 @@
   )
 (defun move-to-left-subscript ()
   "move to left-subscript. "
-  (afl:refresh)
   (cond
     ((left-subscript *read-pointer* )
      (setf *read-pointer* (parent  (left-subscript *read-pointer* )))
@@ -470,7 +446,6 @@
 
 (defun read-follow-cross-ref(direction-flag)
   "Follow and read the closest cross reference. "
-  (afl:refresh)
   (save-pointer-excursion
     (let
         ((successor (if direction-flag  #'previous #'next  )))
