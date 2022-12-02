@@ -50,7 +50,7 @@
      (advance-pointer text-buffer)
      (process-initial-body! text-buffer)
      (setf (children *document*)
-           (number-list-sectional-units
+           (number-sections
             (get-sectional-units!
              text-buffer
              :sectional-unit-name
@@ -397,10 +397,10 @@ Leaves the pointer of text buffer pointing at  next unit"
       (format nil  "~a" child)
       (format   nil "~a.~a" parent child)))
 
-;;; Function: NUMBER-LIST-SECTIONAL-UNITS                    Author: raman
+;;; Function: NUMBER-SECTIONS                    Author: raman
 ;;; Created: Tue Sep  1 13:11:02 1992
 
-(defun number-list-sectional-units (list-of-sectional-units
+(defun number-sections (list-of-sectional-units
                                     &key (parent nil))
   "Numbers sectional units passed as a list"
   (let ((number 1))
@@ -410,7 +410,7 @@ Leaves the pointer of text buffer pointing at  next unit"
        (sectional-unit-number sectional-unit)
        (generate-section-number parent number))
       (when (children sectional-unit)
-        (number-list-sectional-units
+        (number-sections
          (children sectional-unit)
          :parent  (sectional-unit-number sectional-unit)))
       (incf number))
