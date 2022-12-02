@@ -25,13 +25,6 @@
   "Is this a valid pronunciation mode?"
   (find mode '(:text :math)))
 
-;;; Function: CURRENT-PRONUNCIATION-MODE                     Author: raman
-;;; Created: Mon Oct  5 16:37:15 1992
-
-(defun current-pronunciation-mode ()
-  "Return current pronunciation mode"
-  *pronunciation-mode*)
-
 ;;; Function: SET-PRONUNCIATION-MODE                         Author: raman
 ;;; Created: Fri Sep 25 11:38:07 1992
 
