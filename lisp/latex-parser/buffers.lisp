@@ -97,7 +97,6 @@
 ;;; Function: POP-WHILE-TRUE                                 Author: raman
 ;;; Created: Fri Nov  1 11:07:52 1991
 
-;;; <(backed up version using do)>
 (defun pop-while-true (text-buffer predicate)
   "Pops off entries reseting pointer while predicate is satisfied."
   (loop

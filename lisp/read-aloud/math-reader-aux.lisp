@@ -86,11 +86,6 @@
  ;;; of the helping functions need not do this any more.
  ;;; Function: READ-MATH-CHILD                                Author: raman
  ;;; Created: Tue Nov 24 19:11:00 1992
-;;; Modified: Mon Dec 28 10:07:05 EST 1992
-;;; objects now have a parent link, so read-math-child needs only be
-;;; passed the child. In fact read-math-child  is almost obselete.
-;;; Also removed *be-smart-about-division* before backing up.
-;;; <(backed up old version. )>
 
 (defmethod read-math-child ((ordinary t ))
   (read-aloud ordinary )

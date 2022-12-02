@@ -1,6 +1,6 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
+
+
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
@@ -29,18 +29,6 @@
 
 ;;}}}
 ;;{{{ new-block
-
-;;; Modified: Wed Feb 10 15:40:09 EST 1993
-;;; No longer using *modified-dimensions* this taken care of by
-;;; set-speech-state.
-;;; <(backed up old version with comments. )>
-;;; relies on set-speech-state.
-;;; Uses dynamic variable *current-speech-state* which records the speech
-;;; state.
-;;; Modified: Tue Mar 23 10:42:11 EST 1993
-;;; Phasing out named-block. new-block now allows exits.
-;;; eventually should be renamed to afl-block.
-
 ;;; Modified: Wed Feb 10 15:44:59 EST 1993
 ;;; <(Modifying to stop using *modified-dimensions*)>
 ;;; Macro: NAMED-BLOCK                                       Author: raman
@@ -49,7 +37,7 @@
 ;;; all blocks should have exits.
 ;;; generate block name automatically.
 ;;; eventually do away with named-block
-  
+
 (defun afl-block-name()
   "Generate a afl block name"
   (gensym "afl-block-"))
@@ -95,27 +83,6 @@
 ;;; arriving when the multivoice has received part of a control
 ;;; string, leaving it in phoenetic mode.
 ;;; Modified: Sat Oct 17 11:54:10 EDT 1992
-
-
-
-
-
-
-
-
-;;; Function: SET-speech-STATE                                      Author: raman
-;;; Created: Mon Aug 10 13:43:53 1992
-
-;;; <(old function  set-state backed up. )>
-
-;;; Wed Feb 10 11:30:56 EST 1993
-;;; since it is set-speech-state that needs to know about changed dimensions,
-;;; it is cleaner to make it compute the changed dimensions rather
-;;; than passing it around.
-;;; Writing a new version that keeps track of the hardware state,
-;;; checks this against the new state to compute changed-dimensions,
-;;; and then sets the changed dimensions.
-
   ;;; Variable: *SPEECH-HARDWARE-STATE*                        Author: raman
   ;;; Created: Wed Feb 10 11:34:41 1993
 
@@ -180,8 +147,6 @@ scaling"
    (reference-value (dimension-value dimension-1 ))
    (reference-value (dimension-value dimension-2  )))
   )
-
-
 
 ;;; Wed Feb 10 12:11:45 EST 1993
 ;;; uses set-speech-state.

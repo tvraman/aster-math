@@ -137,14 +137,6 @@
 
 ;;; Method: READ-ALOUD                                          Author: raman
 ;;; Created: Sat Apr 11 20:38:53 1992
-;;; Modified: Sat Dec 26 08:18:44 EST 1992
-;;; Updating after introducing word class.
-;;; <(old version used should-i-continue, has been backed up. )>
-;;; The same functionality now provided by the interactive reading
-;;; rule for paragraphs  which can be activated if some primitive stop and
-;;; skip desired.
-;;; Activating  rules on builtin classes will not work,
-;;; They are not subclasses of class document
 
 (defmethod read-aloud ((list list ))
   "read out contents of a list"

@@ -109,17 +109,6 @@
 substitution reading style.
 If set to an integer, this is used as a timeout, i.e. reading
 continues if y is not  pressed.")
-
-;;; Modified: Fri Nov  5 21:11:05 EST 1993
-;;; Introducing macros with-reading-style, without-reading-style ...
-;;; This makes the reading rule much more readable.
-;;; <( old version has been backed up)>
-;;; New version worked. But after lisp killed and restarted bombed for
-;;; some weird reason. Probably the macro def. Bringing back the old
-;;; version for now:
-;;; Trying out clean version again:
-;;; Clean version works after a complete clean recompile
-
 ;;{{{Clean reading rule:
 
 (def-reading-rule (math-object variable-substitution )

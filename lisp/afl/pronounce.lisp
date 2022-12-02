@@ -19,27 +19,18 @@
 
 (defvar *pronunciation-mode*  :text " Current pronunciation mode")
 
-  ;;; Variable: *VALID-PRONUNCIATION-MODES*                    Author: raman
-  ;;; Created: Tue Feb 23 19:58:30 1993
-
-(defvar *valid-pronunciation-modes*
-  (list :text :math)
-  "Valid pronunciation modes")
-
   ;;; Function: VALID-PRONUNCIATION-MODE?                      Author: raman
   ;;; Created: Tue Feb 23 19:59:11 1993
 (defun valid-pronunciation-mode? (mode)
   "Is this a valid pronunciation mode?"
-  (find mode *valid-pronunciation-modes*)
-  )
+  (find mode '(:text :math)))
 
 ;;; Function: CURRENT-PRONUNCIATION-MODE                     Author: raman
 ;;; Created: Mon Oct  5 16:37:15 1992
 
 (defun current-pronunciation-mode ()
   "Return current pronunciation mode"
-  *pronunciation-mode*
-  )
+  *pronunciation-mode*)
 
 ;;; Function: SET-PRONUNCIATION-MODE                         Author: raman
 ;;; Created: Fri Sep 25 11:38:07 1992
@@ -49,13 +40,9 @@
   (assert (valid-pronunciation-mode? mode) nil
           "Unknown pronunciation mode ~a "
           mode)
-  (setf *pronunciation-mode* mode)
-  )
+  (setf *pronunciation-mode* mode))
 
-;;; Modified: Wed Apr  7 11:46:10 EDT 1993
-;;;; define-pronunciation, remove-pronunciation and get-pronunciation
-;;;; being made into methods that despatch on the second argument.
-;;; <(function version backed up)>
+
 (defmethod get-pronounce-internal ((string string) (mode t))
   "Default method, unknown mode. "
   (error "Pronunciation mode ~a has no get-pronunciation-internal

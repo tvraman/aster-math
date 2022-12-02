@@ -8,24 +8,6 @@
 
 
 (in-package :aster)
-;;; Modified: Mon Mar  2 21:52:02 EST 1992
-;;; used define-parsing-function to set up table of parsing functions.
-;;; Modified: Sat Feb  8 11:47:12 EST 1992
- 
-;;; Holds all special variables used by the parser.
-;;; Convention:
-;;; Special variables are named as *foo*:
-;;; They are set to nil initially:
-;;; there are macros with names starting with define
-;;; that are used to add table entries.
-;;; At present new items are pushed on to the list which holds the table.
- 
-
-;;; Table for holding the parsing functions for different
-;;; node types  in a article.
-;;; Modified: Fri Dec 25 08:29:58 EST 1992
-;;; Switching to using hash table.
-;;; <(list version backed up)>
 
 ;;; Variable: *PROCESSING-FUNCTION-TABLE*                    Author: raman
 ;;; Created: Sun Jan 26 11:17:17 1992
@@ -109,10 +91,6 @@ a suitable entry to the table *processing-function-table*"
 
 ;;; Variable: *TEX-MACRO-TABLE*                              Author: raman
 ;;; Created: Thu Jan 30 08:56:15 1992
-;;; Modified: Fri Dec 25 09:01:50 EST 1992
-;;; Converting to using hash tables.
-;;; <( old version using list backed up)>
-
 (defvar *tex-macro-table*
   (make-hash-table :test #'equal)
   "table to hold entries for known macros.")
@@ -125,8 +103,7 @@ a suitable entry to the table *processing-function-table*"
 
 ;;; Function: DEFINE-TEX-MACRO                                  Author: raman
 ;;; Created: Mon Mar  2 22:12:55 1992
-;;; Modified: Fri Dec 25 09:04:01 EST 1992
-;;; Converting to using hash tables.  <(old version  backed up. )>
+
 (defun define-tex-macro  (macro-name macro-n-args macro-def) 
   "Add entry for macro-name to *tex-macro-table*
 the table of known tex macros "

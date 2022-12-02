@@ -13,31 +13,27 @@
 
 ;;; Function: PROCESS-MATH                                   Author: raman
 ;;; Created: Sat Feb  1 12:27:35 1992
-;;; Modified: Thu Mar 18 22:01:56 EST 1993
-;;; Switching to loop and also made more efficient by using nreverse
-;;; plus cons instead of nconc.
-;;; <(refer to old version which is backed up)>
-;;; <(use push instead of cons, backed up old version )>
+
 (defun process-math(math-buffer &optional (termination-condition? #'end-of-buffer?)) 
   "process math stream"
   (let
       ((processed-math nil))
     (loop for token = (lookat-current-entry math-buffer)
           until (funcall termination-condition?  math-buffer)
-          do ;body advances pointer
-          (cond
-            ((end-of-buffer? math-buffer)
-             (error
-              "While processing math
+          do                            ;body advances pointer
+                                        (cond
+                                          ((end-of-buffer? math-buffer)
+                                           (error
+                                            "While processing math
  unexpected end reached before closing delimiter"))
                                         ;((is-a 'field-separator token) (advance-pointer math-buffer))
-            ((open-delimiter? token)
-             (push   (process-delimited-expression
-                      math-buffer)
-                     processed-math ))
-            (t (push   (mathify (funcall (get-parser token :math-flag t)
-                                         math-buffer ))
-                       processed-math )))
+                                          ((open-delimiter? token)
+                                           (push   (process-delimited-expression
+                                                    math-buffer)
+                                                   processed-math ))
+                                          (t (push   (mathify (funcall (get-parser token :math-flag t)
+                                                                       math-buffer ))
+                                                     processed-math )))
           finally (return
                     (inf-to-pre (collapse (nreverse processed-math ))))
           ))

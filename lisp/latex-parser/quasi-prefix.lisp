@@ -489,10 +489,6 @@
 
 ;;; Function: PUSH-OPERATOR?                                 Author: raman
 ;;; Created: Mon Nov  2 12:38:51 1992
-;;; Modified: Wed Apr 28 20:19:14 EDT 1993
-;;; Handling fact that "-" is right associative.
-;;; <(Backed up old version. )>
-
 (defun push-operator? (incoming operator-stack operand-stack)
   "Decide whether to push operator"
   (or  (endp operator-stack)            ;empty stack?

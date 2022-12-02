@@ -8,16 +8,12 @@
 
 
 (in-package :aster)
+
 ;;; Thu Dec 24 08:33:36 EST 1992
 ;;; Parents and siblings for document objects
-;;; Modified: Fri Dec 25 12:30:48 EST 1992
-;;; Initial cut now working, simplify by specializing for section etc
-;;; using before and after methods.
-;;; <(First cut implementation backed up)>
  
-
-  ;;; Method: LINK-CHILDREN-TO-PARENT Author: raman
-  ;;; Created: Tue Dec 22 17:26:12 1992
+;;; Method: LINK-CHILDREN-TO-PARENT Author: raman
+;;; Created: Tue Dec 22 17:26:12 1992
 
 (defmethod link-children-to-parent ((current  math-object))
   "Create parent links"
@@ -36,10 +32,10 @@
       (link-siblings  children)
       (loop for child in children
             do
-            (unless (equal  'undefined (parent child ))
-              (setf (parent child)   current)
-              (link-children-to-parent child)
-              ))
+               (unless (equal  'undefined (parent child ))
+                 (setf (parent child)   current)
+                 (link-children-to-parent child)
+                 ))
       )
     current)
   )

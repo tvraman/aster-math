@@ -68,11 +68,6 @@
 
 ;;; Method: WEIGHT                                           Author: raman
 ;;; Created: Thu Dec  3 19:28:55 1992
-;;; Modified: Sat Dec 12 13:17:20 EST 1992
-;;; Removing unnecessary conditional clauses and replacing them by
-;;; separate methods that specialize on their argument. 
-;;; <(old method has been backed up. )>
-
 (defmethod weight ((math-object math-object))
   "Return weight of this math object"
   (cond
@@ -90,8 +85,8 @@
 
   ;;; Method: WEIGHT                                           Author: raman
   ;;; Created: Sat Dec 12 13:13:11 1992
-;;; Modified: Thu Apr  8 11:06:32 EDT 1993
-;;; <(Removed unnecessary cond, backed up. )>
+
+
 (defmethod weight ((math-subformula math-subformula))
   "Weight of a subformula"
   (+  (weight  (contents math-subformula ))

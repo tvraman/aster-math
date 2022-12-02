@@ -477,10 +477,7 @@ default is enumerated list."
 
 ;;; Function: PROCESS-EQUATION                               Author: raman
 ;;; Created: Sun Jan 26 15:27:00 1992
-;;; Modified: Tue Dec 29 09:41:48 EST 1992
-;;; Switching to using enclosing referends for handling labels.
-;;;  old version which was buggy when a label occured at the end of
-;;;  the equation  <(has been backed up. )>
+
 (defun process-equation (text-buffer )
   "process a latex   equation environment "
   (let*

@@ -313,10 +313,6 @@
 
 ;;; Function: CREATE-SECTIONAL-UNIT                          Author: raman
 ;;; Created: Thu Apr  9 16:01:07 1992
-;;; Modified: Tue Dec 29 09:23:00 EST 1992
-;;; Using enclosing-referends to handling labels.
-;;; <(old version has been backed up. )>
-
 (defun create-sectional-unit (sectional-unit-text
                               &key(sectional-unit-name 'section))
   "Create a sectional unit, default is a section."

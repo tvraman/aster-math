@@ -68,8 +68,6 @@
 
 ;;; Function: GET-PARSER                                     Author: raman
 ;;; Created: Sun Jan 26 15:06:13 1992
-;;; Modified: Fri Dec 25 08:35:26 EST 1992
-;;;  Switching to hash tables. <(list version backed up)>
 
 (defun get-parser (token &key  (math-flag nil)) 
   "Get the right parsing function from the global variable "
@@ -91,8 +89,7 @@
 
 ;;; Function: GET-TEX-MACRO                                  Author: raman
 ;;; Created: Thu Jan 30 09:35:39 1992
-;;; Modified: Fri Dec 25 09:08:08 EST 1992
-;;; <(Switching to hash tables, old version backed up. )>
+
 (defun get-tex-macro (macro-name) 
   "gets the entry for macro macro-name from the table"
   (or

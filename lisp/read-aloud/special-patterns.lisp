@@ -4,48 +4,7 @@
 
 (in-package :aster)
 
-;;; Sun Dec 27 07:56:14 EST 1992
-;;; Implements code to allow the user to specify special patterns.
-;;; This done by generating after methods for initialize-instance
-;;; that check the created instance and if the instance matches a
-;;; special pattern set the special-pattern slot.
-;;; read-aloud can check this slot to see if a special pattern has
-;;; been identified, and if in addition the special patterns reading
-;;; style is active and a reading rule  called <special-pattern-value>
-;;; has been defined for this object type, then that rule is called.
-;;; Work out a clean way for specifying a number of special patterns
-;;; to check for:
 
-
-;;;
-;;; <(backed up. )>
-;;; Checking for special patterns at initialization time is buggy.
-;;; Instead introduce a generic method special-pattern which gets
-;;; called before the object is read, in the around method for
-;;; read-aloud. If special-pattern returns a special pattern, then
-;;; read-aloud will invoke the reading rule of that name.
-
-
-;;; Only math objects have special patterns for now:
-;;; special-pattern is being memoized by adding a slot pattern to
-;;; math-object. If later on other document objects  also need special
-;;; patterns, then move this slot to the appropriate super class, and
-;;; define the around method for that super class.
-
-
-;;; Do nothing in the case of ordinary objects, just return nil.
-;;; around method not defined  in this case
-;;; Moved to math-classes.lisp to avoid warning.
-
-;;; Memoizing special-pattern
-;;; Sun Feb  7 18:22:23 EST 1993
-;;; Introducing ability to turn off special patterns selectively.
-;;; Use a hash table to hold class names for which special patterns
-;;; are active.
-;;; This means that when a special pattern is written it will have to
-;;; be explicitly activated.
-;;; The hash table will hold the class name of the class for which the
-;;; special pattern is being activated.
 
   ;;; Variable: *ACTIVE-SPECIAL-PATTERN*                       Author: raman
   ;;; Created: Sun Feb  7 18:24:21 1993
