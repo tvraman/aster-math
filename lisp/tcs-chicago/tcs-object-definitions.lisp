@@ -5,10 +5,6 @@
 (in-package :aster)
 
 ;;; Object definitions for tcs chicago
-
-;;; Modified: Tue Jul  5 13:58:56 EDT 1994
-;;; Adding definitions for objects defined by tcs chicago journal:
-;;;
 ;;{{{ end of sentence marker:
 
 (define-text-object :macro-name "@"

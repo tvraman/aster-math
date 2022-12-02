@@ -148,9 +148,6 @@
 (defvar *table-of-step-sizes*
   (make-hash-table :test #'equal  )
   "table containing step sizes   for each dimension")
-;;; Modified: Fri Aug 21 09:00:00 EDT 1992
-;;; step sizes also stored as reference variables.
-
 ;;; Function: DEFINE-STEP-SIZE                               Author: raman
 ;;; Created: Fri Aug  7 17:51:13 1992
 
@@ -159,9 +156,6 @@
   (setf (gethash dimension *table-of-step-sizes*)
         (make-reference :val value))
   )
-
-;;; Modified: Thu Aug 20 16:29:24 EDT 1992
-;;; If no step-size defined, return 0. 
 ;;; Function: GET-STEP-SIZE                                  Author: raman
 ;;; Created: Fri Aug  7 17:52:43 1992
 
@@ -309,9 +303,7 @@ number-of-end-points -1 subintervals"
   "Return table of standard voices."
   *standard-voices*)
 
-;;; Modified: Tue Aug 11 10:09:32 EDT 1992
-;;; Modified: Thu Aug 20 09:35:45 EDT 1992
-;;; export voice being defined
+
 ;;; Function: SAVE-POINT-IN-SPEECH-SPACE                     Author: raman
 ;;; Created: Sun Aug  9 15:52:02 1992
 
@@ -323,9 +315,6 @@ number-of-end-points -1 subintervals"
           point)
   (setf  (gethash name (standard-voices)) point)
   )
-;;; Modified: Thu Aug 20 09:34:49 EDT 1992
-;;; export name of voice that is being defined.
-
 ;;; Function: DEFINE-STANDARD-VOICE                          Author: raman
 ;;; Created: Sat Aug  8 09:36:28 1992
 
@@ -350,23 +339,10 @@ assign a value to it"
                                              assign ))
         )
       )
-    (setf (gethash name (standard-voices)) point)
-    )
-  )
-;;; Modified: Tue Aug 25 11:42:19 EDT 1992
-;;; embed point in speech space before returning it. This means that
-;;; those parameters that are not defined by the voice will assume
-;;; global values that are currently set.  Earlier I was calling
-;;; embed-point-in-speech-space within the define-standard-voice
-;;; function and this mean that the voices got defined with the
-;;; default values that were defined at the time the language is
-;;; compiled.
+    (setf (gethash name (standard-voices)) point)))
 
 ;;; Function: GET-POINT-IN-SPEECH-SPACE Author: raman
 ;;; Created: Sat Aug  8 09:30:57 1992
-;;; Modified: Thu Aug 20 11:28:52 EDT 1992
-;;; returns multiple values, point and a list of dimensions
-
 (defun get-point-in-speech-space (name) 
   "return predefined point associated with name"
   (values 

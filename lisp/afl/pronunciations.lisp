@@ -4,10 +4,6 @@
 
 (in-package :afl)
 
-;;; Modified: Wed Mar 24 15:15:37 EST 1993
-;;; Moving to afl package 
-
-
 ;;; Created: Fri Sep 25 11:58:49 EDT 1992
 ;;; Pronunciations for dectalk.
  

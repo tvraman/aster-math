@@ -15,8 +15,6 @@
 ;;}}}
 ;;{{{ generate-synthesizer-command
 
-;;; Modified: Thu Aug 20 10:40:53 EDT 1992
-;;; Modified to return string rather than call format each time.
 ;;; Function: GENERATE-SYNTHESIZER-COMMAND                   Author: raman
 ;;; Created: Tue Aug 11 13:41:18 1992
 
@@ -49,8 +47,6 @@
 
 (defvar *voice-codes-table* nil "table of voice codes for dectalk")
 
-;;; Modified: Thu Aug 20 09:37:22 EDT 1992
-;;; export voice whose code is defined
 ;;; Function:  DEFINE-VOICE-CODE Author: raman Created: Tue Aug 11 14:56:56 1992
 
 (defun define-voice-code (voice code)

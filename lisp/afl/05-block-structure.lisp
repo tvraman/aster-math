@@ -25,12 +25,9 @@
 
 (defvar *current-speech-state* nil "Records current state of the audio formatter ")
 
-;;; <(*modified-dimensions* no longer used. )>
-
 ;;}}}
 ;;{{{ new-block
-;;; Modified: Wed Feb 10 15:44:59 EST 1993
-;;; <(Modifying to stop using *modified-dimensions*)>
+
 ;;; Macro: NAMED-BLOCK                                       Author: raman
 ;;; Created: Thu Aug 27 19:12:29 1992
 
@@ -41,14 +38,6 @@
 (defun afl-block-name()
   "Generate a afl block name"
   (gensym "afl-block-"))
-
-;;; Modified: Tue Mar 23 13:11:56 EST 1993
-;;; new block now handles speech and sound components
-;;; Modified: Thu Mar 25 09:22:34 EST 1993
-;;; Blocks now handle pronunciation component as well
-;;; Modified: Fri Mar 26 11:15:12 EST 1993
-;;; Introducing total audio state
-;;; which is the direct sum of the component states
 
 (defmacro new-block (   &body body)
   "sets up a new block in afl"
@@ -71,18 +60,6 @@
 ;;}}}
 ;;{{{ assignments
 
-;;; Modified: Thu Aug 20 11:00:46 EDT 1992
-;;; accept additional keyword argument changed-dimensions whose
-;;; default value is *speech-dimensions*
-;;; Modified: Mon Aug 24 08:21:06 EDT 1992
-
-;;; Modified: Sat Oct  3 14:14:22 EDT 1992
-;;; surround  body of set-speech-state in with-interruptions-inhibited so that
-;;; an interrupt will not leave the multivoice in a weird state. Note:
-;;; If this is not done, there is a chance of a user interrupt
-;;; arriving when the multivoice has received part of a control
-;;; string, leaving it in phoenetic mode.
-;;; Modified: Sat Oct 17 11:54:10 EDT 1992
   ;;; Variable: *SPEECH-HARDWARE-STATE*                        Author: raman
   ;;; Created: Wed Feb 10 11:34:41 1993
 
@@ -167,9 +144,7 @@ scaling"
 
 ;;; METHOD: GLOBAL-SET-STATE                               Author: raman
 ;;; Created: Fri Sep  4 15:45:24 1992
-;;; Modified: Wed Feb 10 15:33:48 EST 1993
-;;; uses set-speech-state now.
-;;; Has been changed to a method. was an ordinary function before
+
 (defmethod  global-set-state (new-state )
   "set global speech state of afl"
   (assert (point-in-speech-space-p new-state) nil
@@ -182,29 +157,9 @@ scaling"
     (set-step-size dimension
                    (current-step-size dimension new-state))
     )
-  (set-speech-state  *current-speech-state*)
-
-  )
-
-;;; use this for setting single global value
-;;; Modified: Sat Oct 17 12:29:19 EDT 1992
-;;; no longer needed or used, throw away.
+  (set-speech-state  *current-speech-state*))
 
 ;;; Function: GLOBAL-SET-VALUE                               Author: raman
 ;;; Created: Sat Sep  5 10:11:51 1992
-
-(defun global-set-value (dimension value)
-  "set value globally along dimension"
-  (assert (find dimension (speech-dimensions)) nil
-          "~a is not a valid dimension"
-          dimension)
-  (setf
-   (reference-val (gethash dimension (global-values)))
-   value)
-
-  (set-speech-state  *current-speech-state* )
-
-                                        ; actually send the commands.
-  )
 
 ;;}}}
