@@ -416,8 +416,7 @@ default is enumerated list."
 (defun number-list-environment (list-environment &key (parent nil))
   "number items in a list environment. Only enumerated lists numbered. "
   (when (enumerated-list-p list-environment)
-    (number-list-of-items
-     (items list-environment)
+    (number-list-of-items (items list-environment)
      :parent parent)
     list-environment))
 
@@ -427,8 +426,7 @@ default is enumerated list."
 (defun process-enumerate (text-buffer )
   "Process enumerated list of items "
   (create-list-environment
-   (process-text
-    (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+   (process-text (make-buffer :contents (rest (pop-current-entry text-buffer ))))
    :list-environment-type 'enumerated-list))
 
 ;;; Function: PROCESS-DESCRIPTION                            Author: raman
@@ -437,8 +435,7 @@ default is enumerated list."
 (defun process-description (text-buffer )
   "process a latex description environment "
   (create-list-environment
-   (process-text
-    (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+   (process-text (make-buffer :contents (rest (pop-current-entry text-buffer ))))
    :list-environment-type 'description-list))
 
 ;;; Function: PROCESS-ITEMIZE                                Author: raman
@@ -447,8 +444,7 @@ default is enumerated list."
 (defun process-itemize (text-buffer )
   "process a latex   itemize environment "
   (create-list-environment
-   (process-text
-    (make-buffer :contents (rest (pop-current-entry text-buffer ))))
+   (process-text (make-buffer :contents (rest (pop-current-entry text-buffer ))))
    :list-environment-type 'itemized-list))
 
 ;;; Function: PROCESS-ITEM                                   Author: raman
@@ -457,14 +453,11 @@ default is enumerated list."
 (defun process-item (text-buffer )
   "process a latex   item environment "
   (let ((new-item (make-item )))
-    (when (can-this-be-cross-referenced? 'item)
-      (add-enclosing-referend new-item))
+    (add-enclosing-referend new-item)
     (setf (item-contents  new-item)
-          (process-text
-           (make-buffer :contents (rest (pop-current-entry text-buffer )))))
-    (when (can-this-be-cross-referenced? 'item)
-      (increment-counter-value 'item)
-      (pop-enclosing-referend))
+          (process-text (make-buffer :contents (rest (pop-current-entry text-buffer )))))
+    (increment-counter-value 'item)
+    (pop-enclosing-referend)
     new-item))
 
 ;;; Function: PROCESS-EQUATION                               Author: raman
@@ -472,21 +465,15 @@ default is enumerated list."
 
 (defun process-equation (text-buffer )
   "process a latex   equation environment "
-  (let*
-      ((contents (rest  (pop-current-entry text-buffer  )))
+  (let* ((contents (rest  (pop-current-entry text-buffer  )))
        (math-equation (make-instance 'math-equation ))
-       (equation-buffer  (make-buffer
-                          :contents  contents )))
-    (when (can-this-be-cross-referenced? 'math-equation)
-      (add-enclosing-referend math-equation))
+         (equation-buffer  (make-buffer :contents  contents )))
+      (add-enclosing-referend math-equation)
     (when (numbered-class-p math-equation )
       (setf (numbered-class-number math-equation )
             (increment-counter-value 'math-equation)))
-    (setf  (contents math-equation )
-           (list  (process-math
-                   equation-buffer )))
-    (when (can-this-be-cross-referenced? 'math-equation)
-      (pop-enclosing-referend ))
+    (setf  (contents math-equation ) (list  (process-math equation-buffer )))
+      (pop-enclosing-referend )
     math-equation))
 
 ;;; Function: PROCESS-EQNARRAY                               Author: raman
