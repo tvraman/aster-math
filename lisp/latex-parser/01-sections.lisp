@@ -67,7 +67,7 @@
                 (name-of-sectional-unit-in-front text-buffer))))
         (setf (references *new-article*) (get-references! text-buffer))
         (link-children-to-parent *new-article*)
-        (setq *document* *new-article*)))))
+        *new-article*))))
 
 ;;; Variable: *COUNTER-TABLE*                                Author: raman
 ;;; Created: Fri Apr 30 10:40:37 1993
