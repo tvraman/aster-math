@@ -25,13 +25,7 @@
   ;;; Created: Fri Oct 22 09:25:19 1993
 (defun read-pointer ()
   "Return current read-pointer position. "
-  *read-pointer*
-  )
-
-(defmacro save-article (save-variable &optional (article *document*))
-  "Save article (default *document*) in save-variable. "
-  `(type-of (setf
-             ,save-variable ,article )))
+  *read-pointer*)
 
 (defmacro retrieve-article (save-variable )
   "Retrieve article saved in save-variable and store it in *document*. Does
