@@ -27,12 +27,6 @@
   "Return current read-pointer position. "
   *read-pointer*)
 
-(defmacro retrieve-article (save-variable )
-  "Retrieve article saved in save-variable and store it in *document*. Does
-  not save current value of *document*."
-  `(type-of
-    (setf  *document*   ,save-variable)))
-
 (defun move-inside-subformula-if-necessary()
   "Given that read-pointer is a  subformula with no attributes move
   inside it"
