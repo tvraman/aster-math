@@ -60,9 +60,10 @@ processing function")
          (let*
              ((self (make-instance ',object-name
                                    :contents  ,macro-name ))
-              (processor (if (math-p self)
-                             #'process-argument-as-math
-                             #'process-argument )))
+              (processor
+                (if (math-p self)
+                    #'process-argument-as-math
+                    #'process-argument )))
            (unless (= 0 ,number-args)
              (setf (arguments self)
                    (loop for arg in arguments

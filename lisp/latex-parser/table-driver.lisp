@@ -22,8 +22,6 @@
 
 ;;; Function: WHAT-IS?                                       Author: raman
 ;;; Created: Sun Jan 26 15:02:43 1992
-;;; Modified: Mon Apr 20 17:36:27 EDT 1992
- 
 
 (defun what-is? (token) 
   "returns token marker for lists which is the first element, or word if string."

@@ -4,8 +4,6 @@
 ;;; All Rights Reserved
 ;;;
 
-;;; Modified: Thu Mar 18 22:13:18 EST 1993
-
 (in-package :aster)
  
 
@@ -60,12 +58,7 @@
                       :contents  object))
   )
 
-;;; Modified: Sun Sep 27 16:56:12 EDT 1992
-;;; do not call collapse-mathematical-functions since it gets
-;;; precedence wrong. Fails for f g x which it wrongly builds up as
-;;; f(g)  followed by x.  The step where mathematical functions are
-;;; processed postponed to the prefix conversion step where they will
-;;; be treated as unary operators. 
+
 ;;; Function: COLLAPSE                                       Author: raman
 ;;; Created: Wed Sep 16 15:06:01 1992
 
@@ -77,23 +70,8 @@
       processed-math)
   )
 
-;;; Modified: Tue Sep 15 15:41:52 EDT 1992
-;;; Updating this function to make up a math-object of its return
-;;; value. This is to make process-math consistent it should always
-;;; return a math-object or a list of math-objects.
-;;; At present, process-delimited-expression just makes up a new
-;;; object of type math-object and sticks its return value in the
-;;; contents slot. May do something smarter later.
-
 ;;; Function: PROCESS-DELIMITED-EXPRESSION                   Author: raman
 ;;; Created: Tue Feb  4 18:48:12 1992
-;;; Modified: Tue Dec  1 11:41:47 EST 1992
-;;; Introducing class delimited-expression.
-;;; Old function can be found in <(scratch pad)>
-;;; Modified: Wed Dec  9 14:46:40 EST 1992
-;;; Introducing function create-delimited-expression
-;;; Each type of matched delimited expression now has its own subclass
-
 (defun process-delimited-expression (math-buffer) 
   "process expression delimited by delimiter at front of buffer"
   (let*
@@ -315,9 +293,6 @@ matched ~a "
 ;;; open-delimiter
 ;;; close-delimiter
  
-;;; Modified: Tue Sep 15 15:17:33 EDT 1992
-;;; Modifying following process-<type> functions to return clos object
-;;; math-object with the type and contents slots assigned.
 
 ;;; Function: PROCESS-MATH-STRING                               Author: raman
 ;;; Created: Thu Feb 27 22:01:53 1992
@@ -351,9 +326,7 @@ matched ~a "
 
 
 
-;;; Modified: Wed Dec  9 13:50:14 EST 1992
-;;; introducing create-big-operator
-;;; process-big-operator now returns integral summation etc. 
+
 ;;; Function: PROCESS-BIG-OPERATOR                         Author: raman
 ;;; Created: Thu Feb 27 22:06:23 1992
 
@@ -414,12 +387,7 @@ matched ~a "
                                         ;                 :type 'mathematical-function-name
                  :contents (get-math-object! math-buffer))
   )
-;;; Modified: Fri Dec  4 12:11:21 EST 1992
-;;; Process-math now returns a math object, not a list so
-;;; when getting the object to be accented, no need to call (first
-;;; ...)
-;;; Modified: Fri Dec  4 12:18:24 EST 1992
-;;; The accent being added is also being made a math object. (ordinary)
+
 ;;; Function: PROCESS-ACCENT Author: raman
 ;;; Created: Wed Sep 16 09:54:20 1992
 
@@ -527,9 +495,6 @@ matched ~a "
 
 ;;; Function: COLLAPSE-SUBSCRIPTS-AND-SUPERSCRIPTS           Author: raman
 ;;; Created: Tue Sep 15 18:56:09 1992
-;;; Modified: Tue Dec 29 10:30:06 EST 1992
-;;; remove void math objects first
-
 
 (defun collapse-subscripts-and-superscripts (list-of-math-objects) 
   "Collapse subscript and superscripts "

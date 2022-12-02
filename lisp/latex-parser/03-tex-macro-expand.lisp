@@ -193,14 +193,6 @@
 
 ;;; Function: LABEL-EXPAND                                   Author: raman
 ;;; Created: Sat Feb  1 12:10:33 1992
-;;; Modified: Mon Dec 28 14:59:55 EST 1992
-;;; Do not process argument to label further as usual, instead
-;;; concatenate  arguments  as a string after verifying that the
-;;; argument to label is a block. Make sure that ref-expand does the
-;;; same thing.
-;;; This means that macros that expand to \ref cannot be treated as a
-;;; new text object for the present.
-
 (defun label-expand ( label)
   "process label"
   (assert
@@ -341,25 +333,14 @@
 ;;; them either as text or math and build up the right object.
 ;;; Introducing two auxilliary functions to make this clear.
 
-;;; Modified: Wed Oct 14 16:41:15 EDT 1992
-;;; renamed to process-argument from process-argument-as-text since
-;;; for the present process-argument-as-math is not being used.
 ;;; Function: PROCESS-ARGUMENT                       Author: raman
 ;;; Created: Sun Oct  4 13:35:33 1992
 
 (defun process-argument (argument)
   "Process argument as text. "
   (process-text
-   (make-buffer :contents (list argument )))
-  )
-;;; Modified: Wed Oct 14 16:36:25 EDT 1992
-;;; For the present not calling this function.
-;;; If we assume that a macro argument needs to be processed as math
-;;; only if it is a complex argument, then this will be caught by
-;;; process-subformula and treated as math, so in general we can
-;;; simplify the interface by just using process-argument  all
-;;; the time.
-;;; Try this for a while and see if it breaks for some reason.
+   (make-buffer :contents (list argument ))))
+
 
 ;;; Function: PROCESS-ARGUMENT-AS-MATH                       Author: raman
 ;;; Created: Sun Oct  4 13:36:04 1992
@@ -472,8 +453,7 @@
 (define-tex-macro "dy" 0 'dy-expand)
 (define-tex-macro "dz" 0 'dz-expand)
 (define-tex-macro "dt" 0 'dt-expand)
-;;; Modified: Wed Sep 22 14:10:36 EDT 1993
-;;; Handling TeX matrix builtin
+
 (define-tex-macro "matrix" 1 'tex-matrix-expand)
 (define-tex-macro "pmatrix" 1 'tex-matrix-expand)
 ;;; TeX matrices can be processed using process-array.
