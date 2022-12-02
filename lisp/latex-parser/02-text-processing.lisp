@@ -526,23 +526,18 @@ default is enumerated list."
 (defun block-contents (item)
   "returns  all but first element of item which is assumed to be a block marked as such by its first element."
   (when (is-a 'block item)
-    (rest item))
-  )
-;;; Modified: Tue Oct  6 17:03:01 EDT 1992
-;;; Directly pass array element to process-math.
-;;; Lexer modified accordingly.
+    (rest item)))
+
+
 ;;; Function: PROCESS-ARRAY-ELEMENT                            Author: raman
 ;;; Created: Tue Jan 28 15:20:14 1992
-;;; Modified: Tue Jan 12 14:58:59 EST 1993
-;;; Now returns a table element
+
 (defun process-array-element (element)
   "process element by passing to process-math"
-  (make-instance 'table-element
-                 :contents (when element
-                             (process-math
-                              (make-buffer :contents
-                                           element ))))
-  )
+  (make-instance
+   'table-element
+   :contents
+   (when element (process-math (make-buffer :contents element )))))
 
 ;;; Function: PROCESS-TABLE-ELEMENT                          Author: raman
 ;;; Created: Tue Jan 28 15:43:54 1992
