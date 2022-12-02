@@ -528,7 +528,6 @@ default is enumerated list."
   (when (is-a 'block item)
     (rest item)))
 
-
 ;;; Function: PROCESS-ARRAY-ELEMENT                            Author: raman
 ;;; Created: Tue Jan 28 15:20:14 1992
 
@@ -541,14 +540,13 @@ default is enumerated list."
 
 ;;; Function: PROCESS-TABLE-ELEMENT                          Author: raman
 ;;; Created: Tue Jan 28 15:43:54 1992
-;;; Modified: Tue Jan 12 13:55:33 EST 1993
-;;; now returns a table-element instead of a List
+
 (defun process-table-element (element)
   "process a table element"
-  (make-instance 'table-element
-                 :contents (process-text
-                            (make-buffer :contents
-                                         element ))))
+  (make-instance
+   'table-element
+   :contents
+   (process-text (make-buffer :contents element ))))
 
   ;;; Function: VOID-LIST-P                                    Author: raman
   ;;; Created: Wed Sep 15 21:15:18 1993
@@ -556,65 +554,40 @@ default is enumerated list."
   "Is this a void list, ie (nil)?"
   (and(listp list-l)
       (= 1 (length list-l))
-      (null (first list-l )))
-  )
-;;; Modified: Wed Sep 15 20:53:35 EDT 1993
-;;; Introducing a remove nil so that empty lists thrown away
+      (null (first list-l ))))
+
 ;;; Function: MAP2-NESTED-LIST                               Author: raman
 ;;; Created: Tue Jan 28 14:17:42 1992
 
 (defun MAP2-NESTED-LIST(modifier nested-list)
   "map down a nested list"
-  (mapcar #'(lambda(simple-list)
-              (mapcar modifier
-                      simple-list))
-          (remove-if #'void-list-p nested-list))
-  )
+  (mapcar
+   #'(lambda(simple-list)
+       (mapcar modifier simple-list))
+   (remove-if #'void-list-p nested-list)))
 
 ;;; Function: PROCESS-UNKNOWN-CONSTRUCT                      Author: raman
 ;;; Created: Sat Feb 29 13:17:49 1992
 
 (defun process-unknown-construct (text-buffer)
   "Process an unknown construct, ie just stick it in"
-  (cons 'unknown-construct
-        (pop-current-entry text-buffer))
-  )
-
-
-;;; some helper functions:
+  (cons 'unknown-construct (pop-current-entry text-buffer)))
 
 ;;; Function: IS-A                                           Author: raman
 ;;; Created: Sat Oct 12 13:07:51 1991
-;;; Modified: Mon Apr 20 17:25:37 EDT 1992
-;;; Made inline.
-
 (defun is-a (doc-unit lispified-text)
   "Checks if lispified-text is a doc-unit."
   (cond
     ((atom lispified-text)nil)
-    ((eq (first lispified-text) doc-unit) lispified-text))
-  )
-
-;;; Function: IS-A-WORD                                      Author: raman
-;;; Created: Mon Oct  7 09:43:05 1991
-;;; Modified: Mon Apr 20 17:25:57 EDT 1992
-;;; Made inline.
-
-(defun is-a-word  (lispified-text)
-  "Tests if argument is a word. For the present words are atoms."
-  (stringp lispified-text)
-  )
+    ((eq (first lispified-text) doc-unit) lispified-text)))
 
 ;;; Function: CS-NAME                                        Author: raman
 ;;; Created: Mon Nov  4 09:21:55 1991
-;;; Modified: Mon Apr 20 17:41:28 EDT 1992
-
 
 (defun  cs-name (token)
   "Return name of cs where cs is a list of two elements, the marker 'cs and the name of the cs."
   (when (is-a 'cs token)
-    (second token))
-  )
+    (second token)))
 
 ;;; Function: MATH-CS-NAME                                   Author: raman
 ;;; Created: Tue Mar  3 22:03:26 1992
@@ -622,8 +595,6 @@ default is enumerated list."
 (defun math-cs-name (token)
   "return name of math cs"
   (when (is-a 'math-cs token)
-    (second token))
-  )
-
+    (second token)))
 
 ;;; end of file
