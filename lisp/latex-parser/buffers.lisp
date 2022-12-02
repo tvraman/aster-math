@@ -14,11 +14,6 @@
 ;;; return next entry and mofify buffer pointer.
 ;;; lookat-current-entry Return current entry without modifying pointer.
 
-;;; Modified: Wed Jan 29 10:42:59 EST 1992
-;;; Added a slot local-env to the buffer structure.
-;;; This makes passing information about the environment around easier.
-;;; In particular avoid use of special variables for handling font changes.
-
 ;;; Structure: BUFFER                                        Author: raman
 ;;; Created: Thu Oct 31 09:37:17 1991
 (defstruct (buffer
@@ -53,7 +48,7 @@
 
 ;;; Function: POP-CURRENT-ENTRY                              Author: raman
 ;;; Created: Thu Oct 31 13:44:16 1991
-;;; Modified: Mon Apr 20 17:43:46 EDT 1992
+
 
 (defun pop-current-entry (buff)
   "pops current entry off buffer modifyin gpointer"
@@ -61,7 +56,6 @@
 
 ;;; Function: LOOKAT-CURRENT-ENTRY                           Author: raman
 ;;; Created: Thu Oct 31 13:15:56 1991
-;;; Modified: Mon Apr 20 17:42:41 EDT 1992
 
 (defun lookat-current-entry (buff )
   "Looks at current entry  in buff. Does not modify pointer"
@@ -85,9 +79,6 @@
 
 ;;; Function: ADVANCE-POINTER                                   Author: raman
 ;;; Created: Fri Nov  1 15:28:02 1991
-;;; Modified: Mon Feb  3 11:44:54 EST 1992
-;;; Return buffer after advancing pointer.
-;;; Modified: Mon Apr 20 17:47:04 EDT 1992
 
 (defun  advance-pointer (buff)
   "return buffer after advancing pointer. "
@@ -117,7 +108,6 @@
 
 ;;; Function: END-OF-BUFFER?                                 Author: raman
 ;;; Created: Tue Nov  5 15:51:47 1991
-;;; Modified: Mon Apr 20 17:48:34 EDT 1992
 
 (defun end-of-buffer? (buff)
   "Checks if pointer is at the end of buff"

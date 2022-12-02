@@ -4,22 +4,10 @@
 ;;;
 
 (in-package :aster)
-;;; Modified: Thu Dec 24 14:08:54 EST 1992
-;;; Modified: Thu Dec 24 11:06:39 EST 1992
-;;; Modifying predicates like <class>-p to use typep instead of eq
-;;; class-name Note: this means that <class>-p subclass is true
-;;; Modified: Mon Aug  3 14:33:52 EDT 1992
-;;; Removing duplicate definition of math class.
-;;; Modified: Thu Apr  2 11:02:47 EST 1992
-;;; Introduces classes for document components.
-;;; Will completely replace the structures for document components
-;;; defined in structs.lisp.
+
+
 ;;; Class: DOCUMENT                                          Author: raman
 ;;; Created: Thu Apr  2 11:05:22 1992
-;;; Modified: Mon Mar 29 08:51:05 EST 1993
-;;; added read-next and read-previous slots.
-;;; afl-state added before this.
-
 (defclass document ()
   ((parent :initform nil   :initarg :parent :accessor parent)
    (next :initform  nil  :initarg :next :accessor next)
@@ -576,10 +564,7 @@ enumerated and itemized lists."))
 
 (defun text-number-p (self)
   (eq (class-name (class-of self)) 'text-number))
-;;; Modified: Fri Oct 30 09:16:00 EST 1992
-;;; Math is a super class for all math objects and should not have any
-;;; slots.
-;;; Removing these
+
 ;;; Class: MATH                                              Author: raman
 ;;; Created: Mon May  4 14:41:12 1992
 
@@ -639,9 +624,6 @@ enumerated and itemized lists."))
   (typep  self 'table-mix-in ))
 ;;; Class: TABULAR                                           Author: raman
 ;;; Created: Thu Nov 19 15:25:29 1992
-;;; Modified: Tue Jan 12 14:46:51 EST 1993
-;;; introduced a mixin class for tabular and math-array
-;;; Useful for defining a common link method
 
 (defclass tabular (table-mix-in)
   ((contents :initform nil :initarg :contents :accessor contents

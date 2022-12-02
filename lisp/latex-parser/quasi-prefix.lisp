@@ -133,27 +133,6 @@
     )               
   )
 
-;;; Modified: ;;; Sun Nov  1 10:24:52 EST 1992Sun Nov  1 10:24:53 EST 1992
-;;; If an operator is followed by another operator this operator is
-;;; probably unary. So when process-term sees an operator instead of
-;;; an operand it should do the right thing. Things are complicated by
-;;; the precedence rules for instance consider x+\sum... = ...  Now
-;;; the precedence rules do not make sense.
-;;; This is because + has higher precedence than the \sum and will
-;;; therefore  be wrongly applied. 
-;;; In this case for the
-;;; present use the following strategy: If you see a unary operator,
-;;; look ahead in the infix expression to see if there is an operator
-;;; of lower precedence than the unary operator. If not then the case
-;;; is simple ie: something like x+\sum ... So we can simply do a
-;;; process-operator with infix expression as nil, the current
-;;; operator stack and the result of parsing the remaining infix
-;;; expression pushed on top of the current operand stack.
-;;; In the more complicated case, ie: where there is an operator of
-;;; lower precedence than the unary operator clip of the part of the
-;;; infix expression upto that point and proceed as before.
-;;; Above comments do not address the base case of the recursion. 
-
 (defun process-term (infix-expression operators operands)
   "Set up recursion,  element in front of list is an operand."
   (cond
@@ -339,8 +318,8 @@
   )
 
 ;;; Method: INTEGRAL-P                                       Author: raman
+
 ;;; Created: Tue Nov  3 13:05:48 1992
-;;; Modified: Wed Dec  9 13:56:28 EST 1992
 ;;; Updated to use new integral class.
 ;;; Just need to check the class, *int* no longer used
 (defmethod integral-p ((math-object math-object))

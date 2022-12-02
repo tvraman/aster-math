@@ -8,22 +8,14 @@
 
 
 (in-package :aster)
-;;; Modified: Fri Dec 11 11:00:28 EST 1992
-;;; Instead of having a separate slot for each argument, create a
-;;; single slot called arguments which contains a list of the
-;;; arguments. Provide an accessor method which takes the object being
-;;; defined and an integer and returns the argument in the position
-;;; specified by integer. Also, define children as an alternative
-;;; accessor for the arguments slot.
-;;; A <(backup is being kept)> of this file.
  
- ;;;  tex macros define new objects .
- ;;; refer to the notes on <(macros define objects)>
- ;;; Thu Oct 15 12:58:18 EDT 1992
- ;;; defines the necessary macros to set up things.
+;;;  tex macros define new objects .
+;;; refer to the notes on <(macros define objects)>
+;;; Thu Oct 15 12:58:18 EDT 1992
+;;; defines the necessary macros to set up things.
 
- ;;; define class
- ;;; define processing function
+;;; define class
+;;; define processing function
 (defmacro define-text-object (&key
                                 macro-name number-args processing-function
                                 children-are-called
@@ -31,58 +23,58 @@
   "define new object in text"
   `(let   (                      ; (*muffled-warnings* 'style-warning)
            )
-    (progn
+     (progn
 ;;; First define the class:
 ;;; if n args is 0 no argument slot
-      (cond
-        (, (= 0 number-args )
-           (defclass ,object-name   ,supers
-             ((contents :initform nil :initarg  :contents
-                        :allocation :class :accessor contents ))
-             (:documentation
-              ,(format nil
-                       "Class ~a corresponding to macro ~a"
-                       object-name macro-name))))
-        (t
-         (defclass ,object-name   ,supers
-           ((arguments :initform nil :initarg :arguments
-                       :accessor arguments :accessor children)
-            (children-are-called
-             :initform  ,children-are-called :allocation :class
-             :initarg :children-are-called
-             :accessor children-are-called )
-            (contents :initform nil :initarg  :contents
-                      :allocation :class :accessor contents ))
-           (:documentation
-            ,(format nil
-                     "Class ~a corresponding to macro ~a"
-                     object-name macro-name)))))                      
-      (defun ,processing-function (&rest arguments)
-        "Automatically generated processing function"
-        (assert
-         (or (= 0 ,number-args)
-             (= (length arguments )  ,number-args))
-         nil
-         "Wrong number of arguments passed to automatically generated
+       (cond
+         (, (= 0 number-args )
+            (defclass ,object-name   ,supers
+              ((contents :initform nil :initarg  :contents
+                         :allocation :class :accessor contents ))
+              (:documentation
+               ,(format nil
+                        "Class ~a corresponding to macro ~a"
+                        object-name macro-name))))
+         (t
+          (defclass ,object-name   ,supers
+            ((arguments :initform nil :initarg :arguments
+                        :accessor arguments :accessor children)
+             (children-are-called
+              :initform  ,children-are-called :allocation :class
+              :initarg :children-are-called
+              :accessor children-are-called )
+             (contents :initform nil :initarg  :contents
+                       :allocation :class :accessor contents ))
+            (:documentation
+             ,(format nil
+                      "Class ~a corresponding to macro ~a"
+                      object-name macro-name)))))                      
+       (defun ,processing-function (&rest arguments)
+         "Automatically generated processing function"
+         (assert
+          (or (= 0 ,number-args)
+              (= (length arguments )  ,number-args))
+          nil
+          "Wrong number of arguments passed to automatically generated
 processing function")
-        (let*
-            ((self (make-instance ',object-name
-                                  :contents  ,macro-name ))
-             (processor (if (math-p self)
-                            #'process-argument-as-math
-                            #'process-argument )))
-          (unless (= 0 ,number-args)
-            (setf (arguments self)
-                  (loop for arg in arguments
-                        collect
-                        (funcall processor  arg)
-                        )))
-          self))
+         (let*
+             ((self (make-instance ',object-name
+                                   :contents  ,macro-name ))
+              (processor (if (math-p self)
+                             #'process-argument-as-math
+                             #'process-argument )))
+           (unless (= 0 ,number-args)
+             (setf (arguments self)
+                   (loop for arg in arguments
+                         collect
+                         (funcall processor  arg)
+                         )))
+           self))
 ;;; define precedence
-      (when ',precedence
-        (define-precedence ,macro-name :same-as ',precedence))
+       (when ',precedence
+         (define-precedence ,macro-name :same-as ',precedence))
 ;;; Install processing function
-      (define-tex-macro ,macro-name ,number-args ',processing-function))))
+       (define-tex-macro ,macro-name ,number-args ',processing-function))))
 
 ;;; define it as a function:
 (defun argument (self pos)

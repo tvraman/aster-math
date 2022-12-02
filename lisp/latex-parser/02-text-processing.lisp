@@ -308,10 +308,6 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
     (make-instance
      'tabular
      :contents  (map2-nested-list #'process-table-element table-contents))))
-
-;;; case environment handled like tabular.
-;;; Modified: Sat Oct  3 19:32:24 EDT 1992
-
 (defun process-cases (text-buffer )
   "Process a cases environment  "
   (let ((table-contents (rest (pop-current-entry text-buffer))))

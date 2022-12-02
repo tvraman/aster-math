@@ -95,8 +95,6 @@
     )
   )
 
-;;; Modified: Thu Feb 25 12:06:08 EST 1993
-
 (defun read-previous (&optional(n 1))
   "read previous sibling."
   (afl:refresh)
@@ -143,10 +141,6 @@
     (afl:tts-force)
     )
   )
-
-;;; Modified: Thu Feb 25 12:10:44 EST 1993
-;;; added optional arg n
-
 (defun read-parent (&optional(n 1))
   "Speak the parent."
   (afl:refresh)

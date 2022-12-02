@@ -1,11 +1,10 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
-;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
+
+
+;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
-
 
 (in-package :aster)
 
@@ -13,23 +12,21 @@
 ;;; Created: Sun Jan 26 11:17:17 1992
 
 (defvar *processing-function-table*
-  (make-hash-table :test #'eq) 
+  (make-hash-table :test #'eq)
   "Holds the table of node types and their associated processing functions.")
-
 
 ;;; Function: DEFINE-PARSING-FUNCTION                           Author: raman
 ;;; Created: Mon Mar  2 20:57:04 1992
 
-(defun define-parsing-function (object parser) 
+(defun define-parsing-function (object parser)
   "Installs a parsing function for object by adding
 a suitable entry to the table *processing-function-table*"
   (setf  (gethash object *processing-function-table*)  parser)
   )
 
 
- 
 ;;; Now define the entries in the table.
- 
+
 (define-parsing-function 'word'process-word)
 (define-parsing-function 'text-number 'process-text-number)
 (define-parsing-function 'math-number 'process-math-number)
@@ -54,14 +51,14 @@ a suitable entry to the table *processing-function-table*"
 (define-parsing-function 'item'process-item)
 (define-parsing-function 'equation'process-equation)
 (define-parsing-function 'eqnarray'process-eqnarray)
-(define-parsing-function 'eqalign 'process-eqalign) 
+(define-parsing-function 'eqalign 'process-eqalign)
 (define-parsing-function 'slide 'process-slide)
 (define-parsing-function 'verbatim 'process-verbatim)
 (define-parsing-function 'new-environment'process-new-environment)
- 
+
 
 ;;; parsing functions for math mode:
- 
+
 (define-parsing-function 'math-cs 'process-math-cs)
 (define-parsing-function 'subformula 'process-subformula)
 (define-parsing-function  'math-string 'process-math-string)
@@ -71,7 +68,7 @@ a suitable entry to the table *processing-function-table*"
 (define-parsing-function 'big-operator 'process-big-operator)
 (define-parsing-function 'binary-operator 'process-binary-operator)
 (define-parsing-function 'special-binary-operator
-    'process-binary-operator)
+  'process-binary-operator)
 ;;; closed and open delimiters that are not caught by
 ;;; process-delimited-expression should be treated as ordinary
 ;;; symbols.
@@ -88,26 +85,19 @@ a suitable entry to the table *processing-function-table*"
 (define-parsing-function 'subscript 'process-subscript)
 (define-parsing-function 'unknown-construct'process-unknown-construct)
 
-
 ;;; Variable: *TEX-MACRO-TABLE*                              Author: raman
 ;;; Created: Thu Jan 30 08:56:15 1992
 (defvar *tex-macro-table*
   (make-hash-table :test #'equal)
   "table to hold entries for known macros.")
 
-
-;;; Modified: Mon Mar  2 22:11:36 EST 1992
-;;; introducing define macro for setting up table.
- 
-
-
 ;;; Function: DEFINE-TEX-MACRO                                  Author: raman
 ;;; Created: Mon Mar  2 22:12:55 1992
 
-(defun define-tex-macro  (macro-name macro-n-args macro-def) 
+(defun define-tex-macro  (macro-name macro-n-args macro-def)
   "Add entry for macro-name to *tex-macro-table*
 the table of known tex macros "
-  (setf (gethash macro-name *tex-macro-table*) 
+  (setf (gethash macro-name *tex-macro-table*)
         (make-tex-macro
          :name macro-name
          :number-of-args macro-n-args
@@ -115,9 +105,9 @@ the table of known tex macros "
         )
   )
 
- 
+
 ;;; Now set up the table.
- 
+
 ;;; macros that change font:
 (define-tex-macro  "it" 0  'it-expand)
 (define-tex-macro  "sc" 0  'sc-expand)
@@ -149,16 +139,12 @@ the table of known tex macros "
 (define-tex-macro "date" 1 'date-expand)
 (define-tex-macro "address" 1 'address-expand)
 
-(define-tex-macro "mathrel" 1 'mathrel-expand) 
+(define-tex-macro "mathrel" 1 'mathrel-expand)
 (define-tex-macro "root" 3 'root-expand)
 (define-tex-macro  'default 0  'default)
- 
 
 
 
-
-
- 
 
 ;;; Variable: *TABLE-OF-MATH-DELIMITERS*                     Author: raman
 ;;; Created: Tue Feb  4 18:35:59 1992
@@ -168,7 +154,7 @@ the table of known tex macros "
 ;;; Macro: DEFINE-MATH-DELIMITER                             Author: raman
 ;;; Created: Fri Mar  6 10:31:33 1992
 
-(defmacro define-math-delimiter (open close delimiter-name) 
+(defmacro define-math-delimiter (open close delimiter-name)
   "define a math delimiter"
   `(push
     (make-math-delimiter
@@ -177,13 +163,13 @@ the table of known tex macros "
      :name ,delimiter-name)
     *table-of-math-delimiters*)
   )
- 
+
 
 ;;; Now set up the table
- 
-(define-math-delimiter  "{" "}"  "braces") 
-(define-math-delimiter  "(" ")"  "paren") 
-(define-math-delimiter  "[" "]"  "brackets") 
+
+(define-math-delimiter  "{" "}"  "braces")
+(define-math-delimiter  "(" ")"  "paren")
+(define-math-delimiter  "[" "]"  "brackets")
                                         ;(define-math-delimiter  "|" "|"  'pipe)
 (define-math-delimiter '(math-cs  "langle") '(math-cs  "rangle")
   "angle brackets")
@@ -191,13 +177,13 @@ the table of known tex macros "
 (define-math-delimiter '(math-cs "lbrack")  '(math-cs "rbrack" ) "brackets")
 
 (define-math-delimiter '(math-cs "lbrace")  '(math-cs "rbrace" )
-  "braces") 
+  "braces")
 (define-math-delimiter '(math-cs "lfloor")  '(math-cs "rfloor" )
   "floor-brackets")
 (define-math-delimiter '(math-cs "lceil")   '(math-cs "rceil" )
   "ceiling-brackets")
 
- 
+
 ;;; boolean variables.
 ;;; Affect default behaviour
 ;;; Can be toggled with (toggle *var*)
