@@ -189,7 +189,7 @@ Value is derived from `pacmd list-sink-inputs'."
   (cond
     ((eq major-mode 'calc-mode) (aster-guess-calc))
     ((eq major-mode 'sage-shell:sage-mode) (aster-guess-sage))
-    ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode))
+    ((and (memq major-mode '(tex-mode plain-tex-mode latex-mode org-mode))
           (featurep 'texmathp))
      (aster-guess-tex))
     ((and
