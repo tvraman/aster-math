@@ -1,24 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 (in-package :aster)
-
-;;; Modified: Mon Dec 21 09:39:21 EST 1992
-;;; Reading rules that belong to different books being moved to their
-;;; appropriate systems.
-;;; Tue Dec  8 14:02:37 EST 1992
-;;; Old version of this file is the directory  old-reading-rules.
-;;; This file is now being modified and the reading rules are being
-;;; converted to defmethod reading-rule.
-
-;;;
-
-;;; Wed Nov 11 15:13:25 EST 1992
-
-
-;;; This file is being folded.
-;;; Each fold will contain all the rules for a particular object
-;;; The fold marker shows the object class and the rule names
-
-
 ;;{{{paragraph: interactive
 (def-reading-rule (paragraph quiet)
   "do not read paragraph content. "

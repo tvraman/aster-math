@@ -39,10 +39,6 @@ active")
     (gethash class-name *active-special-pattern* )
     )
   )
-
-;;; Modified: Sun Feb  7 18:27:52 EST 1993
-;;; Check for special patterns only if activated
-
 (defmethod special-pattern :around ((math-object math-object ))
   "Memoizing special pattern "
   (when (active-special-pattern-p math-object )

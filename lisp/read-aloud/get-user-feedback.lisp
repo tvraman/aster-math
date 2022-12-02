@@ -7,16 +7,6 @@
 
 (in-package :aster)
 
-;;; Modified: Sun May 16 14:50:55 EDT 1993
-
-;;;
-;;; ilisp has a bug which forces read-line to behave weirdly:
-;;;  If read-line is used inside a function for the first time, it
-;;;  returns the empty string without waiting for user input. This
-;;;  means that read-line has to be called twice.
-;;; Introducing a variable *buggy-ilisp-read-line*
-;;; If T then call read-line twice, discarding the initial empty
-;;; string.
   ;;; Parameter: *GET-LABEL-WAIT*                              Author: raman
   ;;; Created: Sat May  1 12:55:39 1993
 

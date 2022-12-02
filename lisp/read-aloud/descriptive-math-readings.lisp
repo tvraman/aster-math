@@ -133,11 +133,6 @@
     )
   )
 
-;;; Modified: Mon Jan 11 17:18:11 EST 1993
-;;; Most of the work now done in special patterns.
-;;; <(Backing up old version.)>
-;;; Eventually might go away completely.
-
   ;;; Variable: *EXPONENT-START*                               Author: raman
   ;;; Created: Sat Feb  6 16:35:59 1993
 

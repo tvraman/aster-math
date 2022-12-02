@@ -3,26 +3,6 @@
  
 
 (in-package :aster)
-
-;;; Separating out object definitions generated via a macro from
-;;; method definitions on those objects into separate files.
-
-;;; Modified: Mon Dec 21 09:32:07 EST 1992
-;;; User defined objects now being moved into the separate systems to
-;;; which they belong. ie: Macros from cs611 notes are being put under
-;;; the system cs611-notes.system etc.
-;;; Eventually this file may completely go away, or just hold object
-;;; definitions for standard Latex objects.
- 
-;;; Modified: Fri Dec 11 11:38:50 EST 1992
-;;; Modifying read-aloud methods to match new class definitions for
-;;; user  defined objects. ie: use (argument object position) instead
-;;; of argument-position object.
- 
-;;; define some new objects using the macro define-text-object.
-;;; define associated read methods here as well for the present.
-;;; each fold contains a tex macro along with the associated read
-;;; method for the defined object.
 ;;{{{ mbox
 
 ;;; mbox should be handled differently from ordinary text blocks.

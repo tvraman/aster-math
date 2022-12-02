@@ -209,20 +209,6 @@
       ))
   )
 
-;;; Reimplementing following reading rules using move-by rather than
-;;; modifying step size.  <(Compare this to the old version)>
-;;; Modified: Sun Apr 11 08:37:47 EDT 1993
-;;; Introducing a new block for each element to allow relative
-;;; browsing.  <( Refer to old version for explanation)>
-;;; Made more efficient:
-;;; Begin a block for the array, and move to the left.
-;;; when looping through arrays move to the right, and have a dummy
-;;; block for reading the array element so that the right state gets
-;;; recorded for relative browsing.
-;;; read first element of each row and then loop, this will avoid
-;;; having to check for the last element when stepping to the right.
-;;; Make cleaner by using named reading states.
-
 (def-reading-rule (math-array simple)
   "Simple reading rule for arrays. "
   (afl:new-block
@@ -276,9 +262,6 @@
       )))
 
 (def-reading-rule (tabular quiet) nil)
-
-;;; Modified: Sun Apr 11 13:36:17 EDT 1993
-;;; <(Fixed the bug that caused relative readings to fail. )>
 
 (def-reading-rule (square-root simple)
   "Simple reading rule for square-root "

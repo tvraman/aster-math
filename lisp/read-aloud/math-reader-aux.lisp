@@ -81,22 +81,20 @@
 (defparameter *pause-around-child*  5
   "Pause  surrounding reading of child")
 
- ;;; Modified: Sun Dec  6 09:47:52 EST 1992
- ;;; read aloud rule for math object puts pause if necessary, the rest
- ;;; of the helping functions need not do this any more.
+
  ;;; Function: READ-MATH-CHILD                                Author: raman
  ;;; Created: Tue Nov 24 19:11:00 1992
 
 (defmethod read-math-child ((ordinary t ))
-  (read-aloud ordinary )
-  )
+  (read-aloud ordinary ))
 
 (defmethod  read-math-child ((child math-object ))
   "Read math child "
   (let ((parent (parent child )))
     (cond
       ((or (null parent )
-           (equal 'undefined parent )) (read-aloud child ))
+           (equal 'undefined parent ))
+       (read-aloud child ))
       ( (leaf-p child) (read-aloud child ))
       ((math-subformula-p  child) (read-aloud child))
       ((delimited-expression-p child) (read-aloud child))
@@ -168,8 +166,7 @@
     square-root
     )
   "These are read as prefix")
-;;; Modified: Mon Dec 28 11:10:31 EST 1992
-;;; converting to method.
+
  ;;; Method: READ-AS-PREFIX?                                Author: raman
  ;;; Created: Tue Nov 24 13:15:01 1992
 
