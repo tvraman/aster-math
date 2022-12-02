@@ -23,7 +23,8 @@
    (:file "01-sections"
     :depends-on ("structs" "document-component-classes" "buffers"
                            "math-classes" "special-variables"
-                           "math-classification" "table-driver" "02-text-processing"))
+                           "math-classification" "table-driver"
+                           "02-text-processing"))
    (:file "02-text-processing"
     :depends-on
     ("05-math-processing" "structs" "document-component-classes"

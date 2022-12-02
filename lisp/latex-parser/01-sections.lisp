@@ -44,21 +44,20 @@
   (initialize-cross-references)
   (initialize-counters)
   (let ((text-buffer (make-buffer :contents text-article )))
+    (setf *document*  (make-article ))
     (when
-        (eq 'document (lookat-current-entry text-buffer))
-      (advance-pointer text-buffer)
-      (let ((*new-article* (make-article )))
-        (declare (special *new-article*))
-        (process-initial-body! text-buffer)
-        (setf (children *new-article*)
-              (number-list-sectional-units
-               (get-sectional-units!
-                text-buffer
-                :sectional-unit-name
-                (name-of-sectional-unit-in-front text-buffer))))
-        (setf (references *new-article*) (get-references! text-buffer))
-        (link-children-to-parent *new-article*)
-        *new-article*))))
+     (eq 'document (lookat-current-entry text-buffer))
+     (advance-pointer text-buffer)
+     (process-initial-body! text-buffer)
+     (setf (children *document*)
+           (number-list-sectional-units
+            (get-sectional-units!
+             text-buffer
+             :sectional-unit-name
+             (name-of-sectional-unit-in-front text-buffer))))
+     (setf (references *document*) (get-references! text-buffer))
+     (link-children-to-parent *document*)
+     *document*)))
 
 ;;; Variable: *COUNTER-TABLE*                                Author: raman
 ;;; Created: Fri Apr 30 10:40:37 1993
@@ -87,8 +86,7 @@
 
 (defun process-initial-body! (text-buffer)
   "Process initial  body of the article,  ie upto first section."
-  (declare (special *new-article* ))
-  (setf (contents *new-article*)
+  (setf (contents *document*)
         (delete nil
                 (process-text
                  text-buffer
@@ -96,6 +94,19 @@
                      (or
                       (name-of-sectional-unit-in-front x)
                       (end-of-buffer? x)))))))
+
+;;; Function: PROCESS-ABSTRACT                               Author: raman
+;;; Created: Sun Jan 26 15:42:20 1992
+
+(defun process-abstract (text-buffer )
+  "Process abstract "
+  (let ((new-abstract (make-abstract )))
+    (setf (contents new-abstract)
+          (process-text
+           (make-buffer :contents (rest (pop-current-entry text-buffer )))))
+    (setf (abstract *document*) new-abstract)))
+
+
 
 ;;; Function: GET-REFERENCES!                                 Author: raman
 ;;; Created: Fri Oct 11 11:09:02 1991

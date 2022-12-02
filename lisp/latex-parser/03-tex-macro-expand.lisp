@@ -258,33 +258,22 @@
 
 (defun title-expand (title)
   "expand title macro."
-  (declare (special *new-article* ))
   (assert
    (is-a 'block title) nil
-   "Assert: title-expand: argument to label ~a, is not a block"
-   title)
-                                        ; using special variable *new-article*
-                                        ;   declared in create-article.
-  (setf (title *new-article*)
-        (process-argument
-         title)
-        )
-  nil
-  )
+   "Title must be a block" title)
+  (setf (title *document*)
+        (process-argument title)))
 
 ;;; Function: AUTHOR-EXPAND                                  Author: raman
 ;;; Created: Sun Apr 26 18:35:12 1992
 
 (defun author-expand (author)
   "process author macro"
-  (declare (special *new-article* ))
   (assert
    (is-a 'block author) nil
    "Assert: author-expand: argument to label ~a, is not a block"
    author)
-                                        ; using special variable *new-article*
-                                        ; declared in create-article.
-  (setf (author *new-article*)
+  (setf (author *document*)
         (process-argument
          author)
         )
@@ -296,14 +285,11 @@
 
 (defun date-expand (date)
   "process date macro"
-  (declare (special *new-article* ))
   (assert
    (is-a 'block date) nil
    "Assert: date-expand: argument to label ~a, is not a block"
    date)
-                                        ; using special variable *new-article*
-                                        ; declared in create-article.
-  (setf (date *new-article*)
+  (setf (date *document*)
         (process-argument
          date)
         )
@@ -319,9 +305,7 @@
    (is-a 'block address) nil
    "Assert: address-expand: argument to label ~a, is not a block"
    address)
-                                        ; using special variable *new-article*
-                                        ; declared in create-article.
-  (setf (address *new-article*)
+  (setf (address *document*)
         (process-argument
          address)
         )
