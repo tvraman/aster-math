@@ -1,11 +1,11 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
+
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 
 (in-package :aster)
- 
+
 ;;; This  file processes the text occuring in the body of the article.
 ;;; ie: processes the text occuring inside sections, subsections etc.
 ;;; This file handles Latex environments, and the next file will specifically
@@ -50,7 +50,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
              (make-paragraph
               :contents
               (delete nil  (nreverse current-paragraph )))
-                  processed-text)
+             processed-text)
             (setf current-paragraph nil))
            (t
             (push (funcall (get-parser token) text-buffer) current-paragraph )))
@@ -73,7 +73,7 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 
 (defun process-word (text-buffer )
   "Process a word "
-      (pop-current-entry text-buffer))
+  (pop-current-entry text-buffer))
 
 ;;; Function: PROCESS-COMMENT                                Author: raman
 ;;; Created: Fri Feb 28 10:52:02 1992
@@ -127,12 +127,12 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 (defun process-text-block (text-buffer )
   "Process text blocks."
   (let* ((contents nil)
-       (current-block (pop-current-entry text-buffer))
-       (current-block-buffer (make-buffer :contents (rest current-block))))
+         (current-block (pop-current-entry text-buffer))
+         (current-block-buffer (make-buffer :contents (rest current-block))))
     (setf contents
           (delete nil (process-text current-block-buffer)))
     (make-text-block :contents contents
-     :local-env (buffer-local-env current-block-buffer))))
+                     :local-env (buffer-local-env current-block-buffer))))
 
 ;;; Function: PROCESS-INLINE-QUOTE                           Author: raman
 ;;; Created: Thu Feb 13 20:03:11 1992
@@ -141,15 +141,15 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   "process inline quotation"
   (let ((inline-quote-buffer
           (make-buffer :contents (rest (pop-current-entry text-buffer ))))
-       (inline-quote nil))
+        (inline-quote nil))
     (setf inline-quote
           (process-text inline-quote-buffer
-           #'(lambda(x)
-               (or (equal "''" (lookat-current-entry x))
-                (end-of-buffer? x)))))
+                        #'(lambda(x)
+                            (or (equal "''" (lookat-current-entry x))
+                                (end-of-buffer? x)))))
     (if (end-of-buffer? inline-quote-buffer)
-     (cons ' mismatched-quote inline-quote)
-     (create-QUOTED-TEXT inline-quote :QUOTED-TEXT-TYPE 'inline-quote))))
+        (cons ' mismatched-quote inline-quote)
+        (create-QUOTED-TEXT inline-quote :QUOTED-TEXT-TYPE 'inline-quote))))
 ;;; Function: VALIDATE-QUOTED-TEXT-TYPE                      Author: raman
 ;;; Created: Mon Apr 13 19:27:21 1992
 
@@ -267,10 +267,10 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
 (defun expand-tex-macro ( text-buffer)
   "process tex macro"
   (let* ((token (pop-current-entry text-buffer ))
-       (macro-name(or  (cs-name token )
-                       (math-cs-name token )))
-       (macro-table-entry (get-tex-macro macro-name ))
-       (n-args (tex-macro-number-of-args macro-table-entry)))
+         (macro-name(or  (cs-name token )
+                         (math-cs-name token )))
+         (macro-table-entry (get-tex-macro macro-name ))
+         (n-args (tex-macro-number-of-args macro-table-entry)))
     (cond
       (( eq  (tex-macro-name macro-table-entry) 'default)
        (make-tex-defined-macro :tex-defined-macro-name macro-name))
@@ -417,7 +417,7 @@ default is enumerated list."
   "number items in a list environment. Only enumerated lists numbered. "
   (when (enumerated-list-p list-environment)
     (number-list-of-items (items list-environment)
-     :parent parent)
+                          :parent parent)
     list-environment))
 
 ;;; Function: PROCESS-ENUMERATE                              Author: raman
@@ -466,14 +466,14 @@ default is enumerated list."
 (defun process-equation (text-buffer )
   "process a latex   equation environment "
   (let* ((contents (rest  (pop-current-entry text-buffer  )))
-       (math-equation (make-instance 'math-equation ))
+         (math-equation (make-instance 'math-equation ))
          (equation-buffer  (make-buffer :contents  contents )))
-      (add-enclosing-referend math-equation)
+    (add-enclosing-referend math-equation)
     (when (numbered-class-p math-equation )
       (setf (numbered-class-number math-equation )
             (increment-counter-value 'math-equation)))
     (setf  (contents math-equation ) (list  (process-math equation-buffer )))
-      (pop-enclosing-referend )
+    (pop-enclosing-referend )
     math-equation))
 
 ;;; Function: PROCESS-EQNARRAY                               Author: raman
@@ -481,21 +481,14 @@ default is enumerated list."
 
 (defun process-eqnarray (text-buffer )
   "process a latex   eqnarray environment "
-  (let
-      (( eqnarray-contents (rest (pop-current-entry text-buffer)))
-       (self (make-instance 'math-eqnarray ))
-       )
-    (when (can-this-be-cross-referenced? 'math-eqnarray)
-      (add-enclosing-referend self)
-      (increment-counter-value 'math-eqnarray))
+  (let (( eqnarray-contents (rest (pop-current-entry text-buffer)))
+        (self (make-instance 'math-eqnarray )))
+    (add-enclosing-referend self)
+    (increment-counter-value 'math-eqnarray)
     (setf (contents self)
-          (map2-nested-list
-           #'process-array-element
-           eqnarray-contents))
-    (when (can-this-be-cross-referenced? 'math-eqnarray )
-      (pop-enclosing-referend))
-    self)
-  )
+          (map2-nested-list #'process-array-element eqnarray-contents))
+    (pop-enclosing-referend)
+    self))
 
 ;;; process-eqnarray and process-eqalign should be made smarter.
 
@@ -604,7 +597,7 @@ default is enumerated list."
         (pop-current-entry text-buffer))
   )
 
- 
+
 ;;; some helper functions:
 
 ;;; Function: IS-A                                           Author: raman
@@ -632,7 +625,7 @@ default is enumerated list."
 ;;; Function: CS-NAME                                        Author: raman
 ;;; Created: Mon Nov  4 09:21:55 1991
 ;;; Modified: Mon Apr 20 17:41:28 EDT 1992
- 
+
 
 (defun  cs-name (token)
   "Return name of cs where cs is a list of two elements, the marker 'cs and the name of the cs."
@@ -649,6 +642,5 @@ default is enumerated list."
     (second token))
   )
 
- 
+
 ;;; end of file
- 
