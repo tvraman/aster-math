@@ -94,22 +94,17 @@ termination-condition is satisfied.  Upon exit, buffer-pointer points to after p
   "process field-separators "
   (pop-current-entry text-buffer))
 
-(defvar *new-article* nil )
-
 ;;; Function: PROCESS-ABSTRACT                               Author: raman
 ;;; Created: Sun Jan 26 15:42:20 1992
-
+;;; fixme: check calling location and use return value there
 (defun process-abstract (text-buffer )
   "Process abstract "
-  (declare (special *new-article* ))
   (let ((new-abstract (make-abstract )))
     (setf (contents new-abstract)
           (process-text
            (make-buffer :contents
                         (rest (pop-current-entry text-buffer )))))
-                                        ; using special variable *new-article* declared in create-article.
-    (setf (abstract *new-article*) new-abstract)
-    nil))
+    new-abstract))
 
 ;;; Function: PROCESS-CENTER                                 Author: raman
 ;;; Created: Sun Jan 26 15:42:23 1992
