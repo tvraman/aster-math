@@ -95,7 +95,7 @@
       (and
        (point-in-speech-space-p  old-point)
        (point-in-speech-space-p new-point )) nil
-               "Arguments are not valid points in speech space. ")
+       "Arguments are not valid points in speech space. ")
      (let ((modified-dimensions nil ))
        (dolist
            (dim-name (speech-dimensions))
