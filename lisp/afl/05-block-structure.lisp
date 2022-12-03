@@ -40,7 +40,7 @@
   "sets up a new block in afl"
   (let ((name (afl-block-name )))
     `(block ,name
-       (let* ((previous-speech-state *current-speech-state*)
+       (let* ((prev-state *current-speech-state*)
               (*current-speech-state*
                 (copy-point-in-speech-space *current-speech-state* ))
               (previous-pronunciation-mode *pronunciation-mode*))
@@ -48,7 +48,7 @@
               (progn ,@body)
 ;;; reset state
            (progn
-             (set-speech-state previous-speech-state )
+             (set-speech-state prev-state )
              (set-pronunciation-mode previous-pronunciation-mode)))))))
 
 ;;}}}
