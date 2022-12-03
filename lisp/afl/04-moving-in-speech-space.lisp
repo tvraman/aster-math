@@ -72,61 +72,44 @@ If called with :slot 'step-size, modifies the step size instead."
 ;;; Function: MOVE-TO                                        Author: raman
 ;;; Created: Sun Aug  9 17:53:36 1992
 
-(defun  move-to (point dimension value
-                 &key(slot 'value))
+(defun  move-to (point dimension value &key(slot 'value))
   "Return point reached by setting value along dimension dimension to
 value. Default is to change the value assigned along this dimension.
 If called with :slot 'step-size, modifies the step size instead. "
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space"
-          point)
+          "~a is not a point in speech space" point)
   (assert (find dimension (speech-dimensions)) nil
-          "move-to: Invalid dimension ~a"
-          dimension)
-  (let*
-      ((new-point (copy-point-in-speech-space point))
-       (new-dimension(copy-dimension
-                      (point-accessor dimension new-point )))
-       )
-    (setf (dimension-accessor slot  new-dimension)
-          value)
+          "move-to: Invalid dimension ~a" dimension)
+  (let* ((new-point (copy-point-in-speech-space point))
+         (new-dim(copy-dimension (point-accessor dimension new-point ))))
+    (setf (dimension-accessor slot  new-dim)
+          (reference-value (dimension-accessor slot  new-dim )))
     (values
-     (update-point-in-speech-space new-point dimension new-dimension)
+     (update-point-in-speech-space new-point dimension new-dim)
      (if (eq 'value slot)
-         (list dimension)               ; value modified
-         nil)                             ; slot modified
-     )
-    )
-  )
+         (list dimension)
+         nil))))
 
 ;;}}}
 ;;{{{scale-by
 
-(defun   scale-by (point dimension scale-factor
-                   &key (slot 'value))
+(defun   scale-by (point dimension scale-factor &key (slot 'value))
   "Return point reached by scaling value along  dimension by scale factor
 If called with :slot 'step-size, modifies the step size instead."
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space"
-          point)
+          "~a is not a point in speech space" point)
   (assert (find dimension (speech-dimensions)) nil
-          "scale-by: Invalid dimension ~a"
-          dimension)
-  (let*
-      ((new-point (copy-point-in-speech-space point))
-       (new-dimension(copy-dimension
-                      (point-accessor dimension new-point )))
-       )
-    (setf (dimension-accessor slot  new-dimension)
+          "scale-by: Invalid dimension ~a" dimension)
+  (let* ((new-point (copy-point-in-speech-space point))
+       (new-dim(copy-dimension (point-accessor dimension new-point ))))
+    (setf (dimension-accessor slot  new-dim)
           (* scale-factor
-             (reference-value (dimension-accessor slot  new-dimension ))))
+             (reference-value (dimension-accessor slot  new-dim ))))
     (values
-     (update-point-in-speech-space new-point dimension new-dimension)
+     (update-point-in-speech-space new-point dimension new-dim)
      (if (eq 'value slot)
-         (list dimension)               ; value modified
-         nil))                            ; step-size modified
-    )
-  )
+         (list dimension)
+         nil))))
 
 ;;}}}
 ;;{{{ multi-move-by
