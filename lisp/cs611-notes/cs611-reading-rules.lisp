@@ -205,7 +205,7 @@
 
 (defmethod summarize ((alpha-equality alpha-equality))
   (afl:new-block
-    (afl:local-set-state :math)
+    (afl:set-pronunciation-mode :math)
     (read-aloud "  equals  ")
     (with-reading-state (reading-state 'subscript)
       (read-aloud " alpha "))))

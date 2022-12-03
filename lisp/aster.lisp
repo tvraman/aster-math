@@ -32,3 +32,4 @@ Use audio-device ASTER_TTS if set in the environment."
      :norvig-book :gries-book :dennis-math-books :cs611-notes)))
 
 (aster)
+(aster-books)

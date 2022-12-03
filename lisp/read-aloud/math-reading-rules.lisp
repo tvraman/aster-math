@@ -197,7 +197,7 @@
           (when (label math-equation)
             (label-name (label math-equation  )))))
     (afl:new-block
-      (afl:local-set-state :math)
+      (afl:set-pronunciation-mode :math)
       (afl:local-set-state (reading-state 'math ))
       (read-aloud equation )
       (afl:tts-silence 5)
@@ -212,7 +212,7 @@
 (def-reading-rule (math-array simple)
   "Simple reading rule for arrays. "
   (afl:new-block
-    (afl:local-set-state :math)
+    (afl:set-pronunciation-mode :math)
     (let
         ((contents
            (if *transpose-table*
@@ -239,7 +239,7 @@
 (def-reading-rule (tabular simple)
   "Simple reading rule for arrays. "
   (afl:new-block
-    (afl:local-set-state :text)
+    (afl:set-pronunciation-mode :text)
     (let
         ((contents
            (if *transpose-table*

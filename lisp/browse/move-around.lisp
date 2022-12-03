@@ -52,7 +52,7 @@
         (afl:local-set-state afl:*global-speech-state*)
         (if  math-flag
              (with-reading-state (reading-state 'math)
-               (afl:local-set-state :math)
+               (afl:set-pronunciation-mode :math)
                (read-aloud  *read-pointer* ))
              (read-aloud *read-pointer*))
         (afl:tts-force)))))
@@ -73,7 +73,7 @@
               (afl:local-set-state afl:*global-speech-state*)
               (if  math-flag
                    (with-reading-state (reading-state 'math)
-                     (afl:local-set-state :math)
+                     (afl:set-pronunciation-mode :math)
                      (read-aloud  *read-pointer* ))
                    (read-aloud *read-pointer*))
               (setf (afl-state *read-pointer*) nil)

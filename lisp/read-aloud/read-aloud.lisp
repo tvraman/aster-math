@@ -163,7 +163,7 @@
       (afl:local-set-state
        (funcall (retrieve-font-rule item) afl:*current-speech-state*)))
     (when (eql :math afl:*pronunciation-mode*)
-      (afl:local-set-state :text ))
+      (afl:set-pronunciation-mode :text ))
     (read-aloud (contents text-block))))
 
 ;;; Method: READ-ALOUD                                       Author: raman

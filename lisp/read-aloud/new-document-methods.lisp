@@ -7,19 +7,15 @@
 (defmethod read-aloud ((fraction fraction))
   "Read aloud fraction "
   (afl:new-block
-    (afl:local-set-state
-     (reading-state 'fraction)
-     )
+    (afl:local-set-state (reading-state 'fraction))
     (read-aloud "Fraction with numerator: ")
     (afl:new-block
-      (afl:local-set-state
-       (reading-state 'fraction-numerator))
+      (afl:local-set-state (reading-state 'fraction-numerator))
       (read-aloud (numerator-of fraction))
       )
     (read-aloud "And denominator: ")
     (afl:new-block
-      (afl:local-set-state
-       (reading-state 'fraction-denominator))
+      (afl:local-set-state (reading-state 'fraction-denominator))
       (read-aloud
        (denominator-of fraction))
       )
@@ -60,8 +56,7 @@
 (defmethod read-aloud  (( text-frame-box text-frame-box ))
   "Read aloud method for object text-frame-box "
   (afl:new-block
-    (afl:local-set-state
-     (afl:get-point-in-speech-space 'afl:paul))
+    (afl:local-set-state (afl:get-point-in-speech-space 'afl:paul))
     (read-aloud (argument text-frame-box 1))
     )
   )
@@ -290,10 +285,8 @@
     (loop for i from 1 to 3 do
       (afl:tts-queue "and so on, ")
       (afl:tts-force)
-      (afl:local-set-state (afl:multi-step-by afl:*current-speech-state*
-                                        ;'(afl:left-volume -2.5)
-                                        ;'(afl:right-volume -2.5)
-                                              ))))
+      (afl:local-set-state
+       (afl:multi-step-by afl:*current-speech-state*))))
   )
 
 

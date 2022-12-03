@@ -121,7 +121,7 @@
 ;;; uses set-speech-state.
 ;;; METHOD: local-set-state
 
-(defmethod     local-set-state  ( new-state )
+(defun     local-set-state  ( new-state )
   "Set current speech state of afl to new-state"
   (assert (point-in-speech-space-p new-state ) nil
           "~a is not a point in speech space" new-state )

@@ -7,7 +7,8 @@
 
 (def-reading-rule (paragraph interactive)
   "Skip out at end of sentence if requested"
-  (afl:new-block (afl:local-set-state :text)
+  (afl:new-block
+    (afl:set-pronunciation-mode :text)
     (with-slots  ((contents contents )) paragraph
       (loop for item in contents do
         (read-aloud  item)
@@ -17,7 +18,8 @@
 (def-reading-rule (paragraph quick-interactive)
   "Skip out at end of sentence if requested"
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
-  (afl:new-block (afl:local-set-state :text)
+  (afl:new-block
+    (afl:set-pronunciation-mode :text)
     (with-slots  ((contents contents )) paragraph
       (loop for item in contents do
         (read-aloud  item)
@@ -29,7 +31,8 @@
 (def-reading-rule (paragraph non-interactive)
   " Non interactive: will not stop after each sentence. "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
-  (afl:new-block (afl:local-set-state :text)
+  (afl:new-block
+    (afl:set-pronunciation-mode :text)
     (with-slots  ((contents contents )) paragraph
       (loop for item in contents do
         (read-aloud  item ))))

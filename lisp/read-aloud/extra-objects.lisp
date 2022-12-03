@@ -182,8 +182,7 @@
 (defmethod read-aloud  (( slide-title slide-title ))
   "Read aloud method for object slide-title "
   (afl:new-block
-    (afl:local-set-state
-     (reading-state 'bold))
+    (afl:local-set-state (reading-state 'bold))
     (read-aloud (argument slide-title 1 ))
     )
   )

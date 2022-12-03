@@ -3,16 +3,8 @@
 (in-package :afl)
 
 (export '( get-pronunciation define-pronunciation *pronunciation-mode*
-          with-pronunciation-mode
+          with-pronunciation-mode set-pronunciation-mode
           dehyphenate-word))
-
-
-  ;;; Method: LOCAL-SET-STATE                                  Author: raman
-  ;;; Created: Thu Mar 25 09:19:37 1993
-
-(defmethod local-set-state ((mode symbol))
-  "Set pronunciation mode. "
-  (set-pronunciation-mode mode))
 
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
 ;;; Pronunciation tables for dectalk.
@@ -161,7 +153,7 @@
 (defmacro with-pronunciation-mode  ((&key mode ) &body body)
   "Execute body in this pronunciation mode. "
   `(new-block
-     (local-set-state ,mode)
+     (set-pronunciation-mode ,mode)
      ,@body)
   )
 
