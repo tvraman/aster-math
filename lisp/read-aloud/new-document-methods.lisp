@@ -11,26 +11,21 @@
     (read-aloud "Fraction with numerator: ")
     (afl:new-block
       (afl:local-set-state (reading-state 'fraction-numerator))
-      (read-aloud (numerator-of fraction))
-      )
+      (read-aloud (numerator-of fraction)))
     (read-aloud "And denominator: ")
     (afl:new-block
       (afl:local-set-state (reading-state 'fraction-denominator))
       (read-aloud
-       (denominator-of fraction))
-      )
-    (read-aloud "end of fraction. ")
-    )
-  )
+       (denominator-of fraction)))
+    (read-aloud "end of fraction. ")))
+
 (defmethod  numerator-of ((fraction fraction))
   "Return numerator"
-  (first (children fraction ))
-  )
+  (first (children fraction )))
 
 (defmethod denominator-of ((fraction fraction ))
   "Return denominator"
-  (second (children fraction ))
-  )
+  (second (children fraction )))
 
 ;;{{{ mbox
 
