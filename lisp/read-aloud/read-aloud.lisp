@@ -162,7 +162,7 @@
         (item (local-env text-block))
       (afl:local-set-state
        (funcall (retrieve-font-rule item) afl:*current-speech-state*)))
-    (when (eql :math (afl:*pronunciation-mode*))
+    (when (eql :math afl:*pronunciation-mode*)
       (afl:local-set-state :text ))
     (read-aloud (contents text-block))))
 

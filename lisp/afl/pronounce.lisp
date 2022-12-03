@@ -1,14 +1,25 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 (in-package :afl)
 
-
 (export
- '( get-pronunciation define-pronunciation
-   with-pronunciation-mode current-pronunciation-mode
-   *pronunciation-mode* dehyphenate-word))
+ '( get-pronunciation define-pronunciation *pronunciation-mode*
+   with-pronunciation-mode
+   dehyphenate-word))
+
+
+  ;;; Method: LOCAL-SET-STATE                                  Author: raman
+  ;;; Created: Thu Mar 25 09:19:37 1993
+
+(defmethod local-set-state ((mode symbol))
+  "Set pronunciation mode. "
+  (set-pronunciation-mode mode))
+
+(defmethod global-set-state((mode symbol ))
+  "Set global pronunciation mode. "
+  (setf *global-pronunciation-mode* mode ))
+
+
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
 ;;; Pronunciation tables for dectalk.
 ;;; Separate tables for text and math mode.
@@ -17,7 +28,8 @@
 ;;; Variable: *PRONUNCIATION-MODE*                           Author: raman
 ;;; Created: Fri Sep 25 11:37:16 1992
 
-(defvar *pronunciation-mode*  :text " Current pronunciation mode")
+(defvar *pronunciation-mode*  :text
+  " Current pronunciation mode")
 
   ;;; Function: VALID-PRONUNCIATION-MODE?                      Author: raman
   ;;; Created: Tue Feb 23 19:59:11 1993
@@ -31,8 +43,7 @@
 (defun set-pronunciation-mode (mode)
   "Set pronunciation mode "
   (assert (valid-pronunciation-mode? mode) nil
-          "Unknown pronunciation mode ~a "
-          mode)
+          "Unknown pronunciation mode ~a " mode)
   (setf *pronunciation-mode* mode))
 
 
@@ -167,6 +178,4 @@
           (progn
             (set-pronunciation-mode  ,mode)
             ,@body)
-       (set-pronunciation-mode saved-mode))
-     )
-  )
+       (set-pronunciation-mode saved-mode))))

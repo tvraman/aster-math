@@ -27,5 +27,4 @@
    (:file "06-synthesizer-codes"
     :depends-on ("structs"))
    (:file "pronounce")
-   (:file "pronunciations" :depends-on ("pronounce"))
-   (:file  "interface-pronounce" :depends-on( "pronounce"))))
+   (:file "pronunciations" :depends-on ("pronounce"))))
