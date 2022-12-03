@@ -1,6 +1,4 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman 
 ;;; All Rights Reserved
@@ -15,9 +13,6 @@
 ;;; Provide local-set-state  global-set-state methods and make afl
 ;;; blocks work with pronunciations.
 ;;;
- 
-
-
 
   ;;; Method: LOCAL-SET-STATE                                  Author: raman
   ;;; Created: Thu Mar 25 09:19:37 1993
@@ -30,7 +25,3 @@
   "Set global pronunciation mode. "
   (setf *global-pronunciation-mode* mode )
   )
-
-
-
-
