@@ -14,15 +14,16 @@
 
 ;;{{{ *current-speech-state*
 
-;;; Variable: *GLOBAL-SPEECH-STATE*                                 Author: raman
+;;; Variable: *GLOBAL-SPEECH-STATE* Author: raman
 ;;; Created: Mon Sep  7 09:02:07 1992
 
 (defvar *global-speech-state* nil "records global state of afl")
 
-;;; Variable: *CURRENT-SPEECH-STATE*                                Author: raman
+;;; Variable: *CURRENT-SPEECH-STATE* Author: raman
 ;;; Created: Fri Aug 14 10:29:11 1992
 
-(defvar *current-speech-state* nil "Records current state of the audio formatter ")
+(defvar *current-speech-state* nil
+  "Records current state of the audio formatter ")
 
 ;;}}}
 ;;{{{ new-block
@@ -40,7 +41,8 @@
   (let ((name (afl-block-name )))
     `(block ,name
        (let* ((previous-speech-state *current-speech-state*)
-              (*current-speech-state* (copy-point-in-speech-space *current-speech-state* ))
+              (*current-speech-state*
+                (copy-point-in-speech-space *current-speech-state* ))
               (previous-pronunciation-mode *pronunciation-mode*))
          (unwind-protect
               (progn ,@body)
