@@ -435,7 +435,7 @@
           (abstract *read-pointer*))
      (setf *read-pointer*
            (abstract *read-pointer* ))
-     (summarize *read-pointer*))
+     (read-aloud *read-pointer*))
     (t (afl:tts-speak "No abstract. "))))
 
 (defun read-follow-cross-ref(direction-flag)
