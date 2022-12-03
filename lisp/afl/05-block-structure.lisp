@@ -1,7 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 
-
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
@@ -20,6 +18,7 @@
 ;;; Created: Mon Sep  7 09:02:07 1992
 
 (defvar *global-speech-state* nil "records global state of afl")
+
 ;;; Variable: *CURRENT-SPEECH-STATE*                                Author: raman
 ;;; Created: Fri Aug 14 10:29:11 1992
 
@@ -28,12 +27,9 @@
 ;;}}}
 ;;{{{ new-block
 
-;;; Macro: NAMED-BLOCK                                       Author: raman
+;;; Macro: NEW-BLOCK                                       Author: raman
 ;;; Created: Thu Aug 27 19:12:29 1992
-
-;;; all blocks should have exits.
 ;;; generate block name automatically.
-;;; eventually do away with named-block
 
 (defun afl-block-name()
   "Generate a afl block name"
@@ -42,8 +38,7 @@
 (defmacro new-block (   &body body)
   "sets up a new block in afl"
   (let ((name (afl-block-name )))
-    `(block
-         ,name
+    `(block ,name
        (let* ((previous-speech-state *current-speech-state*)
               (*current-speech-state* (copy-point-in-speech-space *current-speech-state* ))
               (previous-pronunciation-mode *pronunciation-mode*))
@@ -54,20 +49,17 @@
              (set-speech-state previous-speech-state )
              (set-pronunciation-mode previous-pronunciation-mode)))))))
 
-;;; Function: EXIT-BLOCK                                     Author: raman
-;;; Created: Fri Aug 28 08:55:43 1992
-
 ;;}}}
 ;;{{{ assignments
 
   ;;; Variable: *SPEECH-HARDWARE-STATE*                        Author: raman
   ;;; Created: Wed Feb 10 11:34:41 1993
 
-(defvar *speech-hardware-state* nil "Holds current state of speech
-hardware")
+(defvar *speech-hardware-state* nil
+  "Holds current state of speech hardware")
+
 (defun set-speech-state (state )
-  "sets state of audio  formatter to state   after applying final
-scaling"
+  "sets state of audio  formatter to state   after applying final scaling"
   (assert (point-in-speech-space-p state) nil
           "~a is not a point in speech space" state)
   (let*
@@ -93,27 +85,27 @@ scaling"
 
   ;;; Function: COMPUTE-MODIFIED-DIMENSIONS                    Author: raman
   ;;; Created: Wed Feb 10 11:47:34 1993
-;;; Relies on representation of point-in-speech-space
-;;; forward declaration: see 01-speech-space for real definition
 
 (defun compute-modified-dimensions (old-point new-point )
   "Return names of dimensions that are changed in new-point"
   (cond
     ((null old-point ) (speech-dimensions))
-    (t (assert  (and
-                 (point-in-speech-space-p  old-point)
-                 (point-in-speech-space-p new-point )) nil
-                 "Arguments are not valid points in speech space. ")
-       (let ((modified-dimensions nil ))
-         (dolist
-             (dim-name (speech-dimensions))
-           (unless (same-dimension-value
-                    (point-accessor  dim-name old-point)
-                    (point-accessor dim-name new-point ))
-             (push dim-name modified-dimensions  )))
-         (if (find 'voice modified-dimensions )
-             (speech-dimensions)
-             modified-dimensions)))))
+    (t
+     (assert
+      (and
+       (point-in-speech-space-p  old-point)
+       (point-in-speech-space-p new-point )) nil
+               "Arguments are not valid points in speech space. ")
+     (let ((modified-dimensions nil ))
+       (dolist
+           (dim-name (speech-dimensions))
+         (unless (same-dimension-value
+                  (point-accessor  dim-name old-point)
+                  (point-accessor dim-name new-point ))
+           (push dim-name modified-dimensions  )))
+       (if (find 'voice modified-dimensions )
+           (speech-dimensions)
+           modified-dimensions)))))
 
   ;;; Function: SAME-DIMENSION-VALUE                           Author: raman
   ;;; Created: Wed Feb 10 11:56:58 1993
@@ -122,44 +114,17 @@ scaling"
   "Do these have the same value?"
   (equal
    (reference-value (dimension-value dimension-1 ))
-   (reference-value (dimension-value dimension-2  )))
-  )
+   (reference-value (dimension-value dimension-2  ))))
 
 ;;; Wed Feb 10 12:11:45 EST 1993
 ;;; uses set-speech-state.
 ;;; METHOD: local-set-state
-;;; This method allows the user to define methods for local-set-state
-;;; for specific spaces. The following method is for the speech space.
-;;;
 
 (defmethod     local-set-state  ( new-state )
   "Set current speech state of afl to new-state"
   (assert (point-in-speech-space-p new-state ) nil
-          "~a is not a point in speech space"
-          new-state )
+          "~a is not a point in speech space" new-state )
   (setf *current-speech-state*   new-state)
   (set-speech-state   *current-speech-state* ))
-
-;;; <(global-set! no longer used. )>
-
-;;; METHOD: GLOBAL-SET-STATE                               Author: raman
-;;; Created: Fri Sep  4 15:45:24 1992
-
-(defmethod  global-set-state (new-state )
-  "set global speech state of afl"
-  (assert (point-in-speech-space-p new-state) nil
-          "~a is not a point in speech space"
-          new-state )
-  (dolist
-      (dimension (speech-dimensions))
-    (set-global-value dimension
-                      (current-value dimension new-state))
-    (set-step-size dimension
-                   (current-step-size dimension new-state))
-    )
-  (set-speech-state  *current-speech-state*))
-
-;;; Function: GLOBAL-SET-VALUE                               Author: raman
-;;; Created: Sat Sep  5 10:11:51 1992
 
 ;;}}}

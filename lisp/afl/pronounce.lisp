@@ -14,11 +14,6 @@
   "Set pronunciation mode. "
   (set-pronunciation-mode mode))
 
-(defmethod global-set-state((mode symbol ))
-  "Set global pronunciation mode. "
-  (setf *global-pronunciation-mode* mode ))
-
-
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
 ;;; Pronunciation tables for dectalk.
 ;;; Separate tables for text and math mode.
