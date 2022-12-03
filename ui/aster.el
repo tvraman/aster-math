@@ -329,7 +329,7 @@ The following commands are available on this prefix once aster is running:
   (interactive)
   (aster-cmd '(aster:move-to-children )))
 
-(defun aster-to-abstract ()
+(defun aster-abstract ()
   "Move to abstract"
   (interactive)
   (aster-cmd '(aster:move-to-abstract )))
@@ -421,7 +421,7 @@ The following commands are available on this prefix once aster is running:
   '(
     ("." aster-current)
     ("A" aster-to-attributes)
-    ("C-a" aster-to-abstract)
+    ("C-a" aster-abstract)
     ("C-r" aster-record)
     ("^" aster-to-superscript )
     ("_" aster-to-subscript)
