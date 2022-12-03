@@ -60,60 +60,47 @@
 ;;; one or the other)
 (define-reading-state 'subscript 
     #'(lambda(state)
-        (afl:generalized-afl-operator state
-                                      '(afl:step-by afl:average-pitch -1.5)
-                                      '(afl:step-by afl:head-size .5)
-                                      '(afl:scale-by  afl:average-pitch .5
-                                        :slot afl:step-size)
-                                      '(afl:scale-by afl:head-size .5
-                                        :slot afl:step-size)
-                                      )
-        )
-  )
+        (afl:generalized-afl-operator
+         state
+         '(afl:step-by afl:average-pitch -1.5)
+         '(afl:step-by afl:head-size .5)
+         '(afl:scale-by  afl:average-pitch .5 :slot afl:step-size)
+         '(afl:scale-by afl:head-size .5 :slot afl:step-size))))
 
 (define-reading-state 'superscript
     #'(lambda(state)
-        (afl:generalized-afl-operator  state
-                                       '(afl:step-by afl:average-pitch 1.5)
-                                       '(afl:step-by afl:head-size -.5)
-                                       '(afl:scale-by  afl:average-pitch .5
-                                         :slot afl:step-size)
-                                       '(afl:scale-by afl:head-size .5
-                                         :slot afl:step-size)
-                                       )
-        )
-  )
+        (afl:generalized-afl-operator
+         state
+         '(afl:step-by afl:average-pitch 1.5)
+         '(afl:step-by afl:head-size -.5)
+         '(afl:scale-by  afl:average-pitch .5 :slot afl:step-size)
+         '(afl:scale-by afl:head-size .5 :slot afl:step-size))))
 
 (define-reading-state 'left-superscript
     #'(lambda(state)
-        (afl:multi-step-by state
-                           '(afl:average-pitch -1)
-                           '(afl:head-size 1)
-                           )
-        )
-  )
+        (afl:multi-step-by
+         state
+         '(afl:average-pitch -1)
+         '(afl:head-size 1))))
 
 (define-reading-state 'left-subscript
     #'(lambda(state)
-        (afl:multi-step-by state
-                           '(afl:average-pitch -1)
-                           '(afl:head-size -1)
-                           )
-        )
-  )
+        (afl:multi-step-by
+         state
+         '(afl:average-pitch -1)
+         '(afl:head-size -1))))
 
 (define-reading-state 'accent
     #'(lambda(state)
-        (afl:step-by state
-                     'afl:head-size -1)
-        )
-  )
+        (afl:step-by
+         state
+         'afl:head-size -1)))
 
 (define-reading-state 'underbar
     #'(lambda(state)
-        (afl:step-by state
-                     'afl:head-size 1))
-  )
+        (afl:step-by
+         state
+         'afl:head-size 1)))
 
 (define-reading-state 'math
     #'(lambda(state)
@@ -124,95 +111,81 @@
 
 (define-reading-state 'children
     #'(lambda(state)
-        (afl:multi-step-by state
-                           '(afl:smoothness 2)
-                           '(afl:richness -1)
-                           '(afl:quickness 1)
-                           '(afl:hat-rise 2)
-                           '(afl:stress-rise 2)
-                           ))
-  )
+        (afl:multi-step-by
+         state
+         '(afl:smoothness 2)
+         '(afl:richness -1)
+         '(afl:quickness 1)
+         '(afl:hat-rise 2)
+         '(afl:stress-rise 2))))
 
 (define-reading-state 'subformula
     #'(lambda(state)
-        (afl:step-by state
-                     'afl:average-pitch   1)))
+        (afl:step-by
+         state
+         'afl:average-pitch   1)))
 
 (define-reading-state 'fraction
     #'(lambda(state)
-        (afl:step-by state
-                     'afl:hat-rise 1)))
+        (afl:step-by
+         state
+         'afl:hat-rise 1)))
 
 (define-reading-state  'fraction-numerator
     #'(lambda(state)
-        (afl:step-by state 
-                     'afl:stress-rise 4)))
+        (afl:step-by
+         state 
+         'afl:stress-rise 4)))
 
 (define-reading-state 'fraction-denominator
     #'(lambda(state)
-        (afl:step-by state 
-                     'afl:stress-rise
-                     -4)))
-
+        (afl:step-by
+         state 
+         'afl:stress-rise -4)))
 
 (define-reading-state 'center
     #'(lambda(state)
-        (afl:generalized-afl-operator  state
-                                       '(afl:move-to afl:pitch-range 200)
-                                       '(afl:move-to afl:quickness  100)
-                                       '(afl:step-by afl:stress-rise 1)
-                                       ))
-  )
-
-;;; for dtrace audio display:
+        (afl:generalized-afl-operator
+         state
+         '(afl:move-to afl:pitch-range 200)
+         '(afl:move-to afl:quickness  100)
+         '(afl:step-by afl:stress-rise 1))))
 
 (define-reading-state 'variable-name 
     #'(lambda(state)
-        (afl:step-by  state
-                      'afl:smoothness
-                      2))
-  )
+        (afl:step-by
+         state
+         'afl:smoothness 2)))
 
 (define-reading-state 'variable-value
     #'(lambda(state)
         (declare (ignore state))
-        (afl:get-point-in-speech-space 'afl:harry))
-  )
+        (afl:get-point-in-speech-space 'afl:harry)))
 
 (define-reading-state 'return-value
     #'(lambda(state)
         (declare (ignore state))
-        (afl:get-point-in-speech-space 'afl:betty))
-  )
-
+        (afl:get-point-in-speech-space 'afl:betty)))
 
 (define-reading-state 'footnote
     #'(lambda(state)
-        (afl:generalized-afl-operator state 
-                                      ;'(afl:move-to afl:left-volume  0)
-                                      ;'(afl:move-to  afl:right-volume 100)
-                                      '(afl:scale-by afl:speech-rate 1.5)
-                                      )
-        )
-  )
+        (afl:generalized-afl-operator
+         state 
+         '(afl:scale-by afl:speech-rate 1.5))))
 
 
 (define-reading-state 'emphasize
     #'(lambda(state)
-        (afl:generalized-afl-operator state
-                                      '( afl:move-to afl:pitch-range  250)
-                                      '(afl:step-by  afl:average-pitch 2)
-                                      '(afl:move-to afl:hat-rise 28)
-                                      '(afl:move-to afl:stress-rise 42)
-                                      '(afl:move-to afl:assertiveness 100)
-                                      )
-        )
-  )
+        (afl:generalized-afl-operator
+         state
+         '( afl:move-to afl:pitch-range  250)
+         '(afl:step-by  afl:average-pitch 2)
+         '(afl:move-to afl:hat-rise 28)
+         '(afl:move-to afl:stress-rise 42)
+         '(afl:move-to afl:assertiveness 100))))
+
 (define-reading-state 'bold
     #'(lambda(state)
-        (afl:step-by state
-                     'afl:smoothness 2))
-  )
-
- 
- 
+        (afl:step-by
+         state
+         'afl:smoothness 2)))
