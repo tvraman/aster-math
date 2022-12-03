@@ -11,8 +11,7 @@
 
 (export
  '(
-   step-size 
-   move-to move-by scale-by step-by
+   step-size move-to move-by scale-by step-by
    multi-move-by multi-move-to multi-scale-by multi-step-by
    generalized-afl-operator))
 
