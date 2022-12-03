@@ -90,8 +90,7 @@
 
 (defun dimension-accessor (slot dimension)
   "access slot slot of dimension dimension"
-  (funcall (second (assoc slot  *dimension-accessor-table*)) dimension)
-  )
+  (funcall (second (assoc slot  *dimension-accessor-table*)) dimension))
 
 ;;; DEFSETF form for modifying slots in dimension:
 
