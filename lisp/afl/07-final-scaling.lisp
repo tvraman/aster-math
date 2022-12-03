@@ -5,8 +5,6 @@
 
 (in-package :afl)
 
-(export '(refresh))
-
 ;;; Implements a scaling operation to the current state.
 ;;; Allows for cleanly speeding up an entire rendering etc.
 ;;; Suggested by Jim Davis.
@@ -16,16 +14,6 @@
 ;;; reading being scaled. Will work with interruptions.
 
 ;;{{{ *table-of-final-scale-factors*
-
-;;; Function: REFRESH                                        Author: raman
-;;; Created: Thu Aug 20 14:04:49 1992
-
-(defun refresh ()
-  "Call this function if the hardware gets out of synch with the current
-state as recorded by afl"
-  (tts-queue "[:punc some]")
-  (set-speech-state *current-speech-state*)
-  )
 
 ;;}}}
 

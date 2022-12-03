@@ -2,10 +2,9 @@
 
 (in-package :afl)
 
-(export
- '( get-pronunciation define-pronunciation *pronunciation-mode*
-   with-pronunciation-mode
-   dehyphenate-word))
+(export '( get-pronunciation define-pronunciation *pronunciation-mode*
+          with-pronunciation-mode
+          dehyphenate-word))
 
 
   ;;; Method: LOCAL-SET-STATE                                  Author: raman

@@ -46,7 +46,6 @@
 
 (defun define-voice-code (voice code)
   "define code as code for voice voice"
-  (export (list voice))
   (push
    (make-voice-code :voice  voice :code code)
    *voice-codes-table*))

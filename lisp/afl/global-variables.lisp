@@ -288,7 +288,7 @@ number-of-end-points -1 subintervals"
 (defun define-standard-voice (name &rest  settings)
   "Define a standard voice named name using settings which is a list
 of dimension value pairs."
-  (export (list name))
+  (export name)
   (let ((point (make-point-in-speech-space
                 :voice (create-dimension 'voice :value name))))
     (dolist
