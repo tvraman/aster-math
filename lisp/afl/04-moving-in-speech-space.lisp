@@ -1,22 +1,15 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
-;;{{{ Introduction
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :afl)
 
-
 (export
- '(
-   step-size move-to move-by scale-by step-by
+ '(step-size move-to move-by scale-by step-by
    multi-move-by multi-move-to multi-scale-by multi-step-by
    generalized-afl-operator))
 
-
-;;}}}
 ;;; Each fold contains  an operator
 ;;{{{ move-by
 ;;; Function: MOVE-BY                                        Author: raman
@@ -28,15 +21,12 @@
 Default is to vary the value assigned to dimension.
 If called with :slot 'step-size, modifies the step size instead."
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space. "
-          point)
+          "~a is not a point in speech space. " point)
   (assert (find dimension (speech-dimensions)) nil
-          "move-by: Invalid dimension ~a"
-          dimension)
+          "move-by: Invalid dimension ~a" dimension)
   (let*
       ((new-point (copy-point-in-speech-space point))
-       (new-dimension (copy-dimension
-                       (point-accessor dimension new-point ))))
+       (new-dimension (copy-dimension (point-accessor dimension new-point ))))
     (setf (dimension-accessor slot new-dimension)
           (+
            (reference-value (  dimension-accessor slot new-dimension))
@@ -44,9 +34,8 @@ If called with :slot 'step-size, modifies the step size instead."
     (values
      (update-point-in-speech-space new-point dimension new-dimension)
      (if (eq 'value slot)
-         (list dimension)               ; value modified
-         nil)                           ; slot modified
-     )))
+         (list dimension)               
+         nil))))
 
 ;;}}}
 ;;{{{ step-by
@@ -54,44 +43,28 @@ If called with :slot 'step-size, modifies the step size instead."
 ;;; Function: STEP-BY                                           Author: raman
 ;;; Created: Sun Aug  9 17:48:50 1992
 
-(defun   step-by (point   dimension number-of-steps
+(defun   step-by (point   dimension n-steps
                   &key (slot 'value))
-  "Return point reached by moving from point by number-of-steps along
+  "Return point reached by moving from point by n-steps along
 dimension dimension. Default is to vary value assigned along
 dimension.
 If called with :slot 'step-size, modifies the step size instead."
-                                        ;  (format t "~&~a= dimension
-                                        ;~&~a=current value
-                                        ;~&~a=number-of-steps
-                                        ;~&~a = step-size "
-                                        ;        dimension
-                                        ;        (current-value dimension)
-                                        ;        number-of-steps
-                                        ;        (current-step-size dimension ))
   (assert (find dimension (speech-dimensions)) nil
-          "step-by: Invalid dimension ~a"
-          dimension)
+          "step-by: Invalid dimension ~a" dimension)
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space. "
-          point)
-  (let*
-      ((new-point (copy-point-in-speech-space point))
-       (new-dimension (copy-dimension
-                       (point-accessor dimension new-point  )))
-       )
-    (setf (dimension-accessor slot  new-dimension)
+          "~a is not a point in speech space. " point)
+  (let* ((new-point (copy-point-in-speech-space point))
+       (new-dim (copy-dimension (point-accessor dimension new-point  ))))
+    (setf (dimension-accessor slot  new-dim)
           (+
-           (reference-value (dimension-accessor slot  new-dimension))
-           (* number-of-steps
-              (reference-value (dimension-step-size new-dimension )))))
+           (reference-value (dimension-accessor slot  new-dim))
+           (* n-steps
+              (reference-value (dimension-step-size new-dim )))))
     (values
-     (update-point-in-speech-space new-point dimension new-dimension)
+     (update-point-in-speech-space new-point dimension new-dim)
      (if (eq 'value slot)
-         (list dimension)               ; value modified
-         nil)                             ; slot modified
-     )
-    )
-  )
+         (list dimension)
+         nil))))
 
 ;;}}}
 ;;{{{move-to
@@ -100,7 +73,7 @@ If called with :slot 'step-size, modifies the step size instead."
 ;;; Created: Sun Aug  9 17:53:36 1992
 
 (defun  move-to (point dimension value
-                     &key(slot 'value))
+                 &key(slot 'value))
   "Return point reached by setting value along dimension dimension to
 value. Default is to change the value assigned along this dimension.
 If called with :slot 'step-size, modifies the step size instead. "
