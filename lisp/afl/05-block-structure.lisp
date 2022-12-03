@@ -45,10 +45,10 @@
             (prev-mode *pronunciation-mode*))
        (unwind-protect
             (progn ,@body)
-;;; reset state
+;;; restore state
          (progn
-           (set-speech-state prev-state )
-           (set-pronunciation-mode prev-mode))))))
+           (set-pronunciation-mode prev-mode)
+           (set-speech-state prev-state ))))))
 
 ;;}}}
 ;;{{{ assignments
