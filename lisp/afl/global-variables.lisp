@@ -1,16 +1,11 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
  
- 
-
 (in-package :afl)
 
 (export '(get-point-in-speech-space))
 ;;; Each fold  contains a variable and its associated accessors and
 ;;; modifiers.
-;;; Only the modifiers exported. 
 ;;; Contains all defvars etc used by afl.
-;;; Also contains accessor and modifiers for these defvars.
-
 
 ;;{{{ *global-values*
 
@@ -22,13 +17,9 @@
 ;;; and the value assigned to it is of type reference, a structure
 ;;; that implements indirection.
 ;;; global will be automatically defined by the user defining
-;;; the speech space. Provide set of macros for defining speech space
-;;; abstractly once the first pass of the afl-language is done.
+;;; the speech space. Provide set of macros for defining speech space.
 ;;; The function setup-globals sets up global settings base don the
-;;; dimensions defined. etc. 
-;;; currently global settings are stored in a hash table.
-
-;;; 
+;;; dimensions defined.
 
 ;;; Variable: *GLOBAL-VALUES*                              Author: raman
 ;;; Created: Fri Aug  7 12:46:20 1992
@@ -43,32 +34,23 @@
 ;;; Created: Fri Aug  7 12:49:30 1992
 (defun  define-default-value (dimension value)
   "Assign VALUE as the default value along dimension DIMENSION."
-  (setf (gethash dimension (global-values) )
-        (make-reference :val  value))
-  )
-
-
+  (setf (gethash dimension (global-values))
+        (make-reference :val  value)))
 
 ;;; Function: GET-GLOBAL-VALUE                                  Author: raman
-
 ;;; Created: Fri Aug  7 13:29:55 1992
 (defun  get-global-value  (dimension) 
   "return global value for dimension dimension."
-  (gethash dimension (global-values))
-  )
-
+  (gethash dimension (global-values)))
 
 ;;; Function: SET-GLOBAL-VALUE                               Author: raman
 ;;; Created: Wed Aug 26 15:18:24 1992
 
 (defun set-global-value (dimension value) 
-  "set new global value to set for the first time use define-default-value"
+  "Update global value; to set for the first time, use define-default-value"
   (assert (gethash dimension (global-values)) nil
-          "Error: First define a global value for dimension ~a "
-          dimension)
-  (setf (reference-val (gethash dimension (global-values)) )
-        value)
-  )
+          "Error: First define a global value for dimension ~a " dimension)
+  (setf (reference-val (gethash dimension (global-values))) value))
 
 ;;}}}
 ;;{{{ *table-of-units*
@@ -136,8 +118,7 @@
 
 (defun get-synthesizer-code (dimension) 
   "retrieve synthesizer code  for this dimension"
-  (gethash dimension *table-of-synthesizer-codes*)
-  )
+  (gethash dimension *table-of-synthesizer-codes*))
 
 ;;}}}
 ;;{{{ *table-of-step-sizes*
@@ -182,7 +163,6 @@
 
 
 ;;}}}
-
 ;;{{{ Maximum and minimum values
 
 ;;{{{ *table-of-minimum-values*
@@ -286,7 +266,6 @@ number-of-end-points -1 subintervals"
 ;;}}}
 
 ;;}}}
-
 ;;{{{ *standard-voices*
 
 ;;; standard voices stored in a table.
@@ -303,18 +282,6 @@ number-of-end-points -1 subintervals"
   "Return table of standard voices."
   *standard-voices*)
 
-
-;;; Function: SAVE-POINT-IN-SPEECH-SPACE                     Author: raman
-;;; Created: Sun Aug  9 15:52:02 1992
-
-(defun save-point-in-speech-space (name point) 
-  "Define point  as a distinguished point in speech space called name."
-  (export (list name))
-  (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space"
-          point)
-  (setf  (gethash name (standard-voices)) point)
-  )
 ;;; Function: DEFINE-STANDARD-VOICE                          Author: raman
 ;;; Created: Sat Aug  8 09:36:28 1992
 
@@ -323,8 +290,7 @@ number-of-end-points -1 subintervals"
 of dimension value pairs."
   (export (list name))
   (let ((point (make-point-in-speech-space
-                :voice (create-dimension 'voice :value name)
-                )))
+                :voice (create-dimension 'voice :value name))))
     (dolist
         (setting settings)
       (let
@@ -345,10 +311,7 @@ assign a value to it"
 ;;; Created: Sat Aug  8 09:30:57 1992
 (defun get-point-in-speech-space (name) 
   "return predefined point associated with name"
-  (values 
-   (embed-point-in-speech-space (gethash name (standard-voices)))
-   (speech-dimensions))
-  )
+  (values (embed-point-in-speech-space (gethash name (standard-voices)))
+   (speech-dimensions)))
 
 ;;}}}
-

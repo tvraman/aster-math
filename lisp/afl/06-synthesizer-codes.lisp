@@ -1,18 +1,14 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 
-
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
-(in-package :afl)
 
+(in-package :afl)
 
 ;;; Initially assumes dectalk, but to be flexible enough to allow any
 ;;; synthesizer.
 
-;;{{{ Start and end markers
-;;}}}
 ;;{{{ generate-synthesizer-command
 
 ;;; Function: GENERATE-SYNTHESIZER-COMMAND                   Author: raman
@@ -35,8 +31,7 @@
      (get-synthesizer-code dimension)
      (if (stringp value)
          value
-         (prin1-to-string
-          (bound-in-interval dimension (round value))))
+         (prin1-to-string (bound-in-interval dimension (round value))))
      "]")))
 
 ;;}}}
@@ -53,8 +48,7 @@
   "define code as code for voice voice"
   (export (list voice))
   (push
-   (make-voice-code :voice  voice
-                    :code code)
+   (make-voice-code :voice  voice :code code)
    *voice-codes-table*))
 
 (define-voice-code 'paul "p")
