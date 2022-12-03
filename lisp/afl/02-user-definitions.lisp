@@ -48,7 +48,6 @@
 ;;}}}
 ;;{{{ define-step-size
 
-;;; define global step sizes
 (define-step-size 'lax-breathiness 25)
 (define-step-size 'average-pitch 20)
 (define-step-size 'smoothness 15)
@@ -57,15 +56,12 @@
 (define-step-size 'breathiness 25)
 (define-step-size 'head-size 10)
 (define-step-size 'speech-rate 25)
-(define-step-size 'left-volume 10)
-(define-step-size 'right-volume 10)
 (define-step-size 'laryngilization 10)
 (define-step-size 'baseline-fall 10)
 (define-step-size 'hat-rise 10)
 (define-step-size 'stress-rise 10)
 (define-step-size 'assertiveness 25)
 (define-step-size 'quickness 20)
-(define-step-size 'loudness 5)
 
 ;;}}}
 ;;{{{ define-unit-size
@@ -78,20 +74,14 @@
 (define-unit-size 'speech-rate 'words-per-minute)
 (define-unit-size 'average-pitch 'hertz)
 (define-unit-size 'pitch-range 'percent)
-(define-unit-size 'left-volume 'decibel)
-#+multivoice (define-unit-size 'right-volume 'decibel)
-#+express  (define-unit-size 'right-volume 'duration)
 (define-unit-size 'laryngilization 'percent)
 (define-unit-size 'baseline-fall 'hertz)
 (define-unit-size 'hat-rise 'hertz )
 (define-unit-size 'stress-rise 'hertz)
 (define-unit-size 'assertiveness 'percent)
 (define-unit-size 'quickness 'percent)
-(define-unit-size 'loudness 'decibel)
 
 ;;}}}
-;;{{{ define minimum and maximum values
-
 ;;{{{ minimum values
 
 (define-minimum-value 'head-size      65)
@@ -107,10 +97,8 @@
 (define-minimum-value 'quickness 0)
 (define-minimum-value 'average-pitch 50)
 (define-minimum-value 'pitch-range 0)
-(define-minimum-value 'left-volume 0)
-(define-minimum-value 'right-volume 0)
-(define-minimum-value 'loudness 0)
 (define-minimum-value 'speech-rate 120)
+
 ;;}}}
 ;;{{{ Maximum values.
 
@@ -127,14 +115,9 @@
 (define-maximum-value 'quickness 100)
 (define-maximum-value 'average-pitch 350)
 (define-maximum-value 'pitch-range 250)
-(define-maximum-value 'left-volume 100)
-(define-maximum-value 'right-volume  100)
-(define-maximum-value 'loudness 86)
 (define-maximum-value 'speech-rate 550)
-;;}}}
 
 ;;}}}
-
 ;;{{{ define scale factors for final scaling
 
 ;;; Function: DEFINE-FINAL-SCALE-FACTOR                      Author: raman
@@ -144,10 +127,7 @@
   "Define global scale factor to be applied to dimension Does nothing
 if scale factor already defined "
   (unless (gethash dimension *table-of-final-scale-factors*)
-    (setf (gethash dimension *table-of-final-scale-factors*)
-          scale-factor)))
-
-
+    (setf (gethash dimension *table-of-final-scale-factors*) scale-factor)))
 
 (define-final-scale-factor 'voice 'undefined)
 
