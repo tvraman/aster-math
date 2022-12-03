@@ -121,25 +121,15 @@ If called with :slot 'step-size, modifies the step size instead."
   "Move from point along several dimensions, specify settings as
 dimension value pairs"
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space"
-          point)
-  (let
-      ((new-point (copy-point-in-speech-space point ))
+          "~a is not a point in speech space" point)
+  (let ((new-point (copy-point-in-speech-space point ))
        (dimension nil)
        (changed-dimensions nil))
     (dolist (setting settings)
       (multiple-value-setq ( new-point dimension)
-        (apply #'move-by
-               new-point
-               setting)))
-    (setf changed-dimensions (append
-                              changed-dimensions
-                              dimension))
-    (values new-point
-            changed-dimensions
-            )
-    )
-  )
+        (apply #'move-by new-point setting)))
+    (setf changed-dimensions (append changed-dimensions dimension))
+    (values new-point changed-dimensions)))
 
 ;;}}}
 ;;{{{ multi-move-to
@@ -148,53 +138,34 @@ dimension value pairs"
 ;;; Created: Wed Aug 12 09:56:09 1992
 
 (defun   multi-move-to (point   &rest settings)
-  "Move along multiple dimensions, settings specified as dimension value pairs"
+  "Move along multiple dimensions, settings are dimension value pairs"
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space"
-          point)
+          "~a is not a point in speech space" point)
   (let
       ((new-point (copy-point-in-speech-space point ))
        (dimension nil)
        (changed-dimensions nil))
     (dolist (setting settings)
       (multiple-value-setq ( new-point dimension)
-        (apply #'move-to
-               new-point
-               setting))
-      (setf changed-dimensions (append
-                                changed-dimensions
-                                dimension))
-      )
-    (values new-point
-            changed-dimensions)
-    )
-  )
+        (apply #'move-to new-point setting))
+      (setf changed-dimensions (append changed-dimensions dimension)))
+    (values new-point changed-dimensions)))
 
 ;;}}}
 ;;{{{ multi-scale-by
 
 (defun   multi-scale-by (point  &rest settings)
-  "scale along multiple dimensions, specify settings as dimension value pairs"
+  "scale along multiple dimensions, settings are dimension value pairs"
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space"
-          point)
-  (let
-      ((new-point (copy-point-in-speech-space point ))
+          "~a is not a point in speech space" point)
+  (let ((new-point (copy-point-in-speech-space point ))
        (dimension nil)
        (changed-dimensions nil))
     (dolist (setting settings)
       (multiple-value-setq ( new-point dimension)
-        (apply #'scale-by
-               new-point
-               setting))
-      (setf changed-dimensions (append
-                                changed-dimensions
-                                dimension))
-      )
-    (values new-point
-            changed-dimensions)
-    )
-  )
+        (apply #'scale-by new-point setting))
+      (setf changed-dimensions (append changed-dimensions dimension)))
+    (values new-point changed-dimensions)))
 
 ;;}}}
 ;;{{{ multi-step-by
@@ -202,25 +173,15 @@ dimension value pairs"
 (defun   multi-step-by (point &rest settings)
   "step along multiple dimensions"
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space"
-          point)
-  (let
-      ((new-point (copy-point-in-speech-space point ))
+          "~a is not a point in speech space" point)
+  (let ((new-point (copy-point-in-speech-space point ))
        (dimension nil)
        (changed-dimensions nil))
     (dolist (setting settings)
       (multiple-value-setq ( new-point dimension)
-        (apply #'step-by
-               new-point
-               setting))
-      (setf changed-dimensions (append
-                                changed-dimensions
-                                dimension))
-      )
-    (values new-point
-            changed-dimensions)
-    )
-  )
+        (apply #'step-by new-point setting))
+      (setf changed-dimensions (append changed-dimensions dimension)))
+    (values new-point changed-dimensions)))
 
 ;;}}}
 ;;{{{ Generalized operator.
@@ -240,24 +201,13 @@ dimension value pairs"
 (defun  generalized-afl-operator (point   &rest settings)
   "Operate on point  and return new point. "
   (assert (point-in-speech-space-p point) nil
-          "~a is not a point in speech space"
-          point)
-  (let
-      ((new-point (copy-point-in-speech-space point )))
+          "~a is not a point in speech space" point)
+  (let ((new-point (copy-point-in-speech-space point )))
     (dolist (setting settings)
-      (let
-          ((operator (first setting )))
+      (let ((operator (first setting )))
         (assert  (member  operator *valid-moves*) nil
                  "~a is not a valid operator" operator)
-        (setf new-point
-              (apply operator
-                     new-point
-                     (rest setting )))
-        )
-      )
-    (values new-point
-            (mapcar #'(lambda(x) (second x)) settings))
-    )
-  )
+        (setf new-point (apply operator new-point (rest setting )))))
+    (values new-point (mapcar #'(lambda(x) (second x)) settings))))
 
 ;;}}}
