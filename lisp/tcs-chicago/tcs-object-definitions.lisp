@@ -129,7 +129,7 @@
   (< (1+ (position
           asectional-unit-name
           *valid-asectional-unit-names*))
-     (length *valid-sectional-unit-names*)
+     (length *valid-asectional-unit-names*)
      )
   )
 
