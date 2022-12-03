@@ -121,15 +121,11 @@
 
 (define-reading-state 'subformula
     #'(lambda(state)
-        (afl:step-by
-         state
-         'afl:average-pitch   1)))
+        (afl:step-by state 'afl:average-pitch   1)))
 
 (define-reading-state 'fraction
     #'(lambda(state)
-        (afl:step-by
-         state
-         'afl:hat-rise 1)))
+        (afl:step-by state 'afl:hat-rise 1)))
 
 (define-reading-state  'fraction-numerator
     #'(lambda(state)
