@@ -43,13 +43,13 @@
        (let* ((prev-state *current-speech-state*)
               (*current-speech-state*
                 (copy-point-in-speech-space *current-speech-state* ))
-              (previous-pronunciation-mode *pronunciation-mode*))
+              (prev-mode *pronunciation-mode*))
          (unwind-protect
               (progn ,@body)
 ;;; reset state
            (progn
              (set-speech-state prev-state )
-             (set-pronunciation-mode previous-pronunciation-mode)))))))
+             (set-pronunciation-mode prev-mode)))))))
 
 ;;}}}
 ;;{{{ assignments
