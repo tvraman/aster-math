@@ -38,18 +38,17 @@
 
 (defmacro new-block (   &body body)
   "sets up a new block in afl"
-  (let ((name (afl-block-name )))
-    `(block ,name
-       (let* ((prev-state *current-speech-state*)
-              (*current-speech-state*
-                (copy-point-in-speech-space *current-speech-state* ))
-              (prev-mode *pronunciation-mode*))
-         (unwind-protect
-              (progn ,@body)
+  `(block ,(afl-block-name )
+     (let* ((prev-state *current-speech-state*)
+            (*current-speech-state*
+              (copy-point-in-speech-space *current-speech-state* ))
+            (prev-mode *pronunciation-mode*))
+       (unwind-protect
+            (progn ,@body)
 ;;; reset state
-           (progn
-             (set-speech-state prev-state )
-             (set-pronunciation-mode prev-mode)))))))
+         (progn
+           (set-speech-state prev-state )
+           (set-pronunciation-mode prev-mode))))))
 
 ;;}}}
 ;;{{{ assignments
