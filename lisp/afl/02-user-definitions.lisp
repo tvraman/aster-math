@@ -1,25 +1,16 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
- 
- 
 
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :afl)
 
-
-
 ;;; This file has the user definition of speech space, ie: set up list
 ;;; of dimensions, specify default values etc.
 ;;; Each fold contains assignments to one global table
 
 ;;{{{ define-synthesizer-code
-
-;;; defining some synthesizer codes. dectalk specific
-
-                                        ;(define-synthesizer-code 'left-volume " :vs ")
-                                        ;#+multivoice (define-synthesizer-code 'right-volume " :ve ")
-                                        ;#+express  (define-synthesizer-code 'right-volume ":sync  :tone 500 ")
+                                        
 (define-synthesizer-code 'lax-breathiness " :dv lx ")
 (define-synthesizer-code 'voice ":n")
 (define-synthesizer-code 'head-size ":dv hs ")
@@ -35,20 +26,16 @@
 (define-synthesizer-code 'stress-rise " :dv sr ")
 (define-synthesizer-code 'assertiveness " :dv as ")
 (define-synthesizer-code 'quickness " :dv qu ")
-#+multivoice (define-synthesizer-code 'loudness ":dv lo ")
-#+express  (define-synthesizer-code 'loudness ":dv g5 ")
 ;;}}}
 ;;{{{ define-default-value
 
-;;; Some default values
 (define-default-value 'head-size 100)
 (define-default-value 'speech-rate 180)
 (define-default-value 'lax-breathiness 0)
 (define-default-value 'average-pitch  122)
 (define-default-value 'pitch-range 100)
 (define-default-value 'breathiness 0)
-(define-default-value 'left-volume 50)
-(define-default-value 'right-volume 50)
+
 (define-default-value 'smoothness 0)
 (define-default-value 'richness 100)
 (define-default-value 'laryngilization 0)
@@ -57,7 +44,6 @@
 (define-default-value 'stress-rise 5)
 (define-default-value 'assertiveness 50)
 (define-default-value 'quickness 0)
-(define-default-value 'loudness 86)
 
 ;;}}}
 ;;{{{ define-step-size
