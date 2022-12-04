@@ -258,8 +258,7 @@
 (define-pronunciation  "longleftrightarrow"   "long left right arrow" :math)
 (define-pronunciation  "updownarrow"   "up down arrow" :math)
 (define-pronunciation  "Leftrightarrow"   "bold left right arrow" :math)
-(define-pronunciation  "Longleftrightarrow"
-    " bold long left right arrow" :math)
+(define-pronunciation  "Longleftrightarrow" " bold long left right arrow" :math)
 (define-pronunciation  "Updownarrow"   "bold up down arrow" :math)
 (define-pronunciation  "mapsto"   "maps to" :math)
 (define-pronunciation  "longmapsto"   "long maps to" :math)
@@ -333,8 +332,7 @@
 (define-pronunciation  "lg"   " log" :math)
 (define-pronunciation  "ln"   " natural log" :math)
 (define-pronunciation  "Pr"   " pr" :math)
-(define-pronunciation  "sup"   " suprimum
-" :math)
+(define-pronunciation  "sup"   " suprimum " :math)
 (define-pronunciation  "arctan"   " tan inverse" :math)
 (define-pronunciation  "cot"   " co tangent" :math)
 (define-pronunciation  "det"   " determinant" :math)
