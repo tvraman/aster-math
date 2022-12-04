@@ -101,14 +101,6 @@
   (setf (gethash string *math-mode-pronunciations*) pronounced-as)
   )
 
-;;; Method: REMOVE-PRONUNCIATION                           Author: raman
-;;; Created: Tue Oct 27 15:55:18 1992
-
-(defmethod  remove-pronunciation ( (string string) (mode (eql :math )))
-  "Remove pronunciation for string in math mode "
-  (remhash string *math-mode-pronunciations*)
-  )
-
   ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
   ;;; Created: Wed Apr  7 12:03:12 1993
 (defmethod get-pronounce-internal ((string string) (mode (eql :math )))
