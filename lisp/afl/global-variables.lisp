@@ -9,18 +9,6 @@
 
 ;;{{{ *global-values*
 
-;;;  comments on global settings implementation
-
-;;; *global-values* holds the global settings of parameters in the
-;;; speech space.  It is a hashtable, and has an 
-;;; entry  associated with each dimension in the speech space,
-;;; and the value assigned to it is of type reference, a structure
-;;; that implements indirection.
-;;; global will be automatically defined by the user defining
-;;; the speech space. Provide set of macros for defining speech space.
-;;; The function setup-globals sets up global settings base don the
-;;; dimensions defined.
-
 ;;; Variable: *GLOBAL-VALUES*                              Author: raman
 ;;; Created: Fri Aug  7 12:46:20 1992
 (defvar *global-values* (make-hash-table :test #'equal  )
