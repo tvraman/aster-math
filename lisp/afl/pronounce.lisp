@@ -138,14 +138,4 @@
   "Execute body in this pronunciation mode. "
   `(new-block
      (set-pronunciation-mode ,mode)
-     ,@body)
-  )
-
-(defmacro old-with-pronunciation-mode  ((&key mode ) &body body)
-  "Execute body in this pronunciation mode. "
-  `(let  ((saved-mode *pronunciation-mode*))
-     (unwind-protect
-          (progn
-            (set-pronunciation-mode  ,mode)
-            ,@body)
-       (set-pronunciation-mode saved-mode))))
+     ,@body))
