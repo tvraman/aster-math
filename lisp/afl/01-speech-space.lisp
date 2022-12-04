@@ -193,19 +193,6 @@ point is *current-speech-state* "
 ;;}}}
 ;;{{{ initialize-speech-space
 
-;;; comments on initializing speech space:
-;;; initializing speech space will include the following steps:
-;;; Do a table lookup and get the values for the default voice
-;;; specified by the user. Store associated values in the
-;;; *global-values* so that global-set can manipulate it. Construct
-;;; a point in speech space which is the origin and set current-state
-;;; to this point.
-;;;
-;;; How this will be implemented:
-;;; initialize-speech-space takes an optional argument a voice-name.
-;;; It then looks up the default values for this voice. These are then
-;;; entered into the various tables. Thus when this function finishes
-;;; its work, we have the default settings as well as a start point.
 ;;; Function: INITIALIZE-SPEECH-SPACE                        Author: raman
 ;;; Created: Fri Aug  7 12:44:56 1992
 (defun initialize-speech-space (&optional(voice 'paul))

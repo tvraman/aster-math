@@ -54,15 +54,6 @@
 
 ;;}}}
 ;;{{{ *table-of-units*
-
-;;; implements tables for holding  information about speech space and
-;;; how to manipulate it.
-;;; For each slot in the structure point-in-speech-space there is a
-;;; table that holds the dimension value pair for that slot. For the
-;;; value slot, this is the same as the *global-values* defined in
-;;; 01-speech-space.lisp  The tables implemented in this file need not
-;;; to be known to global-set, which is why they reside here.
-
 ;;; in addition unit-size and synthesizer-code which are not expected
 ;;; to change during a program are also kept in tables here, and their
 ;;; associated fields do not appear in the structure dimension.
