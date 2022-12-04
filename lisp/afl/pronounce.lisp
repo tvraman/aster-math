@@ -55,16 +55,8 @@
 (defmethod  define-pronunciation  (( string string ) (pronounced-as string)
                                    (mode (eql :text )))
   " Define pronunciation for string in text mode  "
-  (setf (gethash string *text-mode-pronunciations*) pronounced-as)
-  )
+  (setf (gethash string *text-mode-pronunciations*) pronounced-as))
 
-;;; Method: REMOVE-PRONUNCIATION                           Author: raman
-;;; Created: Tue Oct 27 15:55:18 1992
-
-(defmethod  remove-pronunciation ( (string string) (mode (eql :text )))
-  "Remove pronunciation for string in text mode "
-  (remhash string *text-mode-pronunciations*)
-  )
 (defun dehyphenate-word (str)
   "Remove hyphens and replace by spaces."
   (let ((result " "))
