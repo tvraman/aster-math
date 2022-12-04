@@ -205,7 +205,6 @@ argument to this function,  the name of a point in speech space"
   (setup-globals voice)
   (setf *speech-hardware-state* nil )
   (setf *current-speech-state* (create-initial-point-in-speech-space))
-  (setf *global-speech-state* (create-initial-point-in-speech-space ))
   (set-speech-state *current-speech-state*))
 
 ;;; Function: SETUP-GLOBALS                                  Author: raman

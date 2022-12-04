@@ -49,7 +49,6 @@
                                   (inline-math-p *read-pointer* ))))))
     (save-pointer-excursion
       (afl:new-block
-        (afl:local-set-state afl:*global-speech-state*)
         (if  math-flag
              (with-reading-state (reading-state 'math)
                (afl:set-pronunciation-mode :math)
@@ -70,7 +69,6 @@
                                  (not (or (display-math-p *read-pointer*)
                                           (inline-math-p *read-pointer* ))))))
             (afl:new-block
-              (afl:local-set-state afl:*global-speech-state*)
               (if  math-flag
                    (with-reading-state (reading-state 'math)
                      (afl:set-pronunciation-mode :math)

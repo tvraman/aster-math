@@ -6,18 +6,13 @@
 (in-package :afl)
 
 (export
- '(*current-speech-state* *global-speech-state*
+ '(*current-speech-state* 
    local-set-state new-block))
 
 ;;;  Contains definition of new-block as a macro.
 ;;; and associated assignment operators.
 
 ;;{{{ *current-speech-state*
-
-;;; Variable: *GLOBAL-SPEECH-STATE* Author: raman
-;;; Created: Mon Sep  7 09:02:07 1992
-
-(defvar *global-speech-state* nil "records global state of afl")
 
 ;;; Variable: *CURRENT-SPEECH-STATE* Author: raman
 ;;; Created: Fri Aug 14 10:29:11 1992
