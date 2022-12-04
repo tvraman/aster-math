@@ -7,9 +7,8 @@
           dehyphenate-word))
 
 ;;; Created: Fri Sep 25 11:36:27 EDT 1992
-;;; Pronunciation tables for dectalk.
+;;; Pronunciation tables 
 ;;; Separate tables for text and math mode.
- 
 
 ;;; Variable: *PRONUNCIATION-MODE*                           Author: raman
 ;;; Created: Fri Sep 25 11:37:16 1992
@@ -17,21 +16,14 @@
 (defvar *pronunciation-mode*  :text
   " Current pronunciation mode")
 
-  ;;; Function: VALID-PRONUNCIATION-MODE?                      Author: raman
-  ;;; Created: Tue Feb 23 19:59:11 1993
-(defun valid-pronunciation-mode? (mode)
-  "Is this a valid pronunciation mode?"
-  (find mode '(:text :math)))
-
 ;;; Function: SET-PRONUNCIATION-MODE                         Author: raman
 ;;; Created: Fri Sep 25 11:38:07 1992
 
 (defun set-pronunciation-mode (mode)
   "Set pronunciation mode "
-  (assert (valid-pronunciation-mode? mode) nil
+  (assert (find mode '(:text :math)) nil
           "Unknown pronunciation mode ~a " mode)
   (setf *pronunciation-mode* mode))
-
 
 (defmethod get-pronounce-internal ((string string) (mode t))
   "Default method, unknown mode. "
@@ -40,8 +32,6 @@
          mode)
   )
 
-;;{{{ text mode
-
 ;;; Variable: *TEXT-MODE-PRONUNCIATIONS*                     Author: raman
 ;;; Created: Fri Sep 25 11:40:46 1992
 
@@ -49,16 +39,24 @@
   (make-hash-table :test #'equal  )
   "Pronunciations in text mode.")
 
-;;; Method: DEFINE-PRONUNCIATION                           Author: raman
+;;; Variable: *MATH-MODE-PRONUNCIATIONS*                     Author: raman
+;;; Created: Fri Sep 25 11:40:46 1992
+
+(defvar *math-mode-pronunciations*
+  (make-hash-table :test #'equal )
+  "Pronunciations in math mode.")
+
+;;; Function: DEFINE-PRONUNCIATION                           Author: raman
 ;;; Created: Fri Sep 25 11:42:42 1992
 
-(defgeneric define-pronunciation (string   pronounced-as  mode)
-  (:documentation "Define ponunciation for string in mode."))
-
-(defmethod  define-pronunciation  (( string string ) (pronounced-as string)
-                                   (mode (eql :text )))
-  " Define pronunciation for string in text mode  "
-  (setf (gethash string *text-mode-pronunciations*) pronounced-as))
+(defun  define-pronunciation  (string pron mode)
+  " Define pronunciation for string in mode  "
+  (cond
+    ((eq mode :text)
+     (setf (gethash string *text-mode-pronunciations*) pron))
+    ((eq mode :math)
+     (setf (gethash string *math-mode-pronunciations*) pron))
+    (t (error "Unknown mode " ))))
 
 (defun dehyphenate-word (str)
   "Remove hyphens and replace by spaces."
@@ -79,15 +77,8 @@
      (gethash lcs *text-mode-pronunciations*)
        (dehyphenate-word string))))
 
-;;}}}
-;;{{{ math mode
 
-;;; Variable: *MATH-MODE-PRONUNCIATIONS*                     Author: raman
-;;; Created: Fri Sep 25 11:40:46 1992
 
-(defvar *math-mode-pronunciations*
-  (make-hash-table :test #'equal )
-  "Pronunciations in math mode.")
 
 ;;; Variable: *PRONOUNCE-IGNORE-CASE-IN-MATH*                Author: raman
 ;;; Created: Tue Nov 10 15:27:54 1992
@@ -95,17 +86,8 @@
 (defvar *pronounce-ignore-case-in-math* nil
   "If t ignore case when deciding pronunciation")
 
-;;; Method: DEFINE-PRONUNCIATION                           Author: raman
-;;; Created: Fri Sep 25 11:42:42 1992
-
-(defmethod  define-pronunciation  (( string string ) (pronounced-as string)
-                                   (mode (eql :math )))
-  " Define pronunciation for string in math mode  "
-  (setf (gethash string *math-mode-pronunciations*) pronounced-as)
-  )
-
-  ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
-  ;;; Created: Wed Apr  7 12:03:12 1993
+;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
+;;; Created: Wed Apr  7 12:03:12 1993
 (defmethod get-pronounce-internal ((string string) (mode (eql :math )))
   "Internal method for getting pronunciation in math mode"
   (declare (optimize (compilation-speed 0) (safety 0) (speed 3 )))
@@ -114,17 +96,12 @@
      (gethash (if *pronounce-ignore-case-in-math* lower-case-string
                   string)
               *math-mode-pronunciations*)
-     string  )                          ; second disjunct: default  is string
+     string  )                   ; second disjunct: default  is string
     )
   )
 
-;;}}}
+
 ;;{{{ lisp mode
-
-  ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
-  ;;; Created: Wed Apr  7 12:03:12 1993
-
-
 
 ;;}}}
 
@@ -134,8 +111,9 @@
   "Get pronunciation for string in current pronunciation mode "
   (declare (optimize (compilation-speed 0) (safety  0) (speed 3)))
   (get-pronounce-internal    string mode))
-  ;;; Macro: WITH-PRONUNCIATION-MODE                           Author: raman
-  ;;; Created: Sun Dec 13 09:40:20 1992
+
+;;; Macro: WITH-PRONUNCIATION-MODE                           Author: raman
+;;; Created: Sun Dec 13 09:40:20 1992
 
 (defmacro with-pronunciation-mode  ((&key mode ) &body body)
   "Execute body in this pronunciation mode. "
