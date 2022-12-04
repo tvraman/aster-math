@@ -7,12 +7,6 @@
 
 ;;; Implements a scaling operation to the current state.
 ;;; Allows for cleanly speeding up an entire rendering etc.
-;;; Suggested by Jim Davis.
-
-;;; This function uses a set of global scale factors initially set to
-;;; unity.  They can be changed by the user to result in the entire
-;;; reading being scaled. Will work with interruptions.
-
 ;;{{{ *table-of-final-scale-factors*
 
 ;;}}}

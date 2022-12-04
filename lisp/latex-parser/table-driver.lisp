@@ -94,14 +94,4 @@
    (gethash  macro-name *tex-macro-table*)
    (gethash  'default *tex-macro-table* )))
 
-;;; Macro: TOGGLE                                         Author: raman
-;;; Created: Tue Feb  4 09:39:38 1992
-
-(defmacro  toggle (global-var) 
-  "toggle the setting of boolean variables."
-  `(setf  ,global-var
-    (not ,global-var))
-  )
- 
 ;;; end of file
- 

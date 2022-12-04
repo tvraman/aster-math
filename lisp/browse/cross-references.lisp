@@ -8,7 +8,7 @@
 
 ;;; Mon Dec 28 14:02:10 EST 1992
 ;;; Cross references.
-;;; When a label is seen, install it in a global table along with a
+;;; When a label is seen, install it in the label  table along with a
 ;;; pointer to the object being labelled.
 ;;; When a reference is seen, retrieve the corresponding label and the
 ;;; object pointed to from the table and call the method

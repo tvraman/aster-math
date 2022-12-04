@@ -165,7 +165,7 @@ matched ~a "
 ;;; Created: Tue Feb 25 12:39:43 1992
 
 (defun get-math-parser (token) 
-  "Gets appropriate math mode parsing function from global variable. "
+  "Gets appropriate math mode parsing function. "
   (let
       ((parser 
 	(parse-table-parser 

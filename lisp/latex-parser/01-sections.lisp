@@ -160,7 +160,7 @@
   ;;; Created: Mon Dec 28 15:02:13 1992
 
 (defmethod install-label ((label label))
-  "Install label in the global cross reference table"
+  "Install label in the cross reference table"
   (let ((label-tag (contents label )))
     (flet (
            (make-label-name(object)
