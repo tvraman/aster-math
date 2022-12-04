@@ -52,6 +52,9 @@
 ;;; Method: DEFINE-PRONUNCIATION                           Author: raman
 ;;; Created: Fri Sep 25 11:42:42 1992
 
+(defgeneric define-pronunciation (string   pronounced-as  mode)
+  (:documentation "Define ponunciation for string in mode."))
+
 (defmethod  define-pronunciation  (( string string ) (pronounced-as string)
                                    (mode (eql :text )))
   " Define pronunciation for string in text mode  "
