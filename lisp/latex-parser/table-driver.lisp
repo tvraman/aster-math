@@ -68,7 +68,7 @@
 ;;; Created: Sun Jan 26 15:06:13 1992
 
 (defun get-parser (token &key  (math-flag nil)) 
-  "Get the right parsing function from the global variable "
+  "Get the right parsing function from the"
   (let ((parser 
 	(gethash
          (if math-flag   ; things classified differently in math mode.
