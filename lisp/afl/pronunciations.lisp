@@ -46,7 +46,7 @@
 (define-pronunciation "emacs" "eem[']ax " :text)
 (define-pronunciation "intonational" "intonaytional" :text)
 (define-pronunciation "visually" "visual[iy]" :text)
-(define-pronunciation "globally" "global[iy]" :text)
+
 (define-pronunciation "subprocess" "sub process" :text)
 (define-pronunciation "rubik" "roobik" :text)
 (define-pronunciation "rubik's"  "roobiks" :text)
