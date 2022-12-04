@@ -49,6 +49,14 @@
   (make-hash-table :test #'equal  )
   "Pronunciations in text mode.")
 
+;;; Method: DEFINE-PRONUNCIATION                           Author: raman
+;;; Created: Fri Sep 25 11:42:42 1992
+
+(defmethod  define-pronunciation  (( string string ) (pronounced-as string)
+                                   (mode (eql :text )))
+  " Define pronunciation for string in text mode  "
+  (setf (gethash string *text-mode-pronunciations*) pronounced-as))
+
 (defun dehyphenate-word (str)
   "Remove hyphens and replace by spaces."
   (let ((result " "))
@@ -84,15 +92,14 @@
 (defvar *pronounce-ignore-case-in-math* nil
   "If t ignore case when deciding pronunciation")
 
-;;; Function: DEFINE-PRONUNCIATION                           Author: raman
+;;; Method: DEFINE-PRONUNCIATION                           Author: raman
 ;;; Created: Fri Sep 25 11:42:42 1992
 
-(defun  define-pronunciation  (string pronounced-as  mode)
-  " Define pronunciation for string  mode  "
-  (if (eq mode :math)
-      (setf (gethash string *math-mode-pronunciations*)
-            pronounced-as))
-  (setf (gethash string *text-mode-pronunciations*) pronounced-as))
+(defmethod  define-pronunciation  (( string string ) (pronounced-as string)
+                                   (mode (eql :math )))
+  " Define pronunciation for string in math mode  "
+  (setf (gethash string *math-mode-pronunciations*) pronounced-as)
+  )
 
   ;;; Method: GET-PRONOUNCE-INTERNAL                           Author: raman
   ;;; Created: Wed Apr  7 12:03:12 1993

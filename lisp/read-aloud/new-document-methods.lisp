@@ -51,7 +51,7 @@
 (defmethod read-aloud  (( text-frame-box text-frame-box ))
   "Read aloud method for object text-frame-box "
   (afl:new-block
-    (afl:local-set-state (gethash 'afl:paul (afl:standard-voices)))
+    (afl:local-set-state (afl:get-point-in-speech-space 'afl:paul))
     (read-aloud (argument text-frame-box 1))
     )
   )

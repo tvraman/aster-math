@@ -211,7 +211,7 @@ argument to this function, the name of a point in speech space"
 
 (defun setup-globals (voice)
   "setup default parameters appropriate to voice named voice."
-  (let ((standard-voice (gethash voice (afl::standard-voices))))
+  (let ((standard-voice (get-point-in-speech-space voice )))
     (dolist
         (dim (speech-dimensions))
       (let ((dimension  (point-accessor dim standard-voice )))

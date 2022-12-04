@@ -2,7 +2,7 @@
  
 (in-package :afl)
 
-(export '(standard-voices))
+(export '(get-point-in-speech-space))
 ;;; Each fold  contains a variable and its associated accessors and
 ;;; modifiers.
 ;;; Contains all defvars etc used by afl.

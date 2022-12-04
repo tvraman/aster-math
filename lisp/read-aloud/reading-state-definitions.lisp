@@ -156,12 +156,12 @@
 (define-reading-state 'variable-value
     #'(lambda(state)
         (declare (ignore state))
-        (gethash 'afl:harry (afl:standard-voices))))
+        (afl:get-point-in-speech-space 'afl:harry)))
 
 (define-reading-state 'return-value
     #'(lambda(state)
         (declare (ignore state))
-        (gethash 'afl:betty (afl:standard-voices))))
+        (afl:get-point-in-speech-space 'afl:betty)))
 
 (define-reading-state 'footnote
     #'(lambda(state)

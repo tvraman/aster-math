@@ -306,7 +306,8 @@ object or its children are set whenever a substitution is made. "
 (define-reading-state   'read-substitution-voice
     #'(lambda(state)
         (declare (ignore state ))
-        (gethash 'afl:kid (afl::standard-voices))))
+        (afl:get-point-in-speech-space 'afl:kid))
+  )
 
 (define-reading-state   'read-substitution
     #'(lambda(state)

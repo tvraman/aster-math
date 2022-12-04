@@ -162,9 +162,8 @@
         (item (local-env text-block))
       (afl:local-set-state
        (funcall (retrieve-font-rule item) afl:*current-speech-state*)))
-    (if (eql :math afl:*pronunciation-mode*)
-        (afl:set-pronunciation-mode :math )
-        (afl:set-pronunciation-mode :text ))
+    (when (eql :math afl:*pronunciation-mode*)
+      (afl:set-pronunciation-mode :text ))
     (read-aloud (contents text-block))))
 
 ;;; Method: READ-ALOUD                                       Author: raman
@@ -304,13 +303,16 @@
 (defmethod read-aloud ((new-environment new-environment))
   "Read aloud a new environment"
   (if (label new-environment)
-      (read-aloud (label-name (label new-environment )))
+      (read-aloud
+       (afl:dehyphenate-word (label-name (label new-environment ))))
       (read-aloud
        (format nil "~a ~a. "
+               (afl:dehyphenate-word
                 (if (eql 'new-environment (class-name (class-of new-environment )))
                     (name new-environment )
-                    (class-name (class-of new-environment )))
-               (anumber new-environment ))))
+                    (class-name (class-of new-environment ))))
+               (anumber new-environment )
+               )))
   (afl:tts-silence 5)
   (read-aloud (new-environment-contents new-environment))
   (relabel-if-necessary (label new-environment ))
