@@ -7,7 +7,7 @@
 
 ;;; This file has the user definition of speech space, ie: set up list
 ;;; of dimensions, specify default values etc.
-;;; Each fold contains assignments to one global table
+;;; Each fold contains assignments to one  table
 
 ;;{{{ define-synthesizer-code
                                         
