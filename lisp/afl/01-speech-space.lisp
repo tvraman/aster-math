@@ -201,13 +201,11 @@ based on the default settings specified for the various dimensions.
 Default settings are overridden by settings specified by  the optional
 argument to this function,  the name of a point in speech space"
   (assert  (gethash voice (standard-voices)) nil
-           "error: Standard voice ~a not yet defined"
-           voice)
+           "error: Standard voice ~a not yet defined" voice)
   (setup-globals voice)
   (setf *speech-hardware-state* nil )
   (setf *current-speech-state* (create-initial-point-in-speech-space))
   (setf *global-speech-state* (create-initial-point-in-speech-space ))
-                                        ;(tts-init)
   (set-speech-state *current-speech-state*))
 
 ;;; Function: SETUP-GLOBALS                                  Author: raman
