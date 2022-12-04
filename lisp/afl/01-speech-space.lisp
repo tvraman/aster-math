@@ -47,7 +47,7 @@
 ;;; settings along that dimension.
 ;;; The structure for points in speech space is automatically
 ;;; generated from the list of dimensions specified by the user.
-;;; Global values are stored in a special structure that implements
+;;; Default values are stored in a special structure that implements
 ;;; reference variables.
 
 ;;}}}
@@ -140,8 +140,7 @@
 ;;; Created: Fri Aug  7 18:18:07 1992
 
 (defun create-initial-point-in-speech-space ()
-  "create a point in speech space with default settings that have
-global scope"
+  "create a point in speech space with default settings"
   (let ((point (make-point-in-speech-space )))
     (dolist
         (dimension (speech-dimensions))
@@ -196,10 +195,10 @@ point is *current-speech-state* "
 ;;; Function: INITIALIZE-SPEECH-SPACE                        Author: raman
 ;;; Created: Fri Aug  7 12:44:56 1992
 (defun initialize-speech-space (&optional(voice 'paul))
-  "Initialize speech space by setting up current state and global state
+  "Initialize speech space by setting up current state 
 based on the default settings specified for the various dimensions.
-Default settings are overridden by settings specified by  the optional
-argument to this function,  the name of a point in speech space"
+Default settings are overridden by settings specified by the optional
+argument to this function, the name of a point in speech space"
   (assert  (gethash voice (standard-voices)) nil
            "error: Standard voice ~a not yet defined" voice)
   (setup-globals voice)
@@ -215,10 +214,8 @@ argument to this function,  the name of a point in speech space"
   (let ((standard-voice (get-point-in-speech-space voice )))
     (dolist
         (dim (speech-dimensions))
-      (let
-          ((dimension  (point-accessor dim standard-voice )))
-        (when dimension
-          (define-globals dimension ))))))
+      (let ((dimension  (point-accessor dim standard-voice )))
+        (when dimension (define-globals dimension ))))))
 
 ;;; Function: DEFINE-GLOBALS                                 Author: raman
 ;;; Created: Sat Aug  8 11:10:29 1992
