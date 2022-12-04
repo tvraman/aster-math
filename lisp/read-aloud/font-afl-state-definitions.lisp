@@ -5,8 +5,6 @@
 ;;;
 (in-package :aster)
 
-(in-package :aster)
-
 ;;; Contains state definitions for different fonts
 
 (define-font-rule 'emphasize
