@@ -1,26 +1,17 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
 
-
-
 ;;; Copyright (C) 1990, 1991, 1992, 1993, 1994by T. V. Raman
 ;;; All Rights Reserved
 ;;;
 (in-package :aster)
 
-
 ;;; Sun May 16 13:53:22 EDT 1993
- ;;;
 ;;; User defined bookmarks.
 ;;; Basic functionality:
 ;;; Stop reading, move pointer around and give current pointer
 ;;; location a name.
 ;;; Later on, user can move to this mark.
 ;;; Smarts:
-;;; Generate meaningful bookmark names?
-;;; Easily return to last position?
-;;;
-;;;
-
 
   ;;; Variable: *BOOKMARKS*                                    Author: raman
   ;;; Created: Sun May 16 13:59:54 1993
