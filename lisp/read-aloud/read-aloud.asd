@@ -64,9 +64,9 @@
    (:module "special-patterns"
     :pathname ""
     :components
-    ((:file "special-pattern-macros")
+    (
      (:file "special-patterns"
-      :depends-on ("special-pattern-macros")))
+      :depends-on ()))
     :depends-on ("read-aloud" "complexity"
                               "reading-rules-and-styles" "reading-state" "new-document-objects"))
    (:module "floats"
