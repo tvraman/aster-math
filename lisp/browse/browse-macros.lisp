@@ -5,11 +5,6 @@
 ;;;
 (in-package :aster)
 
-
-;;; Sun Mar 28 14:35:44 EST 1993;;; Macros used by browser
- 
-
-
   ;;; Macro: SAVE-POINTER-EXCURSION                            Author: raman
   ;;; Created: Sun Mar 28 14:36:01 1993
 
@@ -21,5 +16,4 @@
          (progn
            ,@body)
       (setf *read-pointer* save-pointer))
-    (values))
-  )
+    (values)))
