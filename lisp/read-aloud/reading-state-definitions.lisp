@@ -161,7 +161,7 @@
 (define-reading-state 'return-value
     #'(lambda(state)
         (declare (ignore state))
-        (afl:get-point-in-speech-space 'afl:betty)))
+        (gethash 'afl:betty (afl:standard-voices))))
 
 (define-reading-state 'footnote
     #'(lambda(state)
