@@ -210,7 +210,7 @@ argument to this function, the name of a point in speech space"
 ;;; Created: Sat Aug  8 10:15:54 1992
 
 (defun setup-globals (voice)
-  "setup global parameters appropriate to voice named voice."
+  "setup default parameters appropriate to voice named voice."
   (let ((standard-voice (get-point-in-speech-space voice )))
     (dolist
         (dim (speech-dimensions))
@@ -240,7 +240,7 @@ argument which is an object of type dimension. "
 ;;; Allows for cleanly speeding up an entire rendering etc.
 ;;; Suggested by Jim Davis.
 
-;;; This function uses a set of global scale factors initially set to
+;;; This function uses a set of default scale factors initially set to
 ;;; unity.  They can be changed by the user to result in the entire
 ;;; reading being scaled. Will work with interruptions.
 
@@ -262,7 +262,7 @@ argument which is an object of type dimension. "
 ;;; Created: Fri Aug 14 11:38:46 1992
 
 (defun get-final-scale-factor (dimension)
-  "Retrieve global scale factor for dimension dimension default is unity"
+  "Retrieve default scale factor for dimension dimension default is unity"
   (or
    (gethash dimension  *table-of-final-scale-factors*)
    *default-final-scale-factor*))

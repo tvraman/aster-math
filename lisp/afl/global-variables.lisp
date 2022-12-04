@@ -12,10 +12,10 @@
 ;;; Variable: *GLOBAL-VALUES*                              Author: raman
 ;;; Created: Fri Aug  7 12:46:20 1992
 (defvar *global-values* (make-hash-table :test #'equal  )
-  "global parameter settings")
+  "Default parameter settings")
 
 (defun global-values ()
-  "Return global settings."
+  "Return default settings."
   *global-values*)
 
 ;;;  Function: DEFINE-DEFAULT-VALUE Author: raman
@@ -28,16 +28,16 @@
 ;;; Function: GET-GLOBAL-VALUE                                  Author: raman
 ;;; Created: Fri Aug  7 13:29:55 1992
 (defun  get-global-value  (dimension) 
-  "return global value for dimension dimension."
+  "return default value for dimension dimension."
   (gethash dimension (global-values)))
 
 ;;; Function: SET-GLOBAL-VALUE                               Author: raman
 ;;; Created: Wed Aug 26 15:18:24 1992
 
 (defun set-global-value (dimension value) 
-  "Update global value; to set for the first time, use define-default-value"
+  "Update default value; to set for the first time, use define-default-value"
   (assert (gethash dimension (global-values)) nil
-          "Error: First define a global value for dimension ~a " dimension)
+          "Error: First define a default value for dimension ~a " dimension)
   (setf (reference-val (gethash dimension (global-values))) value))
 
 ;;}}}
@@ -131,7 +131,7 @@
 ;;; Created: Fri Aug 21 09:07:24 1992
 
 (defun set-step-size (dimension step-size) 
-  "Set global step size for dimension."
+  "Set default step size for dimension."
   (assert (gethash dimension *table-of-step-sizes*) nil
           "Error: First define a step size  for dimension ~a "
           dimension)
