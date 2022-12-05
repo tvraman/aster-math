@@ -40,10 +40,11 @@
    number of ways:
     - By sending an entire  LaTeX file.
     - By sending math content from any Emacs buffer.
+    - While editing LaTeX markup, including from within org-mode buffers.
     - From Emacs  Calculator (calc).
     - From the Emacs interface to Sage --- a symbolic algebra system.
-  -  Once Aster starts reading the content, you can use Aster's
-    navigation commands to move around in the content being read.
+  - Once Aster starts reading the content, you can use Aster's
+   navigation commands to move around in the content being read.
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
