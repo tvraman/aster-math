@@ -6,41 +6,18 @@
 (in-package :aster)
 
 (export
- '(
-   move-back move-forward move-up
+ '(move-back move-forward move-up move-to-children
    move-to-abstract move-to-attributes
-   move-to-children move-to-contents
+   move-to-contents
    move-to-subscript move-to-superscript
    move-to-math-root move-to-doc-root
    read-current read-next read-previous read-parent))
 
 ;;; Sun Jan 10 15:47:28 EST 1993
-;;; initial attempt at browsing.
 
-;;; Record display math objects  as they are read
+;;; Record objects  as they are read
 
 (defvar *read-pointer* nil "Current object being read. ")
-
-  ;;; Function: READ-POINTER                                   Author: raman
-  ;;; Created: Fri Oct 22 09:25:19 1993
-(defun read-pointer ()
-  "Return current read-pointer position. "
-  *read-pointer*)
-
-(defun move-inside-subformula-if-necessary()
-  "Given that read-pointer is a  subformula with no attributes move
-  inside it"
-  (when (and (typep *read-pointer* 'math-subformula )
-             (null (attributes *read-pointer* )))
-    (setf *read-pointer* (contents *read-pointer* )))
-  )
-(defun move-outside-subformula-if-necessary()
-  "Given that read-pointer is a  subformula with no attributes move
-  outside  it"
-  (when (and (typep *read-pointer* 'math-subformula )
-             (null (attributes *read-pointer* )))
-    (setf *read-pointer* (parent  *read-pointer* )))
-  )
 
 (defun read-current()
   "Read the current selection."
@@ -65,80 +42,82 @@
          (afl:local-set-state (afl-state *read-pointer*))
          (read-aloud *read-pointer* )
          (afl:tts-force )))
-      (t  (let ((math-flag (and  (typep *read-pointer* 'math )
-                                 (not (or (display-math-p *read-pointer*)
-                                          (inline-math-p *read-pointer* ))))))
-            (afl:new-block
-              (if  math-flag
-                   (with-reading-state (reading-state 'math)
-                     (afl:set-pronunciation-mode :math)
-                     (read-aloud  *read-pointer* ))
-                   (read-aloud *read-pointer*))
-              (setf (afl-state *read-pointer*) nil)
-              (afl:tts-force  )))))
-    )
-  )
+      (t
+       (let ((math-flag
+               (and  (typep *read-pointer* 'math )
+                     (not (or (display-math-p *read-pointer*)
+                              (inline-math-p *read-pointer* ))))))
+         (afl:new-block
+           (if  math-flag
+                (with-reading-state (reading-state 'math)
+                  (afl:set-pronunciation-mode :math)
+                  (read-aloud  *read-pointer* ))
+                (read-aloud *read-pointer*))
+           (setf (afl-state *read-pointer*) nil)
+           (afl:tts-force  )))))))
 
 (defun read-previous (&optional(n 1))
   "read previous sibling."
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
-          (loop for i from 1 to n always
-                                  (unless (or  (equal 'undefined (previous *read-pointer* ))
-                                               (null (previous *read-pointer*  )))
-                                    (setf *read-pointer* (previous *read-pointer*  )))))
+          (loop
+            for i from 1 to n
+            always
+            (unless (or  (equal 'undefined (previous *read-pointer* ))
+                         (null (previous *read-pointer*  )))
+              (setf *read-pointer* (previous *read-pointer*  )))))
     (cond
       (move-flag
        (if (table-element-p *read-pointer* )
            (read-current-relatively)
            (read-current)))
-      (t  (setf *read-pointer* save-pointer  )
-          (afl:tts-speak
-           (format nil
-                   "First ~a. "
-                   (type-of *read-pointer*)))))
-    (afl:tts-force))
-  )
+      (t
+       (afl:tts-speak
+        (format nil
+                "First ~a. "
+                (type-of *read-pointer*)))))
+    (afl:tts-force)))
 
 (defun read-next (&optional (n 1 ))
   "Read next sibling."
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
-          (loop for i from 1 to n always
-                                  (unless (or  (equal 'undefined (next *read-pointer* ))
-                                               (null (next *read-pointer*  )))
-                                    (setf *read-pointer* (next *read-pointer*  )))))
+          (loop
+            for i from 1 to n
+            always
+            (unless (or  (equal 'undefined (next *read-pointer* ))
+                         (null (next *read-pointer*  )))
+              (setf *read-pointer* (next *read-pointer*  )))))
     (cond
       (move-flag
        (if (table-element-p *read-pointer*)
            (read-current-relatively)
            (read-current )))
-      (t  (setf *read-pointer* save-pointer  )
-          (afl:tts-queue
-           (format nil
-                   "Last ~a. "
-                   (type-of *read-pointer*)))))
-    (afl:tts-force)
-    )
-  )
+      (t
+       (afl:tts-queue
+        (format nil
+                "Last ~a. "
+                (type-of *read-pointer*)))))
+    (afl:tts-force)))
+
 (defun read-parent (&optional(n 1))
   "Speak the parent."
   (let ((save-pointer *read-pointer* )
         (move-flag nil ))
     (setf move-flag
-          (loop for i from 1 to n always
-                                  (unless (or  (equal 'undefined (parent *read-pointer* ))
-                                               (null (parent *read-pointer*  )))
-                                    (setf *read-pointer* (parent *read-pointer*  )))))
+          (loop
+            for i from 1 to n
+            always
+            (unless (or  (equal 'undefined (parent *read-pointer* ))
+                         (null (parent *read-pointer*  )))
+              (setf *read-pointer* (parent *read-pointer*  )))))
     (if move-flag
         (read-current)
         (and (setf *read-pointer* save-pointer  )
              (afl:tts-speak "Not that many parent elements. ")))
-    (afl:tts-force)
-    )
-  )
+    (afl:tts-force)))
 
   ;;; Function: READ-REST                                      Author: raman
   ;;; Created: Wed Sep  8 11:06:09 1993
