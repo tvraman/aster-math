@@ -1,6 +1,6 @@
 ;;; aster.el - AsTeR UI  -*- lexical-binding: t; -*-
 ;;; Description:  Load and Configure Aster
-;;; Keywords: Audio System For Technical Readings (AsTeR
+;;; Keywords: Audio System For Technical Readings (AsTeR)
 ;;{{{  Copyright:
 
 ;;;Copyright (C) 2022, T. V. Raman
@@ -27,8 +27,8 @@
 
 ;;{{{  introduction:
 
-;;  Commentary:
-;;  See design.org for the overall design.
+;;;  Commentary:
+;;  See readme.org for the overall design.
 
 ;;}}}
 ;;{{{  Required modules
