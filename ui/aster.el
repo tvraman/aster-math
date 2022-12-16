@@ -48,7 +48,7 @@
   "Audio System For Technical Readings"
   :link
   '(url-link :tag "Demo"
-    "https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg"
+    "https://emacspeak.sf.net/raman/aster/2022-aster.ogg"
     :help-echo "AsTeR Demo")
   :link
   '(url-link :tag "Source"
@@ -57,7 +57,10 @@
   :group 'applications)
 
 (defcustom aster-bind-arrows nil
-  "Turn this on to have AsTeR use arrows for navigation."
+  "Turn this on to have AsTeR use arrows for navigation.
+By default this is turned off, so you can continue using arrows
+  to navigate in Emacs. AsTeR uses VI-style navigation with the
+  AsTeR prefix-key."
   :type 'boolean
   :group 'aster)
 
@@ -78,8 +81,8 @@
 (defalias 'a--code 'prin1-to-string)
 
 (defsubst a--pa-index (pattern)
-  "Index of input-sink used by app that matches  pattern.
-Value is derived from `pacmd list-sink-inputs'."
+  "Index of `pulseaudio input-sink' used by application matching
+ `pattern'.  Value is derived from `pacmd list-sink-inputs'."
   (string-trim
    (shell-command-to-string
     (format
@@ -96,14 +99,18 @@ Value is derived from `pacmd list-sink-inputs'."
   (cl-declare (special aster-ready))
   (unless
       (and  aster-ready
-            (condition-case nil (slime-process) (error nil))
+            (condition-case
+             nil
+             (slime-process)
+             (error nil))
             (aster))
     t))
 
 (defsubst aster-eval (string)
   "Like slime-eval-save but ignores result."
-  (slime-eval-async `(swank:eval-and-grab-output ,string)
-                    (lambda (_result) t)))
+  (slime-eval-async
+   `(swank:eval-and-grab-output ,string)
+   (lambda (_result) t)))
 
 (defsubst a--wrap-doc (latex)
   "Wrap text in document start/end markup."
