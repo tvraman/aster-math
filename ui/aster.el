@@ -144,7 +144,6 @@ By default this is turned off, so you can continue using arrows
   "Guess expression to speak in sage-mode buffers."
   (cl-assert
    (eq major-mode 'sage-shell:sage-mode) nil "This is not a Sage buffer.")
-  (sit-for 0.1)
   (emacspeak-sage-get-output-as-latex))
 
 (defun aster-guess-tex ()
@@ -212,11 +211,10 @@ By default this is turned off, so you can continue using arrows
       "LaTeX: " nil nil nil nil
       (when mark-active (buffer-substring (region-beginning)(region-end)))))))
 
-;; ###autoload
-
 ;;}}}
 ;;{{{Running Aster:
 
+;; ###autoload
 (defun aster ()
   "Load and start Aster.
 Aster commands are invoked by first pressing the prefix-key  \\[aster-keymap].
