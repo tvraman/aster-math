@@ -216,14 +216,14 @@ By default this is turned off, so you can continue using arrows
 
 ;; ###autoload
 (defun aster ()
-  "Load and start Aster.
-Aster commands are invoked by first pressing the prefix-key  ‘C-; SPC’
+  "Start Aster.
+Aster commands are invoked by first pressing prefix-key  ‘C-; SPC’
 or ‘C-' a’.
 If you activate \\[repeat-mode] in newer versions of Emacs, you need
   press the prefix key only the first time when invoking a sequence of
   Aster commands.
 
-The following commands are available on this prefix once aster is running:
+The following Aster commands are available on this prefix:
 
 \\{aster-keymap}"
   (interactive)
