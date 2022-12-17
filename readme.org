@@ -42,6 +42,8 @@
     - By sending an entire  LaTeX file.
     - By sending math content from any Emacs buffer.
     - While editing LaTeX markup, including from within org-mode buffers.
+    - While browsing Wikipedia pages containing Math using Emacs'
+      EWW browser . (Make sure to first disable _shr-discard-aria-hidden_ first).
     - From Emacs  Calculator (calc).
     - From the Emacs interface to Sage --- a symbolic algebra system.
   - Once Aster starts reading the content, you can use Aster's
