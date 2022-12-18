@@ -29,8 +29,8 @@
 
 * Usage 
 
-  - The user-interface to AsTeR is implemented in Emacs.
-  - Load emacs library /aster.el/ and run  _M-x aster RET_.
+  - The user-interface to AsTeR is implemented in Emacs library _aster.el_;
+   _M-x load-library_ /aster.el/ and run  _M-x aster RET_.
   - From here on, all Aster commands are found under Emacs prefix-key
     _C-; SPC_ and _C-' a_.
   - M-x describe-function aster gives a list of keybindings.
