@@ -55,8 +55,9 @@ emacspeak using the Software DECTalk.
    navigation commands to move around.
 
 * Dedication  
-
-  *To My Guiding-Eyes*
+#+BEGIN_CENTER
+*To My Guiding-Eyes*
+#+END_CENTER
 
 In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who showed the way, and [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell, ]][[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who
 ably followed her lead over the next 22+ years!
