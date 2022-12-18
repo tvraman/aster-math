@@ -1,5 +1,12 @@
 * Overview 
 
+The work describing Audio system For Technical Readings [[https://emacspeak.sourceforge.net/raman/aster/abstract.html][(AsTeR)]] was
+presented to the Faculty of the Graduate School of Cornell University
+on Monday, Jan 17, 1994 (Martin Luther King Day) for my [[http://awards.acm.org/award_winners/raman_4110221.cfm][PhD]].  This release
+is a modernized version of AsTeR that has been updated to run under
+emacspeak using the Software DECTalk.
+
+
   - Audio System For Technical Readings  (AsTeR) front-end  is implemented in Emacs and integrated with Emacspeak.
   - We use Emacspeak TTS server ~dtk-soft~   to interface with the
     software DECTalk.
@@ -51,7 +58,7 @@
 #+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:nil todo:t |:t
-#+title: Audio System For Technical Readings (AsTeR)
+#+title: AsTeR: Spoken Math On The Emacspeak Audio Desktop
 #+date: <2022-11-28 Mon>
 #+author: T.V Raman
 #+email: raman@google.com
