@@ -18,9 +18,10 @@ emacspeak using the Software DECTalk.
 
 * Pre-requisites 
 
-  - Install  /slime/ and /auctex/using _M-x package-install_.
-  - Install /SBCL/  and /cl-asdf/using  your linux system's package manager.
-  - Install /flex/ and its dependencies for building AsTeR's lexical analyzer.
+  - Install  /slime/ and /auctex/ using _M-x package-install_.
+  - Install /SBCL/  and /cl-asdf/ using  the  linux  package manager.
+  - Install /flex/ and its dependencies for building AsTeR's lexical
+    analyzer using the Linux package manager.
   - Install  [[https://github.com/dectalk/dectalk][Software DECTalk]] from Github.
   - Install Emacspeak 57.0 or later from Github.
   - Set _environment variable_ ~EMACSPEAK_DIR~ to point at the root of
@@ -36,7 +37,7 @@ emacspeak using the Software DECTalk.
 * Usage 
 
   - The user-interface to AsTeR is implemented in Emacs; Add directory
-    ~aster-math/ui/ to your Emacs ~load-path~ and do _M-x
+    ~aster-math/ui/~ to your Emacs ~load-path~ and do _M-x
     load-library_ /aster.el/ and run _M-x aster RET_.
   - From here on, all Aster commands are found under Emacs prefix-key
     _C-; SPC_ and _C-' a_.
