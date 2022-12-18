@@ -35,8 +35,9 @@ emacspeak using the Software DECTalk.
 
 * Usage 
 
-  - The user-interface to AsTeR is implemented in Emacs;
-   _M-x load-library_ /aster.el/ and run  _M-x aster RET_.
+  - The user-interface to AsTeR is implemented in Emacs; Add directory
+    ~aster-math/ui/ to your Emacs ~load-path~ and do _M-x
+    load-library_ /aster.el/ and run _M-x aster RET_.
   - From here on, all Aster commands are found under Emacs prefix-key
     _C-; SPC_ and _C-' a_.
   - M-x describe-function aster gives a list of keybindings.
