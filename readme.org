@@ -15,6 +15,7 @@
   - Install  /slime/ using _M-x package-install_.
   - Install  /auctex/ using _M-x package-install_.
   - Install /SBCL/  and /cl-asdf/using  your linux system's package manager.
+  - Install /flex/ and its dependencies for building AsTeR's lexical analyzer.
   - Install  [[https://github.com/dectalk/dectalk][Software DECTalk]] from Github.
   - Install Emacspeak 57.0 or later from Github --- Aster uses the Emacspeak
     /dtk-soft/ speech-server to communicate with the DECTalk.
