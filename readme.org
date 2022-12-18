@@ -104,4 +104,6 @@ run under emacspeak using the Software DECTalk.
   
   - [[https://emacspeak.sourceforge.net/raman/phd-thesis/index.html][PHd Thesis]]
   - [[http://emacspeak.sf.net/raman/amsci-96.pdf][Brian Hayes: Speaking Of Mathematics]] american Scientist, March 1996.
+  - [[https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/][Proceedings: RFB Math & Science]] May 1994.
+    Workshop 
 
