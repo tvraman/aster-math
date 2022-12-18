@@ -1,7 +1,7 @@
 * Overview 
 
   - Audio System For Technical Readings  (AsTeR) front-end  is implemented in Emacs and integrated with Emacspeak.
-  - We use the Emacspeak ~dtk-soft~ TTS server to interface with the
+  - We use Emacspeak TTS server ~dtk-soft~   to interface with the
     software DECTalk.
   - AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech
     via the DECTalk.
@@ -12,22 +12,20 @@
 
 * Pre-requisites 
 
-  - Install  /slime/ using _M-x package-install_.
-  - Install  /auctex/ using _M-x package-install_.
+  - Install  /slime/ and /auctex/using _M-x package-install_.
   - Install /SBCL/  and /cl-asdf/using  your linux system's package manager.
   - Install /flex/ and its dependencies for building AsTeR's lexical analyzer.
   - Install  [[https://github.com/dectalk/dectalk][Software DECTalk]] from Github.
-  - Install Emacspeak 57.0 or later from Github --- Aster uses the Emacspeak
-    /dtk-soft/ speech-server to communicate with the DECTalk.
+  - Install Emacspeak 57.0 or later from Github.
   - Set _environment variable_ ~EMACSPEAK_DIR~ to point at the root of
-    your Emacspeak install if not running emacspeak; Emacspeak does
+    your Emacspeak install if not running AsTeR under emacspeak; Emacspeak does
     this for yu automatically. This setting is needed by the Common
-    Lisp layer in order to find and launch the TTS Server.
+    Lisp layer to  launch the TTS Server.
 
 * Quick Install  
-
-  1. Get source via git checkout [[https://github.com/tvraman/aster-math]]
-  2. _cd aster-math/lisp  && make_
+  1. _cd <emacspeak>_ to change to your _emacspeak_directory.
+  2. Get source via git checkout [[https://github.com/tvraman/aster-math]]
+  3. _cd aster-math/lisp  && make_
 
 * Usage 
 
