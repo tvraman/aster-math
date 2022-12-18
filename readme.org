@@ -57,8 +57,36 @@ emacspeak using the Software DECTalk.
 * Dedication: To My Guiding-Eyes
 
 In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster Labrador]] who showed the way, and [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell
- Labrador]] and [[http://emacspeak.sf.net/raman/tilden-labrador][Tilden Labrador]] who followed her lead over the next
- 20+ years.
+Labrador]] and [[http://emacspeak.sf.net/raman/tilden-labrador][Tilden Labrador]] who followed her lead over the next 20+
+years.
+
+#+BEGIN_EXPORT html
+<table>
+<tr><td colspan="3">On The Internet</td></tr>
+        <tr>
+          <td><strong>No one knows you're not a dog!</strong></td>
+          <td><strong>Nor  if you're the same dog!</strong></td>
+          <td><strong>Or even the same gender!</strong></td>
+        </tr>
+        <tr>
+          <td><a href="aster-labrador/">
+	        <img src="aster-labrador/aster-geb-graduation.jpg"
+	             alt="Aster Labrador" width="150" height="216" /></a>
+ <br/>(2/15/1987—12/05/1999)</td>
+            <td><a href="hubbell-labrador/">
+	          <img
+	              src="hubbell-labrador/hubbell-and-raman.jpg" width="150" height="216"
+	              alt=" Hubbell Labrador" /></a>
+<br/>(12/21/1997—4/11/2011)</td>
+              <td><a href="tilden-labrador/">
+	            <img src="tilden-labrador/raman-and-tilden-geb.jpg"
+	                 alt="Tilden Labrador" width="150"
+                         height="216" /></a>
+<br/>(8/4/2009—9/3/2022)</td>
+        </tr>
+      </table>
+#+END_EXPORT
+
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
