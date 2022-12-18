@@ -1,57 +1,52 @@
 * Overview 
 
-The work describing Audio system For Technical Readings [[https://emacspeak.sourceforge.net/raman/aster/abstract.html][(AsTeR)]] was
-presented to the Faculty of the Graduate School of Cornell University
-on Monday, Jan 17, 1994 (Martin Luther King Day) for my [[http://awards.acm.org/award_winners/raman_4110221.cfm][PhD]].  This release
-is a modernized version of AsTeR that has been updated to run under
-emacspeak using the Software DECTalk.
+The work describing Audio system For Technical Readings
+[[https://emacspeak.sourceforge.net/raman/aster/abstract.html][(AsTeR)]]
+was presented to the Faculty of the Graduate School of Cornell
+University on Monday, Jan 17, 1994 for my [[http://awards.acm.org/award_winners/raman_4110221.cfm][PhD]].
+This release is a modernized version of AsTeR that has been updated to
+run under emacspeak using the Software DECTalk.
 
+* Implementation 
 
-  - Audio System For Technical Readings  (AsTeR) front-end  is implemented in Emacs and integrated with Emacspeak.
+  - The AsTeR front-end  is implemented in Emacs and integrated with Emacspeak.
+  - AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech.
+  - The AsTeR back-endis implemented in Common Lisp (SBCL).
   - We use Emacspeak TTS server ~dtk-soft~ to connect Common-Lisp to
     the software DECTalk.
-  - AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech.
-  - AsTeR back-endis implemented in Common Lisp (SBCL).
   - We use package /slime/ to connect Emacs and Common Lisp.
-  - Emacs commands call    Common-Lisp
-     to interface with  Aster.
+  - Emacs commands call    Common-Lisp via /slime/ to interface with  Aster.
 
 * Pre-requisites 
 
+  - Install Emacspeak 57.0 or later from Github.
   - Install  /slime/ and /auctex/ using _M-x package-install_.
   - Install /SBCL/  and /cl-asdf/ using  the  linux  package manager.
-  - Install /flex/ and its dependencies for building AsTeR's lexical
-    analyzer using the Linux package manager.
+  - Install /flex/ and its dependencies using the Linux package manager.
   - Install  [[https://github.com/dectalk/dectalk][Software DECTalk]] from Github.
-  - Install Emacspeak 57.0 or later from Github.
-  - Set _environment variable_ ~EMACSPEAK_DIR~ to point at the root of
-    your Emacspeak install if not running AsTeR under emacspeak; Emacspeak does
-    this for yu automatically. This setting is needed by the Common
-    Lisp layer to  launch the TTS Server.
-
+  
 * Quick Install  
+
   1. _cd <emacspeak>_ to change to your _emacspeak_directory.
   2. Get source via git checkout [[https://github.com/tvraman/aster-math]]
   3. _cd aster-math/lisp  && make_
 
 * Usage 
 
-  - The user-interface to AsTeR is implemented in Emacs; Add directory
-    ~aster-math/ui/~ to your Emacs ~load-path~ and do _M-x
-    load-library_ /aster.el/ and run _M-x aster RET_.
-  - From here on, all Aster commands are found under Emacs prefix-key
+  -  Add directory ~aster-math/ui/~ to your Emacs ~load-path~ 
+  - _M-x load-library_ /aster/; _M-x aster_.
+  -  Aster commands are   on Emacs prefix-key
     _C-; SPC_ and _C-' a_.
-  - M-x describe-function aster gives a list of keybindings.
-  - You can select  content to send to AsTeR for processing in a
-   number of ways:
-    - By sending an entire  LaTeX file.
-    - By sending math content from any Emacs buffer.
-    - While editing LaTeX markup, including from within org-mode buffers.
-    - While browsing Wikipedia pages containing Math using Emacs'
+  - _M-x describe-function aster_ gives a list of keybindings.
+  - To speak math Using AsTeR:
+    -  Send an entire  LaTeX file.
+    -  Send math content from any Emacs buffer.
+    - When  editing LaTeX markup, including from within org-mode buffers.
+    - When  browsing Wikipedia pages containing Math using Emacs'
       EWW browser . (Make sure to first disable _shr-discard-aria-hidden_ first).
     - From Emacs  Calculator (calc).
     - From the Emacs interface to Sage --- a symbolic algebra system.
-  - Once Aster starts reading, you can use Aster's
+  - Once Aster starts speaking, you can use Aster's
    navigation commands to move around.
 
 * Dedication  
