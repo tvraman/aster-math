@@ -13,8 +13,8 @@ emacspeak using the Software DECTalk.
   - AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech.
   - AsTeR back-endis implemented in Common Lisp (SBCL).
   - We use package /slime/ to connect Emacs and Common Lisp.
-  - Emacs commands call   the Lisp
-    interpreter to control Aster.
+  - Emacs commands call    Common-Lisp
+     to interface with  Aster.
 
 * Pre-requisites 
 
