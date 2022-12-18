@@ -54,11 +54,12 @@ emacspeak using the Software DECTalk.
   - Once Aster starts reading, you can use Aster's
    navigation commands to move around.
 
-* Dedication  —To My Guiding-Eyes
+* Dedication  
 
-In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster Labrador]] who showed the way, and [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell
-Labrador]] and [[http://emacspeak.sf.net/raman/tilden-labrador][Tilden Labrador]] who followed her lead over the next 20+
-years.
+  *To My Guiding-Eyes*
+
+In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who showed the way, and [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell, ]][[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who
+ably followed her lead over the next 22+ years!
 
 #+BEGIN_EXPORT html
 <table>
