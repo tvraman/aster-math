@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-12-17 Sat 20:12 -->
+<!-- 2022-12-17 Sat 20:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AsTeR: Spoken Math On The Emacspeak Audio Desktop</title>
@@ -197,8 +197,8 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">AsTeR: Spoken Math On The Emacspeak Audio Desktop</h1>
-<div id="outline-container-org43564e8" class="outline-2">
-<h2 id="org43564e8"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-org94f87d3" class="outline-2">
+<h2 id="org94f87d3"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 The work describing Audio system For Technical Readings <a href="https://emacspeak.sourceforge.net/raman/aster/abstract.html">(AsTeR)</a> was
@@ -211,10 +211,9 @@ emacspeak using the Software DECTalk.
 
 <ul class="org-ul">
 <li>Audio System For Technical Readings  (AsTeR) front-end  is implemented in Emacs and integrated with Emacspeak.</li>
-<li>We use Emacspeak TTS server <code>dtk-soft</code>   to interface with the
-software DECTalk.</li>
-<li>AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech
-via the DECTalk.</li>
+<li>We use Emacspeak TTS server <code>dtk-soft</code> to connect Common-Lisp to
+the software DECTalk.</li>
+<li>AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech.</li>
 <li>AsTeR back-endis implemented in Common Lisp (SBCL).</li>
 <li>We use package <i>slime</i> to connect Emacs and Common Lisp.</li>
 <li>Emacs commands call   the Lisp
@@ -223,8 +222,8 @@ interpreter to control Aster.</li>
 </div>
 </div>
 
-<div id="outline-container-org12baa97" class="outline-2">
-<h2 id="org12baa97"><span class="section-number-2">2.</span> Pre-requisites</h2>
+<div id="outline-container-org35f9292" class="outline-2">
+<h2 id="org35f9292"><span class="section-number-2">2.</span> Pre-requisites</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>Install  <i>slime</i> and /auctex/using <span class="underline">M-x package-install</span>.</li>
@@ -240,8 +239,8 @@ Lisp layer to  launch the TTS Server.</li>
 </div>
 </div>
 
-<div id="outline-container-org611ad90" class="outline-2">
-<h2 id="org611ad90"><span class="section-number-2">3.</span> Quick Install</h2>
+<div id="outline-container-orgd61fedb" class="outline-2">
+<h2 id="orgd61fedb"><span class="section-number-2">3.</span> Quick Install</h2>
 <div class="outline-text-2" id="text-3">
 <ol class="org-ol">
 <li><span class="underline">cd &lt;emacspeak&gt;</span> to change to your _emacspeak<sub>directory</sub>.</li>
@@ -251,11 +250,11 @@ Lisp layer to  launch the TTS Server.</li>
 </div>
 </div>
 
-<div id="outline-container-orga5f6375" class="outline-2">
-<h2 id="orga5f6375"><span class="section-number-2">4.</span> Usage</h2>
+<div id="outline-container-orge5e6551" class="outline-2">
+<h2 id="orge5e6551"><span class="section-number-2">4.</span> Usage</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
-<li>The user-interface to AsTeR is implemented in Emacs library <span class="underline">aster.el</span>;
+<li>The user-interface to AsTeR is implemented in Emacs;
 <span class="underline">M-x load-library</span> <i>aster.el</i> and run  <span class="underline">M-x aster RET</span>.</li>
 <li>From here on, all Aster commands are found under Emacs prefix-key
 <span class="underline">C-; SPC</span> and <span class="underline">C-' a</span>.</li>
@@ -276,11 +275,22 @@ navigation commands to move around.</li>
 </ul>
 </div>
 </div>
+
+<div id="outline-container-org3e7abdd" class="outline-2">
+<h2 id="org3e7abdd"><span class="section-number-2">5.</span> Dedication: To My Guiding-Eyes</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+In fond memory of <a href="http://emacspeak.sf.net/raman/aster-labrador">Aster Labrador</a> who showed the way, and <a href="http://emacspeak.sf.net/raman/hubbell-labrador">Hubbell
+ Labrador</a> and <a href="http://emacspeak.sf.net/raman/tilden-labrador">Tilden Labrador</a> who followed her lead over the next
+ 20+ years.
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2022-11-28 Mon 00:00</p>
 <p class="author">Author: T.V Raman</p>
-<p class="date">Created: 2022-12-17 Sat 20:12</p>
+<p class="date">Created: 2022-12-17 Sat 20:23</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -8,10 +8,9 @@ emacspeak using the Software DECTalk.
 
 
   - Audio System For Technical Readings  (AsTeR) front-end  is implemented in Emacs and integrated with Emacspeak.
-  - We use Emacspeak TTS server ~dtk-soft~   to interface with the
-    software DECTalk.
-  - AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech
-    via the DECTalk.
+  - We use Emacspeak TTS server ~dtk-soft~ to connect Common-Lisp to
+    the software DECTalk.
+  - AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech.
   - AsTeR back-endis implemented in Common Lisp (SBCL).
   - We use package /slime/ to connect Emacs and Common Lisp.
   - Emacs commands call   the Lisp
@@ -36,7 +35,7 @@ emacspeak using the Software DECTalk.
 
 * Usage 
 
-  - The user-interface to AsTeR is implemented in Emacs library _aster.el_;
+  - The user-interface to AsTeR is implemented in Emacs;
    _M-x load-library_ /aster.el/ and run  _M-x aster RET_.
   - From here on, all Aster commands are found under Emacs prefix-key
     _C-; SPC_ and _C-' a_.
@@ -52,6 +51,12 @@ emacspeak using the Software DECTalk.
     - From the Emacs interface to Sage --- a symbolic algebra system.
   - Once Aster starts reading, you can use Aster's
    navigation commands to move around.
+
+* Dedication: To My Guiding-Eyes
+
+In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster Labrador]] who showed the way, and [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell
+ Labrador]] and [[http://emacspeak.sf.net/raman/tilden-labrador][Tilden Labrador]] who followed her lead over the next
+ 20+ years.
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
