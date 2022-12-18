@@ -12,10 +12,10 @@
 
 * Pre-requisites 
 
-  - Install package /slime/ using _M-x package-install_
-  - Install package /auctex/ using _M-x package-install_
+  - Install  /slime/ using _M-x package-install_.
+  - Install  /auctex/ using _M-x package-install_.
   - Install /SBCL/  and /cl-asdf/using  your linux system's package manager.
-  - Install Software DECTalk from Github.
+  - Install  [[https://github.com/dectalk/dectalk][Software DECTalk]] from Github.
   - Install Emacspeak 57.0 or later from Github --- Aster uses the Emacspeak
     /dtk-soft/ speech-server to communicate with the DECTalk.
   - Set _environment variable_ ~EMACSPEAK_DIR~ to point at the root of
