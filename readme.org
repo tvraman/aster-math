@@ -34,7 +34,7 @@
   - The user-interface to AsTeR is implemented in Emacs.
   - Load emacs library /aster.el/ and run  _M-x aster RET_.
   - From here on, all Aster commands are found under Emacs prefix-key
-    _C-; SPC_.
+    _C-; SPC_ and _C-' a_.
   - M-x describe-function aster gives a list of keybindings.
   - You can select  content to send to AsTeR for processing in a
    number of ways:
@@ -45,8 +45,8 @@
       EWW browser . (Make sure to first disable _shr-discard-aria-hidden_ first).
     - From Emacs  Calculator (calc).
     - From the Emacs interface to Sage --- a symbolic algebra system.
-  - Once Aster starts reading the content, you can use Aster's
-   navigation commands to move around in the content being read.
+  - Once Aster starts reading, you can use Aster's
+   navigation commands to move around.
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
