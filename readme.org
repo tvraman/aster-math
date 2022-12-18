@@ -1,21 +1,14 @@
-* Quick Start  
-
-  1. Get source via git checkout [[https://github.com/tvraman/aster-math]]
-  2. _cd aster-math/lisp  && make_
-
 * Overview 
 
-  - Audio System For Technical Readings (AsTeR) is implemented in
-   Common Lisp.
-  - We use SBCL for the Common Lisp implementation
-  - AsTeR accepts TeX/LaTeX markup and produces audio-formatted spoken renderings.
+  - Audio System For Technical Readings  (AsTeR) front-end  is implemented in Emacs and integrated with Emacspeak.
   - We use the Emacspeak ~dtk-soft~ TTS server to interface with the
     software DECTalk.
-  - UI is implemented in Emacs and integrated with Emacspeak.
+  - AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech
+    via the DECTalk.
+  - AsTeR back-endis implemented in Common Lisp (SBCL).
   - We use package /slime/ to connect Emacs and Common Lisp.
-  - Emacs commands send snippets of Lisp to a running Common-Lisp
+  - Emacs commands call   the Lisp
     interpreter to control Aster.
-  
 
 * Pre-requisites 
 
@@ -29,6 +22,11 @@
     your Emacspeak install if not running emacspeak; Emacspeak does
     this for yu automatically. This setting is needed by the Common
     Lisp layer in order to find and launch the TTS Server.
+
+* Quick Install  
+
+  1. Get source via git checkout [[https://github.com/tvraman/aster-math]]
+  2. _cd aster-math/lisp  && make_
 
 * Usage 
 
@@ -54,7 +52,7 @@
 #+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:nil todo:t |:t
-#+title: Setting Up AsTeR
+#+title: Audio System For Technical Readings (AsTeR)
 #+date: <2022-11-28 Mon>
 #+author: T.V Raman
 #+email: raman@google.com
