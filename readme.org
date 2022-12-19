@@ -104,7 +104,7 @@ run under emacspeak using the Software DECTalk.
   
   1. [[https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg][Demo recorded using software DECTalk in October 2022]]
   2. [[https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html][Recorded demo from 1994 using DECTalk Express]]
-  3. [[http://emacspeak.sf.net/raman/amsci-96.pdf][Brian Hayes: Speaking Of Mathematics]] american Scientist, March 1996. An accessible overview of the concepts underlying AsTeR.
+  3. [[http://emacspeak.sf.net/raman/amsci-96.pdf][Brian Hayes: Speaking Of Mathematics]] american Scientist, March 1996. An accessible overview of  AsTeR.
   4. [[https://emacspeak.sourceforge.net/raman/sciam-0996profile.html][Scientific American Profile]] Wayte Gibbs, September 1996.Describes the underlying concepts behind AsTeR, Audio-Formatting and Emacspeak.
   5. [[https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/][Proceedings: RFB Math & Science Symposium]] May 12 – 13 1994.
   6. [[https://emacspeak.sourceforge.net/raman/phd-thesis/index.html][PHd Thesis]] January 1994.
