@@ -3,7 +3,7 @@
 *To My Guiding-Eyes*
 #+END_CENTER
 
-In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who first showed the way, and [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell, ]][[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who
+In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who first showed the way; to  [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell and  ]][[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who
 ably followed her lead over the next 22+ years!
 
 #+BEGIN_EXPORT html
