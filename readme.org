@@ -3,7 +3,7 @@
 *To My Guiding-Eyes*
 #+END_CENTER
 
-In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who showed the way, and [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell, ]][[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who
+In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who first showed the way, and [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell, ]][[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who
 ably followed her lead over the next 22+ years!
 
 #+BEGIN_EXPORT html
@@ -62,7 +62,7 @@ run under emacspeak using the Software DECTalk.
 * Implementation 
 
   - The AsTeR front-end  is implemented in Emacs and integrated with Emacspeak.
-  - AsTeR accepts TeX/LaTeX markup and produces audio-formatted speech.
+  - AsTeR converts TeX/LaTeX to  audio-formatted speech.
   - The AsTeR back-endis implemented in Common Lisp (SBCL).
   - We use Emacspeak TTS server ~dtk-soft~ to connect Common-Lisp to
     the software DECTalk.
@@ -92,7 +92,7 @@ run under emacspeak using the Software DECTalk.
   - To speak math Using AsTeR:
     -  Send an entire  LaTeX file.
     -  Send math content from any Emacs buffer.
-    - When  editing LaTeX markup, including from within org-mode buffers.
+    - When  editing LaTeX, including from within org-mode buffers.
     - When  browsing Wikipedia pages containing Math using Emacs'
       EWW browser . (Make sure to first disable _shr-discard-aria-hidden_ first).
     - From Emacs  Calculator (calc).
@@ -105,5 +105,3 @@ run under emacspeak using the Software DECTalk.
   - [[https://emacspeak.sourceforge.net/raman/phd-thesis/index.html][PHd Thesis]]
   - [[http://emacspeak.sf.net/raman/amsci-96.pdf][Brian Hayes: Speaking Of Mathematics]] american Scientist, March 1996.
   - [[https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/][Proceedings: RFB Math & Science]] May 1994.
-    Workshop 
-
