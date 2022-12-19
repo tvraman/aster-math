@@ -84,19 +84,19 @@ run under emacspeak using the Software DECTalk.
 
 * Usage 
 
-  -  Add directory ~aster-math/ui/~ to your Emacs ~load-path~ 
+  - Add directory ~aster-math/ui/~ to your Emacs ~load-path~ 
   - _M-x load-library_ /aster/; _M-x aster_.
-  -  Aster commands are   on Emacs prefix-key
-    _C-; SPC_ and _C-' a_.
+  - Aster commands are   on Emacs prefix-key
+   _C-; SPC_ and _C-' a_.
   - _M-x describe-function aster_ gives a list of keybindings.
   - To speak math Using AsTeR:
-    -  Send an entire  LaTeX file.
-    -  Send math content from any Emacs buffer.
-    - When  editing LaTeX, including from within org-mode buffers.
-    - When  browsing Wikipedia pages containing Math using Emacs'
-      EWW browser . (Make sure to first disable _shr-discard-aria-hidden_ first).
-    - From Emacs  Calculator (calc).
-    - From the Emacs interface to Sage --- a symbolic algebra system.
+    1. Send a LaTeX file.
+    2. Send math content from any Emacs buffer.
+    3. When  editing LaTeX, including from within org-mode buffers.
+    4. When  browsing Wikipedia pages containing Math using Emacs'
+       EWW browser . (Make sure to first disable _shr-discard-aria-hidden_ first).
+    5. From Emacs  Calculator (calc).
+    6. From the Emacs interface to Sage --- a symbolic algebra system.
   - Once Aster starts speaking, you can use Aster's
    navigation commands to move around.
 * References
