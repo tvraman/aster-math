@@ -41,36 +41,36 @@ is an updated version of AsTeR that uses the Software DECTalk.
 
 - AsTeR /audio-formats/  *TeX* and *LaTeX*.
 -   User interface   is implemented in Emacs.
-- It uses  the Emacspeak speech-server _dtk-soft_ to connect to the software DECTalk.
+- It uses  the Emacspeak speech-server =dtk-soft= to connect to the software DECTalk.
 - The  audio-formatter  is implemented in Common Lisp (SBCL).
 - Emacs commands call    Common Lisp via /slime/ to communicate with  Aster.
 
 * Prerequisites
 
 - Install Emacspeak 57.0 or later from Github.
-- Install  /slime/ and /auctex/ using _M-x package-install_.
+- Install  /slime/ and /auctex/ using =M-x package-install=.
 - Install /flex/,  /SBCL/  and /cl-asdf/ using  the  linux  package manager.
 - Install  [[https://github.com/dectalk/dectalk][Software DECTalk]] from Github.
 
 * Building AsTeR
 
-1. _cd <emacspeak>_ to change to your _emacspeak_directory.
+1. =cd <emacspeak>_ to change to your =emacspeak=directory.
 2. Get source via git checkout [[https://github.com/tvraman/aster-math]]
-3. _cd aster-math/lisp  && make_
+3. =cd aster-math/lisp  && make=
 
 * Usage
 
-- Add directory _aster-math/ui/_ to your Emacs _load-path_.
-- Run _M-x load-library_ /aster/; _M-x aster_.
+- Add directory =aster-math/ui/_ to your Emacs =load-path=.
+- Run =M-x load-library= /aster/; =M-x aster=.
 - Aster commands are   on Emacs prefix-key
-  _C-; SPC_ and _C-' a_.
-- _M-x describe-function aster_ displays help.
+  =C-; SPC= and =C-' a=.
+- =M-x describe-function aster= displays help.
 - To speak math using AsTeR:
   1. Send a La)TeX file.
   2. Send math content from any Emacs buffer.
   3. When  editing LaTeX — including from within org-mode buffers.
   4. When  browsing Wikipedia pages containing mathematics using Emacs'
-     EWW browser. (Make sure to first disable _shr-discard-aria-hidden_).
+     EWW browser. (Make sure to first disable =shr-discard-aria-hidden=).
   5. From Emacs  Calculator (calc).
   6. From the Emacs interface to Sage --- a symbolic algebra system.
 - Once Aster starts speaking, you can use Aster's
@@ -100,7 +100,7 @@ is an updated version of AsTeR that uses the Software DECTalk.
 #+language: en
 #+select_tags: export
 #+exclude_tags: noexport
-#+creator: Emacs 29.0.50 (Org mode 9.5.5)
+h#+creator: Emacs 29.0.50 (Org mode 9.5.5)
 #+cite_export:
 #+options: html-link-use-abs-url:nil html-postamble:auto
 #+options: html-preamble:t html-scripts:nil html-style:t
