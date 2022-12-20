@@ -78,6 +78,7 @@ is an updated version of AsTeR that uses the Software DECTalk.
   6. From the Emacs interface to Sage --- a symbolic algebra system.
 - Once Aster starts speaking, you can use Aster's
   browser to move around.
+- Papers from arxiv.org [[https://info.arxiv.org/about/accessibility_research_report.html][Arxiv.org Accessibility Report]]
 
 * References
 
