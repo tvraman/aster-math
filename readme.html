@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-12-19 Mon 19:47 -->
+<!-- 2022-12-19 Mon 20:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AsTeR: Spoken Math On The Emacspeak Audio Desktop</title>
@@ -198,50 +198,21 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">AsTeR: Spoken Math On The Emacspeak Audio Desktop</h1>
-<div id="outline-container-org36f0fb3" class="outline-2">
-<h2 id="org36f0fb3"><span class="section-number-2">1.</span> Dedication</h2>
-<div class="outline-text-2" id="text-1">
-<div class="org-center">
 <p>
+Dedication +BEGIN<sub>CENTER</sub>
+#*
 <b>To My Guiding-Eyes</b>
+#+END<sub>CENTER</sub>
 </p>
-</div>
 
 <p>
 In fond memory of <a href="http://emacspeak.sf.net/raman/aster-labrador">Aster</a> who first showed the way; to <a href="http://emacspeak.sf.net/raman/hubbell-labrador">Hubbell</a> and
 <a href="http://emacspeak.sf.net/raman/tilden-labrador">Tilden</a> who ably followed her lead over the next 22+ years!
 </p>
 
-<table>
-<tr><td colspan="3">On The Internet</td></tr>
-        <tr>
-          <td><strong>No one knows you're not a dog!</strong></td>
-          <td><strong>Nor  if you're the same dog!</strong></td>
-          <td><strong>Or even the same gender!</strong></td>
-        </tr>
-        <tr>
-          <td><a href="aster-labrador/">
-                <img src="aster-labrador/aster-geb-graduation.jpg"
-                     alt="Aster Labrador" width="150" height="216" /></a>
- <br/>(2/15/1987—12/05/1999)</td>
-            <td><a href="hubbell-labrador/">
-                  <img
-                      src="hubbell-labrador/hubbell-and-raman.jpg" width="150" height="216"
-                      alt=" Hubbell Labrador" /></a>
-<br/>(12/21/1997—4/11/2011)</td>
-              <td><a href="tilden-labrador/">
-                    <img src="tilden-labrador/raman-and-tilden-geb.jpg"
-                         alt="Tilden Labrador" width="150"
-                         height="216" /></a>
-<br/>(8/4/2009—9/3/2022)</td>
-        </tr>
-      </table>
-</div>
-</div>
-
-<div id="outline-container-org93c2cbc" class="outline-2">
-<h2 id="org93c2cbc"><span class="section-number-2">2.</span> Overview</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org42e3b45" class="outline-2">
+<h2 id="org42e3b45"><span class="section-number-2">1.</span> Overview</h2>
+<div class="outline-text-2" id="text-1">
 <p>
 The work describing Audio system For Technical Readings <a href="https://emacspeak.sourceforge.net/raman/aster/abstract.html">(AsTeR)</a> was
 presented to the Faculty of the Graduate School of Cornell University
@@ -251,23 +222,23 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-orga0c1807" class="outline-2">
-<h2 id="orga0c1807"><span class="section-number-2">3.</span> Implementation</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgc096418" class="outline-2">
+<h2 id="orgc096418"><span class="section-number-2">2.</span> Implementation</h2>
+<div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>AsTeR <i>audio-formats</i>  TeX/LaTeX.</li>
 <li>The front-end  is implemented in Emacs and integrated with Emacspeak.</li>
-<li>We use Emacspeak TTS server <span class="underline">dtk-soft</span> to connect to the software DECTalk.</li>
-<li>The back-endis implemented in Common Lisp (SBCL).</li>
+<li>We use Emacspeak speech server <span class="underline">dtk-soft</span> to connect to the software DECTalk.</li>
+<li>The back-end is implemented in Common Lisp (SBCL).</li>
 <li>We use <i>slime</i> to connect Emacs and Common Lisp.</li>
 <li>Emacs commands call    AsTeR via <i>slime</i>.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org2f80edd" class="outline-2">
-<h2 id="org2f80edd"><span class="section-number-2">4.</span> Pre-requisites</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org1ffe17c" class="outline-2">
+<h2 id="org1ffe17c"><span class="section-number-2">3.</span> Pre-requisites</h2>
+<div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>Install Emacspeak 57.0 or later from Github.</li>
 <li>Install  <i>slime</i> and <i>auctex</i> using <span class="underline">M-x package-install</span>.</li>
@@ -277,9 +248,9 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-org9d897a2" class="outline-2">
-<h2 id="org9d897a2"><span class="section-number-2">5.</span> Building The Software</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org197f3eb" class="outline-2">
+<h2 id="org197f3eb"><span class="section-number-2">4.</span> Building The Software</h2>
+<div class="outline-text-2" id="text-4">
 <ol class="org-ol">
 <li><span class="underline">cd &lt;emacspeak&gt;</span> to change to your _emacspeak<sub>directory</sub>.</li>
 <li>Get source via git checkout <a href="https://github.com/tvraman/aster-math">https://github.com/tvraman/aster-math</a></li>
@@ -288,9 +259,9 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-orgd585eb3" class="outline-2">
-<h2 id="orgd585eb3"><span class="section-number-2">6.</span> Usage</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgac8db52" class="outline-2">
+<h2 id="orgac8db52"><span class="section-number-2">5.</span> Usage</h2>
+<div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>Add directory <span class="underline">aster-math/ui/</span> to your Emacs <span class="underline">load-path</span>.</li>
 <li><span class="underline">M-x load-library</span> <i>aster</i>; <span class="underline">M-x aster</span>.</li>
@@ -313,13 +284,13 @@ navigation commands to move around.</li>
 </div>
 </div>
 
-<div id="outline-container-orga81d4be" class="outline-2">
-<h2 id="orga81d4be"><span class="section-number-2">7.</span> References</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orgc3335c3" class="outline-2">
+<h2 id="orgc3335c3"><span class="section-number-2">6.</span> References</h2>
+<div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li><a href="https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg">Demo recorded using software DECTalk in October 2022</a>.</li>
 <li><a href="https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html">Recorded demo from 1994 using DECTalk Express</a>.</li>
-<li><a href="http://emacspeak.sf.net/raman/amsci-96.pdf">Brian Hayes: Speaking Of Mathematics</a> american Scientist, March 1996. An accessible overview of  AsTeR.</li>
+<li><a href="http://emacspeak.sf.net/raman/amsci-96.pdf">Brian Hayes: Speaking Of Mathematics</a> American Scientist, March 1996. An accessible overview of  AsTeR.</li>
 <li><a href="https://emacspeak.sourceforge.net/raman/sciam-0996profile.html">Scientific American Profile</a> Wayte Gibbs, September 1996.Describes  AsTeR, Audio-Formatting and Emacspeak.</li>
 <li><a href="https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/">Proceedings: RFB Math &amp; Science Symposium</a> May 12 – 13 1994.</li>
 <li><a href="https://emacspeak.sourceforge.net/raman/phd-thesis/index.html">PHd Thesis</a> January 1994.</li>
@@ -330,7 +301,7 @@ navigation commands to move around.</li>
 <div id="postamble" class="status">
 <p class="date">Date: 2022-11-28 Mon 00:00</p>
 <p class="author">Author: T.V Raman</p>
-<p class="date">Created: 2022-12-19 Mon 19:47</p>
+<p class="date">Created: 2022-12-19 Mon 20:24</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

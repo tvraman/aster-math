@@ -1,5 +1,5 @@
-* Dedication
-#+BEGIN_CENTER
+Dedication +BEGIN_CENTER
+#*
 *To My Guiding-Eyes*
 #+END_CENTER
 
@@ -44,7 +44,7 @@ is an updated version of AsTeR that uses the Software DECTalk.
 
 - AsTeR /audio-formats/  TeX/LaTeX.
 - The front-end  is implemented in Emacs and integrated with Emacspeak.
-- We use Emacspeak TTS server _dtk-soft_ to connect to the software DECTalk.
+- We use Emacspeak speech server _dtk-soft_ to connect to the software DECTalk.
 - The back-end is implemented in Common Lisp (SBCL).
 - We use /slime/ to connect Emacs and Common Lisp.
 - Emacs commands call    AsTeR via /slime/.
