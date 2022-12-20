@@ -1,7 +1,5 @@
 ;;;   -*-   Mode: LISP -*-    ;;;
  
- 
-
 (in-package :aster)
 ;;{{{ mbox
 
