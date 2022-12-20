@@ -348,6 +348,13 @@
     (read-aloud  (argument textbf 1 ))))
 
 
+(defmethod read-aloud  (( href href ))
+  "Read aloud method for object href "
+  (with-reading-state (reading-state 'bold )
+    (afl:tts-beep  800 20)
+    (read-aloud  (argument href 2 ))
+    (afl:tts-beep  00 15)))
+
 (defmethod read-aloud  (( mathrm mathrm ))
   "Read aloud method for object mathrm "
   (with-reading-state (reading-state 'bold )

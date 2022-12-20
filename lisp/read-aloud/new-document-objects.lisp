@@ -260,6 +260,14 @@
   :supers (document)
   :children-are-called nil)
 
+(define-text-object :macro-name "href"
+  :number-args 2
+  :processing-function href-expand
+  :precedence  nil
+  :object-name href
+  :supers (document)
+  :children-are-called '(url text))
+
 (define-text-object :macro-name "textbf"
   :number-args 1
   :processing-function textbf-expand
