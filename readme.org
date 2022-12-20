@@ -98,9 +98,27 @@ is an updated version of AsTeR that uses the Software DECTalk.
 #+title: AsTeR: Spoken Math On The Emacspeak Audio Desktop
 #+date: <2022-11-28 Mon>
 #+author: T.V Raman
-#+email: raman@google.com
+#+email: ttv.raman.tv@gmail.com
 #+language: en
 #+select_tags: export
 #+exclude_tags: noexport
 #+creator: Emacs 29.0.50 (Org mode 9.5.5)
 #+cite_export:
+#+options: html-link-use-abs-url:nil html-postamble:auto
+#+options: html-preamble:t html-scripts:nil html-style:t
+#+options: html5-fancy:nil tex:t
+#+html_doctype: xhtml-strict
+#+html_container: div
+#+html_content_class: content
+#+description:
+#+keywords:
+#+html_link_home:
+#+html_link_up:
+#+html_mathjax:
+#+html_equation_reference_format: \eqref{%s}
+#+html_head: <base href="http://emacspeak.sf.net/raman"/>
+#+html_head_extra:
+#+subtitle:
+#+infojs_opt:
+#+creator: <a href="https://www.gnu.org/software/emacs/">Emacs</a> 30.0.50 (<a href="https://orgmode.org">Org</a> mode 9.6)
+#+latex_header:
