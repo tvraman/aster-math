@@ -3,7 +3,7 @@
 To My Guiding Eyes
 #+end_center
 
-In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who first showed the way; to [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell]] and
+In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who first showed the way for 10 years; to [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell]] and
 [[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who ably followed her lead over the next 22+ years!
 
 #+BEGIN_EXPORT html
@@ -83,7 +83,7 @@ is an updated version of AsTeR that uses the Software DECTalk.
 
 
 1. [[https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg][Demo recorded in October 2022]].
-2. [[https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html][Recorded demo from 1994]].
+2. [[https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html][Demo recorded in 1994]].
 3. [[http://emacspeak.sf.net/raman/amsci-96.pdf][Brian Hayes: Speaking Of Mathematics]], American Scientist, March
    1996 — An accessible overview of  AsTeR.
 4. [[https://emacspeak.sourceforge.net/raman/sciam-0996profile.html][Envisioning Speech:Scientific American]], Wayte Gibbs, September 1996
