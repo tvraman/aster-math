@@ -100,7 +100,6 @@ is an updated version of AsTeR that uses the Software DECTalk.
 #+language: en
 #+select_tags: export
 #+exclude_tags: noexport
-h#+creator: Emacs 29.0.50 (Org mode 9.5.5)
 #+cite_export:
 #+options: html-link-use-abs-url:nil html-postamble:auto
 #+options: html-preamble:t html-scripts:nil html-style:t
@@ -118,5 +117,4 @@ h#+creator: Emacs 29.0.50 (Org mode 9.5.5)
 #+html_head_extra:
 #+subtitle:
 #+infojs_opt:
-#+creator: <a href="https://www.gnu.org/software/emacs/">Emacs</a> 30.0.50 (<a href="https://orgmode.org">Org</a> mode 9.6)
 #+latex_header:
