@@ -268,4 +268,12 @@
   :supers (document)
   :children-are-called nil)
 
+
+(define-text-object :macro-name "mathrm"
+  :number-args 1
+  :processing-function mathrm-expand
+  :precedence  nil
+  :object-name mathrm
+  :supers (math-object)
+  :children-are-called 'variable)
 ;;}}}

@@ -21,6 +21,7 @@
         ((leaf-p math-object) (read-math-object-and-attributes math-object))
         ( (read-as-infix?  math-object) (read-as-infix math-object))
         ((read-as-prefix?  math-object) (read-as-prefix math-object))
+        ((children math-object) (read-aloud (children math-object)))
         (t (error "Do not know what to do ~%"))
         )))
   )

@@ -345,7 +345,12 @@
 (defmethod read-aloud  (( textbf textbf ))
   "Read aloud method for object textbf "
   (with-reading-state (reading-state 'bold )
-    (read-aloud  (argument textbf 1 )))
-  )
+    (read-aloud  (argument textbf 1 ))))
+
+
+(defmethod read-aloud  (( mathrm mathrm ))
+  "Read aloud method for object mathrm "
+  (with-reading-state (reading-state 'bold )
+    (read-aloud  (argument mathrm 1 ))))
 
 ;;}}}
