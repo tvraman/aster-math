@@ -54,13 +54,13 @@ is an updated version of AsTeR that uses the Software DECTalk.
 
 * Building AsTeR
 
-1. =cd <emacspeak>_ to change to your =emacspeak=directory.
+1. =cd= <emacspeak> to change to your =emacspeak= directory.
 2. Get source via git checkout [[https://github.com/tvraman/aster-math]]
 3. =cd aster-math/lisp  && make=
 
 * Usage
 
-- Add directory =aster-math/ui/_ to your Emacs =load-path=.
+- Add directory =aster-math/ui/= to your Emacs =load-path=.
 - Run =M-x load-library= /aster/; =M-x aster=.
 - Aster commands are   on Emacs prefix-key
   =C-; SPC= and =C-' a=.
