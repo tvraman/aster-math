@@ -106,7 +106,6 @@
 (define-pronunciation  "oint"   "contour integral" :math)
 (define-pronunciation  "bigwedge"   "wedge" :math)
 
-
 ;;; binary operators:
 
 (define-pronunciation  "-"  "minus " :math)
@@ -255,7 +254,6 @@
 (define-pronunciation  "}"    "right brace" :math)
 (define-pronunciation  "right"   "" :math)
 
-
 ;;; Punctuation in math:
 (define-pronunciation  "!"   " factorial, " :math)
 (define-pronunciation  "."   " dot" :math)
@@ -268,7 +266,6 @@
 (define-pronunciation  "ldots"   " ellipses" :math)
 (define-pronunciation  "\""   " backslash" :math)
 (define-pronunciation  "|"   " pipe" :math)
-
 
 ;;; mathematical function names taken from the latex book:
 ;;; <(math functions in man3.tex)>
