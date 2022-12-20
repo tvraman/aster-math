@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-12-19 Mon 19:32 -->
+<!-- 2022-12-19 Mon 19:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AsTeR: Spoken Math On The Emacspeak Audio Desktop</title>
@@ -198,8 +198,8 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">AsTeR: Spoken Math On The Emacspeak Audio Desktop</h1>
-<div id="outline-container-org0e89615" class="outline-2">
-<h2 id="org0e89615"><span class="section-number-2">1.</span> Dedication</h2>
+<div id="outline-container-org36f0fb3" class="outline-2">
+<h2 id="org36f0fb3"><span class="section-number-2">1.</span> Dedication</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-center">
 <p>
@@ -239,8 +239,8 @@ In fond memory of <a href="http://emacspeak.sf.net/raman/aster-labrador">Aster</
 </div>
 </div>
 
-<div id="outline-container-org27c7283" class="outline-2">
-<h2 id="org27c7283"><span class="section-number-2">2.</span> Overview</h2>
+<div id="outline-container-org93c2cbc" class="outline-2">
+<h2 id="org93c2cbc"><span class="section-number-2">2.</span> Overview</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The work describing Audio system For Technical Readings <a href="https://emacspeak.sourceforge.net/raman/aster/abstract.html">(AsTeR)</a> was
@@ -251,22 +251,22 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-org75b28df" class="outline-2">
-<h2 id="org75b28df"><span class="section-number-2">3.</span> Implementation</h2>
+<div id="outline-container-orga0c1807" class="outline-2">
+<h2 id="orga0c1807"><span class="section-number-2">3.</span> Implementation</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
-<li>The AsTeR front-end  is implemented in Emacs and integrated with Emacspeak.</li>
 <li>AsTeR <i>audio-formats</i>  TeX/LaTeX.</li>
+<li>The front-end  is implemented in Emacs and integrated with Emacspeak.</li>
 <li>We use Emacspeak TTS server <span class="underline">dtk-soft</span> to connect to the software DECTalk.</li>
-<li>The AsTeR back-endis implemented in Common Lisp (SBCL).</li>
+<li>The back-endis implemented in Common Lisp (SBCL).</li>
 <li>We use <i>slime</i> to connect Emacs and Common Lisp.</li>
-<li>Emacs commands call    Common-Lisp via <i>slime</i> to communicate with  Aster.</li>
+<li>Emacs commands call    AsTeR via <i>slime</i>.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7ea65de" class="outline-2">
-<h2 id="org7ea65de"><span class="section-number-2">4.</span> Pre-requisites</h2>
+<div id="outline-container-org2f80edd" class="outline-2">
+<h2 id="org2f80edd"><span class="section-number-2">4.</span> Pre-requisites</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li>Install Emacspeak 57.0 or later from Github.</li>
@@ -277,8 +277,8 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-org2e39740" class="outline-2">
-<h2 id="org2e39740"><span class="section-number-2">5.</span> Building The Software</h2>
+<div id="outline-container-org9d897a2" class="outline-2">
+<h2 id="org9d897a2"><span class="section-number-2">5.</span> Building The Software</h2>
 <div class="outline-text-2" id="text-5">
 <ol class="org-ol">
 <li><span class="underline">cd &lt;emacspeak&gt;</span> to change to your _emacspeak<sub>directory</sub>.</li>
@@ -288,8 +288,8 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-orgd572b15" class="outline-2">
-<h2 id="orgd572b15"><span class="section-number-2">6.</span> Usage</h2>
+<div id="outline-container-orgd585eb3" class="outline-2">
+<h2 id="orgd585eb3"><span class="section-number-2">6.</span> Usage</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li>Add directory <span class="underline">aster-math/ui/</span> to your Emacs <span class="underline">load-path</span>.</li>
@@ -313,17 +313,13 @@ navigation commands to move around.</li>
 </div>
 </div>
 
-<div id="outline-container-org280aa32" class="outline-2">
-<h2 id="org280aa32"><span class="section-number-2">7.</span> References</h2>
+<div id="outline-container-orga81d4be" class="outline-2">
+<h2 id="orga81d4be"><span class="section-number-2">7.</span> References</h2>
 <div class="outline-text-2" id="text-7">
 <ol class="org-ol">
-<li><a href="https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg">Demo recorded using software DECTalk in October 2022</a></li>
+<li><a href="https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg">Demo recorded using software DECTalk in October 2022</a>.</li>
 <li><a href="https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html">Recorded demo from 1994 using DECTalk Express</a>.</li>
-</ol>
-<p>
-.3. <a href="http://emacspeak.sf.net/raman/amsci-96.pdf">Brian Hayes: Speaking Of Mathematics</a> american Scientist, March 1996. An accessible overview of  AsTeR.
-</p>
-<ol class="org-ol">
+<li><a href="http://emacspeak.sf.net/raman/amsci-96.pdf">Brian Hayes: Speaking Of Mathematics</a> american Scientist, March 1996. An accessible overview of  AsTeR.</li>
 <li><a href="https://emacspeak.sourceforge.net/raman/sciam-0996profile.html">Scientific American Profile</a> Wayte Gibbs, September 1996.Describes  AsTeR, Audio-Formatting and Emacspeak.</li>
 <li><a href="https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/">Proceedings: RFB Math &amp; Science Symposium</a> May 12 – 13 1994.</li>
 <li><a href="https://emacspeak.sourceforge.net/raman/phd-thesis/index.html">PHd Thesis</a> January 1994.</li>
@@ -334,7 +330,7 @@ navigation commands to move around.</li>
 <div id="postamble" class="status">
 <p class="date">Date: 2022-11-28 Mon 00:00</p>
 <p class="author">Author: T.V Raman</p>
-<p class="date">Created: 2022-12-19 Mon 19:32</p>
+<p class="date">Created: 2022-12-19 Mon 19:47</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
