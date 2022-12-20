@@ -1,4 +1,7 @@
-* Dedication: To My Guiding Eyes
+* Dedication 
+#+begin_center
+To My Guiding Eyes
+#+end_center
 
 In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who first showed the way; to [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell]] and
 [[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who ably followed her lead over the next 22+ years!
