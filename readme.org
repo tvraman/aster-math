@@ -73,7 +73,7 @@ is an updated version of AsTeR that uses the Software DECTalk.
   2. Send math content from any Emacs buffer.
   3. When  editing LaTeX, including from within org-mode buffers.
   4. When  browsing Wikipedia pages containing Math using Emacs'
-     EWW browser. (Make sure to first disable _shr-discard-aria-hidden_ first).
+     EWW browser. (Make sure to first disable _shr-discard-aria-hidden_).
   5. From Emacs  Calculator (calc).
   6. From the Emacs interface to Sage --- a symbolic algebra system.
 - Once Aster starts speaking, you can use Aster's
