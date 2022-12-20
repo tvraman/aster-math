@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-12-19 Mon 21:01 -->
+<!-- 2022-12-20 Tue 07:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AsTeR: Spoken Math On The Emacspeak Audio Desktop</title>
@@ -198,20 +198,18 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">AsTeR: Spoken Math On The Emacspeak Audio Desktop</h1>
-<div id="outline-container-orge3fedea" class="outline-2">
-<h2 id="orge3fedea"><span class="section-number-2">1.</span> Dedication: To My Guiding-Eyes</h2>
+<div id="outline-container-orgfb9aee2" class="outline-2">
+<h2 id="orgfb9aee2"><span class="section-number-2">1.</span> Dedication: To My Guiding Eyes</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-In fond memory of
- <a href="http://emacspeak.sf.net/raman/aster-labrador">Aster</a> who first
- showed the way; to <a href="http://emacspeak.sf.net/raman/hubbell-labrador">Hubbell</a> and <a href="http://emacspeak.sf.net/raman/tilden-labrador">Tilden</a> who ably followed her lead over
- the next 22+ years!
+In fond memory of <a href="http://emacspeak.sf.net/raman/aster-labrador">Aster</a> who first showed the way; to <a href="http://emacspeak.sf.net/raman/hubbell-labrador">Hubbell</a> and
+<a href="http://emacspeak.sf.net/raman/tilden-labrador">Tilden</a> who ably followed her lead over the next 22+ years!
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0eca446" class="outline-2">
-<h2 id="org0eca446"><span class="section-number-2">2.</span> Overview</h2>
+<div id="outline-container-org7d87454" class="outline-2">
+<h2 id="org7d87454"><span class="section-number-2">2.</span> Overview</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The work describing Audio System For Technical Readings <a href="https://emacspeak.sourceforge.net/raman/aster/abstract.html">(AsTeR)</a> was
@@ -222,22 +220,21 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-org636e809" class="outline-2">
-<h2 id="org636e809"><span class="section-number-2">3.</span> Implementation</h2>
+<div id="outline-container-org978af5f" class="outline-2">
+<h2 id="org978af5f"><span class="section-number-2">3.</span> Implementation</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
-<li>The  front-end  is implemented in Emacs and integrated with Emacspeak.</li>
 <li>AsTeR <i>audio-formats</i>  <b>TeX</b> and <b>LaTeX</b>.</li>
-<li>We use Emacspeak speech-server <span class="underline">dtk-soft</span> to connect to the software DECTalk.</li>
-<li>The  back-end is implemented in Common Lisp (SBCL).</li>
-<li>We use <i>slime</i> to connect Emacs and Common Lisp.</li>
-<li>Emacs commands call    Common-Lisp via <i>slime</i> to communicate with  Aster.</li>
+<li>User interface   is implemented in Emacs.</li>
+<li>It uses  the Emacspeak speech-server <span class="underline">dtk-soft</span> to connect to the software DECTalk.</li>
+<li>The  audio-formatter  is implemented in Common Lisp (SBCL).</li>
+<li>Emacs commands call    Common Lisp via <i>slime</i> to communicate with  Aster.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org31eb41e" class="outline-2">
-<h2 id="org31eb41e"><span class="section-number-2">4.</span> Pre-requisites</h2>
+<div id="outline-container-org975447b" class="outline-2">
+<h2 id="org975447b"><span class="section-number-2">4.</span> Prerequisites</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li>Install Emacspeak 57.0 or later from Github.</li>
@@ -248,8 +245,8 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-org6169e3c" class="outline-2">
-<h2 id="org6169e3c"><span class="section-number-2">5.</span> Building The Software</h2>
+<div id="outline-container-org62a34d4" class="outline-2">
+<h2 id="org62a34d4"><span class="section-number-2">5.</span> Building AsTeR</h2>
 <div class="outline-text-2" id="text-5">
 <ol class="org-ol">
 <li><span class="underline">cd &lt;emacspeak&gt;</span> to change to your _emacspeak<sub>directory</sub>.</li>
@@ -259,45 +256,43 @@ is an updated version of AsTeR that uses the Software DECTalk.
 </div>
 </div>
 
-<div id="outline-container-org2474b8b" class="outline-2">
-<h2 id="org2474b8b"><span class="section-number-2">6.</span> Usage</h2>
+<div id="outline-container-org0d0bc1e" class="outline-2">
+<h2 id="org0d0bc1e"><span class="section-number-2">6.</span> Usage</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li>Add directory <span class="underline">aster-math/ui/</span> to your Emacs <span class="underline">load-path</span>.</li>
-<li><span class="underline">M-x load-library</span> <i>aster</i>; <span class="underline">M-x aster</span>.</li>
+<li>Run <span class="underline">M-x load-library</span> <i>aster</i>; <span class="underline">M-x aster</span>.</li>
 <li>Aster commands are   on Emacs prefix-key
 <span class="underline">C-; SPC</span> and <span class="underline">C-' a</span>.</li>
 <li><span class="underline">M-x describe-function aster</span> displays help.</li>
-<li>To speak math Using AsTeR:
+<li>To speak math using AsTeR:
 <ol class="org-ol">
-<li>Send a LaTeX file.</li>
+<li>Send a La)TeX file.</li>
 <li>Send math content from any Emacs buffer.</li>
-<li>When  editing LaTeX, including from within org-mode buffers.</li>
-<li>When  browsing Wikipedia pages containing Math using Emacs'
+<li>When  editing LaTeX — including from within org-mode buffers.</li>
+<li>When  browsing Wikipedia pages containing mathematics using Emacs'
 EWW browser. (Make sure to first disable <span class="underline">shr-discard-aria-hidden</span>).</li>
 <li>From Emacs  Calculator (calc).</li>
 <li>From the Emacs interface to Sage &#x2014; a symbolic algebra system.</li>
 </ol></li>
 <li>Once Aster starts speaking, you can use Aster's
-navigation commands to move around.</li>
+browser to move around.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org8b17bfc" class="outline-2">
-<h2 id="org8b17bfc"><span class="section-number-2">7.</span> References</h2>
+<div id="outline-container-org537550a" class="outline-2">
+<h2 id="org537550a"><span class="section-number-2">7.</span> References</h2>
 <div class="outline-text-2" id="text-7">
 <ol class="org-ol">
-<li><a href="https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg">Demo recorded using software DECTalk in October 2022</a></li>
-<li><a href="https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html">Recorded demo from 1994 using DECTalk Express</a>.</li>
-</ol>
-<p>
-.3. <a href="http://emacspeak.sf.net/raman/amsci-96.pdf">Brian Hayes: Speaking Of Mathematics</a> american Scientist, March 1996. An accessible overview of  AsTeR.
-</p>
-<ol class="org-ol">
-<li><a href="https://emacspeak.sourceforge.net/raman/sciam-0996profile.html">Scientific American Profile</a> Wayte Gibbs, September 1996.Describes  AsTeR, Audio-Formatting and Emacspeak.</li>
-<li><a href="https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/">Proceedings: RFB Math &amp; Science Symposium</a> May 12 – 13 1994.</li>
-<li><a href="https://emacspeak.sourceforge.net/raman/phd-thesis/index.html">PHd Thesis</a> January 1994.</li>
+<li><a href="https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg">Demo recorded in October 2022</a>.</li>
+<li><a href="https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html">Recorded demo from 1994</a>.</li>
+<li><a href="http://emacspeak.sf.net/raman/amsci-96.pdf">Brian Hayes: Speaking Of Mathematics</a>, American Scientist, March
+1996 — An accessible overview of  AsTeR.</li>
+<li><a href="https://emacspeak.sourceforge.net/raman/sciam-0996profile.html">Envisioning Speech:Scientific American</a>, Wayte Gibbs, September 1996
+— Describes  AsTeR, Audio-Formatting and Emacspeak.</li>
+<li><a href="https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/">Proceedings: RFB Math &amp; Science Symposium</a>,  May 12 – 13 1994.</li>
+<li><a href="https://emacspeak.sourceforge.net/raman/phd-thesis/index.html">PHd Thesis</a>, January 1994.</li>
 </ol>
 </div>
 </div>
@@ -305,7 +300,7 @@ navigation commands to move around.</li>
 <div id="postamble" class="status">
 <p class="date">Date: 2022-11-28 Mon 00:00</p>
 <p class="author">Author: T.V Raman</p>
-<p class="date">Created: 2022-12-19 Mon 21:01</p>
+<p class="date">Created: 2022-12-20 Tue 07:18</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

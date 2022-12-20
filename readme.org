@@ -1,9 +1,7 @@
-* Dedication: To My Guiding-Eyes
+* Dedication: To My Guiding Eyes
 
-In fond memory of
- [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who first
- showed the way; to [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell]] and [[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who ably followed her lead over
- the next 22+ years!
+In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who first showed the way; to [[http://emacspeak.sf.net/raman/hubbell-labrador][Hubbell]] and
+[[http://emacspeak.sf.net/raman/tilden-labrador][Tilden]] who ably followed her lead over the next 22+ years!
 
 #+BEGIN_EXPORT html
 <table>
@@ -41,21 +39,20 @@ is an updated version of AsTeR that uses the Software DECTalk.
 
 * Implementation
 
-- The  front-end  is implemented in Emacs and integrated with Emacspeak.
 - AsTeR /audio-formats/  *TeX* and *LaTeX*.
-- We use Emacspeak speech-server _dtk-soft_ to connect to the software DECTalk.
-- The  back-end is implemented in Common Lisp (SBCL).
-- We use /slime/ to connect Emacs and Common Lisp.
-- Emacs commands call    Common-Lisp via /slime/ to communicate with  Aster.
+-   User interface   is implemented in Emacs.
+- It uses  the Emacspeak speech-server _dtk-soft_ to connect to the software DECTalk.
+- The  audio-formatter  is implemented in Common Lisp (SBCL).
+- Emacs commands call    Common Lisp via /slime/ to communicate with  Aster.
 
-* Pre-requisites
+* Prerequisites
 
 - Install Emacspeak 57.0 or later from Github.
 - Install  /slime/ and /auctex/ using _M-x package-install_.
 - Install /flex/,  /SBCL/  and /cl-asdf/ using  the  linux  package manager.
 - Install  [[https://github.com/dectalk/dectalk][Software DECTalk]] from Github.
 
-* Building The Software
+* Building AsTeR
 
 1. _cd <emacspeak>_ to change to your _emacspeak_directory.
 2. Get source via git checkout [[https://github.com/tvraman/aster-math]]
@@ -64,30 +61,32 @@ is an updated version of AsTeR that uses the Software DECTalk.
 * Usage
 
 - Add directory _aster-math/ui/_ to your Emacs _load-path_.
-- _M-x load-library_ /aster/; _M-x aster_.
+- Run _M-x load-library_ /aster/; _M-x aster_.
 - Aster commands are   on Emacs prefix-key
   _C-; SPC_ and _C-' a_.
 - _M-x describe-function aster_ displays help.
-- To speak math Using AsTeR:
-  1. Send a LaTeX file.
+- To speak math using AsTeR:
+  1. Send a La)TeX file.
   2. Send math content from any Emacs buffer.
-  3. When  editing LaTeX, including from within org-mode buffers.
-  4. When  browsing Wikipedia pages containing Math using Emacs'
+  3. When  editing LaTeX — including from within org-mode buffers.
+  4. When  browsing Wikipedia pages containing mathematics using Emacs'
      EWW browser. (Make sure to first disable _shr-discard-aria-hidden_).
   5. From Emacs  Calculator (calc).
   6. From the Emacs interface to Sage --- a symbolic algebra system.
 - Once Aster starts speaking, you can use Aster's
-  navigation commands to move around.
+  browser to move around.
 
 * References
 
 
-1. [[https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg][Demo recorded using software DECTalk in October 2022]]
-2. [[https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html][Recorded demo from 1994 using DECTalk Express]].
-.3. [[http://emacspeak.sf.net/raman/amsci-96.pdf][Brian Hayes: Speaking Of Mathematics]] american Scientist, March 1996. An accessible overview of  AsTeR.
-4. [[https://emacspeak.sourceforge.net/raman/sciam-0996profile.html][Scientific American Profile]] Wayte Gibbs, September 1996.Describes  AsTeR, Audio-Formatting and Emacspeak.
-5. [[https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/][Proceedings: RFB Math & Science Symposium]] May 12 – 13 1994.
-6. [[https://emacspeak.sourceforge.net/raman/phd-thesis/index.html][PHd Thesis]] January 1994.
+1. [[https://emacspeak.sourceforge.net/raman/aster/2022-aster.ogg][Demo recorded in October 2022]].
+2. [[https://emacspeak.sourceforge.net/raman/aster/aster-toplevel.html][Recorded demo from 1994]].
+3. [[http://emacspeak.sf.net/raman/amsci-96.pdf][Brian Hayes: Speaking Of Mathematics]], American Scientist, March
+   1996 — An accessible overview of  AsTeR.
+4. [[https://emacspeak.sourceforge.net/raman/sciam-0996profile.html][Envisioning Speech:Scientific American]], Wayte Gibbs, September 1996
+   — Describes  AsTeR, Audio-formatting and Emacspeak.
+5. [[https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/][Proceedings: RFB Math & Science Symposium]],  May 12 – 13 1994.
+6. [[https://emacspeak.sourceforge.net/raman/phd-thesis/index.html][PHd Thesis]], January 1994.
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
