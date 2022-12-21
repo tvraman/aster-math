@@ -1,0 +1,4 @@
+* toDo
+
+  1. This lexer does not handle utf-8 and will cause Lisp to barf on simple things
+     like the utf-8 em-dash — character.
