@@ -1,4 +1,5 @@
- /* {{{  Section 1: */
+/* lexer: -*- mode: c -*-
+/* {{{  Section 1: */
 
 %{
  /* {{{  Modification history */
