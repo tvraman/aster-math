@@ -247,9 +247,11 @@ The following Aster commands are available on this prefix:
  'slime-connected-hook
  'aster-post-startup
  'at-end)
+(declare-function dtk-stop "dtk-speak" (&optional all))
 
 (defun aster-cmd (sexp)
   "Run Aster command,  a sexp, after first stopping speech."
+  (dtk-stop)
   (aster-eval
    (a--code `(progn (afl:tts-stop) ,sexp))))
 
