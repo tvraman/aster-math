@@ -8,3 +8,7 @@ auto/
 lisp/lexer/lispify
 lisp/lexer/lispify.c
 
+etc/article.aux
+etc/article.dvi
+etc/article.log
+etc/article.out
