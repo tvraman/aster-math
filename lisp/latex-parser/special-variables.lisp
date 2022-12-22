@@ -188,6 +188,6 @@ the table of known tex macros "
 ;;; Affect default behaviour
 ;;; Can be toggled with (toggle *var*)
 
-;;; Set it to true for now:
-(setf *do-not-signal-error-on-unknown-tex-macro* t)
+
+
 ;;; You can toggle it by using (toggle var)
