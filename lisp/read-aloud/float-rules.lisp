@@ -24,17 +24,17 @@
       (with-reading-state (reading-state 'footnote-mark)
         (afl:tts-queue  (format nil " ~a " counter ))))
     (increment-counter-value 'footnote)
-    (delay-until 'paragraph
-                 #'(lambda()
-                     (without-float (footnote)
-                       (decrement-counter-value 'footnote)
-                       (afl:new-block
-                         (with-reading-state
-                             (reading-state 'annotation-voice)
-                           (read-aloud
-                            (format nil
-                                    "footnote ~a," counter )))
-                         (read-aloud footnote )))))))
+    (delay-until
+     'paragraph
+     #'(lambda()
+         (without-float (footnote)
+           (decrement-counter-value 'footnote)
+           (afl:new-block
+             (with-reading-state
+                 (reading-state 'annotation-voice)
+               (read-aloud
+                (format nil "footnote ~a," counter )))
+             (read-aloud footnote )))))))
 
 (def-reading-rule (fraction float)
   "float fractions to the end of math. "
