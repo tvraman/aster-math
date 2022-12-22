@@ -202,8 +202,22 @@
        1)
       (t (incf (gethash counter-name *counter-table*))))))
 
-  ;;; Function: LABELLED-P                                     Author: raman
-  ;;; Created: Fri Apr 30 09:16:04 1993
+
+(defun decrement-counter-value (counter-name)
+  "Decrement value of this counter. "
+  (let ((value (gethash counter-name *counter-table* )))
+    (cond
+      ((null value)
+       (setf (gethash counter-name *counter-table*) 1)
+       1)
+      (t (decf (gethash counter-name *counter-table*))))))
+
+
+(defun reset-counter-value (counter-name)
+  "Decrement value of this counter. "
+  (setf (gethash counter-name *counter-table*) 1))
+;;; Function: LABELLED-P                                     Author: raman
+;;; Created: Fri Apr 30 09:16:04 1993
 (defun labelled-p (object)
   "Has this object been labelled?"
   (cond

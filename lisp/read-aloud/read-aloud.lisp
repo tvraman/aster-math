@@ -47,8 +47,7 @@
   "Prepare system for reading."
   (unless afl:*current-speech-state*
     (afl:initialize-speech-space)
-    (setf (afl-state document) afl:*current-speech-state*))
-  (reset-footnote-counter))
+    (setf (afl-state document) afl:*current-speech-state*)))
 
 ;;; Method: READ-ALOUD                                       Author: raman
 ;;; Created: Mon Apr 13 11:35:06 1992

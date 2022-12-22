@@ -12,43 +12,6 @@
 ;;; Uses delay-until. Relies on after methods on read-aloud to force
 ;;; the delay-objects at the appropriate time.
 ;;;
-
-  ;;; Variable: *FOOTNOTE-COUNTER                              Author: raman
-  ;;; Created: Mon Oct 25 16:50:01 1993
-(defvar *footnote-counter 0
-  "Footnote counter")
-(defvar *footnote-counter*  1 "Footnote counter")
-
-  ;;; Function: FOOTNOTE-COUNTER                               Author: raman
-  ;;; Created: Mon Oct 25 16:51:49 1993
-
-(defun footnote-counter ()
-  "Return current value of footnote counter. "
-  *footnote-counter*)
-
-  ;;; Function: RESET-FOOTNOTE-COUNTER                         Author: raman
-
-  ;;; Function: INCREMENT-FOOTNOTE-COUNTER                     Author: raman
-  ;;; Created: Mon Oct 25 16:52:34 1993
-
-(defun increment-footnote-counter ()
-  "Increment footnote counter"
-  (incf *footnote-counter*))
-
-  ;;; Function: DECREMENT-FOOTNOTE-COUNTER                     Author: raman
-  ;;; Created: Mon Oct 25 16:54:55 1993
-
-(defun decrement-footnote-counter ()
-  "Decrement footnote counter. "
-  (decf *footnote-counter*)
-  )
-  ;;; Created: Mon Oct 25 16:50:33 1993
-
-(defun reset-footnote-counter ()
-  "Rest footnote counter. "
-  (setf *footnote-counter 1 )
-  )
-
 (define-reading-state 'footnote-mark
     #'(lambda(state)
         (declare (ignore state))
@@ -56,24 +19,22 @@
 
 (def-reading-rule (footnote float)
   "Make footnotes float. "
-  (let ((counter (footnote-counter )))
+  (let ((counter (counter-value 'footnote )))
     (afl:new-block
       (with-reading-state (reading-state 'footnote-mark)
         (afl:tts-queue  (format nil " ~a " counter ))))
-    (increment-footnote-counter)
+    (increment-counter-value 'footnote)
     (delay-until 'paragraph
-                 #'(lambda() (without-float (footnote)
-                               (decrement-footnote-counter)
-                               (afl:new-block
-                                 (with-reading-state
-                                     (reading-state
-                                      'annotation-voice)
-                                   (read-aloud
-                                    (format nil
-                                            "footnote ~a,"
-                                            counter )))
-                                 (read-aloud footnote ))))))
-  )
+                 #'(lambda()
+                     (without-float (footnote)
+                       (decrement-counter-value 'footnote)
+                       (afl:new-block
+                         (with-reading-state
+                             (reading-state 'annotation-voice)
+                           (read-aloud
+                            (format nil
+                                    "footnote ~a," counter )))
+                         (read-aloud footnote )))))))
 
 (def-reading-rule (fraction float)
   "float fractions to the end of math. "

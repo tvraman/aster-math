@@ -75,6 +75,4 @@
   "Forces all floats to be rendered. Use this to clean up. "
   (loop for delay in *delayed-objects-list*
         do (funcall (delay-object-form delay )))
-  (reset-footnote-counter)
-  (setf *delayed-objects-list* nil)
-  )
+  (setf *delayed-objects-list* nil))
