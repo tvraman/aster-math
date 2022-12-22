@@ -15,7 +15,8 @@
 
   ;;; Variable: *FOOTNOTE-COUNTER                              Author: raman
   ;;; Created: Mon Oct 25 16:50:01 1993
-
+(defvar *footnote-counter 0
+  "Footnote counter")
 (defvar *footnote-counter*  1 "Footnote counter")
 
   ;;; Function: FOOTNOTE-COUNTER                               Author: raman
