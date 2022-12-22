@@ -1,0 +1,91 @@
+%safe loading: exit if already loaded:
+\ifx \ramanloaded\relax \endinput\else\let\ramanloaded\relax\fi
+
+\newcommand{\aster}
+{A\kern -.1667em\lower .5ex\hbox {S}%
+\kern -.175em{T}\kern -.1667em\lower .5ex\hbox {E}\kern -.175em R}
+\newlength\asterlength
+\newcommand{\asterlogo}{%Uses \asterlength
+    \settowidth\asterlength{\boldaster}
+    \setbox0=\hbox{\asterphoto}
+    \mbox{\asterphoto\hspace{-\asterlength}\raise\dp0\hbox{\boldaster}}
+  }
+
+
+%Use to generate a new row in tables with a horizontal line separating
+%them:
+\newcommand{\newrow}{\\ \hline}
+\newcommand{\headrow}{\\ \hline \hline} 
+\newcommand{\mdash}{---}
+
+%integral d
+\newcommand{\varint}[1]{\,d#1} 
+%quantifiers:  cs611
+\newcommand{\all}[2]{\forall #1\!\!:\!#2.\:}
+\newcommand{\exist}[2]{\exists #1\!\!:\!#2.\:}
+%integrals
+\newcommand{\dx}{\,dx}
+\newcommand{\dy}{\,dy}
+\newcommand{\dz}{\,dz}
+\newcommand{\dt}{\,dt} 
+%some address macros.
+\newcommand{\office}{{\sl Office:\/} }
+\newcommand{\residence}{{\sl Residence:\/} }
+%% input tugboat macros.
+%%macro definitions from tug92 paper.
+\newcommand{\slatex}{{\rm L\kern -.36em\raise .3ex \hbox {$\scriptstyle   A$}\kern
+-.15em  T\kern -.1667em\lower  .7ex\hbox{E} \kern -.125emX}}
+\newcommand{\ie}{i.e.,}
+
+\newcommand{\eg}{e.g.,}
+
+\newcommand{\naive}{na{\"\i}ve{}}
+\newcommand\AmSTeX{$\cal A\kern-.1667em\lower.5ex\hbox{$\cal M$}\kern-.075em
+  S$-\TeX}
+\newcommand{\amstex}{\AmSTeX{}}
+\newcount\TestCount
+\newcommand{\La}{\TestCount=\the\fam \leavevmode L\raise.42ex
+        \hbox{$\fam\TestCount\scriptstyle\kern-.3em A$}}
+\newcommand\AllTeX{(\La)\TeX}
+\newcommand{\alltex}{\AllTeX{}}
+
+\newcommand{\latex}{\LaTeX{}}
+
+\newcommand{\tex}{\TeX{}}
+
+\newcommand{\macro}[1]{{\cal M}_#1}
+
+\newcommand{\rfb}{{\sc RFB}\footnote{Recordings for the
+Blind}}
+
+%
+\newcommand{\www}[1]{{\sl WWW}: {\small #1}}
+\newcommand{\email}[1]{{\sl E-mail\/}: $\langle\hbox{\tt#1}\rangle$}
+\newcommand{\phone}[1]{{\sl Phone\/}: {\tt #1}}
+
+\newcommand{\voicemail}[1]{{\sl Voice-mail\/}: {\tt #1}}
+\newcommand\homepage{\sf http://www.research.digital.com/CRL/personal/raman/raman.html}
+\newcommand{\faxno}[1]{{\sl Fax\/}: {\tt #1}}
+
+\newcommand{\textalk}{\rm T\kern -.1667em\lower .5ex\hbox {E}\kern%
+  -.125emXT\kern -.1667em\lower .5ex\hbox {A}\kern -.125em L\kern -.125em K}
+
+
+
+
+\newcommand{\Dectalk}{{\sc dectalk}}
+\newcommand{\Sparc}{{\sc sparc}}
+
+
+%\def\pgend{\vfill\eject} 
+%\newcommand\fw{\tt} 
+%\newcommand\ivp{\ipar}
+%\long\def\gobble#1{} 
+\newcommand{\iitb}{Indian~Institute~of~Technology,~Bombay}
+\newcommand{\codebox}[1]{
+\fboxrule=.2mm\fboxsep=2mm\boxlength=\textwidth
+\addtolength{\boxlength}{-2cm}
+\begin{center}\fbox{\begin{minipage}{\boxlength}
+#1
+\end{minipage}}\end{center}}
+
