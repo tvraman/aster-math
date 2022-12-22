@@ -93,7 +93,7 @@ is an updated version of AsTeR that uses the Software DECTalk.
 5. [[https://emacspeak.sourceforge.net/raman/publications/rfb-math-workshop/][Proceedings: RFB Math & Science Symposium]],  May 12 – 13 1994.
 6. [[https://emacspeak.sourceforge.net/raman/phd-thesis/index.html][PHd Thesis]], January 1994.
 
-#+options: timestamp:t title:t toc:nil |:t
+#+options: timestamp:t title:t toc:nil  tex:t
 #+title: AsTeR: Spoken Math On The Emacspeak Audio Desktop
 #+date: <2022-11-28 Mon>
 #+author: T.V Raman
@@ -101,7 +101,6 @@ is an updated version of AsTeR that uses the Software DECTalk.
 #+language: en
 #+options: html-link-use-abs-url:t html-postamble:auto
 #+options: html-preamble:t html-scripts:nil html-style:t
-
 #+html_doctype: xhtml-strict
 #+html_container: div
 #+html_content_class: content
