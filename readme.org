@@ -106,20 +106,10 @@ is an updated version of AsTeR that uses the Software DECTalk.
 #+select_tags: export
 #+exclude_tags: noexport
 #+cite_export:
-#+options: html-link-use-abs-url:nil html-postamble:auto
+#+options: html-link-use-abs-url:t html-postamble:auto
 #+options: html-preamble:t html-scripts:nil html-style:t
 #+options: html5-fancy:nil tex:t
 #+html_doctype: xhtml-strict
 #+html_container: div
 #+html_content_class: content
-#+description:
-#+keywords:
-#+html_link_home:
-#+html_link_up:
-#+html_mathjax:
-#+html_equation_reference_format: \eqref{%s}
 #+html_head: <base href="http://emacspeak.sf.net/raman"/>
-#+html_head_extra:
-#+subtitle:
-#+infojs_opt:
-#+latex_header:
