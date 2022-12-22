@@ -69,16 +69,17 @@ is an updated version of AsTeR that uses the Software DECTalk.
   =C-; SPC= and =C-' a=.
 - =M-x describe-function aster= displays help.
 - To speak math using AsTeR:
-  1. Send a TeX file.
-  2. Send math content from any Emacs buffer.
-  3. When  editing LaTeX — including from within org-mode buffers.
-  4. When  browsing Wikipedia pages containing mathematics using Emacs'
+  1. Send math content from any Emacs buffer.
+  2. When  editing LaTeX — including from within org-mode buffers.
+  3. When  browsing Wikipedia pages containing mathematics using Emacs'
      EWW browser. (Make sure to first disable =shr-discard-aria-hidden=).
-  5. From Emacs  Calculator (calc).
-  6. From the Emacs interface to Sage --- a symbolic algebra system.
+  4. From Emacs  Calculator (calc).
+  5. From the Emacs interface to Sage --- a symbolic algebra system.
+  6. Send a TeX file e.g., =etc/demo.tex=.
+  7. Papers from [[https://arxiv.org/][arxiv.org]]  — see  [[https://info.arxiv.org/about/accessibility_research_report.html][Arxiv.org Accessibility Report]]
 - Once Aster starts speaking, you can use Aster's
   browser to move around.
-- Papers from [[https://arxiv.org/][arxiv.org]]  — see  [[https://info.arxiv.org/about/accessibility_research_report.html][Arxiv.org Accessibility Report]]
+
 
 * References
 
