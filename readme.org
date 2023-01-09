@@ -42,11 +42,10 @@ is an updated version of AsTeR that uses the Software DECTalk.
 
 * Implementation
 
-- AsTeR /audio-formats/  *TeX* and *LaTeX* documents.
+- AsTeR /audio-formats/  *TeX* and *LaTeX*.
 -   User interface   is implemented in Emacs.
-- It uses  the Emacspeak speech-server =dtk-soft= to connect to the software DECTalk.
-- The  audio-formatter  is implemented in Common Lisp (SBCL).
-- Emacs commands call    Common Lisp via /slime/ to communicate with  Aster.
+- The  audio-formatter  is implemented in Common Lisp (SBCL) and uses  the Emacspeak speech-server =dtk-soft=.
+- Emacs commands call    Common Lisp via /slime/ to communicate with  AsTeR.
 
 * Prerequisites
 
@@ -68,8 +67,10 @@ is an updated version of AsTeR that uses the Software DECTalk.
 - Aster commands are   on Emacs prefix-key
   =C-; SPC= and =C-' a=.
 - =M-x describe-function aster= displays help.
-- To speak math using AsTeR:
-  1. Send math content from any Emacs buffer.
+
+To speak math, send /La)TeX/ to AsTeR from any Emacs
+buffer.
+
   2. When  editing LaTeX — including from within org-mode buffers.
   3. When  browsing Wikipedia pages containing mathematics using Emacs'
      EWW browser. (Make sure to first disable =shr-discard-aria-hidden=).
