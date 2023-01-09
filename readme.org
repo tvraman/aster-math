@@ -38,7 +38,7 @@ In fond memory of [[http://emacspeak.sf.net/raman/aster-labrador][Aster]] who fi
 The work describing Audio System For Technical Readings [[https://emacspeak.sourceforge.net/raman/aster/abstract.html][(AsTeR)]] was
 presented to the Faculty of the Graduate School of Cornell University
 on Monday, Jan 17, 1994 for my [[http://awards.acm.org/award_winners/raman_4110221.cfm][PhD]].  This release
-is an updated version of AsTeR that uses the Software DECTalk.
+is an updated version of AsTeR using the Software DECTalk.
 
 * Implementation
 
