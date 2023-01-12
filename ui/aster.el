@@ -230,7 +230,8 @@ The following Aster commands are available on this prefix:
   (while (not (slime-connected-p))
          (slime)
          (sit-for 1))
-  (message "Aster is ready"))
+  (when (called-interactively-p 'interactive)
+    (message "Aster is ready")))
 
 (defun aster-post-startup ()
   "Prepare Aster once slime is ready."
