@@ -67,6 +67,10 @@ is an updated version of AsTeR using the Software DECTalk.
 - Aster commands are   on Emacs prefix-key
   =C-; SPC= and =C-' a=.
 - =M-x describe-function aster= displays help.
+- Optional: Set environment variable ~ASTER_TTS~ to the pulseaudio device
+  you wish to use: e.g., ~export ASTER_TTS=tts_left~ will result in
+  AsTeR using the left audio channel for output.
+  
 
 To speak math, send /La)TeX/ to AsTeR from any Emacs
 buffer.
