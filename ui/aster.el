@@ -82,7 +82,8 @@ By default this is turned off, so you can continue using arrows
 
 (defsubst a--pa-index (pattern)
   "Index of `pulseaudio input-sink' used by application matching
- `pattern'.  Value is derived from `pacmd list-sink-inputs'."
+ `pattern'.  Value is derived from `pacmd list-sink-inputs'.
+Note that the DECTalk output stream  needs to be running."
   (string-trim
    (shell-command-to-string
     (format
@@ -291,6 +292,7 @@ The following Aster commands are available on this prefix:
 
 (defun aster-record ()
   "Record Aster's reading of current node.
+Launches reading, then records.
   Output is found in aster-rootp/tests/aster.ogg which will be
   overwritten.  Calling aster-top bound to \\[aster-stop]stops
   the recording. See
