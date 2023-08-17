@@ -293,6 +293,8 @@ The following Aster commands are available on this prefix:
 (defun aster-record ()
   "Record Aster's reading of current node.
 Launches reading, then records.
+Call \\[aster-stop] when done recording to stop the recording process
+  and write out the OGG file..
   Output is found in aster-rootp/tests/aster.ogg which will be
   overwritten.  Calling aster-top bound to \\[aster-stop]stops
   the recording. See
